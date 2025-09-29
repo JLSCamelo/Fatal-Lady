@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fatal Lady</title>
+    <link rel="icon" href="assets/img/main-icon/icon.png" type="image/png" />
+    <link rel="stylesheet" href="assets/css/home-style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="assets/js/swiper.js"></script>
+    <script src="assets/js/banner.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-div">
+        <img
+          src="assets/img/home/icons-main/languages.png"
+          id="language-icon"
+        />
+        <select name="language" id="language">
+          <option value="br">BR</option>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+      </div>
+
+      <div class="header-div">
+        <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
+      </div>
+
+      <div class="header-div">
+        <a href="#">Ajuda</a>
+        <a href="#">Entrar</a>
+      </div>
+    </header>
+
+    <nav>
+      <div class="nav-div">
+        <form action="/search" method="get" id="search-form">
+          <button type="submit">
+            <img src="assets/img/home/icons-main/lupa.png" id="search-icon" />
+          </button>
+          <input
+            type="search"
+            id="search-input"
+            name="Search"
+            placeholder="Buscar"
+          />
+        </form>
+      </div>
+
+      <div class="nav-div">
+        <img
+          src="assets/img/home/icons-main/letreiro-logo.png"
+          id="logo"
+          alt="Logo"
+        />
+      </div>
+
+      <div class="nav-div">
+        <img id="shopping-kart-icon" class="icons" />
+
+        <img
+          src="assets/img/home/icons-main/menu-hamburguer.png"
+          id="menu-hamburguer-icon"
+          class="icons"
+        />
+      </div>
+    </nav>
+
+    <div
+      id="side-overlay"
+      aria-hidden="true"
+      aria-labelledby="side-title"
+      role="dialog"
+    >
+      <aside id="side-panel" aria-modal="true">
+        <div class="side-header">
+          <h2 id="side-title">Menu</h2>
+          <button id="side-close" aria-label="Fechar menu">✕</button>
+        </div>
+
+        <!-- busca rápida -->
+        <div class="side-search">
+          <label for="side-search-input" class="visually-hidden"
+            >Buscar produtos</label
+          >
+          <input
+            id="side-search-input"
+            type="search"
+            placeholder="Buscar produtos..."
+          />
+          <button id="side-search-btn" aria-label="Pesquisar">🔎</button>
+        </div>
+
+        <!-- navegação principal -->
+        <nav id="side-nav">
+          <ul>
+            <li><a href="index.html" class="side-link">Home</a></li>
+            <li><a href="catalog.html" class="side-link">Catálogo</a></li>
+            <li><a href="products.html" class="side-link">Produtos</a></li>
+          </ul>
+        </nav>
+
+        <!-- categorias (profissional) -->
+        <section class="side-section">
+          <h3>Categorias</h3>
+          <ul class="side-cats">
+            <li><a href="#">Saltos</a></li>
+            <li><a href="#">Rasteiras</a></li>
+            <li><a href="#">Botas</a></li>
+            <li><a href="#">Tênis</a></li>
+            <li><a href="#">Sapatilhas</a></li>
+            <li><a href="#">Chinelos</a></li>
+          </ul>
+        </section>
+
+        <!-- opções profissionais / conta -->
+        <section class="side-section">
+          <h3>Conta</h3>
+          <ul>
+            <li><a href="account.html">Minha Conta</a></li>
+            <li><a href="orders.html">Meus Pedidos</a></li>
+            <li><a href="wishlist.html">Favoritos</a></li>
+            <li><a href="settings.html">Configurações</a></li>
+          </ul>
+        </section>
+
+        <!-- preview do carrinho -->
+        <section
+          class="side-section"
+          id="cart-section"
+          aria-labelledby="cart-title"
+        >
+          <div class="cart-header">
+            <h3 id="cart-title">Carrinho</h3>
+            <div id="cart-summary"><span id="cart-count">0</span> itens</div>
+          </div>
+
+          <div id="cart-preview" aria-live="polite">
+            <!-- itens do carrinho são renderizados aqui pelo JS -->
+            <p class="cart-empty">Seu carrinho está vazio.</p>
+          </div>
+
+          <div class="cart-actions">
+            <a id="view-cart-btn" class="btn" href="cart.html">Ver carrinho</a>
+            <a id="checkout-btn" class="btn primary" href="checkout.html"
+              >Finalizar</a
+            >
+          </div>
+        </section>
+
+        <!-- ajuda / contato -->
+        <section class="side-section">
+          <h3>Ajuda</h3>
+          <ul>
+            <li><a href="contact.html">Fale conosco</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </section>
+
+        <div class="side-footer">
+          <button id="clear-cart" class="text-btn">Limpar carrinho</button>
+          <a href="#" id="logout-link" class="text-btn">Sair</a>
+        </div>
+      </aside>
+    </div>
+
+    <main>
+      <section id="main-page">
+        <div class="title-components">
+          <h1>ELEGANCIA DIÁRIA</h1>
+          <h2>SALTOS FINOS,</h2>
+          <h2>ATITUDE MARCANTE.</h2>
+
+          <button id="descubra">DESCUBRA</button>
+        </div>
+      </section>
+
+      <section id="discounts">
+        <div class="discount-itens">
+          <div class="discount-icon">
+            <img src="assets/img/home/icons-discount/1.png" />
+            <p>Frete Grátis p/ Compras Acima de R$ 299,00</p>
+          </div>
+
+          <div class="discount-icon">
+            <img src="assets/img/home/icons-discount/2.png" />
+            <p>5% OFF em Pagamento via Pix</p>
+          </div>
+
+          <div class="discount-icon">
+            <img src="assets/img/home/icons-discount/3.png" />
+            <p>10% OFF na Primeira Compra</p>
+          </div>
+
+          <div class="discount-icon">
+            <img src="assets/img/home/icons-discount/4.png" />
+            <p>Parcele em até 10x sem Juros</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="categories">
+        <div id="sizes">
+          <h3>TAMANHOS</h3>
+          <div id="sizes-options">
+            <a href="#">32</a>
+            |
+            <a href="#">33</a>
+            |
+            <a href="#">33</a>
+            |
+            <a href="#">34</a>
+            |
+            <a href="#">35</a>
+            |
+            <a href="#">36</a>
+            |
+            <a href="#">37</a>
+            |
+            <a href="#">38</a>
+            |
+            <a href="#">39</a>
+            |
+            <a href="#">40</a>
+            |
+            <a href="#">41</a>
+            |
+            <a href="#">42</a>
+          </div>
+        </div>
+
+        <h2>CATEGORIAS</h2>
+
+        <div class="categories-itens">
+          <div class="categories-icons">
+            <a href="#">
+              <img src="assets/img/home/icons-categories/1.png" />
+              <p>SALTOS</p>
+            </a>
+          </div>
+
+          <div class="categories-icons">
+            <a href="#">
+              <img src="assets/img/home/icons-categories/2.png" />
+              <p>RASTEIRAS</p>
+            </a>
+          </div>
+
+          <div class="categories-icons">
+            <a href="#">
+              <img src="assets/img/home/icons-categories/3.png" />
+              <p>BOTAS</p>
+            </a>
+          </div>
+
+          <div class="categories-icons">
+            <a href="#">
+              <img src="assets/img/home/icons-categories/4.png" />
+              <p>TÊNIS</p>
+            </a>
+          </div>
+
+          <div class="categories-icons">
+            <a href="#">
+              <img src="assets/img/home/icons-categories/5.png" />
+              <p>SAPATILHAS</p>
+            </a>
+          </div>
+
+          <div class="categories-icons">
+            <a href="#">
+              <img src="assets/img/home/icons-categories/6.png" />
+              <p>CHINELOS</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="about-us">
+        <div class="about-us-text">
+          <h2>SOBRE NÓS</h2>
+          <p>
+            A Fatal Lady é uma marca de calçados femininos que nasceu com o
+            propósito de empoderar mulheres através da moda. Com uma vasta
+            coleção de sapatos elegantes, confortáveis e modernos, a Fatal Lady
+            oferece opções para todas as ocasiões, desde eventos formais até o
+            dia a dia. Nossa missão é proporcionar às mulheres a confiança e o
+            estilo que merecem, com produtos de alta qualidade e design
+            inovador.
+          </p>
+        </div>
+
+        <div class="about-us-img">
+          <img src="assets/img/home/about/about-us.png" alt="Sobre Nós" />
+        </div>
+      </section>
+
+      <section id="collections">
+        <div
+          class="banner-marquee"
+          aria-hidden="false"
+          role="region"
+          aria-label="Banner de coleções"
+        >
+          <div class="marquee-track">
+            <!-- conjunto original (5 imagens) -->
+            <div class="marquee-item">
+              <img src="assets/img/home/carousel/1.png" alt="1" />
+            </div>
+            <div class="marquee-item">
+              <img src="assets/img/home/carousel/2.png" alt="2" />
+            </div>
+            <div class="marquee-item">
+              <img src="assets/img/home/carousel/3.png" alt="3" />
+            </div>
+            <div class="marquee-item">
+              <img src="assets/img/home/carousel/4.png" alt="4" />
+            </div>
+            <div class="marquee-item">
+              <img src="assets/img/home/carousel/5.png" alt="5" />
+            </div>
+
+            <!-- duplicação para loop contínuo suave -->
+            <div class="marquee-item">
+              <img src="assets/img/home/carousel/1.png" alt="1" />
+            </div>
+            <div class="marquee-item">
+              <img src="assets/img/home/carousel/2.png" alt="2" />
+            </div>
+            <div class="marquee-item">
+              <img src="assets/img/home/carousel/3.png" alt="3" />
+            </div>
+            <div class="marquee-item">
+              <img src="assets/img/home/carousel/4.png" alt="4" />
+            </div>
+            <div class="marquee-item">
+              <img src="assets/img/home/carousel/5.png" alt="5" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="products-highlights" class="products-section">
+        <div class="container">
+          <header class="products-header">
+            <h2>DESTAQUES</h2>
+
+            <div class="products-controls">
+              <div class="search-wrap">
+                <label for="products-search" class="visually-hidden"
+                  >Buscar produtos</label
+                >
+                <input
+                  id="products-search"
+                  type="search"
+                  placeholder="Buscar Produto"
+                />
+              </div>
+
+              <div
+                class="filters-wrap"
+                role="tablist"
+                aria-label="Filtros de categoria"
+              >
+                <button
+                  class="filter-btn active"
+                  data-filter="all"
+                  role="tab"
+                  aria-selected="true"
+                >
+                  Todos
+                </button>
+                <button class="filter-btn" data-filter="primavera" role="tab">
+                  Primavera
+                </button>
+                <button class="filter-btn" data-filter="outono" role="tab">
+                  Outono
+                </button>
+                <button class="filter-btn" data-filter="verao" role="tab">
+                  Verão
+                </button>
+                <button class="filter-btn" data-filter="inverno" role="tab">
+                  Inverno
+                </button>
+              </div>
+            </div>
+          </header>
+
+          <div class="products-grid" id="products-grid">
+            <article
+              class="product-card"
+              data-category="primavera"
+              data-name="Nome da Peça"
+              data-id="p1"
+              data-price="99.00"
+            >
+              <div class="product-badge">PRIMAVERA</div>
+
+              <a href="#" class="product-media">
+                <img
+                  src="assets/img/home/icons-highlights/1.png"
+                  alt="Nome da Peça"
+                />
+              </a>
+
+              <div class="product-body">
+                <h3 class="product-name">NOME DA PEÇA</h3>
+                <div class="product-price">
+                  R$ <span class="price-value">99,00</span>
+                </div>
+
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    type="button"
+                    aria-label="Adicionar Nome da Peça ao carrinho"
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card"
+              data-category="verao"
+              data-name="Nome da Peça 2"
+              data-id="p2"
+              data-price="129.00"
+            >
+              <div class="product-badge">VERÃO</div>
+              <a href="#" class="product-media">
+                <img
+                  src="assets/img/home/icons-highlights/2.png"
+                  alt="Nome da Peça 2"
+                />
+              </a>
+              <div class="product-body">
+                <h3 class="product-name">NOME DA PEÇA 2</h3>
+                <div class="product-price">
+                  R$ <span class="price-value">129,00</span>
+                </div>
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    type="button"
+                    aria-label="Adicionar Nome da Peça 2 ao carrinho"
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card"
+              data-category="inverno"
+              data-name="Nome da Peça"
+              data-id="p3"
+              data-price="79.00"
+            >
+              <div class="product-badge">INVERNO</div>
+
+              <a href="#" class="product-media">
+                <img
+                  src="assets/img/home/icons-highlights/3.png"
+                  alt="Nome da Peça 3"
+                />
+              </a>
+
+              <div class="product-body">
+                <h3 class="product-name">NOME DA PEÇA 3</h3>
+                <div class="product-price">
+                  R$ <span class="price-value">79,00</span>
+                </div>
+
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    type="button"
+                    aria-label="Adicionar Nome da Peça 3 ao carrinho"
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card"
+              data-category="outono"
+              data-name="Nome da Peça 4"
+              data-id="p4"
+              data-price="99.00"
+            >
+              <div class="product-badge">OUTONO</div>
+
+              <a href="#" class="product-media">
+                <img
+                  src="assets/img/home/icons-highlights/4.png"
+                  alt="Nome da Peça 4"
+                />
+              </a>
+
+              <div class="product-body">
+                <h3 class="product-name">NOME DA PEÇA 4</h3>
+                <div class="product-price">
+                  R$ <span class="price-value">99,00</span>
+                </div>
+
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    type="button"
+                    aria-label="Adicionar Nome da Peça 4 ao carrinho"
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card"
+              data-category="primavera"
+              data-name="Nome da Peça 5"
+              data-id="p5"
+              data-price="119.00"
+            >
+              <div class="product-badge">PRIMAVERA</div>
+
+              <a href="#" class="product-media">
+                <img
+                  src="assets/img/home/icons-highlights/5.png"
+                  alt="Nome da Peça 5"
+                />
+              </a>
+
+              <div class="product-body">
+                <h3 class="product-name">NOME DA PEÇA 5</h3>
+                <div class="product-price">
+                  R$ <span class="price-value">119,00</span>
+                </div>
+
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    type="button"
+                    aria-label="Adicionar Nome da Peça 5 ao carrinho"
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card"
+              data-category="primavera"
+              data-name="Nome da Peça"
+              data-id="p1"
+              data-price="99.00"
+            >
+              <div class="product-badge">PRIMAVERA</div>
+
+              <a href="#" class="product-media">
+                <img
+                  src="assets/img/home/icons-highlights/1.png"
+                  alt="Nome da Peça"
+                />
+              </a>
+
+              <div class="product-body">
+                <h3 class="product-name">NOME DA PEÇA</h3>
+                <div class="product-price">
+                  R$ <span class="price-value">99,00</span>
+                </div>
+
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    type="button"
+                    aria-label="Adicionar Nome da Peça ao carrinho"
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card"
+              data-category="verao"
+              data-name="Nome da Peça 2"
+              data-id="p2"
+              data-price="129.00"
+            >
+              <div class="product-badge">VERÃO</div>
+              <a href="#" class="product-media">
+                <img
+                  src="assets/img/home/icons-highlights/2.png"
+                  alt="Nome da Peça 2"
+                />
+              </a>
+              <div class="product-body">
+                <h3 class="product-name">NOME DA PEÇA 2</h3>
+                <div class="product-price">
+                  R$ <span class="price-value">129,00</span>
+                </div>
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    type="button"
+                    aria-label="Adicionar Nome da Peça 2 ao carrinho"
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card"
+              data-category="inverno"
+              data-name="Nome da Peça"
+              data-id="p3"
+              data-price="79.00"
+            >
+              <div class="product-badge">INVERNO</div>
+
+              <a href="#" class="product-media">
+                <img
+                  src="assets/img/home/icons-highlights/3.png"
+                  alt="Nome da Peça 3"
+                />
+              </a>
+
+              <div class="product-body">
+                <h3 class="product-name">NOME DA PEÇA 3</h3>
+                <div class="product-price">
+                  R$ <span class="price-value">79,00</span>
+                </div>
+
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    type="button"
+                    aria-label="Adicionar Nome da Peça 3 ao carrinho"
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card"
+              data-category="outono"
+              data-name="Nome da Peça 4"
+              data-id="p4"
+              data-price="99.00"
+            >
+              <div class="product-badge">OUTONO</div>
+
+              <a href="#" class="product-media">
+                <img
+                  src="assets/img/home/icons-highlights/4.png"
+                  alt="Nome da Peça 4"
+                />
+              </a>
+
+              <div class="product-body">
+                <h3 class="product-name">NOME DA PEÇA 4</h3>
+                <div class="product-price">
+                  R$ <span class="price-value">99,00</span>
+                </div>
+
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    type="button"
+                    aria-label="Adicionar Nome da Peça 4 ao carrinho"
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card"
+              data-category="primavera"
+              data-name="Nome da Peça 5"
+              data-id="p5"
+              data-price="119.00"
+            >
+              <div class="product-badge">PRIMAVERA</div>
+
+              <a href="#" class="product-media">
+                <img
+                  src="assets/img/home/icons-highlights/5.png"
+                  alt="Nome da Peça 5"
+                />
+              </a>
+
+              <div class="product-body">
+                <h3 class="product-name">NOME DA PEÇA 5</h3>
+                <div class="product-price">
+                  R$ <span class="price-value">119,00</span>
+                </div>
+
+                <div class="product-actions">
+                  <button
+                    class="add-to-cart"
+                    type="button"
+                    aria-label="Adicionar Nome da Peça 5 ao carrinho"
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="products-footer">
+            <button id="load-more" class="btn load-more">Ver mais</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="banner">
+        <div
+          class="simple-banner"
+          aria-label="Banner principal com transição suave"
+        >
+          <div class="swiper" id="banner-fade">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="assets/img/home/banner/1.png" alt="Banner 1" />
+              </div>
+              <div class="swiper-slide">
+                <img src="assets/img/home/banner/2.png" alt="Banner 2" />
+              </div>
+              <div class="swiper-slide">
+                <img src="assets/img/home/banner/3.png" alt="Banner 3" />
+              </div>
+              <div class="swiper-slide">
+                <img src="assets/img/home/banner/4.png" alt="Banner 4" />
+              </div>
+              <div class="swiper-slide">
+                <img src="assets/img/home/banner/5.png" alt="Banner 5" />
+              </div>
+              <div class="swiper-slide">
+                <img src="assets/img/home/banner/6.png" alt="Banner 6" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq">
+        <h2>DÚVIDAS FREQUENTES</h2>
+
+        <div id="questions-label">
+          <div class="question">
+            <input type="checkbox" id="question-1" />
+            <label for="question-1">
+              Como eu crio uma conta no site?
+              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+            </label>
+            <div class="answer">
+              Para criar uma conta, clique em "Cadastrar", preencha seus dados
+              básicos e confirme o e-mail enviado para ativação da conta.
+            </div>
+          </div>
+
+          <div class="question">
+            <input type="checkbox" id="question-2" />
+            <label for="question-2">
+              Esqueci minha senha — como recupero o acesso?
+              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+            </label>
+            <div class="answer">
+              Use a opção "Esqueci a senha" na tela de login; você receberá um
+              e-mail com instruções para redefinição em poucos minutos.
+            </div>
+          </div>
+
+          <div class="question">
+            <input type="checkbox" id="question-3" />
+            <label for="question-3">
+              Quais formas de pagamento são aceitas?
+              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+            </label>
+            <div class="answer">
+              Aceitamos cartões de crédito, boleto bancário e PIX. A
+              disponibilidade pode variar conforme a sua região.
+            </div>
+          </div>
+
+          <div class="question">
+            <input type="checkbox" id="question-4" />
+            <label for="question-4">
+              Qual o prazo de entrega dos produtos?
+              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+            </label>
+            <div class="answer">
+              O prazo estimado aparece na finalização da compra e varia conforme
+              o frete escolhido e o CEP de destino.
+            </div>
+          </div>
+
+          <div class="question">
+            <input type="checkbox" id="question-5" />
+            <label for="question-5">
+              Posso devolver ou trocar um produto?
+              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+            </label>
+            <div class="answer">
+              Sim — trocas e devoluções são realizadas dentro do prazo legal
+              mediante produto intacto; entre em contato com nosso suporte para
+              iniciar o processo.
+            </div>
+          </div>
+
+          <div class="question">
+            <input type="checkbox" id="question-6" />
+            <label for="question-6">
+              Como acompanho o status do meu pedido?
+              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+            </label>
+            <div class="answer">
+              Você pode acompanhar pelo link de rastreamento enviado por e-mail
+              ou acessando sua área de pedidos ao fazer login.
+            </div>
+          </div>
+
+          <div class="question">
+            <input type="checkbox" id="question-7" />
+            <label for="question-7">
+              O atendimento ao cliente funciona nos fins de semana?
+              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+            </label>
+            <div class="answer">
+              Nosso suporte funciona de segunda a sábado; em domingos e feriados
+              as respostas podem demorar mais.
+            </div>
+          </div>
+
+          <div class="question">
+            <input type="checkbox" id="question-8" />
+            <label for="question-8">
+              Como faço para cancelar um pedido já realizado?
+              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+            </label>
+            <div class="answer">
+              Para cancelar, entre em contato com o suporte imediatamente — se o
+              pedido ainda não foi enviado, conseguiremos cancelar e reembolsar
+              conforme a forma de pagamento.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="feedback">
+        <h2>FEEDBACKS</h2>
+
+        <p>
+          Deseja realizar um Feedback ou tirar alguma dúvida sobre nossa
+          Empresa? Clique no Botão abaixo para mais informações
+        </p>
+
+        <button>SAIBA MAIS</button>
+      </section>
+
+      <section class="newsletter">
+        <h2>CADASTRE-SE</h2>
+        <p>E GANHE <b>10% OFF</b> NA SUA PRIMEIRA COMPRA</p>
+        <form>
+          <input type="text" placeholder="Nome Completo" />
+          <input type="email" placeholder="Email" />
+          <button type="submit">ENVIAR</button>
+        </form>
+      </section>
+
+      <footer>
+        <div class="footer-links">
+          <div>
+            <h4>MINHA CONTA</h4>
+            <a href="#">Meus Dados</a>
+            <a href="#">Meus Pedidos</a>
+            <a href="#">Cashback</a>
+            <a href="#">Login</a>
+          </div>
+          <div>
+            <h4>SUPORTE E POLÍTICAS</h4>
+            <a href="#">Trocas e Devoluções</a>
+            <a href="#">Dúvidas Frequentes</a>
+            <a href="#">Fale Conosco</a>
+            <a href="#">Política de Privacidade</a>
+          </div>
+          <div>
+            <h4>FORMAS DE PAGAMENTO</h4>
+            <img
+              src="assets/img/catalogo/footer/payment.png"
+              alt="Formas de Pagamento"
+            />
+          </div>
+        </div>
+        <hr />
+        <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+      </footer>
+    </main>
+
+    <script src="assets/js/menu.js"></script>
+    <script src="assets/js/add_cart.js"></script>
+    <script src="assets/js/cart-ui.js" defer></script>
+    <script src="assets/js/products-toggle.js" defer></script>
+    <script src="assets/js/nav-enhancements.js" defer></script>
+  </body>
+</html>
