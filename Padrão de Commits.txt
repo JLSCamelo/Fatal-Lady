@@ -1,0 +1,19 @@
+feat: nova funcionalidade
+
+fix: correção de bug
+
+docs: documentação
+
+style: formatação/semântica (sem mudanças de lógica)
+
+refactor: refatoração (sem feature nem bugfix)
+
+perf: melhorias de performance
+
+test: adicionar/ajustar testes
+
+chore: tarefas de manutenção (deps, build scripts)
+
+ci: mudanças em configuração CI/CD
+
+revert: reverter um commit anterior
