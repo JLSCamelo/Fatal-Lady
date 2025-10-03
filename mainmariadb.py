@@ -23,53 +23,38 @@ CREATE TABLE IF NOT EXISTS PRODUTOS (
 """)
 conexao.commit()
 
-marcas_ficticias = [
-    "Luna Bella", "Estilo Chic", "Passarela Dourada", "Encanto Urbano", "Divina Walk",
-    "Pérola Shoes", "Glamour & Cia", "Vitta Calçados", "Lux Feet", "Bella Stilo"
-]
-
 valores = [
-    ("Scarpin Clássico Preto", 189.90, 25, random.choice(marcas_ficticias), "36/39", "Salto Alto"),
-    ("Sandália Salto Alto Nude", 159.99, 30, random.choice(marcas_ficticias), "36/38", "Salto Alto"),
-    ("Sapatilha Verniz Vermelha", 99.90, 40, random.choice(marcas_ficticias), "35/39", "Salto Alto"),
-    ("Bota Cano Curto Couro", 249.90, 15, random.choice(marcas_ficticias), "37/40", "Salto Alto"),
-    ("Tênis Casual Branco", 179.90, 50, random.choice(marcas_ficticias), "36/39", "Salto Alto"),
-    ("Anabela Espadrille Bege", 139.90, 20, random.choice(marcas_ficticias), "37/38", "Salto Alto"),
-    ("Sandália Rasteira Dourada", 89.90, 60, random.choice(marcas_ficticias), "35/40", "Salto Alto"),
-    ("Bota Over The Knee Preta", 329.90, 10, random.choice(marcas_ficticias), "36/39", "Salto Alto"),
-    ("Mule Salto Bloco Caramelo", 149.90, 18, random.choice(marcas_ficticias), "35/39", "Salto Alto"),
-    ("Oxford Feminino Verniz Preto", 169.90, 22, random.choice(marcas_ficticias), "36/39", "Sandália"),
-    ("Sandália Gladiadora Preta", 129.90, 15, random.choice(marcas_ficticias), "38/39", "Sandália"),
-    ("Tamanco Plataforma Preto", 119.90, 25, random.choice(marcas_ficticias), "37/39", "Sandália"),
-    ("Bota Coturno Feminina Marrom", 219.90, 20, random.choice(marcas_ficticias), "37/40", "Sandália"),
-    ("Sapatilha Bico Fino Nude", 109.90, 35, random.choice(marcas_ficticias), "37/38", "Botas"),
-    ("Chinelo Slide Preto", 69.90, 50, random.choice(marcas_ficticias), "38/39", "Botas"),
-    ("Sandália Meia Pata Vermelha", 189.90, 12, random.choice(marcas_ficticias), "35/36", "Botas"),
-    ("Peep Toe Preto Verniz", 159.90, 18, random.choice(marcas_ficticias), "37/38", "Botas"),
-    ("Tênis Slip On Bege", 139.90, 28, random.choice(marcas_ficticias), "37/38", "Botas"),
-    ("Bota Montaria Marrom", 289.90, 14, random.choice(marcas_ficticias), "38/39", "Botas"),
-    ("Sandália Salto Fino Prata", 199.90, 16, random.choice(marcas_ficticias), "37/38", "Botas"),
+    ("Scarpin Clássico Preto", 189.90, 25, "Fatal Lady", "36/39", "Salto Alto"),
+    ("Sandália Salto Alto Nude", 159.99, 30, "Fatal Lady", "36/38", "Sandália"),
+    ("Sapatilha Verniz Vermelha", 99.90, 40, "Fatal Lady", "35/39", "Sapatilha"),
+    ("Bota Cano Curto Couro", 249.90, 15, "Fatal Lady", "37/40", "Bota"),
+    ("Sandália Rasteira Dourada", 89.90, 60, "Fatal Lady", "35/40", "Rasteirinha"),
+    ("Bota Over The Knee Preta", 329.90, 10, "Fatal Lady", "36/39", "Bota"),
+    ("Sandália Gladiadora Preta", 129.90, 15, "Fatal Lady", "38/39", "Sandália"),
+    ("Bota Coturno Feminina Marrom", 219.90, 20, "Fatal Lady", "37/40", "Bota"),
+    ("Sapatilha Bico Fino Nude", 109.90, 35, "Fatal Lady", "37/38", "Sapatilha"),
+    ("Sandália Meia Pata Vermelha", 189.90, 12, "Fatal Lady", "35/36", "Sandália"),
+    ("Peep Toe Preto Verniz", 159.90, 18, "Fatal Lady", "37/38", "Salto Alto"),
+    ("Bota Montaria Marrom", 289.90, 14, "Fatal Lady", "38/39", "Bota"),
+    ("Sandália Salto Fino Prata", 199.90, 16, "Fatal Lady", "37/38", "Sandália")
 ]
 
-modelos = [
-    "Scarpin", "Sandália", "Sapatilha", "Bota", "Tênis", "Anabela", "Rasteira", "Mule",
-    "Oxford", "Tamanco", "Chinelo", "Peep Toe", "Slip On", "Coturno", "Montaria", "Gladiadora"
-]
+
+marca = "Fatal Lady"
 cores = ["Preto", "Branco", "Nude", "Vermelho", "Marrom", "Bege", "Cinza", "Dourado", "Prata"]
-categorias = ["Sandália", "Scarpin", "Botas", "Salto Alto"]
-tamanho = ["35/38", "37/40", " 38/41", "38/41", "39/42"]
+categorias = ["Sandália", "Bota", "Salto Alto", "Rasteirinha", "Sapatilha"]
+tamanhos = ["35/38", "37/40", "38/41", "39/42"]
 quantidades = list(range(10, 61))
 
+# Gerar mais 1000 produtos aleatórios
 for _ in range(1000):
-    modelo = random.choice(modelos)
+    categoria = random.choice(categorias)
     cor = random.choice(cores)
-    nome = f"{modelo} {cor}"
+    nome = f"{categoria} {cor}"
     preco = round(random.uniform(69.9, 329.9), 2)
     quantidade = random.choice(quantidades)
-    marca = random.choice(marcas_ficticias)
-    tamanhos = random.choice(tamanho)
-    categoria = random.choice(categorias)
-    valores.append((nome, preco, quantidade, marca, tamanhos, categoria))
+    tamanho = random.choice(tamanhos)
+    valores.append((nome, preco, quantidade, marca, tamanho, categoria))
 
 sql = """
 INSERT INTO PRODUTOS (Nome, Preco, Estoque, Marca, Tamanhos, Categoria)
