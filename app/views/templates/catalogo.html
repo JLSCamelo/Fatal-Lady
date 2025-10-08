@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo</title>
+    <link rel="icon" href="assets/img/main-icon/icon.png" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/catalogo-style.css') }}">
+</head>
+
+<body>
+    <header>
+        <div class="header-div">
+            <img 
+                src="assets/img/home/icons-main/languages.png" 
+                id="language-icon"
+            />
+            <select name="language" id="language">
+                <option value="br">BR</option>
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+            </select>
+        </div>
+
+        <div class="header-div">
+            <p>
+                <b>Frete Grátis</b> para Compras Acima de R$ 299,00
+            </p>
+        </div>
+
+        <div class="header-div">
+                <a href="#">Ajuda</a> 
+                <a href="#">Entrar</a> 
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-div">
+            <form action="/search" method="get" id="search-form">
+                <button type="submit">
+                    <img
+                        src="assets/img/home/icons-main/lupa.png"
+                        id="search-icon"
+                    />
+                </button>
+                <input type="search" id="search-input" name="Search" placeholder="Buscar">
+            </form>
+        </div>
+        
+        <div class="nav-div">
+            <img 
+                src="assets/img/home/icons-main/letreiro-logo.png"
+                id="logo"
+                alt="Logo"
+            />
+        </div>
+
+        <div class="nav-div">
+            <img 
+                src="assets/img/home/icons-main/carrinho-de-compras.png"
+                id="shopping-kart-icon"
+                class="icons"
+            />
+
+            <img 
+                src="assets/img/home/icons-main/menu-hamburguer.png"
+                id="menu-hamburguer-icon"
+                class="icons"
+            />
+        </div>
+    </nav>
+
+    <main>
+        <section id="categories">
+            <div id="sizes">
+                <h3>TAMANHOS</h3>
+                <div id="sizes-options">
+                    <a href="#">32</a>
+                    |
+                    <a href="#">33</a>
+                    |
+                    <a href="#">33</a>
+                    |
+                    <a href="#">34</a>
+                    |
+                    <a href="#">35</a>
+                    |
+                    <a href="#">36</a>
+                    |
+                    <a href="#">37</a>
+                    |
+                    <a href="#">38</a>
+                    |
+                    <a href="#">39</a>
+                    |
+                    <a href="#">40</a>
+                    |
+                    <a href="#">41</a>
+                    |
+                    <a href="#">42</a>
+                </div>
+            </div>
+
+            <h2>
+                CATEGORIAS
+            </h2>
+            <div class="categories-itens">
+                <div class="categories-icons">
+                    <a href="#saltos">
+                        <img src="assets/img/home/icons-categories/1.png"/>
+                        <p>SALTO</p>
+                    </a>
+                </div>
+
+                <div class="categories-icons">
+                    <a href="#rasteiras">
+                        <img src="assets/img/home/icons-categories/2.png"/>
+                        <p>RASTEIRAS</p>
+                    </a>
+                </div>
+
+                <div class="categories-icons">
+                    <a href="#botas">
+                        <img src="assets/img/home/icons-categories/3.png"/>
+                        <p>BOTAS</p>
+                    </a>
+                </div>
+
+                <div class="categories-icons">
+                    <a href="#tenis">
+                        <img src="assets/img/home/icons-categories/4.png"/>
+                        <p>TÊNIS</p>
+                    </a>
+                </div>
+
+                <div class="categories-icons">
+                    <a href="#sapatilhas">
+                        <img src="assets/img/home/icons-categories/5.png"/>
+                        <p>SAPATILHAS</p>
+                    </a>
+                </div>
+
+                <div class="categories-icons">
+                    <a href="#chinelos">
+                        <img src="assets/img/home/icons-categories/6.png"/>
+                        <p>CHINELOS</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="collections">
+            <div class="banner-marquee" aria-hidden="false" role="region" aria-label="Banner de coleções">
+                <div class="marquee-track">
+                    <!-- conjunto original (5 imagens) -->
+                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="1"></div>
+                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="2"></div>
+                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="3"></div>
+                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="4"></div>
+                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="5"></div>
+
+                    <!-- duplicação para loop contínuo suave -->
+                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="1"></div>
+                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="2"></div>
+                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="3"></div>
+                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="4"></div>
+                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="5"></div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="products-section" id="saltos">
+            
+            {% for i in produtos %}
+            <li>
+                {% if imagem %}
+                    <br>
+                {% else %}
+                    <img src="/static/uploads/{{i.imagem}}" alt="{{nome}}" width="80">
+                {% endif %}
+                <a href="/produto-get/{{i.id_produto}}">{{i.nome}}</a> -{{i.preco}}    
+            </li>
+            {% endfor %}
+
+        </section>
+
+<!-- 
+        {% for categoria in produtos %}
+        <section class="products-section" id="{{ categoria|lower }}">  
+            <h3>{{ categoria }}</h3>
+            <hr>
+            <div class="products">
+                {% set encontrou = false %}
+                {% for i in produtos %}
+                    {% if i.categoria|trim|lower == categoria|lower %}
+                        {% set encontrou = true %}
+                        <div class="products-icons">
+                            <div class="collection-name">{{ i.colecao }}</div>
+                            <a href="/produto-get/{{ i.id_produto }}">
+                                <img src="{{ i.imagem if i.imagem != 'sem foto' else '/static/uploads/default.png' }}" alt="{{ i.nome }}" width="120">
+                                <p>{{ i.nome }}</p>
+                                <span id="value-max">R$ {{ i.preco }}</span>
+                                <button>Adicionar ao Carrinho</button>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                {% if not encontrou %}
+                    <p>Nenhum produto encontrado nesta categoria.</p>
+                {% endif %}
+            </div>
+        </section>
+        {% endfor %}
+-->
+
+
+        <section class="newsletter">
+            <h2>CADASTRE-SE</h2>
+            <p>E GANHE <b>10% OFF</b> NA SUA PRIMEIRA COMPRA</p>
+            <form>
+                <input type="text" placeholder="Nome Completo">
+                <input type="email" placeholder="Email">
+                <button type="submit">ENVIAR</button>
+            </form>
+        </section>
+
+        <footer>
+            <div class="footer-links">
+                <div>
+                    <h4>MINHA CONTA</h4>
+                    <a href="#">Meus Dados</a>
+                    <a href="#">Meus Pedidos</a>
+                    <a href="#">Cashback</a>
+                    <a href="#">Login</a>
+                </div>
+                <div>
+                    <h4>SUPORTE E POLÍTICAS</h4>
+                    <a href="#">Trocas e Devoluções</a>
+                    <a href="#">Dúvidas Frequentes</a>
+                    <a href="#">Fale Conosco</a>
+                    <a href="#">Política de Privacidade</a>
+                </div>
+                <div>
+                    <h4>FORMAS DE PAGAMENTO</h4>
+                    <img src="assets/img/catalogo/footer/payment.png" alt="Formas de Pagamento">
+                </div>
+            </div>
+            <hr>
+            <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+        </footer>
+    </main>
+</body>
+</html>

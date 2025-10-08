@@ -1,29 +1,49 @@
+from fastapi import APIRouter, Request, Form, UploadFile, File, Depends 
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi import HTTPException
-from fastapi import APIRouter
-from typing import List
+from fastapi.templating import Jinja2Templates
+import os, shutil
+from sqlalchemy.orm import Session
+from database import get_db
 from controllers.controller_produtos import *
 from schemas.produto_schema import *
 
-router = APIRouter(title="Produtos")
+router = APIRouter() #rotas
+templates = Jinja2Templates(directory="views/templates") #front-end
 
-@router.get("/produtos", response_model=List[Produto])
-async def listar():
-    return listar_produto()
+#pasta para dalvar imagens
+UPLOAD_DIR= "views/static/uploads"
+#caminhos para o os
+os.makedirs(UPLOAD_DIR,exist_ok=True)
 
-@router.post("/criar-produtos", response_model=Produto)
-async def criar(produto: ProdutoCreate):
-    return criar_produto(produto)
 
-@router.put("/atualizar-produtos/{produto_id}", response_model=Produto)
-async def atualizar(produto_id: int, produto: Produto):
-    produto_atualizado = atualizar_produto(produto_id, produto)
-    if not produto_atualizado:
-        raise HTTPException(status_code=404, detail="Produto não encontrado para atualizá-lo.")
-    return produto_atualizado
+#rota home pagaina inicial
+@router.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("index.html",{
+        "request": request
+    })
 
-@router.delete("/produto-deletar/{produto_id}")
-async def deletar(produto_id: int):
-    deletar = deletar_produto(produto_id)
-    if not deletar:
-        raise HTTPException(status_code=404, detail="Produto não encontrado")
-    return {"mensagem": f"Produto ID: {produto_id} deletado com sucesso."}
+#rota para pagina listar produtos
+@router.get("/produtos", response_class=HTMLResponse)
+async def listar(request: Request):
+    produtos = listar_produto()
+    return templates.TemplateResponse("catalogo.html", {
+        "request": request, "produtos":produtos
+    })
+
+@router.get("/categoria", response_class=HTMLResponse)
+async def produtos_categoria(request: Request):
+    produtos = produtos_por_categoria()
+    return templates.TemplateResponse("catalogo.html", {
+        "request": request, "produtos":produtos
+    })
+
+#rota para detalhar produto
+@router.get("/produto-get/{id_produto}", response_class=HTMLResponse)
+async def detalhe(request:Request, id_produto:int):
+        produto = get_produto(id_produto)
+        return templates.TemplateResponse("produto.html",{
+        "request":request, "produto":produto
+    })
+
