@@ -58,19 +58,31 @@ function updateCartCount() {
 }
 
 // adicionar item (simples API)
+// substitua a implementação atual por esta (menu.js)
 window.addToCart = function addToCart(item) {
-    // item = { id, name, price, qty (opcional) }
-    if (!item || !item.id) return;
-    const cart = getCart();
-    const idx = cart.findIndex(i => i.id === item.id);
-    if (idx > -1) {
+  // item = { id, name, price, qty (opcional), image (opcional) }
+  if (!item || !item.id) return;
+
+  const cart = getCart();
+  const idx = cart.findIndex(i => i.id === item.id);
+
+  if (idx > -1) {
+    // atualiza quantidade e, se vier image nova, atualiza também
     cart[idx].qty = (cart[idx].qty || 0) + (item.qty || 1);
-    } else {
-    cart.push({ id: item.id, name: item.name || 'Produto', price: item.price || 0, qty: item.qty || 1 });
-    }
-    saveCart(cart);
-    // atualizar preview se estiver aberto
-    renderCartPreview();
+    if (item.image) cart[idx].image = item.image;
+  } else {
+    cart.push({
+      id: item.id,
+      name: item.name || 'Produto',
+      price: item.price || 0,
+      qty: item.qty || 1,
+      image: item.image || null
+    });
+  }
+
+  saveCart(cart);
+  // atualizar preview se estiver aberto
+  renderCartPreview();
 };
 
 // render do preview
@@ -90,7 +102,9 @@ function renderCartPreview() {
     const itemEl = document.createElement('div');
     itemEl.className = 'cart-item';
     itemEl.innerHTML = `
-        <div class="thumb" aria-hidden="true"></div>
+        <div class="thumb" aria-hidden="true">
+        ${ item.image ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" />` : '' }
+        </div>
         <div class="meta">
         <div class="name">${escapeHtml(item.name)}</div>
         <div class="price">R$ ${Number(item.price).toFixed(2)}</div>

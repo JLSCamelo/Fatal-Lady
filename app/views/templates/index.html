@@ -4,21 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fatal Lady</title>
-    <link rel="icon" href="assets/img/main-icon/icon.png" type="image/png" />
-    <link rel="stylesheet" href="assets/css/home-style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
-    />
+  <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png" />
+  <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-    <script src="assets/js/swiper.js"></script>
-    <script src="assets/js/banner.js"></script>
   </head>
+
   <body>
     <header>
       <div class="header-div">
-        <img
-          src="assets/img/home/icons-main/languages.png"
+          <img
+          src="/static/uploads/img/home/icons-main/languages.png"
           id="language-icon"
         />
         <select name="language" id="language">
@@ -42,7 +38,7 @@
       <div class="nav-div">
         <form action="/search" method="get" id="search-form">
           <button type="submit">
-            <img src="assets/img/home/icons-main/lupa.png" id="search-icon" />
+            <img src="/static/uploads/img/home/icons-main/lupa.png" id="search-icon" />
           </button>
           <input
             type="search"
@@ -55,7 +51,7 @@
 
       <div class="nav-div">
         <img
-          src="assets/img/home/icons-main/letreiro-logo.png"
+          src="/static/uploads/img/home/icons-main/letreiro-logo.png"
           id="logo"
           alt="Logo"
         />
@@ -65,7 +61,7 @@
         <img id="shopping-kart-icon" class="icons" />
 
         <img
-          src="assets/img/home/icons-main/menu-hamburguer.png"
+          src="/static/uploads/img/home/icons-main/menu-hamburguer.png"
           id="menu-hamburguer-icon"
           class="icons"
         />
@@ -102,33 +98,8 @@
           <ul>
             <li><a href="index.html" class="side-link">Home</a></li>
             <li><a href="catalog.html" class="side-link">Catálogo</a></li>
-            <li><a href="products.html" class="side-link">Produtos</a></li>
           </ul>
         </nav>
-
-        <!-- categorias (profissional) -->
-        <section class="side-section">
-          <h3>Categorias</h3>
-          <ul class="side-cats">
-            <li><a href="#">Saltos</a></li>
-            <li><a href="#">Rasteiras</a></li>
-            <li><a href="#">Botas</a></li>
-            <li><a href="#">Tênis</a></li>
-            <li><a href="#">Sapatilhas</a></li>
-            <li><a href="#">Chinelos</a></li>
-          </ul>
-        </section>
-
-        <!-- opções profissionais / conta -->
-        <section class="side-section">
-          <h3>Conta</h3>
-          <ul>
-            <li><a href="account.html">Minha Conta</a></li>
-            <li><a href="orders.html">Meus Pedidos</a></li>
-            <li><a href="wishlist.html">Favoritos</a></li>
-            <li><a href="settings.html">Configurações</a></li>
-          </ul>
-        </section>
 
         <!-- preview do carrinho -->
         <section
@@ -154,10 +125,34 @@
           </div>
         </section>
 
+        <!-- categorias (profissional) -->
+        <section class="side-section">
+          <h3>Categorias</h3>
+          <ul class="side-cats">
+            <li><a href="#">Saltos</a></li>
+            <li><a href="#">Rasteiras</a></li>
+            <li><a href="#">Botas</a></li>
+            <li><a href="#">Tênis</a></li>
+            <li><a href="#">Sapatilhas</a></li>
+            <li><a href="#">Chinelos</a></li>
+          </ul>
+        </section>
+
+        <!-- opções profissionais / conta -->
+        <section class="side-section">
+          <h3>Conta</h3>
+          <ul class="side-options-account">
+            <li><a href="account.html">Minha Conta</a></li>
+            <li><a href="orders.html">Meus Pedidos</a></li>
+            <li><a href="wishlist.html">Favoritos</a></li>
+            <li><a href="settings.html">Configurações</a></li>
+          </ul>
+        </section>
+
         <!-- ajuda / contato -->
         <section class="side-section">
           <h3>Ajuda</h3>
-          <ul>
+          <ul class="side-options">
             <li><a href="contact.html">Fale conosco</a></li>
             <li><a href="faq.html">FAQ</a></li>
           </ul>
@@ -184,22 +179,22 @@
       <section id="discounts">
         <div class="discount-itens">
           <div class="discount-icon">
-            <img src="assets/img/home/icons-discount/1.png" />
+            <img src="/static/uploads/img/home/icons-discount/1.png" />
             <p>Frete Grátis p/ Compras Acima de R$ 299,00</p>
           </div>
 
           <div class="discount-icon">
-            <img src="assets/img/home/icons-discount/2.png" />
+            <img src="/static/uploads/img/home/icons-discount/2.png" />
             <p>5% OFF em Pagamento via Pix</p>
           </div>
 
           <div class="discount-icon">
-            <img src="assets/img/home/icons-discount/3.png" />
+            <img src="/static/uploads/img/home/icons-discount/3.png" />
             <p>10% OFF na Primeira Compra</p>
           </div>
 
           <div class="discount-icon">
-            <img src="assets/img/home/icons-discount/4.png" />
+            <img src="/static/uploads/img/home/icons-discount/4.png" />
             <p>Parcele em até 10x sem Juros</p>
           </div>
         </div>
@@ -240,42 +235,42 @@
         <div class="categories-itens">
           <div class="categories-icons">
             <a href="#">
-              <img src="assets/img/home/icons-categories/1.png" />
+              <img src="/static/uploads/img/home/icons-categories/1.png" />
               <p>SALTOS</p>
             </a>
           </div>
 
           <div class="categories-icons">
             <a href="#">
-              <img src="assets/img/home/icons-categories/2.png" />
+              <img src="/static/uploads/img/home/icons-categories/2.png" />
               <p>RASTEIRAS</p>
             </a>
           </div>
 
           <div class="categories-icons">
             <a href="#">
-              <img src="assets/img/home/icons-categories/3.png" />
+              <img src="/static/uploads/img/home/icons-categories/3.png" />
               <p>BOTAS</p>
             </a>
           </div>
 
           <div class="categories-icons">
             <a href="#">
-              <img src="assets/img/home/icons-categories/4.png" />
+              <img src="/static/uploads/img/home/icons-categories/4.png" />
               <p>TÊNIS</p>
             </a>
           </div>
 
           <div class="categories-icons">
             <a href="#">
-              <img src="assets/img/home/icons-categories/5.png" />
+              <img src="/static/uploads/img/home/icons-categories/5.png" />
               <p>SAPATILHAS</p>
             </a>
           </div>
 
           <div class="categories-icons">
             <a href="#">
-              <img src="assets/img/home/icons-categories/6.png" />
+              <img src="/static/uploads/img/home/icons-categories/6.png" />
               <p>CHINELOS</p>
             </a>
           </div>
@@ -297,7 +292,7 @@
         </div>
 
         <div class="about-us-img">
-          <img src="assets/img/home/about/about-us.png" alt="Sobre Nós" />
+          <img src="/static/uploads/img/home/about/about-us.png" alt="Sobre Nós" />
         </div>
       </section>
 
@@ -311,39 +306,40 @@
           <div class="marquee-track">
             <!-- conjunto original (5 imagens) -->
             <div class="marquee-item">
-              <img src="assets/img/home/carousel/1.png" alt="1" />
+              <img src="/static/uploads/img/home/carousel/1.png" alt="1" />
             </div>
             <div class="marquee-item">
-              <img src="assets/img/home/carousel/2.png" alt="2" />
+              <img src="/static/uploads/img/home/carousel/2.png" alt="2" />
             </div>
             <div class="marquee-item">
-              <img src="assets/img/home/carousel/3.png" alt="3" />
+              <img src="/static/uploads/img/home/carousel/3.png" alt="3" />
             </div>
             <div class="marquee-item">
-              <img src="assets/img/home/carousel/4.png" alt="4" />
+                <img src="/static/uploads/img/home/carousel/4.png" alt="4" />
             </div>
             <div class="marquee-item">
-              <img src="assets/img/home/carousel/5.png" alt="5" />
+                <img src="/static/uploads/img/home/carousel/5.png" alt="5" />
             </div>
 
             <!-- duplicação para loop contínuo suave -->
             <div class="marquee-item">
-              <img src="assets/img/home/carousel/1.png" alt="1" />
+              <img src="/static/uploads/img/home/carousel/1.png" alt="1" />
             </div>
             <div class="marquee-item">
-              <img src="assets/img/home/carousel/2.png" alt="2" />
+              <img src="/static/uploads/img/home/carousel/2.png" alt="2" />
             </div>
             <div class="marquee-item">
-              <img src="assets/img/home/carousel/3.png" alt="3" />
+              <img src="/static/uploads/img/home/carousel/3.png" alt="3" />
             </div>
             <div class="marquee-item">
-              <img src="assets/img/home/carousel/4.png" alt="4" />
+              <img src="/static/uploads/img/home/carousel/4.png" alt="4" />
             </div>
             <div class="marquee-item">
-              <img src="assets/img/home/carousel/5.png" alt="5" />
+              <img src="/static/uploads/img/home/carousel/5.png" alt="5" />
             </div>
           </div>
         </div>
+
       </section>
 
       <section id="products-highlights" class="products-section">
@@ -396,7 +392,7 @@
             <article
               class="product-card"
               data-category="primavera"
-              data-name="Nome da Peça"
+              data-name="Nome da Peça 1"
               data-id="p1"
               data-price="99.00"
             >
@@ -404,7 +400,7 @@
 
               <a href="#" class="product-media">
                 <img
-                  src="assets/img/home/icons-highlights/1.png"
+                  src="/static/uploads/img/home/icons-highlights/1.png"
                   alt="Nome da Peça"
                 />
               </a>
@@ -437,7 +433,7 @@
               <div class="product-badge">VERÃO</div>
               <a href="#" class="product-media">
                 <img
-                  src="assets/img/home/icons-highlights/2.png"
+                  src="/static/uploads/img/home/icons-highlights/2.png"
                   alt="Nome da Peça 2"
                 />
               </a>
@@ -461,7 +457,7 @@
             <article
               class="product-card"
               data-category="inverno"
-              data-name="Nome da Peça"
+              data-name="Nome da Peça 3"
               data-id="p3"
               data-price="79.00"
             >
@@ -469,7 +465,7 @@
 
               <a href="#" class="product-media">
                 <img
-                  src="assets/img/home/icons-highlights/3.png"
+                  src="/static/uploads/img/home/icons-highlights/3.png"
                   alt="Nome da Peça 3"
                 />
               </a>
@@ -503,7 +499,7 @@
 
               <a href="#" class="product-media">
                 <img
-                  src="assets/img/home/icons-highlights/4.png"
+                  src="/static/uploads/img/home/icons-highlights/4.png"
                   alt="Nome da Peça 4"
                 />
               </a>
@@ -537,7 +533,7 @@
 
               <a href="#" class="product-media">
                 <img
-                  src="assets/img/home/icons-highlights/5.png"
+                  src="/static/uploads/img/home/icons-highlights/5.png"
                   alt="Nome da Peça 5"
                 />
               </a>
@@ -563,30 +559,30 @@
             <article
               class="product-card"
               data-category="primavera"
-              data-name="Nome da Peça"
-              data-id="p1"
-              data-price="99.00"
+              data-name="Nome da Peça 6"
+              data-id="p6"
+              data-price="89.00"
             >
               <div class="product-badge">PRIMAVERA</div>
 
               <a href="#" class="product-media">
                 <img
-                  src="assets/img/home/icons-highlights/1.png"
-                  alt="Nome da Peça"
+                  src="/static/uploads/img/home/icons-highlights/1.png"
+                  alt="Nome da Peça 6"
                 />
               </a>
 
               <div class="product-body">
-                <h3 class="product-name">NOME DA PEÇA</h3>
+                <h3 class="product-name">NOME DA PEÇA 6</h3>
                 <div class="product-price">
-                  R$ <span class="price-value">99,00</span>
+                  R$ <span class="price-value">89,00</span>
                 </div>
 
                 <div class="product-actions">
                   <button
                     class="add-to-cart"
                     type="button"
-                    aria-label="Adicionar Nome da Peça ao carrinho"
+                    aria-label="Adicionar Nome da Peça 6 ao carrinho"
                   >
                     Adicionar ao Carrinho
                   </button>
@@ -597,27 +593,27 @@
             <article
               class="product-card"
               data-category="verao"
-              data-name="Nome da Peça 2"
-              data-id="p2"
-              data-price="129.00"
+              data-name="Nome da Peça 7"
+              data-id="p7"
+              data-price="119.00"
             >
               <div class="product-badge">VERÃO</div>
               <a href="#" class="product-media">
                 <img
-                  src="assets/img/home/icons-highlights/2.png"
-                  alt="Nome da Peça 2"
+                  src="/static/uploads/img/home/icons-highlights/2.png"
+                  alt="Nome da Peça 7"
                 />
               </a>
               <div class="product-body">
-                <h3 class="product-name">NOME DA PEÇA 2</h3>
+                <h3 class="product-name">NOME DA PEÇA 7</h3>
                 <div class="product-price">
-                  R$ <span class="price-value">129,00</span>
+                  R$ <span class="price-value">119,00</span>
                 </div>
                 <div class="product-actions">
                   <button
                     class="add-to-cart"
                     type="button"
-                    aria-label="Adicionar Nome da Peça 2 ao carrinho"
+                    aria-label="Adicionar Nome da Peça 7 ao carrinho"
                   >
                     Adicionar ao Carrinho
                   </button>
@@ -628,30 +624,30 @@
             <article
               class="product-card"
               data-category="inverno"
-              data-name="Nome da Peça"
-              data-id="p3"
-              data-price="79.00"
+              data-name="Nome da Peça 8"
+              data-id="p8"
+              data-price="99.00"
             >
               <div class="product-badge">INVERNO</div>
 
               <a href="#" class="product-media">
                 <img
-                  src="assets/img/home/icons-highlights/3.png"
-                  alt="Nome da Peça 3"
+                  src="/static/uploads/img/home/icons-highlights/3.png"
+                  alt="Nome da Peça 8"
                 />
               </a>
 
               <div class="product-body">
-                <h3 class="product-name">NOME DA PEÇA 3</h3>
+                <h3 class="product-name">NOME DA PEÇA 8</h3>
                 <div class="product-price">
-                  R$ <span class="price-value">79,00</span>
+                  R$ <span class="price-value">99,00</span>
                 </div>
 
                 <div class="product-actions">
                   <button
                     class="add-to-cart"
                     type="button"
-                    aria-label="Adicionar Nome da Peça 3 ao carrinho"
+                    aria-label="Adicionar Nome da Peça 8 ao carrinho"
                   >
                     Adicionar ao Carrinho
                   </button>
@@ -662,21 +658,21 @@
             <article
               class="product-card"
               data-category="outono"
-              data-name="Nome da Peça 4"
-              data-id="p4"
+              data-name="Nome da Peça 9"
+              data-id="p9"
               data-price="99.00"
             >
               <div class="product-badge">OUTONO</div>
 
               <a href="#" class="product-media">
                 <img
-                  src="assets/img/home/icons-highlights/4.png"
-                  alt="Nome da Peça 4"
+                  src="/static/uploads/img/home/icons-highlights/4.png"
+                  alt="Nome da Peça 9"
                 />
               </a>
 
               <div class="product-body">
-                <h3 class="product-name">NOME DA PEÇA 4</h3>
+                <h3 class="product-name">NOME DA PEÇA 9</h3>
                 <div class="product-price">
                   R$ <span class="price-value">99,00</span>
                 </div>
@@ -685,7 +681,7 @@
                   <button
                     class="add-to-cart"
                     type="button"
-                    aria-label="Adicionar Nome da Peça 4 ao carrinho"
+                    aria-label="Adicionar Nome da Peça 9 ao carrinho"
                   >
                     Adicionar ao Carrinho
                   </button>
@@ -696,21 +692,21 @@
             <article
               class="product-card"
               data-category="primavera"
-              data-name="Nome da Peça 5"
-              data-id="p5"
+              data-name="Nome da Peça 10"
+              data-id="p10"
               data-price="119.00"
             >
               <div class="product-badge">PRIMAVERA</div>
 
               <a href="#" class="product-media">
                 <img
-                  src="assets/img/home/icons-highlights/5.png"
-                  alt="Nome da Peça 5"
+                  src="/static/uploads/img/home/icons-highlights/5.png"
+                  alt="Nome da Peça 10"
                 />
               </a>
 
               <div class="product-body">
-                <h3 class="product-name">NOME DA PEÇA 5</h3>
+                <h3 class="product-name">NOME DA PEÇA 10</h3>
                 <div class="product-price">
                   R$ <span class="price-value">119,00</span>
                 </div>
@@ -719,7 +715,7 @@
                   <button
                     class="add-to-cart"
                     type="button"
-                    aria-label="Adicionar Nome da Peça 5 ao carrinho"
+                    aria-label="Adicionar Nome da Peça 10 ao carrinho"
                   >
                     Adicionar ao Carrinho
                   </button>
@@ -742,22 +738,22 @@
           <div class="swiper" id="banner-fade">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <img src="assets/img/home/banner/1.png" alt="Banner 1" />
+                <img src="/static/uploads/img/home/banner/1.png" alt="Banner 1" />
               </div>
               <div class="swiper-slide">
-                <img src="assets/img/home/banner/2.png" alt="Banner 2" />
+                <img src="/static/uploads/img/home/banner/2.png" alt="Banner 2" />
               </div>
               <div class="swiper-slide">
-                <img src="assets/img/home/banner/3.png" alt="Banner 3" />
+                <img src="/static/uploads/img/home/banner/3.png" alt="Banner 3" />
               </div>
               <div class="swiper-slide">
-                <img src="assets/img/home/banner/4.png" alt="Banner 4" />
+                <img src="/static/uploads/img/home/banner/4.png" alt="Banner 4" />
               </div>
               <div class="swiper-slide">
-                <img src="assets/img/home/banner/5.png" alt="Banner 5" />
+                <img src="/static/uploads/img/home/banner/5.png" alt="Banner 5" />
               </div>
               <div class="swiper-slide">
-                <img src="assets/img/home/banner/6.png" alt="Banner 6" />
+                <img src="/static/uploads/img/home/banner/6.png" alt="Banner 6" />
               </div>
             </div>
           </div>
@@ -772,7 +768,7 @@
             <input type="checkbox" id="question-1" />
             <label for="question-1">
               Como eu crio uma conta no site?
-              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Seta" />
             </label>
             <div class="answer">
               Para criar uma conta, clique em "Cadastrar", preencha seus dados
@@ -784,7 +780,7 @@
             <input type="checkbox" id="question-2" />
             <label for="question-2">
               Esqueci minha senha — como recupero o acesso?
-              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Seta" />
             </label>
             <div class="answer">
               Use a opção "Esqueci a senha" na tela de login; você receberá um
@@ -796,7 +792,7 @@
             <input type="checkbox" id="question-3" />
             <label for="question-3">
               Quais formas de pagamento são aceitas?
-              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Seta" />
             </label>
             <div class="answer">
               Aceitamos cartões de crédito, boleto bancário e PIX. A
@@ -808,7 +804,7 @@
             <input type="checkbox" id="question-4" />
             <label for="question-4">
               Qual o prazo de entrega dos produtos?
-              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Seta" />
             </label>
             <div class="answer">
               O prazo estimado aparece na finalização da compra e varia conforme
@@ -820,7 +816,7 @@
             <input type="checkbox" id="question-5" />
             <label for="question-5">
               Posso devolver ou trocar um produto?
-              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Seta" />
             </label>
             <div class="answer">
               Sim — trocas e devoluções são realizadas dentro do prazo legal
@@ -833,7 +829,7 @@
             <input type="checkbox" id="question-6" />
             <label for="question-6">
               Como acompanho o status do meu pedido?
-              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Seta" />
             </label>
             <div class="answer">
               Você pode acompanhar pelo link de rastreamento enviado por e-mail
@@ -845,7 +841,7 @@
             <input type="checkbox" id="question-7" />
             <label for="question-7">
               O atendimento ao cliente funciona nos fins de semana?
-              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Seta" />
             </label>
             <div class="answer">
               Nosso suporte funciona de segunda a sábado; em domingos e feriados
@@ -857,7 +853,7 @@
             <input type="checkbox" id="question-8" />
             <label for="question-8">
               Como faço para cancelar um pedido já realizado?
-              <img src="assets/img/home/icons-faq/seta.png" alt="Seta" />
+              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Seta" />
             </label>
             <div class="answer">
               Para cancelar, entre em contato com o suporte imediatamente — se o
@@ -877,6 +873,14 @@
         </p>
 
         <button>SAIBA MAIS</button>
+      </section>
+
+      <section id="video_banner">
+        <video width="100%" height="360" muted loop autoplay>
+          <source src="/static/uploads/videos/banner.mp4" type="video/mp4" />
+          <source src="/static/uploads/videos/banner.webm" type="video/webm" />
+          O seu navegador não suporta a tag de vídeo
+        </video>
       </section>
 
       <section class="newsletter">
@@ -908,7 +912,7 @@
           <div>
             <h4>FORMAS DE PAGAMENTO</h4>
             <img
-              src="assets/img/catalogo/footer/payment.png"
+              src="/static/uploads/img/catalogo/footer/payment.png"
               alt="Formas de Pagamento"
             />
           </div>
@@ -917,11 +921,13 @@
         <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
       </footer>
     </main>
-
-    <script src="assets/js/menu.js"></script>
-    <script src="assets/js/add_cart.js"></script>
-    <script src="assets/js/cart-ui.js" defer></script>
-    <script src="assets/js/products-toggle.js" defer></script>
-    <script src="assets/js/nav-enhancements.js" defer></script>
+    
+  <script src="/static/js/swiper.js"></script>
+  <script src="/static/js/banner.js"></script>
+  <script src="/static/js/menu.js"></script>
+  <script src="/static/js/add_cart.js"></script>
+  <script src="/static/js/cart-ui.js" defer></script>
+  <script src="/static/js/products-toggle.js" defer></script>
+  <script src="/static/js/nav-enhancements.js" defer></script>
   </body>
 </html>

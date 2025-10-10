@@ -170,7 +170,7 @@ nav {
 
 /* Página Principal */
 #main-page {
-    background-image: url("../img/home/main-background.png");
+    background-image: url("../uploads/img/home/main-background.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -272,16 +272,17 @@ h2 {
 }
 #side-nav ul { list-style: none; padding: 0; margin: 0; }
 #side-nav li {
-     margin: .6rem 0; 
-     background-color: #e2e2e2;
+     margin: .2rem 0; 
+     background-color: var(--main-red);
      padding: 0.5rem;
-     padding-left: 1.3rem;
+     border-radius: 2rem;
      width: 15rem;
-     border-radius: 1rem;
+     display: inline-flex;
+     justify-content: center;
 }
 #side-nav a.side-link {
     text-decoration: none;
-    color: var(--dark-gray);
+    color: var(--background);
     font-weight: 600;
     display: inline-block;
     padding: .5rem 0;
@@ -332,10 +333,40 @@ h2 {
 /* sections */
 .side-section { margin-top: 1rem; margin-bottom: 1.5rem; padding-top: .6rem; border-top: 1px solid rgba(0,0,0,0.04); }
 .side-section h3 { margin: 0 0 .4rem 0; font-size: .95rem; font-weight:600; }
+.side-options-account li a {
+    width: 100%;
+    display: flex;
+    background-color: #e2e2e2;
+    color: var(--dark-gray);
+    font-size:.9rem; 
+    padding:.5rem 1rem; 
+    display:inline-block; 
+    text-decoration:none;
+    margin-bottom: 0.5rem;
+    border-radius: 1rem;
+}
+.side-options-account { list-style-type: none; }
+
+.side-options li a {
+    display: flex;
+    color: var(--dark-gray);
+    font-size:.9rem; 
+    padding:.25rem .5rem; 
+    display:inline-block; 
+    text-decoration:none; 
+}
+.side-options { list-style-type: none; }
 
 /* categories list */
 .side-cats { display:flex; gap:.4rem; flex-wrap:wrap; list-style:none; padding:0; margin:0; }
-.side-cats li a { font-size:.9rem; padding:.25rem .5rem; display:inline-block; background: #f6f6f6; border-radius: 6px; text-decoration:none; }
+.side-cats li a { 
+    font-size:.9rem; 
+    padding:.25rem .5rem; 
+    display:inline-block; 
+    background: #f5f5f5; 
+    border-radius: 6px; 
+    text-decoration:none; 
+}
 
 /* cart preview */
 #cart-preview { margin-top:.6rem; min-height: 80px; max-height: 250px; overflow:auto; padding-right: .4rem; }
@@ -362,15 +393,23 @@ h2 {
     cursor:pointer;
 }
 
+.cart-item .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ou 'contain' se preferir espaço sem corte */
+  display: block;
+  border-radius: 6px;
+}
+
 /* cart footer actions */
 .cart-actions { display:flex; gap:.6rem; margin-top:.7rem; }
 .btn { display:inline-block; text-decoration:none; padding:.45rem .7rem; border-radius:8px; border:1px solid rgba(0,0,0,0.06); }
-.btn.primary { background: #ff6a00; color: #fff; border: none; }
+.btn.primary { background: var(--main-red); color: #fff; border: none; }
 
 /* small count badge in cart header */
 #cart-summary { font-size:.9rem; color:#333; display:flex; gap:.4rem; align-items:center; }
 #cart-count {
-    background:#ff6a00; color:#fff; padding:.18rem .45rem; border-radius:999px; font-weight:700; font-size:.85rem;
+    background:var(--main-red); color:#fff; padding:.18rem .45rem; border-radius:999px; font-weight:700; font-size:.85rem;
 }
 
 /* footer */
@@ -431,7 +470,6 @@ header.nav-fixed {
     height: 100%;
     padding-top: 3rem;
     padding-bottom: 1.8rem;
-    margin-top: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -893,12 +931,17 @@ header.nav-fixed {
     margin-top: 10px;
 }
 
+/*--------------------=========================== VIDEO ===========================--------------------*/
+.video_banner {
+    margin-top: 2rem;
+}
+
 /*--------------------=========================== NEWSLETTER E LOGIN ===========================--------------------*/
 .newsletter {
     background: var(--light-gray);
     text-align: center;
     padding: 40px 20px;
-    margin-top: 3.5rem;
+    margin-top: 0;
 }
 
 .newsletter h2 {

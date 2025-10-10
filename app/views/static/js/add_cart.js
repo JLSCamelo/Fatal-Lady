@@ -19,7 +19,11 @@ document.addEventListener('click', function (e) {
     price = Number(String(pv).replace(/[^\d,.\-]/g, '').replace(',', '.')) || 0;
   }
 
-  const item = { id, name, price, qty: 1 };
+  // depois de calcular id, name, price:
+  const imgEl = card.querySelector('img') || card.querySelector('.product-media img');
+  const imageSrc = imgEl ? (imgEl.getAttribute('src') || imgEl.src) : null;
+
+  const item = { id, name, price, qty: 1, image: imageSrc };
 
   if (typeof window.addToCart === 'function') {
     window.addToCart(item);
@@ -28,7 +32,7 @@ document.addEventListener('click', function (e) {
     btn.textContent = 'Adicionado ✓';
     btn.setAttribute('aria-disabled', 'true');
     setTimeout(function(){
-      btn.textContent = oldText;
+      btn.textContent = oldText;  
       btn.removeAttribute('aria-disabled');
     }, 900);
   } else {

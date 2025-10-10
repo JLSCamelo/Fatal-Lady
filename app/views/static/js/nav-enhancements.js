@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
     cartBtn.id = 'shopping-kart-icon';
     cartBtn.className = 'cart-created';
     cartBtn.setAttribute('aria-label', 'Abrir carrinho');
-    cartBtn.innerHTML = '<img src="assets/img/home/icons-main/carrinho-de-compras.png" alt="Carrinho" />';
+  cartBtn.innerHTML = '<img src="/static/uploads/img/home/icons-main/carrinho-de-compras.png" alt="Carrinho" />';
     nav.appendChild(cartBtn);
   }
 

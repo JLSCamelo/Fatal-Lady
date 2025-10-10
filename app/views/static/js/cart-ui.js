@@ -65,8 +65,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const id = card.dataset.id || ('p_' + Math.random().toString(36).slice(2,7));
     const name = card.dataset.name || (card.querySelector('.product-name')?.textContent?.trim()) || 'Produto';
     const price = Number(card.dataset.price || card.querySelector('.price-value')?.textContent?.replace(/[^\d,.\-]/g,'').replace(',','.') || 0) || 0;
+    
+    // --- dentro do listener onde já obtém card, id, name, price ---
+    const imgEl = card.querySelector('.product-media img') || card.querySelector('img');
+    const imageSrc = imgEl ? (imgEl.getAttribute('src') || imgEl.src) : null;
 
-    const item = { id, name, price, qty: 1 };
+    const item = { id, name, price, qty: 1, image: imageSrc };
     if (typeof window.addToCart === 'function') {
       window.addToCart(item);
       // feedback visual
@@ -77,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       console.log('addToCart não encontrado — item:', item);
     }
+
   });
 });
 
