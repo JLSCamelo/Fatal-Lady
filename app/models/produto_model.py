@@ -14,7 +14,8 @@ class ProdutoDB(Base):
     preco = Column(Float,nullable=False)
     nome = Column(String,nullable=False,index=True)
     imagem = Column(String,nullable=True)
-    categoria = Column(String,nullable=False)
+    id_categoria = Column(Integer,nullable=False)
+    
   
 
 #criar banco e tabelas
