@@ -16,7 +16,6 @@ def listar_produto():
     finally:
         db.close()
 
-
 def produtos_por_categoria():
     db = SessionLocal()
     try:

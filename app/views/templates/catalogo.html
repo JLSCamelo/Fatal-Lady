@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo</title>
-    <link rel="icon" href="assets/img/main-icon/icon.png" type="image/png">
+    <link rel="icon" href="/static/uploads/img/main-icon/icon.png" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', path='css/catalogo-style.css') }}">
 </head>
 
@@ -12,7 +12,7 @@
     <header>
         <div class="header-div">
             <img 
-                src="assets/img/home/icons-main/languages.png" 
+                src="/static/uploads/img/home/icons-main/languages.png" 
                 id="language-icon"
             />
             <select name="language" id="language">
@@ -39,7 +39,7 @@
             <form action="/search" method="get" id="search-form">
                 <button type="submit">
                     <img
-                        src="assets/img/home/icons-main/lupa.png"
+                        src="/static/uploads/img/home/icons-main/lupa.png"
                         id="search-icon"
                     />
                 </button>
@@ -49,7 +49,7 @@
         
         <div class="nav-div">
             <img 
-                src="assets/img/home/icons-main/letreiro-logo.png"
+                src="/static/uploads/img/home/icons-main/letreiro-logo.png"
                 id="logo"
                 alt="Logo"
             />
@@ -57,13 +57,13 @@
 
         <div class="nav-div">
             <img 
-                src="assets/img/home/icons-main/carrinho-de-compras.png"
+                src="/static/uploads/img/home/icons-main/carrinho-de-compras.png"
                 id="shopping-kart-icon"
                 class="icons"
             />
 
             <img 
-                src="assets/img/home/icons-main/menu-hamburguer.png"
+                src="/static/uploads/img/home/icons-main/menu-hamburguer.png"
                 id="menu-hamburguer-icon"
                 class="icons"
             />
@@ -107,42 +107,42 @@
             <div class="categories-itens">
                 <div class="categories-icons">
                     <a href="#saltos">
-                        <img src="assets/img/home/icons-categories/1.png"/>
+                        <img src="/static/uploads/img/home/icons-categories/1.png"/>
                         <p>SALTO</p>
                     </a>
                 </div>
 
                 <div class="categories-icons">
                     <a href="#rasteiras">
-                        <img src="assets/img/home/icons-categories/2.png"/>
+                        <img src="/static/uploads/img/home/icons-categories/2.png"/>
                         <p>RASTEIRAS</p>
                     </a>
                 </div>
 
                 <div class="categories-icons">
                     <a href="#botas">
-                        <img src="assets/img/home/icons-categories/3.png"/>
+                        <img src="/static/uploads/img/home/icons-categories/3.png"/>
                         <p>BOTAS</p>
                     </a>
                 </div>
 
                 <div class="categories-icons">
                     <a href="#tenis">
-                        <img src="assets/img/home/icons-categories/4.png"/>
+                        <img src="/static/uploads/img/home/icons-categories/4.png"/>
                         <p>TÊNIS</p>
                     </a>
                 </div>
 
                 <div class="categories-icons">
                     <a href="#sapatilhas">
-                        <img src="assets/img/home/icons-categories/5.png"/>
+                        <img src="/static/uploads/img/home/icons-categories/5.png"/>
                         <p>SAPATILHAS</p>
                     </a>
                 </div>
 
                 <div class="categories-icons">
                     <a href="#chinelos">
-                        <img src="assets/img/home/icons-categories/6.png"/>
+                        <img src="/static/uploads/img/home/icons-categories/6.png"/>
                         <p>CHINELOS</p>
                     </a>
                 </div>
@@ -153,18 +153,18 @@
             <div class="banner-marquee" aria-hidden="false" role="region" aria-label="Banner de coleções">
                 <div class="marquee-track">
                     <!-- conjunto original (5 imagens) -->
-                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="1"></div>
-                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="2"></div>
-                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="3"></div>
-                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="4"></div>
-                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="5"></div>
+                    <div class="marquee-item"><img src="/static/uploads/img/catalogo/products/default.png" alt="1"></div>
+                    <div class="marquee-item"><img src="/static/uploads/img/catalogo/products/default.png" alt="2"></div>
+                    <div class="marquee-item"><img src="/static/uploads/img/catalogo/products/default.png" alt="3"></div>
+                    <div class="marquee-item"><img src="/static/uploads/img/catalogo/products/default.png" alt="4"></div>
+                    <div class="marquee-item"><img src="/static/uploads/img/catalogo/products/default.png" alt="5"></div>
 
                     <!-- duplicação para loop contínuo suave -->
-                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="1"></div>
-                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="2"></div>
-                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="3"></div>
-                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="4"></div>
-                    <div class="marquee-item"><img src="assets/img/catalogo/products/default.png" alt="5"></div>
+                    <div class="marquee-item"><img src="/static/uploads/img/catalogo/products/default.png" alt="1"></div>
+                    <div class="marquee-item"><img src="/static/uploads/img/catalogo/products/default.png" alt="2"></div>
+                    <div class="marquee-item"><img src="/static/uploads/img/catalogo/products/default.png" alt="3"></div>
+                    <div class="marquee-item"><img src="/static/uploads/img/catalogo/products/default.png" alt="4"></div>
+                    <div class="marquee-item"><img src="/static/uploads/img/catalogo/products/default.png" alt="5"></div>
                 </div>
             </div>
         </section>
@@ -243,7 +243,7 @@
                 </div>
                 <div>
                     <h4>FORMAS DE PAGAMENTO</h4>
-                    <img src="assets/img/catalogo/footer/payment.png" alt="Formas de Pagamento">
+                    <img src="/static/uploads/img/catalogo/footer/payment.png" alt="Formas de Pagamento">
                 </div>
             </div>
             <hr>

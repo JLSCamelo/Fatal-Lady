@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nome do Produto</title>
+    <title>{{produto.nome}}</title>
     <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png">
     <link rel="stylesheet" href="/static/css/product-style.css" />
 </head>
@@ -78,11 +78,11 @@
         </div>
 
         <section class="details">
-            <h1 class="title">NOME DO PRODUTO</h1>
+            <h1 class="title">{{produto.nome}}</h1>
             <p class="description">Descrição do Produto</p>
 
             <div class="price" aria-label="Preço do produto">
-            R$ 99<span class="cents">,99</span>
+            R$ {{produto.preco}}
             </div>
 
             <div>
