@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo</title>
-    <link rel="icon" href="/static/uploads/img/main-icon/icon.png" type="image/png">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/catalogo-style.css') }}">
+    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 </head>
 
 <body>
@@ -69,6 +71,79 @@
             />
         </div>
     </nav>
+
+    <div id="side-overlay" aria-hidden="true" aria-labelledby="side-title" role="dialog">
+        <aside id="side-panel" aria-modal="true">
+            <div class="side-header">
+                <h2 id="side-title">Menu</h2>
+                <button id="side-close" aria-label="Fechar menu">✕</button>
+            </div>
+
+            <!-- navegação principal -->
+            <nav id="side-nav">
+                <ul>
+                <li><a href="/" class="side-link">Home</a></li>
+                <li><a href="/produtos" class="side-link">Catálogo</a></li>
+                </ul>
+            </nav>
+
+            <!-- preview do carrinho -->
+            <section class="side-section" id="cart-section" aria-labelledby="cart-title">
+                <div class="cart-header">
+                <h3 id="cart-title">Carrinho</h3>
+                <div id="cart-summary"><span id="cart-count">0</span> itens</div>
+                </div>
+
+                <div id="cart-preview" aria-live="polite">
+                <!-- itens do carrinho são renderizados aqui pelo JS -->
+                <p class="cart-empty">Seu carrinho está vazio.</p>
+                </div>
+
+                <div class="cart-actions">
+                <a id="view-cart-btn" class="btn" href="cart.html">Ver carrinho</a>
+                <a id="checkout-btn" class="btn primary" href="checkout.html">Finalizar</a>
+                </div>
+            </section>
+
+            <!-- categorias (profissional) -->
+            <section class="side-section">
+                <h3>Categorias</h3>
+                <ul class="side-cats">
+                <li><a href="#">Saltos</a></li>
+                <li><a href="#">Rasteiras</a></li>
+                <li><a href="#">Botas</a></li>
+                <li><a href="#">Tênis</a></li>
+                <li><a href="#">Sapatilhas</a></li>
+                <li><a href="#">Sandálias</a></li>
+                </ul>
+            </section>
+
+            <!-- opções profissionais / conta -->
+            <section class="side-section">
+                <h3>Conta</h3>
+                <ul class="side-options-account">
+                <li><a href="account.html">Minha Conta</a></li>
+                <li><a href="orders.html">Meus Pedidos</a></li>
+                <li><a href="wishlist.html">Favoritos</a></li>
+                <li><a href="settings.html">Configurações</a></li>
+                </ul>
+            </section>
+
+            <!-- ajuda / contato -->
+            <section class="side-section">
+                <h3>Ajuda</h3>
+                <ul class="side-options">
+                <li><a href="contact.html">Fale conosco</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </section>
+
+            <div class="side-footer">
+                <button id="clear-cart" class="text-btn">Limpar carrinho</button>
+                <a href="#" id="logout-link" class="text-btn">Sair</a>
+            </div>
+        </aside>
+    </div>
 
     <main>
         <section id="categories">
@@ -169,51 +244,78 @@
             </div>
         </section>
         
-        <section class="products-section" id="saltos">
-            
-            {% for i in produtos %}
-            <li>
-                {% if imagem %}
-                    <br>
-                {% else %}
-                    <img src="/static/uploads/{{i.imagem}}" alt="{{nome}}" width="80">
-                {% endif %}
-                <a href="/produto-get/{{i.id_produto}}">{{i.nome}}</a> -{{i.preco}}    
-            </li>
-            {% endfor %}
+        <section id="products" class="products-section">
+            <div class="container">
+                <header class="products-header">
+                <h2>DESTAQUES</h2>
 
-        </section>
+                <div class="products-controls">
+                    <div class="search-wrap">
+                    <label for="products-search" class="visually-hidden">Buscar produtos</label>
+                    <input id="products-search" type="search" placeholder="Buscar Produto" />
+                    </div>
 
-<!-- 
-        {% for categoria in produtos %}
-        <section class="products-section" id="{{ categoria|lower }}">  
-            <h3>{{ categoria }}</h3>
-            <hr>
-            <div class="products">
-                {% set encontrou = false %}
-                {% for i in produtos %}
-                    {% if i.categoria|trim|lower == categoria|lower %}
-                        {% set encontrou = true %}
-                        <div class="products-icons">
-                            <div class="collection-name">{{ i.colecao }}</div>
-                            <a href="/produto-get/{{ i.id_produto }}">
-                                <img src="{{ i.imagem if i.imagem != 'sem foto' else '/static/uploads/default.png' }}" alt="{{ i.nome }}" width="120">
-                                <p>{{ i.nome }}</p>
-                                <span id="value-max">R$ {{ i.preco }}</span>
-                                <button>Adicionar ao Carrinho</button>
-                            </a>
+                    <div class="filters-wrap" role="tablist" aria-label="Filtros de categoria">
+                    <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
+                        Todos
+                    </button>
+                    <button class="filter-btn" data-filter="1" role="tab">
+                        Sandália
+                    </button>
+                    <button class="filter-btn" data-filter="2" role="tab">
+                        Botas
+                    </button>
+                    <button class="filter-btn" data-filter="3" role="tab">
+                        Salto Alto
+                    </button>
+                    <button class="filter-btn" data-filter="4" role="tab">
+                        Rasteirinha
+                    </button>
+                    <button class="filter-btn" data-filter="5" role="tab">
+                        Sapatilha
+                    </button>
+                    <button class="filter-btn" data-filter="6" role="tab">
+                        Tênis
+                    </button>
+                    </div>
+                </div>
+                </header>
+
+                <div class="products-grid" id="products-grid">
+                    {% for p in produtos[:25] %}
+                    <article class="product-card"
+                        data-category="{{ p.id_categoria }}"
+                        data-name="{{ p.nome }}"
+                        data-id="{{ p.id_produto }}"
+                        data-price="{{ (p.preco) }}"
+                    >
+                        <div class="product-badge">{{ (p.id_categoria)|upper }}</div>
+
+                        <a href="/produto-get/{{ p.id_produto }}" class="product-media">
+                        <img src="/static/uploads/img/catalogo/products/default.png" alt="{{ p.nome }}" />
+                        </a>
+
+                        <div class="product-body">
+                        <h3 class="product-name">{{ p.nome }}</h3>
+                        <div class="product-price">
+                            R$ <span class="price-value">{{ ('%.2f'|format(p.preco)).replace('.', ',') }}</span>
                         </div>
-                    {% endif %}
-                {% endfor %}
 
-                {% if not encontrou %}
-                    <p>Nenhum produto encontrado nesta categoria.</p>
-                {% endif %}
+                        <div class="product-actions">
+                            <button class="add-to-cart" type="button" aria-label="Adicionar {{ p.nome }} ao carrinho" data-id="{{ p.id_produto }}">Adicionar</button>
+                        </div>
+                        </div>
+                    </article>
+                    {% else %}
+                    <p class="no-products">Nenhum produto encontrado.</p>
+                    {% endfor %}
+                </div>
+
+                <div class="products-footer">
+                <button id="load-more" class="btn load-more">Ver mais</button>
+                </div>
             </div>
         </section>
-        {% endfor %}
--->
-
 
         <section class="newsletter">
             <h2>CADASTRE-SE</h2>
@@ -250,5 +352,14 @@
             <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
         </footer>
     </main>
+
+    <script src="/static/js/swiper.js"></script>
+    <script src="/static/js/banner.js"></script>
+    <script src="/static/js/menu.js"></script>
+    <script src="/static/js/add_cart.js"></script>
+    <script src="/static/js/cart-ui.js" defer></script>
+    <script src="/static/js/products-toggle.js" defer></script>
+    <script src="/static/js/nav-enhancements.js" defer></script>
 </body>
+
 </html>

@@ -60,13 +60,6 @@
         <button id="side-close" aria-label="Fechar menu">✕</button>
       </div>
 
-      <!-- busca rápida -->
-      <div class="side-search">
-        <label for="side-search-input" class="visually-hidden">Buscar produtos</label>
-        <input id="side-search-input" type="search" placeholder="Buscar produtos..." />
-        <button id="side-search-btn" aria-label="Pesquisar">🔎</button>
-      </div>
-
       <!-- navegação principal -->
       <nav id="side-nav">
         <ul>
@@ -102,7 +95,7 @@
           <li><a href="#">Botas</a></li>
           <li><a href="#">Tênis</a></li>
           <li><a href="#">Sapatilhas</a></li>
-          <li><a href="#">Chinelos</a></li>
+          <li><a href="#">Sandálias</a></li>
         </ul>
       </section>
 
@@ -335,22 +328,25 @@
               <button class="filter-btn" data-filter="5" role="tab">
                 Sapatilha
               </button>
+              <button class="filter-btn" data-filter="6" role="tab">
+                Tênis
+              </button>
             </div>
           </div>
         </header>
 
         <div class="products-grid" id="products-grid">
-            {% for p in produtos %}
+            {% for p in produtos[:25] %}
               <article class="product-card"
                 data-category="{{ p.id_categoria }}"
                 data-name="{{ p.nome }}"
-                data-id="p{{ p.id_produto }}"
+                data-id="{{ p.id_produto }}"
                 data-price="{{ (p.preco) }}"
               >
                 <div class="product-badge">{{ (p.id_categoria)|upper }}</div>
 
                 <a href="/produto-get/{{ p.id_produto }}" class="product-media">
-                  <img src="{{ p.imagem or url_for('static', path='uploads/img/home/icons-highlights/default.png') }}" alt="{{ p.nome }}" />
+                  <img src="/static/uploads/img/catalogo/products/default.png" alt="{{ p.nome }}" />
                 </a>
 
                 <div class="product-body">

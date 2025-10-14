@@ -8,15 +8,14 @@ class ProdutoDB(Base):
     __tablename__ = "produtos"
 
     id_produto = Column(Integer,primary_key=True,index=True)
-    marca = Column(String,nullable=False,index=True)
-    tamanho = Column(Integer,nullable=False)
-    estoque = Column(Integer,nullable=False)
-    preco = Column(Float,nullable=False)
     nome = Column(String,nullable=False,index=True)
-    imagem = Column(String,nullable=True)
-    id_categoria = Column(Integer,nullable=False)
+    preco = Column(Float,nullable=False)
+    estoque = Column(Integer,nullable=False)
+    tamanhos = Column(Integer,nullable=False)
+    id_categoria = Column(String,nullable=True)
+    id_fabricante = Column(Integer,nullable=False)
+    caminhoimagem = Column(String,nullable=True)
     
-  
 
 #criar banco e tabelas
 Base.metadata.create_all(bind=engine)

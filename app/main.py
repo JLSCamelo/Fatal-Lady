@@ -1,9 +1,3 @@
-"""
-Nome: Mauricio Bertuci Saletti
-DATA: 08/10/2025
-RA:24722027
-"""
-
 from fastapi import FastAPI
 from controllers.controller_produtos import *
 from routes.produto_route import *
