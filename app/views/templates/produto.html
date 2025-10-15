@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{produto.nome}}</title>
+    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png">
+    <link rel="stylesheet" href="/static/css/product-style.css" />
+</head>
+<body>
+    <header>
+        <div class="header-div">
+            <img 
+                src="/static/uploads/img/home/icons-main/languages.png" 
+                id="language-icon"
+            />
+            <select name="language" id="language">
+                <option value="br">BR</option>
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+            </select>
+        </div>
+
+        <div class="header-div">
+            <p>
+                <b>Frete Grátis</b> para Compras Acima de R$ 299,00
+            </p>
+        </div>
+
+        <div class="header-div">
+                <a href="#">Ajuda</a> 
+                <a href="#">Entrar</a> 
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-div">
+            <form action="/search" method="get" id="search-form">
+                <button type="submit">
+                    <img
+                        src="/static/uploads/img/home/icons-main/lupa.png"
+                        id="search-icon"
+                    />
+                </button>
+                <input type="search" id="search-input" name="Search" placeholder="Buscar">
+            </form>
+        </div>
+        
+        <div class="nav-div">
+            <img 
+                src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+                id="logo"
+                alt="Logo"
+            />
+        </div>
+
+        <div class="nav-div">
+            <img 
+                src="/static/uploads/img/home/icons-main/carrinho-de-compras.png"
+                id="shopping-kart-icon"
+                class="icons"
+            />
+
+            <img 
+                src="/static/uploads/img/home/icons-main/menu-hamburguer.png" 
+                id="menu-hamburguer-icon"
+                class="icons"
+            />
+        </div>
+    </nav>
+
+    <div class="container" role="main" aria-label="Detalhes do produto">
+        <div class="image-box" aria-label="Imagem do produto">
+            <img
+                src="/static/uploads/img/catalogo/products/default.png"
+                alt="Default"
+            />
+        </div>
+
+        <section class="details">
+            <h1 class="title">{{produto.nome}}</h1>
+            <p class="description">Descrição do Produto</p>
+
+            <div class="price" aria-label="Preço do produto">
+            R$ {{produto.preco}}
+            </div>
+
+            <div>
+            <div class="section-label">Cores</div>
+            <div class="colors" role="list" aria-label="Opções de cores">
+                <div class="color-circle color-1" role="listitem" aria-label="Cor vermelha"></div>
+                <div class="color-circle color-2" role="listitem" aria-label="Cor laranja clara"></div>
+                <div class="color-circle color-3" role="listitem" aria-label="Cor cinza clara"></div>
+                <div class="color-circle color-4" role="listitem" aria-label="Cor marrom escuro"></div>
+                <div class="color-circle color-5" role="listitem" aria-label="Cor cinza escura"></div>
+            </div>
+            </div>
+
+            <div>
+                <div class="section-label">Tamanhos</div>
+                <div id="sizes-options">
+                    <a href="#">32</a>
+                    |
+                    <a href="#">34</a>
+                    |
+                    <a href="#">35</a>
+                    |
+                    <a href="#">36</a>
+                    |
+                    <a href="#">37</a>
+                </div>
+            </div>
+
+            <div class="rating" aria-label="Avaliação do produto com 4 de 5 estrelas">
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star empty" aria-hidden="true">★</span>
+            </div>
+
+            <button type="button" class="btn-add" aria-label="Adicionar ao carrinho">
+            <span class="btn-icon" aria-hidden="true" role="img">
+                <svg
+                fill="white"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+                >
+                <path d="M7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 2zM17 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-8.07-4h9.14c.63 0 1.19-.39 1.37-.99l2.45-7.07c.08-.25.02-.54-.15-.74a.749.749 0 0 0-.5-.23H7.22L7 5H3v2h2l3.6 7.59-1.35 2.44-.03.06c-.06.1-.09.21-.09.33 0 .38.31.69.69.69h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L9.1 14z"></path>
+                </svg>
+            </span>
+            ADICIONAR AO CARRINHO
+            </button>
+        </section>
+    </div>
+</body>
+</html>
