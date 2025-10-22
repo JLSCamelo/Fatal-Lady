@@ -16,6 +16,10 @@ def listar_produto():
     finally:
         db.close()
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 45833ccc4ef94b15890ebafc0aa288548945ec6e
 def produtos_por_categoria():
     db = SessionLocal()
     try:

@@ -16,12 +16,21 @@ UPLOAD_DIR= "views/static/uploads"
 #caminhos para o os
 os.makedirs(UPLOAD_DIR,exist_ok=True)
 
+<<<<<<< HEAD
 #rota home pagaina inicial
 @router.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     produtos = listar_produto()
     return templates.TemplateResponse("index.html",{
         "request": request, "produtos": produtos
+=======
+
+#rota home pagaina inicial
+@router.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("index.html",{
+        "request": request
+>>>>>>> 45833ccc4ef94b15890ebafc0aa288548945ec6e
     })
 
 #rota para pagina listar produtos
