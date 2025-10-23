@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{produto.nome}}</title>
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/product-style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-div">
+        <img
+          src="/static/uploads/img/home/icons-main/languages.png"
+          id="language-icon"
+        />
+        <select name="language" id="language">
+          <option value="br">BR</option>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+      </div>
+      <div class="header-div">
+        <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
+      </div>
+      <div class="header-div">
+        <a href="#">Ajuda</a>
+        <a href="#">Entrar</a>
+      </div>
+    </header>
+
+    <nav>
+      <div class="nav-div">
+        <form action="/search" method="get" id="search-form">
+          <button type="submit">
+            <img
+              src="/static/uploads/img/home/icons-main/lupa.png"
+              id="search-icon"
+            />
+          </button>
+          <input
+            type="search"
+            id="search-input"
+            name="Search"
+            placeholder="Buscar"
+          />
+        </form>
+      </div>
+      <div class="nav-div">
+        <img
+          src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+          id="logo"
+          alt="Logo"
+        />
+      </div>
+      <div class="nav-div">
+        <img
+          src="/static/uploads/img/home/icons-main/carrinho-de-compras.png"
+          id="shopping-kart-icon"
+          class="icons"
+        />
+        <img
+          src="/static/uploads/img/home/icons-main/menu-hamburguer.png"
+          id="menu-hamburguer-icon"
+          class="icons"
+        />
+      </div>
+    </nav>
+
+    <div
+      id="side-overlay"
+      aria-hidden="true"
+      aria-labelledby="side-title"
+      role="dialog"
+    >
+      <aside id="side-panel" aria-modal="true">
+        <div class="side-header">
+          <h2 id="side-title">Menu</h2>
+          <button id="side-close" aria-label="Fechar menu">✕</button>
+        </div>
+        <nav id="side-nav">
+          <ul>
+            <li><a href="/" class="side-link">Home</a></li>
+            <li><a href="/produtos" class="side-link">Catálogo</a></li>
+          </ul>
+        </nav>
+        <section
+          class="side-section"
+          id="cart-section"
+          aria-labelledby="cart-title"
+        >
+          <div class="cart-header">
+            <h3 id="cart-title">Carrinho</h3>
+            <div id="cart-summary"><span id="cart-count">0</span> itens</div>
+          </div>
+          <div id="cart-preview" aria-live="polite">
+            <p class="cart-empty">Seu carrinho está vazio.</p>
+          </div>
+          <div class="cart-actions">
+            <a id="view-cart-btn" class="btn" href="cart.html">Ver carrinho</a>
+            <a id="checkout-btn" class="btn primary" href="checkout.html"
+              >Finalizar</a
+            >
+          </div>
+        </section>
+        <section class="side-section">
+          <h3>Categorias</h3>
+          <ul class="side-cats">
+            <li><a href="#">Saltos</a></li>
+            <li><a href="#">Rasteiras</a></li>
+            <li><a href="#">Botas</a></li>
+            <li><a href="#">Tênis</a></li>
+            <li><a href="#">Sapatilhas</a></li>
+            <li><a href="#">Sandálias</a></li>
+          </ul>
+        </section>
+        <section class="side-section">
+          <h3>Conta</h3>
+          <ul class="side-options-account">
+            <li><a href="account.html">Minha Conta</a></li>
+            <li><a href="orders.html">Meus Pedidos</a></li>
+            <li><a href="wishlist.html">Favoritos</a></li>
+            <li><a href="settings.html">Configurações</a></li>
+          </ul>
+        </section>
+        <section class="side-section">
+          <h3>Ajuda</h3>
+          <ul class="side-options">
+            <li><a href="contact.html">Fale conosco</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </section>
+        <div class="side-footer">
+          <button id="clear-cart" class="text-btn">Limpar carrinho</button>
+          <a href="#" id="logout-link" class="text-btn">Sair</a>
+        </div>
+      </aside>
+    </div>
+
+    <main>
+      <div class="container" role="main" aria-label="Detalhes do produto">
+        <div class="image-box" aria-label="Imagem do produto">
+          <img
+            src="/static/uploads/img/catalogo/products/default.png"
+            alt="Default"
+          />
+        </div>
+
+        <section class="details">
+          <h1 class="title">{{produto.nome}}</h1>
+          <p class="description">Descrição do Produto</p>
+
+          <div class="price" aria-label="Preço do produto">
+            R$ {{produto.preco}}
+          </div>
+
+          <div>
+            <div class="section-label">Cores</div>
+            <div class="colors" role="list" aria-label="Opções de cores">
+              <div
+                class="color-circle color-1"
+                role="listitem"
+                aria-label="Cor vermelha"
+              ></div>
+              <div
+                class="color-circle color-2"
+                role="listitem"
+                aria-label="Cor laranja clara"
+              ></div>
+              <div
+                class="color-circle color-3"
+                role="listitem"
+                aria-label="Cor cinza clara"
+              ></div>
+              <div
+                class="color-circle color-4"
+                role="listitem"
+                aria-label="Cor marrom escuro"
+              ></div>
+              <div
+                class="color-circle color-5"
+                role="listitem"
+                aria-label="Cor cinza escura"
+              ></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-label">Tamanhos</div>
+            <div id="sizes-options">
+              <a href="#">32</a> | <a href="#">34</a> | <a href="#">35</a> |
+              <a href="#">36</a> |
+              <a href="#">37</a>
+            </div>
+          </div>
+
+          <div
+            class="rating"
+            aria-label="Avaliação do produto com 4 de 5 estrelas"
+          >
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star" aria-hidden="true">★</span>
+            <span class="star empty" aria-hidden="true">★</span>
+          </div>
+
+          <button
+            type="button"
+            class="btn-add"
+            aria-label="Adicionar ao carrinho"
+          >
+            <span class="btn-icon" aria-hidden="true" role="img">
+              <svg
+                fill="white"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 2zM17 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-8.07-4h9.14c.63 0 1.19-.39 1.37-.99l2.45-7.07c.08-.25.02-.54-.15-.74a.749.749 0 0 0-.5-.23H7.22L7 5H3v2h2l3.6 7.59-1.35 2.44-.03.06c-.06.1-.09.21-.09.33 0 .38.31.69.69.69h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L9.1 14z"
+                ></path>
+              </svg>
+            </span>
+            ADICIONAR AO CARRINHO
+          </button>
+        </section>
+      </div>
+    </main>
+
+    <section class="newsletter">
+      <h2>CADASTRE-SE</h2>
+      <p>E GANHE <b>10% OFF</b> NA SUA PRIMEIRA COMPRA</p>
+      <form>
+        <input type="text" placeholder="Nome Completo" />
+        <input type="email" placeholder="Email" />
+        <button type="submit">ENVIAR</button>
+      </form>
+    </section>
+
+    <footer>
+      <div class="footer-links">
+        <div>
+          <h4>MINHA CONTA</h4>
+          <a href="#">Meus Dados</a>
+          <a href="#">Meus Pedidos</a>
+          <a href="#">Cashback</a>
+          <a href="#">Login</a>
+        </div>
+        <div>
+          <h4>SUPORTE E POLÍTICAS</h4>
+          <a href="#">Trocas e Devoluções</a>
+          <a href="#">Dúvidas Frequentes</a>
+          <a href="#">Fale Conosco</a>
+          <a href="#">Política de Privacidade</a>
+        </div>
+        <div>
+          <h4>FORMAS DE PAGAMENTO</h4>
+          <img
+            src="/static/uploads/img/catalogo/footer/payment.png"
+            alt="Formas de Pagamento"
+          />
+        </div>
+      </div>
+      <hr />
+      <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+    </footer>
+
+    <script src="/static/js/swiper.js"></script>
+    <script src="/static/js/banner.js"></script>
+    <script src="/static/js/menu.js"></script>
+    <script src="/static/js/add_cart.js"></script>
+    <script src="/static/js/cart-ui.js" defer></script>
+    <script src="/static/js/products-toggle.js" defer></script>
+    <script src="/static/js/nav-enhancements.js" defer></script>
+    <script src="/static/js/arrows.js" defer></script>
+  </body>
+</html>
