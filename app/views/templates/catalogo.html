@@ -272,14 +272,14 @@
           </header>
 
           <div id="products-grid" class="products-grid">
-            {% for group in produtos|groupby('id_categoria') %}
+            {% for group in produtos|groupby('nome_categoria') %}
             <section class="category-row" id="category-{{ group.grouper }}">
                 <div class="category-header">
                 <h3 class="category-title">
                     {% if group.list and group.list[0].categoria_nome is defined %}
                     {{ group.list[0].categoria_nome }}
                     {% else %}
-                    Categoria {{ group.grouper }}
+                    {{ group.grouper }}
                     {% endif %}
                 </h3>
 
@@ -292,12 +292,12 @@
                 <div class="category-products">
                 {% for p in group.list %}
                 <article class="product-card"
-                        data-category="{{ p.id_categoria }}"
+                        data-category="{{ p.nome_categoria }}"
                         data-name="{{ p.nome }}"
                         data-id="p{{ p.id_produto }}"
                         data-price="{{ (p.preco) }}"
                         data-color="{% if p.cor is defined %}{{ p.cor }}{% else %}Unspecified{% endif %}">
-                    <div class="product-badge">{{ (p.id_categoria)|upper }}</div>
+                    <div class="product-badge">{{ (p.nome_categoria)|upper }}</div>
 
                     <a href="/produto-get/{{ p.id_produto }}" class="product-media">
                     <img src="/static/uploads/img/catalogo/products/default.png" alt="{{ p.nome }}" />

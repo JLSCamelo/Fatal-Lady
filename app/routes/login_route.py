@@ -12,7 +12,7 @@ router = APIRouter() #rotas
 templates = Jinja2Templates(directory="views/templates") #front-end
 
 #login usuario
-router.get("/login",response_class=HTMLResponse)
+@router.get("/login",response_class=HTMLResponse)
 def home(request:Request):
     return templates.TemplateResponse("login.html",{
         "request":request

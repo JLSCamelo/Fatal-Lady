@@ -1,8 +1,10 @@
+<!-- Restored copy - login-restored.html (do not commit without review) -->
+
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="PT-BR">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <link
       rel="icon"
@@ -13,16 +15,21 @@
       rel="stylesheet"
       href="{{ url_for('static', path='css/login-style.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
   </head>
+
   <body>
     <header>
       <div class="header-div">
         <img
           src="/static/uploads/img/home/icons-main/languages.png"
           id="language-icon"
-          alt="Ícone idioma"
         />
-        <select id="language" name="language" aria-label="Idioma">
+        <select name="language" id="language">
           <option value="br">BR</option>
           <option value="en">EN</option>
           <option value="es">ES</option>
@@ -30,9 +37,7 @@
       </div>
 
       <div class="header-div">
-        <p class="promo">
-          <strong>Frete Grátis</strong> para Compras Acima de R$ 299,00
-        </p>
+        <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
       </div>
 
       <div class="header-div">
@@ -43,18 +48,17 @@
 
     <nav>
       <div class="nav-div">
-        <form id="search-form" action="/search" method="get" role="search">
-          <button type="submit" aria-label="Buscar">
+        <form action="/search" method="get" id="search-form">
+          <button type="submit">
             <img
               src="/static/uploads/img/home/icons-main/lupa.png"
               id="search-icon"
-              alt=""
             />
           </button>
           <input
+            type="search"
             id="search-input"
             name="Search"
-            type="search"
             placeholder="Buscar"
           />
         </form>
@@ -73,13 +77,11 @@
           src="/static/uploads/img/home/icons-main/carrinho-de-compras.png"
           id="shopping-kart-icon"
           class="icons"
-          alt="Carrinho"
         />
         <img
           src="/static/uploads/img/home/icons-main/menu-hamburguer.png"
           id="menu-hamburguer-icon"
           class="icons"
-          alt="Menu"
         />
       </div>
     </nav>
@@ -96,7 +98,7 @@
           <button id="side-close" aria-label="Fechar menu">✕</button>
         </div>
 
-        <nav id="side-nav" aria-label="Navegação">
+        <nav id="side-nav">
           <ul>
             <li><a href="/" class="side-link">Home</a></li>
             <li><a href="/produtos" class="side-link">Catálogo</a></li>
@@ -129,6 +131,27 @@
             <li><a href="#">Saltos</a></li>
             <li><a href="#">Rasteiras</a></li>
             <li><a href="#">Botas</a></li>
+            <li><a href="#">Tênis</a></li>
+            <li><a href="#">Sapatilhas</a></li>
+            <li><a href="#">Sandálias</a></li>
+          </ul>
+        </section>
+
+        <section class="side-section">
+          <h3>Conta</h3>
+          <ul class="side-options-account">
+            <li><a href="account.html">Minha Conta</a></li>
+            <li><a href="orders.html">Meus Pedidos</a></li>
+            <li><a href="wishlist.html">Favoritos</a></li>
+            <li><a href="settings.html">Configurações</a></li>
+          </ul>
+        </section>
+
+        <section class="side-section">
+          <h3>Ajuda</h3>
+          <ul class="side-options">
+            <li><a href="contact.html">Fale conosco</a></li>
+            <li><a href="faq.html">FAQ</a></li>
           </ul>
         </section>
 
@@ -139,31 +162,23 @@
       </aside>
     </div>
 
-    <main class="container">
-      <section id="main-page" aria-labelledby="login-title">
-        <div class="login-card" role="region" aria-labelledby="login-title">
-          <h2 id="login-title">Login Usuário</h2>
-          <form
-            class="login-form"
-            action="/login"
-            method="post"
-            autocomplete="on"
-            novalidate
-          >
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required />
-            <label for="senha">Senha</label>
-            <input id="senha" name="senha" type="password" required />
-            <button type="submit">Logar</button>
-          </form>
-          <p><a href="/register">Registrar</a></p>
-        </div>
+    <main>
+      <section id="main-page">
+        <h2>Login Usuario</h2>
+        <form action="/login" method="post">
+          <label>Email:</label>
+          <input type="email" name="email" />
+          <label>Senha:</label>
+          <input type="password" name="senha" />
+          <button type="submit">Logar</button>
+        </form>
+        <p><a href="/register">registrar</a></p>
       </section>
     </main>
 
     <section class="newsletter">
       <h2>CADASTRE-SE</h2>
-      <p>E GANHE <strong>10% OFF</strong> NA SUA PRIMEIRA COMPRA</p>
+      <p>E GANHE <b>10% OFF</b> NA SUA PRIMEIRA COMPRA</p>
       <form>
         <input type="text" placeholder="Nome Completo" />
         <input type="email" placeholder="Email" />
@@ -172,16 +187,20 @@
     </section>
 
     <footer>
-      <div class="footer-links container">
+      <div class="footer-links">
         <div>
           <h4>MINHA CONTA</h4>
           <a href="#">Meus Dados</a>
           <a href="#">Meus Pedidos</a>
+          <a href="#">Cashback</a>
+          <a href="#">Login</a>
         </div>
         <div>
           <h4>SUPORTE E POLÍTICAS</h4>
           <a href="#">Trocas e Devoluções</a>
           <a href="#">Dúvidas Frequentes</a>
+          <a href="#">Fale Conosco</a>
+          <a href="#">Política de Privacidade</a>
         </div>
         <div>
           <h4>FORMAS DE PAGAMENTO</h4>
@@ -195,9 +214,12 @@
       <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
     </footer>
 
+    <script src="/static/js/swiper.js"></script>
+    <script src="/static/js/banner.js"></script>
     <script src="/static/js/menu.js"></script>
     <script src="/static/js/add_cart.js"></script>
     <script src="/static/js/cart-ui.js" defer></script>
+    <script src="/static/js/products-toggle.js" defer></script>
     <script src="/static/js/nav-enhancements.js" defer></script>
   </body>
 </html>

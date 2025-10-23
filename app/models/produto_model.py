@@ -12,6 +12,7 @@ class ProdutoDB(Base):
     estoque = Column(Integer,nullable=False)
     tamanhos = Column(Integer,nullable=False)
     id_categoria = Column(String,nullable=True)
+    nome_categoria = Column(String,nullable=True)
     id_fabricante = Column(Integer,nullable=False)
     caminhoimagem = Column(String,nullable=True)
     
