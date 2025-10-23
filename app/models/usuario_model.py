@@ -1,5 +1,8 @@
 from sqlalchemy import Column, Integer, String, Boolean
-from database import *
+from ..database import SessionLocal, Base, engine
+from .produto_model import ProdutoDB
+
+
 # from sqlalchemy import text
 from sqlalchemy.orm import relationship
 from models.produto_model import ProdutoDB
