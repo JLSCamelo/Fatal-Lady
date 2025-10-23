@@ -1,9 +1,8 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from database import *
-from sqlalchemy import text
-
-# from sqlalchemy.orm import relationship
-# from models.produto_model import ProdutoDB
+# from sqlalchemy import text
+from sqlalchemy.orm import relationship
+from models.produto_model import ProdutoDB
 
 class UsuarioDB(Base):
     __tablename__ = "usuarios"
@@ -17,7 +16,7 @@ class UsuarioDB(Base):
     cidade = Column(String,nullable=False)
     telefone = Column(String,nullable=True)
     is_admin=Column(Boolean, default=False)
-    
+    #relação de tabela
+    pedidos=relationship("PedidoDB",back_populates="usuario")
 
-#criar banco e tabelas
-Base.metadata.create_all(bind=engine)
+    

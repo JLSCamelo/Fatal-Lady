@@ -39,6 +39,8 @@ def get_db():
     finally:
         db.close()
 
+
+
 """from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
