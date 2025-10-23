@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login</title>
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/login-style.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-div">
+        <img
+          src="/static/uploads/img/home/icons-main/languages.png"
+          id="language-icon"
+          alt="Ícone idioma"
+        />
+        <select id="language" name="language" aria-label="Idioma">
+          <option value="br">BR</option>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+      </div>
+
+      <div class="header-div">
+        <p class="promo">
+          <strong>Frete Grátis</strong> para Compras Acima de R$ 299,00
+        </p>
+      </div>
+
+      <div class="header-div">
+        <a href="#">Ajuda</a>
+        <a href="#">Entrar</a>
+      </div>
+    </header>
+
+    <nav>
+      <div class="nav-div">
+        <form id="search-form" action="/search" method="get" role="search">
+          <button type="submit" aria-label="Buscar">
+            <img
+              src="/static/uploads/img/home/icons-main/lupa.png"
+              id="search-icon"
+              alt=""
+            />
+          </button>
+          <input
+            id="search-input"
+            name="Search"
+            type="search"
+            placeholder="Buscar"
+          />
+        </form>
+      </div>
+
+      <div class="nav-div">
+        <img
+          src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+          id="logo"
+          alt="Logo"
+        />
+      </div>
+
+      <div class="nav-div">
+        <img
+          src="/static/uploads/img/home/icons-main/carrinho-de-compras.png"
+          id="shopping-kart-icon"
+          class="icons"
+          alt="Carrinho"
+        />
+        <img
+          src="/static/uploads/img/home/icons-main/menu-hamburguer.png"
+          id="menu-hamburguer-icon"
+          class="icons"
+          alt="Menu"
+        />
+      </div>
+    </nav>
+
+    <div
+      id="side-overlay"
+      aria-hidden="true"
+      aria-labelledby="side-title"
+      role="dialog"
+    >
+      <aside id="side-panel" aria-modal="true">
+        <div class="side-header">
+          <h2 id="side-title">Menu</h2>
+          <button id="side-close" aria-label="Fechar menu">✕</button>
+        </div>
+
+        <nav id="side-nav" aria-label="Navegação">
+          <ul>
+            <li><a href="/" class="side-link">Home</a></li>
+            <li><a href="/produtos" class="side-link">Catálogo</a></li>
+          </ul>
+        </nav>
+
+        <section
+          class="side-section"
+          id="cart-section"
+          aria-labelledby="cart-title"
+        >
+          <div class="cart-header">
+            <h3 id="cart-title">Carrinho</h3>
+            <div id="cart-summary"><span id="cart-count">0</span> itens</div>
+          </div>
+          <div id="cart-preview" aria-live="polite">
+            <p class="cart-empty">Seu carrinho está vazio.</p>
+          </div>
+          <div class="cart-actions">
+            <a id="view-cart-btn" class="btn" href="cart.html">Ver carrinho</a>
+            <a id="checkout-btn" class="btn primary" href="checkout.html"
+              >Finalizar</a
+            >
+          </div>
+        </section>
+
+        <section class="side-section">
+          <h3>Categorias</h3>
+          <ul class="side-cats">
+            <li><a href="#">Saltos</a></li>
+            <li><a href="#">Rasteiras</a></li>
+            <li><a href="#">Botas</a></li>
+          </ul>
+        </section>
+
+        <div class="side-footer">
+          <button id="clear-cart" class="text-btn">Limpar carrinho</button>
+          <a href="#" id="logout-link" class="text-btn">Sair</a>
+        </div>
+      </aside>
+    </div>
+
+    <main class="container">
+      <section id="main-page" aria-labelledby="login-title">
+        <div class="login-card" role="region" aria-labelledby="login-title">
+          <h2 id="login-title">Login Usuário</h2>
+          <form
+            class="login-form"
+            action="/login"
+            method="post"
+            autocomplete="on"
+            novalidate
+          >
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+            <label for="senha">Senha</label>
+            <input id="senha" name="senha" type="password" required />
+            <button type="submit">Logar</button>
+          </form>
+          <p><a href="/register">Registrar</a></p>
+        </div>
+      </section>
+    </main>
+
+    <section class="newsletter">
+      <h2>CADASTRE-SE</h2>
+      <p>E GANHE <strong>10% OFF</strong> NA SUA PRIMEIRA COMPRA</p>
+      <form>
+        <input type="text" placeholder="Nome Completo" />
+        <input type="email" placeholder="Email" />
+        <button type="submit">ENVIAR</button>
+      </form>
+    </section>
+
+    <footer>
+      <div class="footer-links container">
+        <div>
+          <h4>MINHA CONTA</h4>
+          <a href="#">Meus Dados</a>
+          <a href="#">Meus Pedidos</a>
+        </div>
+        <div>
+          <h4>SUPORTE E POLÍTICAS</h4>
+          <a href="#">Trocas e Devoluções</a>
+          <a href="#">Dúvidas Frequentes</a>
+        </div>
+        <div>
+          <h4>FORMAS DE PAGAMENTO</h4>
+          <img
+            src="/static/uploads/img/catalogo/footer/payment.png"
+            alt="Formas de Pagamento"
+          />
+        </div>
+      </div>
+      <hr />
+      <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+    </footer>
+
+    <script src="/static/js/menu.js"></script>
+    <script src="/static/js/add_cart.js"></script>
+    <script src="/static/js/cart-ui.js" defer></script>
+    <script src="/static/js/nav-enhancements.js" defer></script>
+  </body>
+</html>
