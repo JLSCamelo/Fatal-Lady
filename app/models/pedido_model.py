@@ -9,7 +9,7 @@ from sqlalchemy import Column, Integer, Float, ForeignKey, Date, String
 from database import Base
 from sqlalchemy.orm import relationship
 
-# 🔹 tabela Pedido
+#tabela Pedido
 class PedidoDB(Base):
     __tablename__ = "pedidos"
 
@@ -19,11 +19,11 @@ class PedidoDB(Base):
     status = Column(String)
     valortotal = Column(Float, default=0.0)
 
-    # 🔹 relações
+    #relacionamento
     usuario = relationship("UsuarioDB", back_populates="pedidos")
     itens = relationship("ItemPedidoDB", back_populates="pedido")
 
-# 🔹 tabela ItemPedido
+# tabela ItemPedido
 class ItemPedidoDB(Base):
     __tablename__ = "itens_pedido"
 
@@ -33,7 +33,7 @@ class ItemPedidoDB(Base):
     quantidade = Column(Integer)
     preco_unitario = Column(Float)
 
-    # 🔹 relações
+    # relações
     pedido = relationship("PedidoDB", back_populates="itens")
     produto = relationship("ProdutoDB", back_populates="itens_pedido")
 

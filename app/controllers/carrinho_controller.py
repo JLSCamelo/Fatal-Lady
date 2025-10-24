@@ -1,5 +1,6 @@
 from fastapi import Request, Depends
 from fastapi.responses import RedirectResponse 
+from fastapi.templating import Jinja2Templates
 from database import *
 from models.produto_model import ProdutoDB
 from models.usuario_model import UsuarioDB
@@ -7,8 +8,9 @@ from auth import *
 from sqlalchemy.orm import Session
 
 carrinhos = {}
+templates = Jinja2Templates(directory="templates")
 
-def carrinho_controller(request: Request,
+def carrinho_add(request: Request,
                         id_produto:int,
                         quantidade:int,
                         db:Session):
@@ -35,3 +37,19 @@ def carrinho_controller(request: Request,
     carrinhos[usuario.id]=carrinho
     
     return RedirectResponse(url="/carrinho",status_code=303)
+
+def carrinho_visualizar(request: Request,
+                        db: Session):
+    token = request.cookies.get("token")
+    payload = verificar_token(token)
+
+    if not payload:
+        return RedirectResponse(url="/login",status_code=303)
+
+    email=payload.get("sub")
+    usuario=db.query(UsuarioDB).filter_by(email=email).first()
+    carrinho=carrinhos.get(usuario.id,[])
+    total=sum(item["preco"]*item["quantidade"] for item in carrinho)
+
+    return templates.TemplateResponse("carrinho.html",
+        {"request":request, "carrinho":carrinho, "total":total})
