@@ -63,11 +63,13 @@
       </div>
 
       <div class="nav-div">
-        <img
-          src="/static/uploads/img/home/icons-main/letreiro-logo.png"
-          id="logo"
-          alt="Logo"
-        />
+        <a href="/">
+          <img
+            src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+            id="logo"
+            alt="Logo"
+          />
+        </a>
       </div>
 
       <div class="nav-div">
@@ -161,59 +163,6 @@
     </div>
 
     <main>
-      <section id="categories">
-        <div id="sizes">
-          <h3>TAMANHOS</h3>
-          <div id="sizes-options">
-            <a href="#">32</a> | <a href="#">33</a> | <a href="#">34</a> |
-            <a href="#">35</a> | <a href="#">36</a> | <a href="#">37</a> |
-            <a href="#">38</a> | <a href="#">39</a> | <a href="#">40</a> |
-            <a href="#">41</a> |
-            <a href="#">42</a>
-          </div>
-        </div>
-
-        <h2>CATEGORIAS</h2>
-        <div class="categories-itens">
-          <div class="categories-icons">
-            <a href="#saltos"
-              ><img src="/static/uploads/img/home/icons-categories/1.png" />
-              <p>SALTO</p></a
-            >
-          </div>
-          <div class="categories-icons">
-            <a href="#rasteiras"
-              ><img src="/static/uploads/img/home/icons-categories/2.png" />
-              <p>RASTEIRAS</p></a
-            >
-          </div>
-          <div class="categories-icons">
-            <a href="#botas"
-              ><img src="/static/uploads/img/home/icons-categories/3.png" />
-              <p>BOTAS</p></a
-            >
-          </div>
-          <div class="categories-icons">
-            <a href="#tenis"
-              ><img src="/static/uploads/img/home/icons-categories/4.png" />
-              <p>TÊNIS</p></a
-            >
-          </div>
-          <div class="categories-icons">
-            <a href="#sapatilhas"
-              ><img src="/static/uploads/img/home/icons-categories/5.png" />
-              <p>SAPATILHAS</p></a
-            >
-          </div>
-          <div class="categories-icons">
-            <a href="#chinelos"
-              ><img src="/static/uploads/img/home/icons-categories/6.png" />
-              <p>SANDÁLIAS</p></a
-            >
-          </div>
-        </div>
-      </section>
-
       <section id="products" class="products-section">
         <div class="container">
           <header class="products-header">
@@ -233,40 +182,60 @@
                 </div>
                 </div>
 
-                <!-- MIDDLE ROW: busca (esquerda) + controles de preço/cores/limpar (direita) (AZUL) -->
-                <div class="filters-middle-row">
-                <div class="search-left">
-                    <label for="products-search" class="visually-hidden">Buscar produtos</label>
-                    <div class="search-box">
-                        <input id="products-search" type="search" placeholder="Buscar Produto" />
-                    </div>
-                </div>
+                <!-- MIDDLE ROW: busca (esquerda) + controles de preço/cores/limpar (direita) -->
+<div class="filters-middle-row">
+  <div class="search-left">
+    <label for="products-search" class="visually-hidden">Buscar produtos</label>
+    <div class="search-box">
+      <input id="products-search" type="search" placeholder="Buscar Produto" />
+    </div>
+  </div>
 
-                <div class="right-controls">
-                    <div class="price-filter" id="price-filter" aria-label="Filtro de preço">
-                    <div class="price-values">
-                        <label>R$ <span id="price-min-display">0,00</span></label>
-                        <span>—</span>
-                        <label>R$ <span id="price-max-display">0,00</span></label>
-                    </div>
-                    <div class="price-ranges">
-                        <input id="price-min" type="range" min="0" max="1000" value="0" step="0.01" />
-                        <input id="price-max" type="range" min="0" max="1000" value="1000" step="0.01" />
-                    </div>
-                    </div>
+  <div class="right-controls">
+    <div class="price-filter" id="price-filter" aria-label="Filtro de preço">
+      <div class="price-values">
+        <label>R$ <span id="price-min-display">0,00</span></label>
+        <span>—</span>
+        <label>R$ <span id="price-max-display">0,00</span></label>
+      </div>
+      <div class="price-ranges">
+        <input id="price-min" type="range" min="0" max="1000" value="0" step="0.01" />
+        <input id="price-max" type="range" min="0" max="1000" value="1000" step="0.01" />
+      </div>
+    </div>
 
-                    <div class="color-filter" id="color-filter" aria-label="Filtro por cor">
-                    <div id="color-filters" class="color-filters"></div>
-                    </div>
+    <div class="color-filter" id="color-filter" aria-label="Filtro por cor">
+      <div id="color-filters" class="color-filters"></div>
+    </div>
 
-                    <div class="filter-actions">
-                    <button id="clear-filters" class="filter-clear" type="button">Limpar filtros</button>
-                    </div>
-                </div>
-                </div>
+    <div class="filter-actions">
+      <button id="clear-filters" class="filter-clear" type="button">Limpar filtros</button>
+    </div>
+  </div>
+</div>
 
-                <!-- FOOTER VISUAL (delimita final do header) (ROXO) -->
-                <div class="products-header-bottom"></div>
+<!-- SIZE ROW: filtro de tamanhos em linha separada abaixo -->
+<div class="filters-size-row">
+  <div class="size-filter" id="size-filter" aria-label="Filtro de tamanho">
+    <span class="size-label">Tamanhos:</span>
+    <div class="size-filters" id="size-filters">
+      <button class="size-chip" data-size="32" type="button" aria-label="Tamanho 32">32</button>
+      <button class="size-chip" data-size="33" type="button" aria-label="Tamanho 33">33</button>
+      <button class="size-chip" data-size="34" type="button" aria-label="Tamanho 34">34</button>
+      <button class="size-chip" data-size="35" type="button" aria-label="Tamanho 35">35</button>
+      <button class="size-chip" data-size="36" type="button" aria-label="Tamanho 36">36</button>
+      <button class="size-chip" data-size="37" type="button" aria-label="Tamanho 37">37</button>
+      <button class="size-chip" data-size="38" type="button" aria-label="Tamanho 38">38</button>
+      <button class="size-chip" data-size="39" type="button" aria-label="Tamanho 39">39</button>
+      <button class="size-chip" data-size="40" type="button" aria-label="Tamanho 40">40</button>
+      <button class="size-chip" data-size="41" type="button" aria-label="Tamanho 41">41</button>
+      <button class="size-chip" data-size="42" type="button" aria-label="Tamanho 42">42</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER VISUAL (delimita final do header) -->
+<div class="products-header-bottom"></div>
 
             </div>
           </header>
@@ -296,7 +265,8 @@
                         data-name="{{ p.nome }}"
                         data-id="p{{ p.id_produto }}"
                         data-price="{{ (p.preco) }}"
-                        data-color="{% if p.cor is defined %}{{ p.cor }}{% else %}Unspecified{% endif %}">
+                        data-color="{% if p.cor is defined %}{{ p.cor }}{% else %}Unspecified{% endif %}"
+                        data-size="{{ p.tamanhos }}">
                     <div class="product-badge">{{ (p.nome_categoria)|upper }}</div>
 
                     <a href="/produto-get/{{ p.id_produto }}" class="product-media">

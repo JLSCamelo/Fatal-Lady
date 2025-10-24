@@ -63,11 +63,13 @@
       </div>
 
       <div class="nav-div">
-        <img
-          src="/static/uploads/img/home/icons-main/letreiro-logo.png"
-          id="logo"
-          alt="Logo"
-        />
+        <a href="/">
+          <img
+            src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+            id="logo"
+            alt="Logo"
+          />
+        </a>
       </div>
 
       <div class="nav-div">
@@ -364,7 +366,7 @@
               data-id="{{ p.id_produto }}"
               data-price="{{ (p.preco) }}"
             >
-              <div class="product-badge">{{ (p.id_categoria)|upper }}</div>
+              <div class="product-badge">{{ (p.nome_categoria)|upper }}</div>
               <a href="/produto-get/{{ p.id_produto }}" class="product-media">
                 <img
                   src="/static/uploads/img/catalogo/products/default.png"

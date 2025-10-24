@@ -2419,3 +2419,129 @@ footer hr {
   background: rgba(0, 0, 0, 0.08);
   border-radius: 6px;
 }
+
+.filters-size-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  width: 100%;
+}
+
+.size-filter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.size-label {
+  font-weight: 700;
+  font-size: 14px;
+  color: #4b453f;
+  flex-shrink: 0;
+}
+
+.size-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.size-chip {
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  color: #4b453f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s ease;
+}
+
+.size-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.size-chip.active {
+  background: linear-gradient(
+    180deg,
+    rgba(201, 32, 32, 0.92),
+    var(--accent, #c92020)
+  );
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(201, 32, 32, 0.14);
+  transform: translateY(-2px);
+}
+
+.size-chip.active:hover {
+  box-shadow: 0 8px 22px rgba(201, 32, 32, 0.22);
+}
+
+/* ajuste responsivo dos filtros */
+@media (max-width: 920px) {
+  .filters-size-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .size-filter {
+    justify-content: flex-start;
+  }
+  
+  .size-filters {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .filters-size-row {
+    padding-top: 12px;
+    margin-top: 12px;
+  }
+  
+  .size-label {
+    width: 100%;
+    margin-bottom: 6px;
+  }
+  
+  .size-filters {
+    width: 100%;
+  }
+  
+  .size-chip {
+    min-width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+  
+  #cart-count-badge {
+    right: 1.2rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .size-chip {
+    min-width: 34px;
+    height: 34px;
+    font-size: 12px;
+    padding: 0 8px;
+  }
+}
