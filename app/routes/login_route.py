@@ -1,36 +1,29 @@
-from fastapi import APIRouter, Request, Form, UploadFile, File, Depends 
-from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi import HTTPException
+# routes/login_route.py
+import json
+from fastapi import APIRouter, Request, Form, Depends
 from fastapi.templating import Jinja2Templates
-import os, shutil
 from sqlalchemy.orm import Session
 from database import get_db
-from controllers.controller_login import *
-from auth import *
+from controllers.controller_login import login_controller
 
-router = APIRouter() #rotas
-templates = Jinja2Templates(directory="views/templates") #front-end
+router = APIRouter()
+templates = Jinja2Templates(directory="views/templates")
 
-#login usuario
-@router.get("/login",response_class=HTMLResponse)
-def home(request:Request):
-    return templates.TemplateResponse("login.html",{
-        "request":request
-    })
+@router.get("/login")
+def login_get(request: Request, msg: str = None):
+    toast = None
+    if msg == "success":
+        toast = {"text": "Login feito com sucesso.", "type": "success"}
+    elif msg == "invalid":
+        toast = {"text": "Usuário ou senha incorretos.", "type": "error"}
 
-#cadastro do login
+    # transforma em JSON seguro para injeção direta no template
+    toast_json = json.dumps(toast) if toast else "null"
+    return templates.TemplateResponse("login.html", {"request": request, "toast_json": toast_json})
+
 @router.post("/login")
-def login(request: Request,
-          email: str = Form(...),
-          senha: str = Form(...),
-          db: Session = Depends(get_db)):
+def login_post(request: Request,
+               email: str = Form(...),
+               senha: str = Form(...),
+               db: Session = Depends(get_db)):
     return login_controller(request, email, senha, db)
-
-# pagina do usuario
-@router.get("/dashboard", response_class=HTMLResponse)
-def dashboard(request:Request):
-    token=request.cookies.get("token")
-    if not token or not verificar_token(token):
-        return RedirectResponse(url="/", status_code=303)
-    return templates.TemplateResponse("index.html",
-                                      {"request":request})

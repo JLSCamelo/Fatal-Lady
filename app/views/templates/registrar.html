@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro - Fatal Lady</title>
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/registrar-style.css') }}"
+    />
+  </head>
+
+  <body>
+    <header>
+      <div class="header-div">
+        <img
+          src="/static/uploads/img/home/icons-main/languages.png"
+          id="language-icon"
+          alt="Idioma"
+        />
+        <select name="language" id="language">
+          <option value="br">BR</option>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+      </div>
+
+      <div class="header-div">
+        <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
+      </div>
+
+      <div class="header-div">
+        <a href="#">Ajuda</a>
+        <a href="/login">Entrar</a>
+      </div>
+    </header>
+
+    <nav>
+      <div class="nav-div">
+        <form action="/search" method="get" id="search-form">
+          <button type="submit" aria-label="Buscar">
+            <img
+              src="/static/uploads/img/home/icons-main/lupa.png"
+              id="search-icon"
+              alt="Buscar"
+            />
+          </button>
+          <input
+            type="search"
+            id="search-input"
+            name="Search"
+            placeholder="Buscar"
+          />
+        </form>
+      </div>
+
+      <div class="nav-div">
+        <img
+          src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+          id="logo"
+          alt="Logo Fatal Lady"
+        />
+      </div>
+
+      <div class="nav-div">
+        <img
+          src="/static/uploads/img/home/icons-main/carrinho-de-compras.png"
+          id="shopping-kart-icon"
+          class="icons"
+          alt="Carrinho"
+        />
+        <span id="cart-count-badge" style="display: none;">0</span>
+        <img
+          src="/static/uploads/img/home/icons-main/menu-hamburguer.png"
+          id="menu-hamburguer-icon"
+          class="icons"
+          alt="Menu"
+        />
+      </div>
+    </nav>
+
+    <div
+      id="side-overlay"
+      aria-hidden="true"
+      aria-labelledby="side-title"
+      role="dialog"
+    >
+      <aside id="side-panel" aria-modal="true">
+        <div class="side-header">
+          <h2 id="side-title">Menu</h2>
+          <button id="side-close" aria-label="Fechar menu">✕</button>
+        </div>
+
+        <nav id="side-nav">
+          <ul>
+            <li><a href="/" class="side-link">Home</a></li>
+            <li><a href="/produtos" class="side-link">Catálogo</a></li>
+          </ul>
+        </nav>
+
+        <section
+          class="side-section"
+          id="cart-section"
+          aria-labelledby="cart-title"
+        >
+          <div class="cart-header">
+            <h3 id="cart-title">Carrinho</h3>
+            <div id="cart-summary"><span id="cart-count">0</span> itens</div>
+          </div>
+          <div id="cart-preview" aria-live="polite">
+            <p class="cart-empty">Seu carrinho está vazio.</p>
+          </div>
+          <div class="cart-actions">
+            <a id="view-cart-btn" class="btn" href="/cart">Ver carrinho</a>
+            <a id="checkout-btn" class="btn primary" href="/checkout"
+              >Finalizar</a
+            >
+          </div>
+        </section>
+
+        <section class="side-section">
+          <h3>Categorias</h3>
+          <ul class="side-cats">
+            <li><a href="#">Saltos</a></li>
+            <li><a href="#">Rasteiras</a></li>
+            <li><a href="#">Botas</a></li>
+            <li><a href="#">Tênis</a></li>
+            <li><a href="#">Sapatilhas</a></li>
+            <li><a href="#">Sandálias</a></li>
+          </ul>
+        </section>
+
+        <section class="side-section">
+          <h3>Conta</h3>
+          <ul class="side-options-account">
+            <li><a href="/account">Minha Conta</a></li>
+            <li><a href="/orders">Meus Pedidos</a></li>
+            <li><a href="/wishlist">Favoritos</a></li>
+            <li><a href="/settings">Configurações</a></li>
+          </ul>
+        </section>
+
+        <section class="side-section">
+          <h3>Ajuda</h3>
+          <ul class="side-options">
+            <li><a href="/contact">Fale conosco</a></li>
+            <li><a href="/faq">FAQ</a></li>
+          </ul>
+        </section>
+
+        <div class="side-footer">
+          <button id="clear-cart" class="text-btn">Limpar carrinho</button>
+          <a href="#" id="logout-link" class="text-btn">Sair</a>
+        </div>
+      </aside>
+    </div>
+
+    <main class="container">
+      <div class="page-grid">
+        <section class="hero">
+          <h1>Crie sua conta</h1>
+          <p>
+            Cadastre-se agora e aproveite benefícios exclusivos, ofertas
+            especiais e uma experiência de compra personalizada.
+          </p>
+
+          <div class="benefits">
+            <h3>Vantagens de ter uma conta</h3>
+            <ul>
+              <li>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16.25 5.625L7.5 14.375L3.75 10.625"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                10% OFF na primeira compra
+              </li>
+              <li>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16.25 5.625L7.5 14.375L3.75 10.625"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Acesso a promoções exclusivas
+              </li>
+              <li>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16.25 5.625L7.5 14.375L3.75 10.625"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Acompanhe seus pedidos em tempo real
+              </li>
+              <li>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16.25 5.625L7.5 14.375L3.75 10.625"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Lista de favoritos personalizada
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <aside class="register-wrapper">
+          <div class="register-card">
+            <div class="card-header">
+              <h2>Cadastro</h2>
+              <p class="subtitle">Preencha seus dados para começar</p>
+            </div>
+
+            <form
+              class="register-form"
+              action="/cadastrar"
+              method="post"
+              autocomplete="on"
+              novalidate
+              id="register-form"
+            >
+              <div class="form-section">
+                <h3 class="section-title">Dados Pessoais</h3>
+
+                <div class="input-row">
+                  <label for="nome">Nome Completo</label>
+                  <input
+                    id="nome"
+                    name="nome"
+                    type="text"
+                    class="input-field"
+                    required
+                    placeholder="Seu Nome"
+                  />
+                </div>
+
+                <div class="input-row">
+                  <label for="email">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    class="input-field"
+                    required
+                    placeholder="seu@exemplo.com"
+                  />
+                </div>
+
+                <div class="input-row">
+                  <label for="telefone">Telefone</label>
+                  <input
+                    id="telefone"
+                    name="telefone"
+                    type="tel"
+                    class="input-field"
+                    required
+                    placeholder="(11) 12345-6789"
+                    maxlength="15"
+                  />
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h3 class="section-title">Endereço</h3>
+
+                <div class="input-row">
+                  <label for="cep">CEP</label>
+                  <input
+                    id="cep"
+                    name="cep"
+                    type="text"
+                    class="input-field"
+                    required
+                    placeholder="12345-678"
+                    maxlength="9"
+                  />
+                  <small class="input-hint">Informe seu CEP para busca automática</small>
+                </div>
+
+                <div class="input-row">
+                  <label for="rua">Rua</label>
+                  <input
+                    id="rua"
+                    name="rua"
+                    type="text"
+                    class="input-field"
+                    required
+                    placeholder="Rua das Flores"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <div class="input-row">
+                    <label for="numero">Número</label>
+                    <input
+                      id="numero"
+                      name="numero"
+                      type="text"
+                      class="input-field"
+                      required
+                      placeholder="123"
+                    />
+                  </div>
+
+                  <div class="input-row">
+                    <label for="complemento">Complemento</label>
+                    <input
+                      id="complemento"
+                      name="complemento"
+                      type="text"
+                      class="input-field"
+                      placeholder="Apto 45 (opcional)"
+                    />
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <div class="input-row">
+                    <label for="bairro">Bairro</label>
+                    <input
+                      id="bairro"
+                      name="bairro"
+                      type="text"
+                      class="input-field"
+                      required
+                      placeholder="Centro"
+                    />
+                  </div>
+
+                  <div class="input-row">
+                    <label for="cidade">Cidade</label>
+                    <input
+                      id="cidade"
+                      name="cidade"
+                      type="text"
+                      class="input-field"
+                      required
+                      placeholder="São Paulo"
+                    />
+                  </div>
+                </div>
+
+                <div class="input-row">
+                  <label for="estado">Estado</label>
+                  <select id="estado" name="estado" class="input-field" required>
+                    <option value="">Selecione o estado</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h3 class="section-title">Segurança</h3>
+
+                <div class="input-row">
+                  <label for="senha">Senha</label>
+                  <input
+                    id="senha"
+                    name="senha"
+                    type="password"
+                    class="input-field"
+                    required
+                    placeholder="Mínimo 8 caracteres"
+                    minlength="8"
+                  />
+                  <small class="input-hint">Use letras, números e símbolos</small>
+                </div>
+
+                <div class="input-row">
+                  <label for="confirmar-senha">Confirmar Senha</label>
+                  <input
+                    id="confirmar-senha"
+                    name="confirmar-senha"
+                    type="password"
+                    class="input-field"
+                    required
+                    placeholder="Digite a senha novamente"
+                  />
+                </div>
+
+                <div class="password-strength" id="password-strength">
+                  <div class="strength-bar">
+                    <div class="strength-progress" id="strength-progress"></div>
+                  </div>
+                  <span class="strength-text" id="strength-text">Força da senha</span>
+                </div>
+              </div>
+
+              <div class="terms-row">
+                <label class="terms-label">
+                  <input type="checkbox" name="terms" required />
+                  <span
+                    >Li e aceito os
+                    <a href="/terms" class="link">Termos de Uso</a> e
+                    <a href="/privacy" class="link">Política de Privacidade</a></span
+                  >
+                </label>
+              </div>
+
+              <div class="terms-row">
+                <label class="terms-label">
+                  <input type="checkbox" name="newsletter" />
+                  <span>Quero receber ofertas e novidades por email</span>
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Criar Conta</button>
+
+              <p class="login-link">
+                Já tem uma conta? <a class="link" href="/login">Faça login</a>
+              </p>
+            </form>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-links">
+        <div>
+          <h4>MINHA CONTA</h4>
+          <a href="#">Meus Dados</a>
+          <a href="#">Meus Pedidos</a>
+          <a href="#">Cashback</a>
+          <a href="#">Login</a>
+        </div>
+        <div>
+          <h4>SUPORTE E POLÍTICAS</h4>
+          <a href="#">Trocas e Devoluções</a>
+          <a href="#">Dúvidas Frequentes</a>
+          <a href="#">Fale Conosco</a>
+          <a href="#">Política de Privacidade</a>
+        </div>
+        <div>
+          <h4>FORMAS DE PAGAMENTO</h4>
+          <img
+            src="/static/uploads/img/catalogo/footer/payment.png"
+            alt="Formas de Pagamento"
+          />
+        </div>
+      </div>
+      <hr />
+      <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+    </footer>
+
+    <script src="/static/js/menu.js"></script>
+    <script src="/static/js/cart-ui.js" defer></script>
+    <script src="/static/js/register.js" defer></script>
+  </body>
+</html>
