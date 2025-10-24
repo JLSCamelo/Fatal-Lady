@@ -22,19 +22,19 @@ def carrinho_add(request: Request,
     
     email=payload.get("sub")
     usuario=db.query(UsuarioDB).filter_by(email=email).first()
-    produto=db.query(ProdutoDB).filter_by(id=id_produto).first()
+    produto=db.query(ProdutoDB).filter_by(id_produto=id_produto).first()
 
     if not produto:
         return{"mensagem":"produto não encontrado"}
     
-    carrinho=carrinhos.get(usuario.id,[])
+    carrinho=carrinhos.get(usuario.id_cliente,[])
     carrinho.append({
-        "id":produto.id,
+        "id":produto.id_produto,
         "nome":produto.nome,
         "preco":produto.preco,
         "quantidade":quantidade
     })
-    carrinhos[usuario.id]=carrinho
+    carrinhos[usuario.id_cliente]=carrinho
     
     return RedirectResponse(url="/carrinho",status_code=303)
 
@@ -48,7 +48,8 @@ def carrinho_visualizar(request: Request,
 
     email=payload.get("sub")
     usuario=db.query(UsuarioDB).filter_by(email=email).first()
-    carrinho=carrinhos.get(usuario.id,[])
+    
+    carrinho=carrinhos.get(usuario.id_cliente,[])
     total=sum(item["preco"]*item["quantidade"] for item in carrinho)
 
     return templates.TemplateResponse("carrinho.html",

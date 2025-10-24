@@ -17,5 +17,5 @@ def adicionar_carrinho(request:Request,
                        produto_id: int,
                        quantidade: int=Form(1),
                        db:Session=Depends(get_db)):
-    return carrinho_add(produto_id, quantidade, db)
+    return carrinho_add(request, produto_id, quantidade, db)
     
