@@ -11,3 +11,4 @@ templates = Jinja2Templates(directory="views/templates")
 @router.post("/checkout")
 def checkout(request:Request,db:Session=Depends(get_db)):
     return checkout(request,db)
+

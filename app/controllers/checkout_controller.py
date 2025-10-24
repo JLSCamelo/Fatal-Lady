@@ -41,3 +41,4 @@ def checkout(request:Request,db:Session):
     #limpar o carrinho
     carrinhos[usuario.id]=[]#limpeza do carrinho
     return RedirectResponse("/",status_code=303)
+
