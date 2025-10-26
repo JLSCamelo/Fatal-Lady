@@ -3,7 +3,6 @@ from fastapi.responses import HTMLResponse
 from database import *
 from sqlalchemy.orm import Session
 from controllers.carrinho_controller import carrinho_add, carrinho_visualizar
-from fastapi.templating import Jinja2Templates
 
 
 router = APIRouter()

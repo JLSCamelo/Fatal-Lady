@@ -1,4 +1,4 @@
-from fastapi import Request, Depends
+from fastapi import Request
 from fastapi.responses import RedirectResponse 
 from fastapi.templating import Jinja2Templates
 from database import *
@@ -8,7 +8,7 @@ from auth import *
 from sqlalchemy.orm import Session
 
 carrinhos = {}
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="views/templates")
 
 def carrinho_add(request: Request,
                         id_produto:int,
@@ -50,6 +50,7 @@ def carrinho_visualizar(request: Request,
     usuario=db.query(UsuarioDB).filter_by(email=email).first()
     
     carrinho=carrinhos.get(usuario.id_cliente,[])
+
     total=sum(item["preco"]*item["quantidade"] for item in carrinho)
 
     return templates.TemplateResponse("carrinho.html",
