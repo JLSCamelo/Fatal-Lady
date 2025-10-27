@@ -1,10 +1,11 @@
 from fastapi import FastAPI
-from routes.produto_route import router as produto_router
-from routes.login_route import router as login_router
-from routes.cadastro_route import router as cadastro_router
+from routes.produto_router import router as produto_router
+from routes.login_router import router as login_router
+from routes.cadastro_router import router as cadastro_router
 from routes.carrinho_router import router as carrinho_router
 from routes.checkout_router import router as checkout_router
-from routes.meus_pedidos_route import router as meus_pedidos_router
+from routes.meus_pedidos_router import router as meus_pedidos_router
+from routes.admin_router import router as admin_router
 from fastapi.staticfiles import StaticFiles
 from database import Base, engine
 from models import *
@@ -33,5 +34,6 @@ app.include_router(cadastro_router)
 app.include_router(carrinho_router)   
 app.include_router(checkout_router)   
 app.include_router(meus_pedidos_router)   
+app.include_router(admin_router)   
 
  

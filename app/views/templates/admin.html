@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Painel Admin</title>
+  <style>
+    :root{--bg:#f5f7fb;--card:#ffffff;--muted:#6b7280;--accent:#1f6feb}
+    body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg); margin:0; color:#111}
+    .container{max-width:1100px;margin:28px auto;padding:18px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    h1{margin:0;font-size:20px}
+    .card{background:var(--card);box-shadow:0 6px 18px rgba(22,28,37,0.06);border-radius:10px;padding:16px}
+    .meta{color:var(--muted);font-size:14px}
+
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:16px}
+
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #eef2f6}
+    th{font-weight:600;color:#334155;font-size:13px}
+
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;text-decoration:none;font-size:14px;cursor:pointer}
+    .btn-primary{background:var(--accent);color:white}
+    .btn-ghost{background:transparent;border:1px solid #e6eefc;color:var(--accent)}
+    .btn-danger{background:#ef4444;color:white}
+    .small{font-size:13px;padding:6px 8px;border-radius:6px}
+
+    form fieldset{border:0;padding:0;margin:0}
+    label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted)}
+    input[type="text"], input[type="number"], input[type="file"]{width:100%;padding:8px 10px;border:1px solid #e6eef6;border-radius:8px}
+
+    .actions{display:flex;gap:8px}
+    .empty{padding:40px;text-align:center;color:var(--muted)}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+
+    @media (max-width:880px){.grid{grid-template-columns:1fr;margin-bottom:8px}.card{padding:12px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Painel de Administração</h1>
+        <div class="meta">Usuário: {{ usuario.nome if usuario else "(anônimo)" }} — <small>{{ usuario.email if usuario else "" }}</small></div>
+      </div>
+
+      <div style="display:flex;gap:8px;align-items:center">
+        <a class="btn btn-ghost" href="/">Ver site</a>
+        <form action="/logout" method="post" style="display:inline">
+          <button type="submit" class="btn">Sair</button>
+        </form>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- Lista de produtos -->
+      <section class="card">
+        <h2 style="margin-top:0;margin-bottom:12px">Produtos</h2>
+
+        {% if produtos and produtos|length > 0 %}
+        <div style="overflow:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Imagem</th>
+                <th style="width:170px">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in produtos %}
+              <tr>
+                <td>{{ p.id_produto }}</td>
+                <td>{{ p.nome }}</td>
+                <td>R$ {{ "%.2f"|format(p.preco) }}</td>
+                <td>{{ p.estoque }}</td>
+                <td>
+                  {% if p.caminhoimagem %}
+                    <img src="/static/uploads/img/{{ p.caminhoimagem }}" alt="{{ p.nome }}" width="70">
+                  {% else %}
+                    -
+                  {% endif %}
+                </td>
+                <td>
+                  <div class="actions">
+                    <form action="/admin/produto/deletar/{{ p.id_produto }}" method="post" onsubmit="return confirmDelete(event, '{{ p.nome }}')" style="display:inline">
+                      <button type="submit" class="btn btn-danger small">Excluir</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+          <div class="empty">Nenhum produto cadastrado.</div>
+        {% endif %}
+
+        <footer>
+          Total: <strong>{{ produtos|length if produtos else 0 }}</strong>
+        </footer>
+      </section>
+
+      <!-- Formulário de criação -->
+      <aside class="card">
+        <h3 style="margin-top:0">Adicionar novo produto</h3>
+        <form action="/admin/produto" method="post" enctype="multipart/form-data">
+          <fieldset>
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" type="text" required />
+
+            <label for="preco">Preço (R$)</label>
+            <input id="preco" name="preco" type="number" step="0.01" required />
+
+            <label for="quantidade">Quantidade</label>
+            <input id="quantidade" name="quantidade" type="number" step="1" value="1" required />
+
+            <label for="imagem">Imagem</label>
+            <input id="imagem" name="imagem" type="file" />
+
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <button class="btn btn-primary" type="submit">Cadastrar</button>
+            </div>
+          </fieldset>
+        </form>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    function confirmDelete(e, name){
+      if (!confirm('Excluir "' + name + '"? Esta ação é irreversível.')){
+        e.preventDefault();
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>

@@ -5,8 +5,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from database import get_db
 from controllers.login_controller import login_controller
-
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi import Request
 from oauth_config import oauth
 from auth import criar_token
@@ -14,17 +13,11 @@ from models.usuario_model import UsuarioDB
 router = APIRouter()
 templates = Jinja2Templates(directory="views/templates")
 
-@router.get("/login")
-def login_get(request: Request, msg: str = None):
-    toast = None
-    if msg == "success":
-        toast = {"text": "Login feito com sucesso.", "type": "success"}
-    elif msg == "invalid":
-        toast = {"text": "Usuário ou senha incorretos.", "type": "error"}
-
-    # transforma em JSON seguro para injeção direta no template
-    toast_json = json.dumps(toast) if toast else "null"
-    return templates.TemplateResponse("login.html", {"request": request, "toast_json": toast_json})
+@router.get("/login",response_class=HTMLResponse)
+def home(request:Request):
+    return templates.TemplateResponse("login.html",{
+        "request":request
+    })
 
 @router.post("/login")
 def login_post(request: Request,
@@ -35,6 +28,9 @@ def login_post(request: Request,
 
 
 
+
+#############################################################
+#Verificar
 # rota para iniciar login Google
 @router.get("/login/google")
 async def login_google(request: Request):
