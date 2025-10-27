@@ -1,295 +1,275 @@
 <!DOCTYPE html>
 <html lang="PT-BR">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{produto.nome}}</title>
-    <link
-      rel="icon"
-      href="/static/uploads/img/main_icon/icon.png"
-      type="image/png"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', path='css/product-style.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-  </head>
-  <body>
+    <title>{{produto.nome}} | Loja</title>
+    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png" />
+    <link rel="stylesheet" href="{{ url_for('static', path='css/product-style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', path='css/product-detail.css') }}" />
+</head>
+<body>
     <header>
-      <div class="header-div">
-        <img
-          src="/static/uploads/img/home/icons-main/languages.png"
-          id="language-icon"
-        />
-        <select name="language" id="language">
-          <option value="br">BR</option>
-          <option value="en">EN</option>
-          <option value="es">ES</option>
-        </select>
-      </div>
-      <div class="header-div">
-        <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
-      </div>
-      <div class="header-div">
-        <a href="#">Ajuda</a>
-        <a href="#">Entrar</a>
-      </div>
+        <div class="header-div">
+            <img src="/static/uploads/img/home/icons-main/languages.png" id="language-icon" />
+            <select name="language" id="language">
+                <option value="br">BR</option>
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+            </select>
+        </div>
+        <div class="header-div">
+            <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
+        </div>
+        <div class="header-div">
+            <a href="#">Ajuda</a>
+            <a href="#" id="login-link">Entrar</a>
+        </div>
     </header>
 
     <nav>
-      <div class="nav-div">
-        <form action="/search" method="get" id="search-form">
-          <button type="submit">
-            <img
-              src="/static/uploads/img/home/icons-main/lupa.png"
-              id="search-icon"
-            />
-          </button>
-          <input
-            type="search"
-            id="search-input"
-            name="Search"
-            placeholder="Buscar"
-          />
-        </form>
-      </div>
-      <div class="nav-div">
-        <a href="/">
-          <img
-            src="/static/uploads/img/home/icons-main/letreiro-logo.png"
-            id="logo"
-            alt="Logo"
-          />
-        </a>
-      </div>
-      <div class="nav-div">
-        <img
-          src="/static/uploads/img/home/icons-main/carrinho-de-compras.png"
-          id="shopping-kart-icon"
-          class="icons"
-        />
-        <img
-          src="/static/uploads/img/home/icons-main/menu-hamburguer.png"
-          id="menu-hamburguer-icon"
-          class="icons"
-        />
-      </div>
+        <div class="nav-div">
+            <form action="/search" method="get" id="search-form">
+                <button type="submit">
+                    <img src="/static/uploads/img/home/icons-main/lupa.png" id="search-icon" />
+                </button>
+                <input type="search" id="search-input" name="Search" placeholder="Buscar" />
+            </form>
+        </div>
+        <div class="nav-div">
+            <a href="/">
+                <img src="/static/uploads/img/home/icons-main/letreiro-logo.png" id="logo" alt="Logo" />
+            </a>
+        </div>
+        <div class="nav-div">
+            <img src="/static/uploads/img/home/icons-main/carrinho-de-compras.png" id="shopping-kart-icon" class="icons" />
+            <img src="/static/uploads/img/home/icons-main/menu-hamburguer.png" id="menu-hamburguer-icon" class="icons" />
+        </div>
     </nav>
 
-    <div
-      id="side-overlay"
-      aria-hidden="true"
-      aria-labelledby="side-title"
-      role="dialog"
-    >
-      <aside id="side-panel" aria-modal="true">
-        <div class="side-header">
-          <h2 id="side-title">Menu</h2>
-          <button id="side-close" aria-label="Fechar menu">✕</button>
-        </div>
-        <nav id="side-nav">
-          <ul>
-            <li><a href="/" class="side-link">Home</a></li>
-            <li><a href="/produtos" class="side-link">Catálogo</a></li>
-          </ul>
-        </nav>
-        <section
-          class="side-section"
-          id="cart-section"
-          aria-labelledby="cart-title"
-        >
-          <div class="cart-header">
-            <h3 id="cart-title">Carrinho</h3>
-            <div id="cart-summary"><span id="cart-count">0</span> itens</div>
-          </div>
-          <div id="cart-preview" aria-live="polite">
-            <p class="cart-empty">Seu carrinho está vazio.</p>
-          </div>
-          <div class="cart-actions">
-            <a id="view-cart-btn" class="btn" href="cart.html">Ver carrinho</a>
-            <a id="checkout-btn" class="btn primary" href="checkout.html"
-              >Finalizar</a
-            >
-          </div>
-        </section>
-        <section class="side-section">
-          <h3>Categorias</h3>
-          <ul class="side-cats">
-            <li><a href="#">Saltos</a></li>
-            <li><a href="#">Rasteiras</a></li>
-            <li><a href="#">Botas</a></li>
-            <li><a href="#">Tênis</a></li>
-            <li><a href="#">Sapatilhas</a></li>
-            <li><a href="#">Sandálias</a></li>
-          </ul>
-        </section>
-        <section class="side-section">
-          <h3>Conta</h3>
-          <ul class="side-options-account">
-            <li><a href="account.html">Minha Conta</a></li>
-            <li><a href="orders.html">Meus Pedidos</a></li>
-            <li><a href="wishlist.html">Favoritos</a></li>
-            <li><a href="settings.html">Configurações</a></li>
-          </ul>
-        </section>
-        <section class="side-section">
-          <h3>Ajuda</h3>
-          <ul class="side-options">
-            <li><a href="contact.html">Fale conosco</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-          </ul>
-        </section>
-        <div class="side-footer">
-          <button id="clear-cart" class="text-btn">Limpar carrinho</button>
-          <a href="#" id="logout-link" class="text-btn">Sair</a>
-        </div>
-      </aside>
+    <div id="side-overlay" aria-hidden="true" aria-labelledby="side-title" role="dialog">
+        <aside id="side-panel" aria-modal="true">
+            <div class="side-header">
+                <h2 id="side-title">Menu</h2>
+                <button id="side-close" aria-label="Fechar menu">✕</button>
+            </div>
+            <nav id="side-nav">
+                <ul>
+                    <li><a href="/" class="side-link">Home</a></li>
+                    <li><a href="/produtos" class="side-link">Catálogo</a></li>
+                </ul>
+            </nav>
+            <section class="side-section" id="cart-section" aria-labelledby="cart-title">
+                <div class="cart-header">
+                    <h3 id="cart-title">Carrinho</h3>
+                    <div id="cart-summary"><span id="cart-count">0</span> itens</div>
+                </div>
+                <div id="cart-preview" aria-live="polite">
+                    <p class="cart-empty">Seu carrinho está vazio.</p>
+                </div>
+                <div class="cart-actions">
+                    <a id="view-cart-btn" class="btn" href="/carrinho">Ver carrinho</a>
+                    <a id="checkout-btn" class="btn primary" href="/checkout">Finalizar</a>
+                </div>
+            </section>
+            <section class="side-section">
+                <h3>Categorias</h3>
+                <ul class="side-cats">
+                    <li><a href="#">Saltos</a></li>
+                    <li><a href="#">Rasteiras</a></li>
+                    <li><a href="#">Botas</a></li>
+                    <li><a href="#">Tênis</a></li>
+                    <li><a href="#">Sapatilhas</a></li>
+                    <li><a href="#">Sandálias</a></li>
+                </ul>
+            </section>
+            <section class="side-section">
+                <h3>Conta</h3>
+                <ul class="side-options-account">
+                    <li><a href="#">Minha Conta</a></li>
+                    <li><a href="#">Meus Pedidos</a></li>
+                    <li><a href="#">Favoritos</a></li>
+                    <li><a href="#">Configurações</a></li>
+                </ul>
+            </section>
+            <section class="side-section">
+                <h3>Ajuda</h3>
+                <ul class="side-options">
+                    <li><a href="#">Fale conosco</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </section>
+            <div class="side-footer">
+                <button id="clear-cart" class="text-btn">Limpar carrinho</button>
+                <a href="#" id="logout-link" class="text-btn">Sair</a>
+            </div>
+        </aside>
     </div>
 
-    <main>
-      <div class="container" role="main" aria-label="Detalhes do produto">
-        <div class="image-box" aria-label="Imagem do produto">
-          <img
-            src="/static/uploads/img/catalogo/products/default.png"
-            alt="Default"
-          />
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Fechar">&times;</button>
+            <div class="modal-icon">🔒</div>
+            <h2>Login Necessário</h2>
+            <p>Você precisa estar logado para adicionar produtos ao carrinho</p>
+            <div class="modal-actions">
+                <a href="/login" class="modal-btn primary">Fazer Login</a>
+                <a href="/cadastro" class="modal-btn">Criar Conta</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="product-page">
+        <div class="breadcrumb">
+            <a href="/">Home</a> / <a href="/produtos">Produtos</a> / <span>{{produto.nome}}</span>
         </div>
 
-        <section class="details">
-          <h1 class="title">{{produto.nome}}</h1>
-          <p class="description">Descrição do Produto</p>
-
-          <div class="price" aria-label="Preço do produto">
-            R$ {{produto.preco}}
-          </div>
-
-          <div>
-            <div class="section-label">Cores</div>
-            <div class="colors" role="list" aria-label="Opções de cores">
-              <div
-                class="color-circle color-1"
-                role="listitem"
-                aria-label="Cor vermelha"
-              ></div>
-              <div
-                class="color-circle color-2"
-                role="listitem"
-                aria-label="Cor laranja clara"
-              ></div>
-              <div
-                class="color-circle color-3"
-                role="listitem"
-                aria-label="Cor cinza clara"
-              ></div>
-              <div
-                class="color-circle color-4"
-                role="listitem"
-                aria-label="Cor marrom escuro"
-              ></div>
-              <div
-                class="color-circle color-5"
-                role="listitem"
-                aria-label="Cor cinza escura"
-              ></div>
+        <div class="product-container">
+            <div class="product-gallery">
+                <div class="main-image">
+                    <img src="{{produto.caminhoimagem or '/static/uploads/img/catalogo/products/default.png'}}" 
+                         alt="{{produto.nome}}" 
+                         id="main-product-img" />
+                </div>
             </div>
-          </div>
 
-          <div>
-            <div class="section-label">Tamanhos</div>
-            <div id="sizes-options">
-              <a href="#">32</a> | <a href="#">34</a> | <a href="#">35</a> |
-              <a href="#">36</a> |
-              <a href="#">37</a>
+            <div class="product-info">
+                <div class="product-category">{{produto.nome_categoria or 'Calçados'}}</div>
+                <h1 class="product-title">{{produto.nome}}</h1>
+                
+                <div class="product-rating">
+                    <div class="stars">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <span class="rating-count">(127 avaliações)</span>
+                </div>
+
+                <div class="product-price">
+                    <span class="current-price">R$ {{produto.preco}}</span>
+                    <span class="installments">ou 3x de R$ {{(produto.preco / 3)|round(2)}} sem juros</span>
+                </div>
+
+                <div class="product-stock">
+                    <span class="stock-badge">✓ {{produto.estoque}} em estoque</span>
+                </div>
+
+                <form id="add-to-cart-form" action="/carrinho/adicionar/{{produto.id_produto}}" method="POST">
+                    <div class="product-options">
+                        <div class="option-group">
+                            <label class="option-label">Tamanho <span class="required">*</span></label>
+                            <div class="size-selector" id="size-selector">
+                                <button type="button" class="size-btn" data-size="32">32</button>
+                                <button type="button" class="size-btn" data-size="33">33</button>
+                                <button type="button" class="size-btn" data-size="34">34</button>
+                                <button type="button" class="size-btn" data-size="35">35</button>
+                                <button type="button" class="size-btn" data-size="36">36</button>
+                                <button type="button" class="size-btn" data-size="37">37</button>
+                                <button type="button" class="size-btn" data-size="38">38</button>
+                                <button type="button" class="size-btn" data-size="39">39</button>
+                            </div>
+                            <input type="hidden" name="tamanho" id="tamanho-input" required />
+                            <span class="error-msg" id="size-error">Por favor, selecione um tamanho</span>
+                        </div>
+
+                        <div class="option-group">
+                            <label class="option-label">Quantidade <span class="required">*</span></label>
+                            <div class="quantity-selector">
+                                <button type="button" class="qty-btn" id="qty-minus">−</button>
+                                <input type="number" name="quantidade" id="quantidade-input" value="1" min="1" max="{{produto.estoque}}" required />
+                                <button type="button" class="qty-btn" id="qty-plus">+</button>
+                            </div>
+                            <span class="error-msg" id="qty-error">Quantidade inválida</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="add-cart-btn" id="add-cart-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 2L9 6M15 2L15 6M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-8.9-4h9.8c.6 0 1.2-.4 1.4-1l2.4-7.1c.1-.2 0-.5-.1-.7-.2-.2-.4-.2-.5-.2H7.2L7 5H3v2h2l3.6 7.6-1.4 2.4c0 .1 0 .2-.1.3 0 .4.3.7.7.7h12v-2H7.4c-.1 0-.2-.1-.2-.2l.1-.1L9.1 14z"/>
+                        </svg>
+                        ADICIONAR AO CARRINHO
+                    </button>
+                </form>
+
+                <div class="product-features">
+                    <div class="feature">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        <span>Frete grátis acima de R$ 299</span>
+                    </div>
+                    <div class="feature">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <span>Primeira troca grátis</span>
+                    </div>
+                    <div class="feature">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                            <line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                        <span>Parcele em até 3x sem juros</span>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    <h3>Descrição do Produto</h3>
+                    <p>Conforto e estilo se encontram neste design exclusivo. Confeccionado com materiais de alta qualidade, este produto oferece durabilidade e elegância para qualquer ocasião.</p>
+                    <ul>
+                        <li>Material de alta qualidade</li>
+                        <li>Design moderno e confortável</li>
+                        <li>Acabamento premium</li>
+                        <li>Versatilidade para diversas ocasiões</li>
+                    </ul>
+                </div>
             </div>
-          </div>
-
-          <div
-            class="rating"
-            aria-label="Avaliação do produto com 4 de 5 estrelas"
-          >
-            <span class="star" aria-hidden="true">★</span>
-            <span class="star" aria-hidden="true">★</span>
-            <span class="star" aria-hidden="true">★</span>
-            <span class="star" aria-hidden="true">★</span>
-            <span class="star empty" aria-hidden="true">★</span>
-          </div>
-
-          <button
-            type="button"
-            class="btn-add"
-            aria-label="Adicionar ao carrinho"
-          >
-            <span class="btn-icon" aria-hidden="true" role="img">
-              <svg
-                fill="white"
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path
-                  d="M7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 2zM17 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-8.07-4h9.14c.63 0 1.19-.39 1.37-.99l2.45-7.07c.08-.25.02-.54-.15-.74a.749.749 0 0 0-.5-.23H7.22L7 5H3v2h2l3.6 7.59-1.35 2.44-.03.06c-.06.1-.09.21-.09.33 0 .38.31.69.69.69h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L9.1 14z"
-                ></path>
-              </svg>
-            </span>
-            ADICIONAR AO CARRINHO
-          </button>
-        </section>
-      </div>
+        </div>
     </main>
 
     <section class="newsletter">
-      <h2>CADASTRE-SE</h2>
-      <p>E GANHE <b>10% OFF</b> NA SUA PRIMEIRA COMPRA</p>
-      <form>
-        <input type="text" placeholder="Nome Completo" />
-        <input type="email" placeholder="Email" />
-        <button type="submit">ENVIAR</button>
-      </form>
+        <h2>CADASTRE-SE</h2>
+        <p>E GANHE <b>10% OFF</b> NA SUA PRIMEIRA COMPRA</p>
+        <form>
+            <input type="text" placeholder="Nome Completo" />
+            <input type="email" placeholder="Email" />
+            <button type="submit">ENVIAR</button>
+        </form>
     </section>
 
     <footer>
-      <div class="footer-links">
-        <div>
-          <h4>MINHA CONTA</h4>
-          <a href="#">Meus Dados</a>
-          <a href="#">Meus Pedidos</a>
-          <a href="#">Cashback</a>
-          <a href="#">Login</a>
+        <div class="footer-links">
+            <div>
+                <h4>MINHA CONTA</h4>
+                <a href="#">Meus Dados</a>
+                <a href="#">Meus Pedidos</a>
+                <a href="#">Cashback</a>
+                <a href="#">Login</a>
+            </div>
+            <div>
+                <h4>SUPORTE E POLÍTICAS</h4>
+                <a href="#">Trocas e Devoluções</a>
+                <a href="#">Dúvidas Frequentes</a>
+                <a href="#">Fale Conosco</a>
+                <a href="#">Política de Privacidade</a>
+            </div>
+            <div>
+                <h4>FORMAS DE PAGAMENTO</h4>
+                <img src="/static/uploads/img/catalogo/footer/payment.png" alt="Formas de Pagamento" />
+            </div>
         </div>
-        <div>
-          <h4>SUPORTE E POLÍTICAS</h4>
-          <a href="#">Trocas e Devoluções</a>
-          <a href="#">Dúvidas Frequentes</a>
-          <a href="#">Fale Conosco</a>
-          <a href="#">Política de Privacidade</a>
-        </div>
-        <div>
-          <h4>FORMAS DE PAGAMENTO</h4>
-          <img
-            src="/static/uploads/img/catalogo/footer/payment.png"
-            alt="Formas de Pagamento"
-          />
-        </div>
-      </div>
-      <hr />
-      <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+        <hr />
+        <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
     </footer>
 
-    <script src="/static/js/swiper.js"></script>
-    <script src="/static/js/banner.js"></script>
     <script src="/static/js/menu.js"></script>
-    <script src="/static/js/add_cart.js"></script>
-    <script src="/static/js/cart-ui.js" defer></script>
-    <script src="/static/js/products-toggle.js" defer></script>
-    <script src="/static/js/nav-enhancements.js" defer></script>
-    <script src="/static/js/arrows.js" defer></script>
-  </body>
+    <script src="/static/js/cart-ui.js"></script>
+    <script src="/static/js/nav-enhancements.js"></script>
+    <script src="/static/js/product-page.js"></script>
+</body>
 </html>

@@ -10,3 +10,6 @@ email-validator
 requests
 authlib
 python-dotenv
+httpx
+itsdangerous
+aiofiles
