@@ -1,11 +1,10 @@
 from fastapi import APIRouter, Request, Form, UploadFile, File, Depends 
-from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi import HTTPException
+from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import os, shutil
 from sqlalchemy.orm import Session
 from database import get_db
-from controllers.controller_produtos import *
+from controllers.produtos_controller import *
 from schemas.produto_schema import *
 
 router = APIRouter() #rotas

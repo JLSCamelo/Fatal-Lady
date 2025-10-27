@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from database import get_db
-from controllers.controller_cadastro import *
+from controllers.cadastro_controller import *
 from auth import *
 
 router = APIRouter()

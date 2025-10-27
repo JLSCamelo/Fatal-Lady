@@ -4,7 +4,7 @@ from fastapi import APIRouter, Request, Form, Depends
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from database import get_db
-from controllers.controller_login import login_controller
+from controllers.login_controller import login_controller
 
 router = APIRouter()
 templates = Jinja2Templates(directory="views/templates")

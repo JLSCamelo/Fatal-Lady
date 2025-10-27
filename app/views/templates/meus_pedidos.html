@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus pedidos</title>
+</head>
+<body>
+    <h2>Meus pedidos</h2>
+    {% if pedidos %}
+    <ul>
+        {% for i in pedidos %}
+        <li>Pedido {{i.id}} Nome {{i.nome}} - Total: R$ {{i.total}}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>Ainda não fez nenhum pedido</p>
+    {% endif %}
+    <a href="/">Voltar à loja</a>
+</body>
+</html>

@@ -11,7 +11,7 @@ router = APIRouter()
 def ver_carrinho(request: Request, db: Session = Depends(get_db)):
     return carrinho_visualizar(request, db)
 
-@router.post("/carrinho.adicionar/{produto_id}")
+@router.post("/carrinho/adicionar/{produto_id}")
 def adicionar_carrinho(request:Request,
                        produto_id: int,
                        quantidade: int=Form(1),

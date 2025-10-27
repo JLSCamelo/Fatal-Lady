@@ -5,7 +5,7 @@ from models.pedido_model import *
 from models.usuario_model import UsuarioDB
 from auth import *
 from sqlalchemy.orm import Session
-from carrinho_controller import carrinhos
+from controllers.carrinho_controller import carrinhos
 
 def checkout(request:Request,db:Session):
     token=request.cookies.get("token")
