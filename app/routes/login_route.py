@@ -59,6 +59,7 @@ async def auth_google_callback(request: Request, db: Session = Depends(get_db)):
         usuario = UsuarioDB(email=email, nome=nome, senha="")
         db.add(usuario)
         db.commit()
+        db.refresh(usuario)
     
     # Cria JWT e seta cookie
     jwt = criar_token({"sub": usuario.email})
