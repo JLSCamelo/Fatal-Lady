@@ -38,6 +38,47 @@ def carrinho_add(request: Request,
     
     return RedirectResponse(url="/carrinho",status_code=303)
 
+def carrinho_remover(request: Request,
+                    produto_id: int,
+                    db: Session):
+    token = request.cookies.get("token")
+    payload=verificar_token(token)
+
+    if not payload:
+        return RedirectResponse(url="/login",status_code=303)
+    
+    email=payload.get("sub")
+    usuario=db.query(UsuarioDB).filter_by(email=email).first()
+
+    carrinho = carrinhos.get(usuario.id_cliente, [])
+    carrinho = [item for item in carrinho if item["id"] != produto_id]
+    carrinhos[usuario.id_cliente] = carrinho
+
+    return RedirectResponse(url="/carrinho", status_code=303)
+
+
+def carrinho_update(request: Request,
+                    produto_id: int,
+                    quantidade: int,
+                    db: Session):
+    token = request.cookies.get("token")
+    payload=verificar_token(token)
+
+    if not payload:
+        return RedirectResponse(url="/login",status_code=303)
+    
+    email=payload.get("sub")
+    usuario=db.query(UsuarioDB).filter_by(email=email).first()
+
+    carrinho =  carrinhos.get(usuario.id_cliente, [])
+    for item in carrinho:
+        if item["id"] == produto_id:
+            item["quantidade"] = quantidade
+            break
+
+    return RedirectResponse(url="/carrinho", status_code=303)     
+
+
 def carrinho_visualizar(request: Request,
                         db: Session):
     token = request.cookies.get("token")

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,19 +7,37 @@
 </head>
 <body>
     <h2>Meu Carrinho</h2>
+
     {% if carrinho %}
     <ul>
         {% for item in carrinho %}
-            <li>{{item.nome}} - {{item.quantidade}} R$ {{item.preco}} </li>
+        <li>
+            <strong>{{ item.nome }}</strong> — R$ {{ item.preco }} -- ID -{{item.id}}<br>
+
+            <!-- Formulário para editar quantidade -->
+            <form action="/carrinho/editar/{{ item.id }}" method="post" style="display:inline;">
+                <input type="number" name="quantidade" value="{{ item.quantidade }}" min="1" required>
+                <button type="submit">Atualizar</button>
+            </form>
+
+            <!-- Formulário para remover produto -->
+            <form action="/carrinho/remover/{{ item.id }}" method="post" style="display:inline;">
+                <button type="submit" style="color:red;">Remover</button>
+            </form>
+        </li>
         {% endfor %}
     </ul>
-    <p>Total: R${{total}}</p>
+
+    <p><strong>Total:</strong> R$ {{ total }}</p>
+
     <form action="/checkout" method="post">
         <button type="submit">Finalizar compra</button>
     </form>
+
     {% else %}
-        <p>Carrinho está Vazio</p>
+        <p>Carrinho está vazio!</p>
     {% endif %}
+
     <a href="/">Voltar à loja</a>
 </body>
 </html>
