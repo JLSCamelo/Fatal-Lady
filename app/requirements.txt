@@ -8,3 +8,5 @@ python-multipart
 pydantic
 email-validator
 requests
+authlib
+python-dotenv

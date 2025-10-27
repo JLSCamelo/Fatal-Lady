@@ -9,10 +9,21 @@ from fastapi.staticfiles import StaticFiles
 from database import Base, engine
 from models import *
 
+# usado para login com google e facebook
+from starlette.middleware.sessions import SessionMiddleware
+
 Base.metadata.create_all(bind=engine)
 
 
 app = FastAPI(title="Loja de Sapatos")
+
+# Adicione ANTES das rotas
+app.add_middleware(
+    SessionMiddleware,
+    secret_key="FaltaLadyProject2025",
+    same_site="lax",  # evita bloqueio de cookies
+    https_only=False,  # True em produção (HTTPS)
+)
 
 app.mount("/static", StaticFiles(directory="views/static"), name="static")
 
