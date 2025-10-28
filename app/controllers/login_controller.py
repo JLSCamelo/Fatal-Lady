@@ -1,10 +1,11 @@
 from models.usuario_model import UsuarioDB
+from fastapi import Request
 from auth import verificar_senha, criar_token, rehash_password_if_needed
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from urllib.parse import urlencode
 
-def login_controller(request,
+def login_controller(request: Request,
                      email: str,
                      senha: str,
                      db: Session):
@@ -12,18 +13,18 @@ def login_controller(request,
     usuario = db.query(UsuarioDB).filter(UsuarioDB.email == email).first()
 
     if not usuario or not verificar_senha(senha, usuario.senha):
-        params = urlencode({"msg": "invalid"})
-        return RedirectResponse(url=f"/login?{params}", status_code=303)
+        return RedirectResponse(url=f"/login", status_code=303)
 
-    token = criar_token({"sub": usuario.email})
- 
-    novo_hash = rehash_password_if_needed(senha, usuario.senha)
-    if novo_hash:
-        usuario.senha = novo_hash
-        db.add(usuario)
-        db.commit()
+    #criar o token no campo is_admin
+    token=criar_token({"sub":usuario.email,
+                       "is_admin":usuario.is_admin})
+    
+    #verificar se o user é admin e direcionar a rota
+    if usuario.is_admin:
+        destino="/admin"
+    else:
+        destino="/"
 
-    params = urlencode({"msg": "success"})
-    response = RedirectResponse(url=f"/login?{params}", status_code=303)
+    response = RedirectResponse(url=destino, status_code=303)
     response.set_cookie(key="token", value=token, httponly=True) 
     return response

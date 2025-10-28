@@ -10,11 +10,11 @@ class ProdutoDB(Base):
     nome = Column(String,nullable=False,index=True)
     preco = Column(Float,nullable=False)
     estoque = Column(Integer,nullable=False)
-    tamanhos = Column(Integer,nullable=False)
     id_categoria = Column(String,nullable=True)
-    nome_categoria = Column(String,nullable=True)
     id_fabricante = Column(Integer,nullable=False)
+    tamanhos = Column(Integer,nullable=False)
     caminhoimagem = Column(String,nullable=True)
+    nome_categoria = Column(String,nullable=True)
     
     itens_pedido = relationship("ItemPedidoDB", back_populates="produto")
 
