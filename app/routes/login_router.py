@@ -7,7 +7,10 @@ from database import get_db
 from controllers.login_controller import login_controller
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi import Request
+
 from oauth_config import oauth
+from starlette.requests import Request as LoginStarlette
+
 from auth import criar_token
 from models.usuario_model import UsuarioDB
 router = APIRouter()
@@ -33,13 +36,13 @@ def login_post(request: Request,
 #Verificar
 # rota para iniciar login Google
 @router.get("/login/google")
-async def login_google(request: Request):
+async def login_google(request: LoginStarlette):
     redirect_uri = request.url_for("auth_google_callback")
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
 # rota de retorno Google
-@router.get("/auth/google/callback")
-async def auth_google_callback(request: Request, db: Session = Depends(get_db)):
+@router.get("/auth/google/callback", name="auth_google_callback")
+async def auth_google_callback(request: LoginStarlette, db: Session = Depends(get_db)):
     # Aqui valida o state e pega o token
     token = await oauth.google.authorize_access_token(request)
     
@@ -65,12 +68,12 @@ async def auth_google_callback(request: Request, db: Session = Depends(get_db)):
 
 # ====== FACEBOOK ======
 @router.get("/login/facebook")
-async def login_facebook(request: Request):
+async def login_facebook(request: LoginStarlette):
     redirect_uri = request.url_for("auth_facebook_callback")
     return await oauth.facebook.authorize_redirect(request, redirect_uri)
 
 @router.get("/auth/facebook/callback")
-async def auth_facebook_callback(request: Request, db: Session = Depends(get_db)):
+async def auth_facebook_callback(request: LoginStarlette, db: Session = Depends(get_db)):
        # Aqui valida o state e pega o token
     token = await oauth.facebook.authorize_access_token(request)
     
