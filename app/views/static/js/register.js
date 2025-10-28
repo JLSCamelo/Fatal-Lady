@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       if (senha.length < 8) {
-        alert('A senha deve ter no mínimo 8 caracteres!');
+        alert('A Senha deve ter no mínimo 8 caracteres!');
         senhaInput.focus();
         return;
       }
