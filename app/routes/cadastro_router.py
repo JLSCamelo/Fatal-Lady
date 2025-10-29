@@ -11,7 +11,7 @@ templates = Jinja2Templates(directory="views/templates")
 
 # Página do formulário de cadastro
 @router.get("/cadastrar", response_class=HTMLResponse)
-def pagina_cadastro(request: Request):
+def get_cadastro(request: Request):
     return templates.TemplateResponse(
         "registrar.html", 
         {"request": request}
@@ -19,7 +19,7 @@ def pagina_cadastro(request: Request):
 
 # Cadastro de novo usuário
 @router.post("/cadastrar")
-def cadastrar_usuario(
+def post_usuario(
     request: Request,
     nome: str = Form(...),
     email: str = Form(...),

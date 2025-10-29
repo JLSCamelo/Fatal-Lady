@@ -23,7 +23,7 @@ def home(request:Request):
     })
 
 @router.post("/login")
-def login_post(request: Request,
+def post_login(request: Request,
                email: str = Form(...),
                senha: str = Form(...),
                db: Session = Depends(get_db)):

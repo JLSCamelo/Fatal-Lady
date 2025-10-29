@@ -20,4 +20,4 @@ class ProdutoDB(Base):
     itens_pedido = relationship("ItemPedidoDB", back_populates="produto")
 
 #criar banco e tabelas
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
