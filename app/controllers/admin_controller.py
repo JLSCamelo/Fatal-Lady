@@ -1,4 +1,4 @@
-from fastapi import Form, Request, Depends, UploadFile, File
+from fastapi import Form, Request, Depends, UploadFile, File, HTTPException
 from fastapi.responses import RedirectResponse
 import os, shutil
 from database import *
@@ -80,4 +80,12 @@ def listar_categorias(db: Session):
 
 def listar_produtos_categoria(db:Session, id_categoria:int):
     produtos = db.query(ProdutoDB).filter(ProdutoDB.id_categoria == id_categoria).all()
+    if not produtos:
+        raise HTTPException(status_code=404, detail="Nenhum produto encontrado para essa categoria")
     return produtos
+
+def listar_nome_categoria(db:Session, id_categoria:int):
+    categoria = db.query(CategoriaDB).filter(CategoriaDB.id == id_categoria).first()
+    if not categoria:
+        raise HTTPException(status_code=404, detail="Nenhuma categoria encontrado")
+    return categoria.nome

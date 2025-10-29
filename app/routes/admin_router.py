@@ -35,14 +35,17 @@ def delete_produto(id:int,db:Session=Depends(get_db)):
 ################################################################################################
 #Exibir categorias
 
-@router.get("/admin/categoria/")
-def exibir_categorias(db:Session=Depends(get_db)):
+@router.get("/admin/categorias/")
+def get_categorias(db:Session=Depends(get_db)):
     categorias = listar_categorias(db)
     return categorias
 
 @router.get("/admin/categoria/{id_categoria}/produtos")
-def produtos_por_categoria(id_categoria: int, db: Session = Depends(get_db)):
+def get_produtos_categoria(id_categoria: int, db: Session = Depends(get_db)):
     produtos = listar_produtos_categoria(db, id_categoria)
-    if not produtos:
-        raise HTTPException(status_code=404, detail="Nenhum produto encontrado para essa categoria")
+    return produtos
+
+@router.get("/admin/categoria/{id_categoria}/nome")
+def get_nome_categoria(id_categoria: int, db: Session = Depends(get_db)):
+    produtos = listar_nome_categoria(db, id_categoria)
     return produtos
