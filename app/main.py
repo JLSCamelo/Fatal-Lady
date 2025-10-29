@@ -7,6 +7,7 @@ from routes.checkout_router import router as checkout_router
 from routes.meus_pedidos_router import router as meus_pedidos_router
 from routes.logout_router import router as logout_router
 from routes.admin_router import router as admin_router
+from routes.categoria_router import router as categoria_router
 from fastapi.staticfiles import StaticFiles
 from database import Base, engine
 from models import *
@@ -37,5 +38,6 @@ app.include_router(checkout_router)
 app.include_router(meus_pedidos_router)   
 app.include_router(admin_router)   
 app.include_router(logout_router)   
+app.include_router(categoria_router)   
 
  

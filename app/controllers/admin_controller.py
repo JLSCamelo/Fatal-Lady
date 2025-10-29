@@ -1,9 +1,9 @@
-from fastapi import Form, Request, Depends, UploadFile, File
-from controllers.admin_controller import *
+from fastapi import Form, Request, Depends, UploadFile, File, HTTPException
 from fastapi.responses import RedirectResponse
 import os, shutil
 from database import *
 from models.produto_model import ProdutoDB
+from models.categoria_model import CategoriaDB
 from fastapi.templating import Jinja2Templates
 from auth import *
 from sqlalchemy.orm import Session

@@ -27,7 +27,7 @@
 
     form fieldset{border:0;padding:0;margin:0}
     label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted)}
-    input[type="text"], input[type="number"], input[type="file"]{width:100%;padding:8px 10px;border:1px solid #e6eef6;border-radius:8px}
+    input[type="text"], input[type="number"], input[type="file"], select{width:100%;padding:8px 10px;border:1px solid #e6eef6;border-radius:8px}
 
     .actions{display:flex;gap:8px}
     .empty{padding:40px;text-align:center;color:var(--muted)}
@@ -66,7 +66,9 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Preço</th>
-                <th>Quantidade</th>
+                <th>Estoque</th>
+                <th>Tamanho</th>
+                <th>Categoria</th>
                 <th>Imagem</th>
                 <th style="width:170px">Ações</th>
               </tr>
@@ -78,6 +80,8 @@
                 <td>{{ p.nome }}</td>
                 <td>R$ {{ "%.2f"|format(p.preco) }}</td>
                 <td>{{ p.estoque }}</td>
+                <td>{{ p.tamanhos }}</td>
+                <td>{{ p.nome_categoria or (p.categoria.nome if p.categoria else "-") }}</td>
                 <td>
                   {% if p.caminhoimagem %}
                     <img src="/static/uploads/img/{{ p.caminhoimagem }}" alt="{{ p.nome }}" width="70">
@@ -117,8 +121,33 @@
             <label for="preco">Preço (R$)</label>
             <input id="preco" name="preco" type="number" step="0.01" required />
 
-            <label for="quantidade">Quantidade</label>
-            <input id="quantidade" name="quantidade" type="number" step="1" value="1" required />
+            <label for="estoque">Estoque</label>
+            <input id="estoque" name="estoque" type="number" step="1" min="0" required />
+
+            <label for="tamanhos">Tamanhos</label>
+            <input id="tamanhos" name="tamanhos" type="number" required />
+
+<!--             
+            <form id="categoriaForm" method="get"> -->
+            <label for="id_categoria">Categoria</label>
+            <select id="id_categoria" name="id_categoria" onchange="redirectCategoria(this)">
+                <option value="">Selecione uma categoria</option>
+                {% for c in categorias %}
+                    <option value="{{ c.id }}">{{ c.nome }}</option>
+                {% endfor %}
+            </select>
+            <!-- </form> -->
+
+            <script>
+            function redirectCategoria(select) {
+                const id = select.value;
+                if (id) {
+                    window.location.href = `/admin/categoria/${id}/nome`;
+                }
+            }
+            </script>
+
+
 
             <label for="imagem">Imagem</label>
             <input id="imagem" name="imagem" type="file" />
