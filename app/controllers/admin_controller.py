@@ -77,3 +77,7 @@ def deletar_produto(id:int,db:Session):
 def listar_categorias(db: Session):
     categorias = db.query(CategoriaDB).all()
     return categorias
+
+def listar_produtos_categoria(db:Session, id_categoria:int):
+    produtos = db.query(ProdutoDB).filter(ProdutoDB.id_categoria == id_categoria).all()
+    return produtos

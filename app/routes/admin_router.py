@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Form, Request, Depends, UploadFile, File
+from fastapi import APIRouter, Form, Request, Depends, UploadFile, File, HTTPException
 from controllers.admin_controller import *
 from fastapi.responses import HTMLResponse
 from database import *
@@ -31,7 +31,18 @@ def delete_produto(id:int,db:Session=Depends(get_db)):
     return deletar_produto(id,db)
 
 
-@router.get("/admin/categorias/")
+
+################################################################################################
+#Exibir categorias
+
+@router.get("/admin/categoria/")
 def exibir_categorias(db:Session=Depends(get_db)):
     categorias = listar_categorias(db)
     return categorias
+
+@router.get("/admin/categoria/{id_categoria}/produtos")
+def produtos_por_categoria(id_categoria: int, db: Session = Depends(get_db)):
+    produtos = listar_produtos_categoria(db, id_categoria)
+    if not produtos:
+        raise HTTPException(status_code=404, detail="Nenhum produto encontrado para essa categoria")
+    return produtos

@@ -15,3 +15,6 @@ class CategoriaDB(Base):
     id = Column(Integer, primary_key=True, index=True)
     nome = Column(String) 
     descricao = Column(String, nullable=True)
+
+     # Relacionamento com produtos
+    produtos = relationship("ProdutoDB", back_populates="categoria")
