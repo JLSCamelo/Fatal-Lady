@@ -5,7 +5,6 @@ import os, shutil
 from sqlalchemy.orm import Session
 from database import get_db
 from controllers.produtos_controller import *
-from schemas.produto_schema import *
 
 router = APIRouter() #rotas
 templates = Jinja2Templates(directory="views/templates") #front-end

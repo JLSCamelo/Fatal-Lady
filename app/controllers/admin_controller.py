@@ -1,9 +1,9 @@
 from fastapi import Form, Request, Depends, UploadFile, File
-from controllers.admin_controller import *
 from fastapi.responses import RedirectResponse
 import os, shutil
 from database import *
 from models.produto_model import ProdutoDB
+from models.categoria_model import CategoriaDB
 from fastapi.templating import Jinja2Templates
 from auth import *
 from sqlalchemy.orm import Session
@@ -72,3 +72,8 @@ def deletar_produto(id:int,db:Session):
         db.commit()
 
     return RedirectResponse(url="/admin",status_code=303)
+
+
+def listar_categorias(db: Session):
+    categorias = db.query(CategoriaDB).all()
+    return categorias

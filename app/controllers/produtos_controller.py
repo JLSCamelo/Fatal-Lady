@@ -42,10 +42,6 @@ def get_produto(id_produto):
     finally:
         db.close()
     
-
-
-
-#Terminar
 def criar_produto(produto: ProdutoDB):
     db = SessionLocal()
     try:

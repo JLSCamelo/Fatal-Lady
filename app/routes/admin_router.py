@@ -29,3 +29,9 @@ async def create_produto(
 @router.post("/admin/produto/deletar/{id}")
 def delete_produto(id:int,db:Session=Depends(get_db)):
     return deletar_produto(id,db)
+
+
+@router.get("/admin/categorias/")
+def exibir_categorias(db:Session=Depends(get_db)):
+    categorias = listar_categorias(db)
+    return categorias
