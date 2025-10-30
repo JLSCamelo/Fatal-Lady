@@ -18,5 +18,6 @@ class UsuarioDB(Base):
     is_admin = Column(Boolean, default=False)
     #relação de tabela
     pedidos=relationship("PedidoDB",back_populates="usuario")
+    carrinho =relationship("CarrinhoDB",back_populates="usuario")
 
     

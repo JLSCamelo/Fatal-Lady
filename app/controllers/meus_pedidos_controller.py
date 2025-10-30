@@ -7,7 +7,7 @@ from fastapi.responses import RedirectResponse
 from models.usuario_model import UsuarioDB
 from database import *
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="views/templates")
 
 def pedidos_usuario(request:Request,db:Session):
     token=request.cookies.get("token")
@@ -18,7 +18,7 @@ def pedidos_usuario(request:Request,db:Session):
     
     email=payload.get("sub")
     usuario=db.query(UsuarioDB).filter_by(email=email).first()
-    pedidos=db.query(PedidoDB).filter_by(usuario_id=usuario.id).all()
+    pedidos=db.query(PedidoDB).filter_by(id_cliente=usuario.id_cliente).all()
 
     return templates.TemplateResponse("meus_pedidos.html",
             {"request":request,"pedidos":pedidos})
