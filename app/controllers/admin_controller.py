@@ -1,4 +1,4 @@
-from fastapi import Form, Request, Depends, UploadFile, File, HTTPException
+from fastapi import Form, Request, UploadFile, File
 from fastapi.responses import RedirectResponse
 import os, shutil
 from database import *
@@ -14,9 +14,7 @@ UPLOAD_DIR="views/static/uploads/img"
 os.makedirs(UPLOAD_DIR,exist_ok=True)
 
 
-def pagina_admin(request:Request,db:Session=Depends(get_db)):
-
-    #token do admin
+def pagina_admin(request:Request,db:Session):
     token=request.cookies.get("token")
     payload=verificar_token(token)
 
@@ -63,8 +61,44 @@ def criar_produto(request: Request,
 
     return RedirectResponse(url="/admin", status_code=303)
 
-def deletar_produto(id:int,db:Session):
+def editar_produto(id:int, request: Request,db:Session):
+    token = request.cookies.get("token")
+    payload = verificar_token(token)
 
+    if not payload or payload.get("is_admin"):
+        return RedirectResponse(url="/",status_code=303)
+    
+    produto = db.query(ProdutoDB).filter(ProdutoDB.id_produto==id).first()
+    if not produto:
+        return RedirectResponse(url="/admin",status_code=303)
+    
+    return templates.TemplateResponse("editar.html",{
+        "request":request, "produto":produto
+    })
+
+def atualizar_produto(id:int,nome:str,
+                      preco:float, quantidade:int,
+                      imagem:UploadFile,db:Session):
+    
+    produto = db.query(ProdutoDB).filter(ProdutoDB.id_produto==id).first()
+    if not produto:
+        return RedirectResponse(url="/admin", status_code=303)
+    
+    #atualizar campos
+    produto.nome = nome
+    produto.preco = preco
+    produto.estoque = quantidade
+    #atualizar image se uma nova for enviada
+    if imagem and imagem.filename !="":
+        caminho_arquivo=f"{UPLOAD_DIR}/{imagem.filename}"
+        with open(caminho_arquivo,"wb") as arquivo:
+            shutil.copyfileobj(imagem.file,arquivo)
+        produto.caminhoimagem=imagem.filename
+        db.commit()
+        db.refresh(produto)
+        return RedirectResponse(url="/admin",status_code=303)
+
+def deletar_produto(id:int,db:Session):
     produto=db.query(ProdutoDB).filter(ProdutoDB.id_produto==id).first()
 
     if produto:

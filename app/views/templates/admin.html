@@ -127,25 +127,14 @@
             <label for="tamanhos">Tamanhos</label>
             <input id="tamanhos" name="tamanhos" type="number" required />
 
-<!--             
-            <form id="categoriaForm" method="get"> -->
             <label for="id_categoria">Categoria</label>
-            <select id="id_categoria" name="id_categoria" onchange="redirectCategoria(this)">
-                <option value="">Selecione uma categoria</option>
-                {% for c in categorias %}
-                    <option value="{{ c.id }}">{{ c.nome }}</option>
+            <select id="id_categoria" name="id_categoria">
+              <option value="">Selecione uma categoria</option>
+              {% for c in categoria %}
+                <option>{{ c.nome }}</option>
                 {% endfor %}
             </select>
-            <!-- </form> -->
 
-            <script>
-            function redirectCategoria(select) {
-                const id = select.value;
-                if (id) {
-                    window.location.href = `/admin/categoria/${id}/nome`;
-                }
-            }
-            </script>
 
 
 

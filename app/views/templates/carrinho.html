@@ -12,16 +12,16 @@
     <ul>
         {% for item in carrinho %}
         <li>
-            <strong>{{ item.nome }}</strong> — R$ {{ item.preco }} -- ID -{{item.id}}<br>
+            <strong>{{ item.id }}</strong> — R$ {{ item.preco_unitario }} -- ID -{{item.produto_id}}<br>
 
             <!-- Formulário para editar quantidade -->
-            <form action="/carrinho/editar/{{ item.id }}" method="post" style="display:inline;">
+            <form action="/carrinho/editar/{{ item.produto_id }}" method="post" style="display:inline;">
                 <input type="number" name="quantidade" value="{{ item.quantidade }}" min="1" required>
                 <button type="submit">Atualizar</button>
             </form>
 
             <!-- Formulário para remover produto -->
-            <form action="/carrinho/remover/{{ item.id }}" method="post" style="display:inline;">
+            <form action="/carrinho/remover/{{ item.produto_id }}" method="post" style="display:inline;">
                 <button type="submit" style="color:red;">Remover</button>
             </form>
         </li>
