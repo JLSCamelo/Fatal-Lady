@@ -134,7 +134,7 @@ nav {
 /* Compensar altura do header + nav */
 body {
   background-color: var(--background);
-  padding-top: 8.2rem;
+  padding-top: 8rem;
 }
 
 /* Remover classes antigas não usadas */
