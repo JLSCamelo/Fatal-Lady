@@ -21,7 +21,7 @@
   </head>
 
   <body>
-    <header>
+    <header id="main_header">
       <div class="header-div">
         <img
           src="/static/uploads/img/home/icons-main/languages.png"
@@ -46,119 +46,45 @@
 
     <nav>
       <div class="nav-div">
-        <form action="/search" method="get" id="search-form">
-          <button type="submit">
-            <img
-              src="/static/uploads/img/home/icons-main/lupa.png"
-              id="search-icon"
-            />
-          </button>
-          <input
-            type="search"
-            id="search-input"
-            name="Search"
-            placeholder="Buscar"
+        <a href="/" class="text_sections">Início</a>
+        <a href="/produtos" class="text_sections">Catálogo</a>
+        <a href="/carrinho" class="text_sections">Carrinho</a>
+      </div>
+
+      <div class="nav-div">
+        <a href="/">
+          <img
+            src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+            id="logo"
+            alt="Logo"
           />
-        </form>
+        </a>
       </div>
 
       <div class="nav-div">
-        <img
-          src="/static/uploads/img/home/icons-main/letreiro-logo.png"
-          id="logo"
-          alt="Logo"
-        />
-      </div>
-
-      <div class="nav-div">
-        <img
-          src="/static/uploads/img/home/icons-main/carrinho-de-compras.png"
-          id="shopping-kart-icon"
-          class="icons"
-        />
-        <img
-          src="/static/uploads/img/home/icons-main/menu-hamburguer.png"
-          id="menu-hamburguer-icon"
-          class="icons"
-        />
+        <a href="/carrinho">
+          <img
+            src="/static/uploads/img/home/icons-main/kart.png"
+            id="kart-icon"
+            class="icons"
+          />
+        </a>
+        <a href="/produtos">
+          <img
+            src="/static/uploads/img/home/icons-main/shop.png"
+            id="shop-icon"
+            class="icons"
+          />
+        </a>
+        <a href="/">
+          <img
+            src="/static/uploads/img/home/icons-main/user.png"
+            id="user-icon"
+            class="icons"
+          />
+        </a>
       </div>
     </nav>
-
-    <div
-      id="side-overlay"
-      aria-hidden="true"
-      aria-labelledby="side-title"
-      role="dialog"
-    >
-      <aside id="side-panel" aria-modal="true">
-        <div class="side-header">
-          <h2 id="side-title">Menu</h2>
-          <button id="side-close" aria-label="Fechar menu">✕</button>
-        </div>
-
-        <nav id="side-nav">
-          <ul>
-            <li><a href="/" class="side-link">Home</a></li>
-            <li><a href="/produtos" class="side-link">Catálogo</a></li>
-          </ul>
-        </nav>
-
-        <section
-          class="side-section"
-          id="cart-section"
-          aria-labelledby="cart-title"
-        >
-          <div class="cart-header">
-            <h3 id="cart-title">Carrinho</h3>
-            <div id="cart-summary"><span id="cart-count">0</span> itens</div>
-          </div>
-          <div id="cart-preview" aria-live="polite">
-            <p class="cart-empty">Seu carrinho está vazio.</p>
-          </div>
-          <div class="cart-actions">
-            <a id="view-cart-btn" class="btn" href="cart.html">Ver carrinho</a>
-            <a id="checkout-btn" class="btn primary" href="checkout.html"
-              >Finalizar</a
-            >
-          </div>
-        </section>
-
-        <section class="side-section">
-          <h3>Categorias</h3>
-          <ul class="side-cats">
-            <li><a href="#">Saltos</a></li>
-            <li><a href="#">Rasteiras</a></li>
-            <li><a href="#">Botas</a></li>
-            <li><a href="#">Tênis</a></li>
-            <li><a href="#">Sapatilhas</a></li>
-            <li><a href="#">Sandálias</a></li>
-          </ul>
-        </section>
-
-        <section class="side-section">
-          <h3>Conta</h3>
-          <ul class="side-options-account">
-            <li><a href="account.html">Minha Conta</a></li>
-            <li><a href="orders.html">Meus Pedidos</a></li>
-            <li><a href="wishlist.html">Favoritos</a></li>
-            <li><a href="settings.html">Configurações</a></li>
-          </ul>
-        </section>
-
-        <section class="side-section">
-          <h3>Ajuda</h3>
-          <ul class="side-options">
-            <li><a href="contact.html">Fale conosco</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-          </ul>
-        </section>
-
-        <div class="side-footer">
-          <button id="clear-cart" class="text-btn">Limpar carrinho</button>
-          <a href="#" id="logout-link" class="text-btn">Sair</a>
-        </div>
-      </aside>
-    </div>
 
     <main>
       <section id="main-page">
@@ -364,7 +290,7 @@
               data-id="{{ p.id_produto }}"
               data-price="{{ (p.preco) }}"
             >
-              <div class="product-badge">{{ (p.id_categoria)|upper }}</div>
+              <div class="product-badge">{{ (p.nome_categoria)|upper }}</div>
               <a href="/produto-get/{{ p.id_produto }}" class="product-media">
                 <img
                   src="/static/uploads/img/catalogo/products/default.png"
@@ -612,9 +538,7 @@
 
     <script src="/static/js/swiper.js"></script>
     <script src="/static/js/banner.js"></script>
-    <script src="/static/js/menu.js"></script>
     <script src="/static/js/add_cart.js"></script>
-    <script src="/static/js/cart-ui.js" defer></script>
     <script src="/static/js/products-toggle.js" defer></script>
     <script src="/static/js/nav-enhancements.js" defer></script>
   </body>

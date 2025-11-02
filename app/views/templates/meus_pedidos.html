@@ -1,0 +1,19 @@
+<h2>Meus pedidos</h2>
+{% if pedidos %}
+    <ul>
+        {% for p in pedidos %}
+            <li>
+                <strong>Número do Pedido {{ p.id }}</strong> - Total: R$ {{ "%.2f"|format(p.valortotal) }}
+                <ul>
+                    {% for item in p.itens %}
+                        <li>{{ item.produto.nome }} — {{ item.quantidade }}x R$ {{ "%.2f"|format(item.preco_unitario) }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Ainda não fez nenhum pedido</p>
+{% endif %}
+
+<a href="/">Voltar à loja</a>

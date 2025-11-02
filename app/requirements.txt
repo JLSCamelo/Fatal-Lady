@@ -1,2 +1,16 @@
-#bibliotecas e framework
-pip install fastapi uvicorn jinja2 sqlalchemy 
+fastapi
+uvicorn
+sqlalchemy
+jinja2
+python-jose
+passlib[bcrypt]
+python-multipart
+pydantic
+email-validator
+requests
+authlib
+python-dotenv
+httpx
+itsdangerous
+aiofiles
+authlib

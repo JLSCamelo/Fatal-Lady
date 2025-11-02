@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Login</title>
-    <link
-      rel="icon"
-      href="/static/uploads/img/main_icon/icon.png"
-      type="image/png"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', path='css/login-style.css') }}"
-    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Fatal Lady</title>
+    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png" />
+    <link rel="stylesheet" href="{{ url_for('static', path='css/login-style.css') }}" />
   </head>
+
   <body>
-    <header>
+    <header id="main_header">
       <div class="header-div">
         <img
           src="/static/uploads/img/home/icons-main/languages.png"
           id="language-icon"
-          alt="Ícone idioma"
         />
-        <select id="language" name="language" aria-label="Idioma">
+        <select name="language" id="language">
           <option value="br">BR</option>
           <option value="en">EN</option>
           <option value="es">ES</option>
@@ -30,174 +23,218 @@
       </div>
 
       <div class="header-div">
-        <p class="promo">
-          <strong>Frete Grátis</strong> para Compras Acima de R$ 299,00
-        </p>
+        <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
       </div>
 
       <div class="header-div">
         <a href="#">Ajuda</a>
-        <a href="#">Entrar</a>
+        <a href="/login">Entrar</a>
       </div>
     </header>
 
     <nav>
       <div class="nav-div">
-        <form id="search-form" action="/search" method="get" role="search">
-          <button type="submit" aria-label="Buscar">
-            <img
-              src="/static/uploads/img/home/icons-main/lupa.png"
-              id="search-icon"
-              alt=""
-            />
-          </button>
-          <input
-            id="search-input"
-            name="Search"
-            type="search"
-            placeholder="Buscar"
+        <a href="/" class="text_sections">Início</a>
+        <a href="/produtos" class="text_sections">Catálogo</a>
+        <a href="/carrinho" class="text_sections">Carrinho</a>
+      </div>
+
+      <div class="nav-div">
+        <a href="/">
+          <img
+            src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+            id="logo"
+            alt="Logo"
           />
-        </form>
+        </a>
       </div>
 
       <div class="nav-div">
-        <img
-          src="/static/uploads/img/home/icons-main/letreiro-logo.png"
-          id="logo"
-          alt="Logo"
-        />
-      </div>
-
-      <div class="nav-div">
-        <img
-          src="/static/uploads/img/home/icons-main/carrinho-de-compras.png"
-          id="shopping-kart-icon"
-          class="icons"
-          alt="Carrinho"
-        />
-        <img
-          src="/static/uploads/img/home/icons-main/menu-hamburguer.png"
-          id="menu-hamburguer-icon"
-          class="icons"
-          alt="Menu"
-        />
+        <a href="/carrinho">
+          <img
+            src="/static/uploads/img/home/icons-main/kart.png"
+            id="kart-icon"
+            class="icons"
+          />
+        </a>
+        <a href="/produtos">
+          <img
+            src="/static/uploads/img/home/icons-main/shop.png"
+            id="shop-icon"
+            class="icons"
+          />
+        </a>
+        <a href="/">
+          <img
+            src="/static/uploads/img/home/icons-main/user.png"
+            id="user-icon"
+            class="icons"
+          />
+        </a>
       </div>
     </nav>
 
-    <div
-      id="side-overlay"
-      aria-hidden="true"
-      aria-labelledby="side-title"
-      role="dialog"
-    >
-      <aside id="side-panel" aria-modal="true">
-        <div class="side-header">
-          <h2 id="side-title">Menu</h2>
-          <button id="side-close" aria-label="Fechar menu">✕</button>
-        </div>
+    <main class="container" id="main" role="main">
+      <div class="page-grid">
+        <section class="hero">
+          <h1>Bem-vindo de volta</h1>
+          <p>
+            Acesse sua conta para continuar com suas compras, ver pedidos e
+            aproveitar ofertas exclusivas.
+          </p>
 
-        <nav id="side-nav" aria-label="Navegação">
-          <ul>
-            <li><a href="/" class="side-link">Home</a></li>
-            <li><a href="/produtos" class="side-link">Catálogo</a></li>
-          </ul>
-        </nav>
-
-        <section
-          class="side-section"
-          id="cart-section"
-          aria-labelledby="cart-title"
-        >
-          <div class="cart-header">
-            <h3 id="cart-title">Carrinho</h3>
-            <div id="cart-summary"><span id="cart-count">0</span> itens</div>
-          </div>
-          <div id="cart-preview" aria-live="polite">
-            <p class="cart-empty">Seu carrinho está vazio.</p>
-          </div>
-          <div class="cart-actions">
-            <a id="view-cart-btn" class="btn" href="cart.html">Ver carrinho</a>
-            <a id="checkout-btn" class="btn primary" href="checkout.html"
-              >Finalizar</a
-            >
+          <div class="benefits">
+            <h3>Benefícios</h3>
+            <ul>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16.25 5.625L7.5 14.375L3.75 10.625" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Checkout rápido e seguro
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16.25 5.625L7.5 14.375L3.75 10.625" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Rastreamento de pedidos
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16.25 5.625L7.5 14.375L3.75 10.625" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Histórico de compras
+              </li>
+            </ul>
           </div>
         </section>
 
-        <section class="side-section">
-          <h3>Categorias</h3>
-          <ul class="side-cats">
-            <li><a href="#">Saltos</a></li>
-            <li><a href="#">Rasteiras</a></li>
-            <li><a href="#">Botas</a></li>
-          </ul>
-        </section>
+        <aside class="login-wrapper" aria-label="Área de login">
+          <div class="login-card">
+            <h2>Entrar na sua conta</h2>
 
-        <div class="side-footer">
-          <button id="clear-cart" class="text-btn">Limpar carrinho</button>
-          <a href="#" id="logout-link" class="text-btn">Sair</a>
-        </div>
-      </aside>
-    </div>
+            <form class="login-form" action="/login" method="post" autocomplete="on" novalidate>
+              <div class="input-row">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" class="input-field" required placeholder="seu@exemplo.com" />
+              </div>
 
-    <main class="container">
-      <section id="main-page" aria-labelledby="login-title">
-        <div class="login-card" role="region" aria-labelledby="login-title">
-          <h2 id="login-title">Login Usuário</h2>
-          <form
-            class="login-form"
-            action="/login"
-            method="post"
-            autocomplete="on"
-            novalidate
-          >
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required />
-            <label for="senha">Senha</label>
-            <input id="senha" name="senha" type="password" required />
-            <button type="submit">Logar</button>
-          </form>
-          <p><a href="/register">Registrar</a></p>
-        </div>
-      </section>
+              <div class="input-row">
+                <label for="senha">Senha</label>
+                <div class="password-wrapper">
+                  <input id="senha" name="senha" type="password" class="input-field" required placeholder="Digite sua senha" />
+                  <button type="button" class="toggle-password" id="toggle-password" aria-label="Mostrar senha" aria-pressed="false">
+                    <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 5C5.63636 5 2 12 2 12C2 12 5.63636 19 12 19C18.3636 19 22 12 22 12C22 12 18.3636 5 12 5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none">
+                      <path d="M3 3L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      <path d="M10.5 10.677C10.1872 11.0009 10 11.4758 10 12C10 13.1046 10.8954 14 12 14C12.5242 14 12.9991 13.8128 13.323 13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      <path d="M7.36185 7.5611C5.68002 8.7355 4.37992 10.4315 3.5 12C4.5 14 7.5 19 12 19C13.3407 19 14.5686 18.6805 15.6653 18.1535" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      <path d="M12 5C16.5 5 19.5 10 20.5 12C20.1466 12.7682 19.6999 13.5201 19.1632 14.2263" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="actions">
+                <label class="remember">
+                  <input type="checkbox" name="remember" />
+                  Lembrar-me
+                </label>
+                <a class="link" href="/forgot">Esqueci minha senha</a>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Entrar</button>
+
+              <div class="divider">
+                <span>Ou entre com</span>
+              </div>
+
+              <div class="socials">
+                <button onclick="window.location.href='/auth/google/callback'" type="button" class="social-btn" aria-label="Entrar com Google">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"
+                      fill="#4285F4"
+                    />
+                    <path
+                      d="M9.003 18c2.43 0 4.467-.806 5.956-2.18L12.05 13.56c-.806.54-1.836.86-3.047.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9.003 18z"
+                      fill="#34A853"
+                    />
+                    <path
+                      d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z"
+                      fill="#FBBC05"
+                    />
+                    <path
+                      d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.426 0 9.003 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29c.708-2.127 2.692-3.71 5.036-3.71z"
+                      fill="#EA4335"
+                    />
+                  </svg>
+                  Google
+                </button>
+                <button onclick="window.location.href='/auth/facebook/callback'" type="button" class="social-btn" aria-label="Entrar com Facebook">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M18 9c0-4.97-4.03-9-9-9S0 4.03 0 9c0 4.491 3.291 8.215 7.594 8.892v-6.288H5.309V9h2.285V7.02c0-2.254 1.343-3.499 3.396-3.499.984 0 2.013.176 2.013.176v2.213h-1.134c-1.117 0-1.465.693-1.465 1.405V9h2.494l-.399 2.604h-2.095v6.288C14.709 17.215 18 13.491 18 9z"
+                      fill="#1877F2"
+                    />
+                  </svg>
+                  Facebook
+                </button>
+              </div>
+
+              <p class="register-link">
+                Não tem conta?
+                <a class="link" href="/cadastrar">Crie uma agora</a>
+              </p>
+            </form>
+          </div>
+        </aside>
+      </div>
     </main>
 
-    <section class="newsletter">
-      <h2>CADASTRE-SE</h2>
-      <p>E GANHE <strong>10% OFF</strong> NA SUA PRIMEIRA COMPRA</p>
-      <form>
-        <input type="text" placeholder="Nome Completo" />
-        <input type="email" placeholder="Email" />
-        <button type="submit">ENVIAR</button>
-      </form>
-    </section>
-
-    <footer>
-      <div class="footer-links container">
+    <footer role="contentinfo">
+      <div class="footer-links">
         <div>
           <h4>MINHA CONTA</h4>
           <a href="#">Meus Dados</a>
           <a href="#">Meus Pedidos</a>
+          <a href="#">Cashback</a>
+          <a href="#">Login</a>
         </div>
         <div>
           <h4>SUPORTE E POLÍTICAS</h4>
           <a href="#">Trocas e Devoluções</a>
           <a href="#">Dúvidas Frequentes</a>
+          <a href="#">Fale Conosco</a>
+          <a href="#">Política de Privacidade</a>
         </div>
         <div>
           <h4>FORMAS DE PAGAMENTO</h4>
-          <img
-            src="/static/uploads/img/catalogo/footer/payment.png"
-            alt="Formas de Pagamento"
-          />
+          <img src="/static/uploads/img/catalogo/footer/payment.png" alt="Formas de Pagamento" />
         </div>
       </div>
       <hr />
       <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
     </footer>
 
-    <script src="/static/js/menu.js"></script>
-    <script src="/static/js/add_cart.js"></script>
+    <script src="/static/js/menu.js" defer></script>
     <script src="/static/js/cart-ui.js" defer></script>
-    <script src="/static/js/nav-enhancements.js" defer></script>
+    <script src="/static/js/pop_up.js" defer></script>
+    <script src="/static/js/toggle_password.js" defer></script>
+    <div id="app-toast" aria-live="polite" style="position: fixed; right: 20px; top: 20px; z-index: 9999; display:flex; flex-direction:column; gap:10px;"></div>
   </body>
 </html>

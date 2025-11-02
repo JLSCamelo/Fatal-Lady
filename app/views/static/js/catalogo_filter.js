@@ -1,7 +1,5 @@
-// ====== catalogo-filters.js ======
-// centraliza filtros: categoria + preço + cores + limpar
 document.addEventListener("DOMContentLoaded", function () {
-  // elements
+  // --- Elementos do DOM ---
   const productCards = Array.from(document.querySelectorAll(".product-card"));
   const categoryRows = Array.from(document.querySelectorAll(".category-row"));
   const catButtons = Array.from(document.querySelectorAll(".filter-btn"));
@@ -10,235 +8,255 @@ document.addEventListener("DOMContentLoaded", function () {
   const priceMinDisplay = document.getElementById("price-min-display");
   const priceMaxDisplay = document.getElementById("price-max-display");
   const colorFiltersContainer = document.getElementById("color-filters");
-  const clearBtn = document.getElementById("clear-filters");
+  const sizeChips = Array.from(document.querySelectorAll(".size-chip"));
   const searchInput = document.getElementById("products-search");
+  const clearBtn = document.getElementById("clear-filters");
 
-  // compute min/max price from DOM products
+  // --- Mapeamento de Categoria ---
+  // Mapeia o data-filter (numérico) do botão para o data-category (texto) do produto.
+  const categoryMap = {};
+  catButtons.forEach(btn => {
+      categoryMap[btn.dataset.filter] = btn.textContent.trim();
+  });
+
+  // --- Estado dos Filtros ---
+  let activeCategory = null;
+  const activeColors = new Set();
+  const activeSizes = new Set();
+  let searchTimeout;
+
+  // --- Inicialização dos Filtros de Preço ---
   const prices = productCards
     .map((c) => parseFloat(c.dataset.price || 0))
     .filter((n) => !isNaN(n));
-  const minPrice = prices.length ? Math.min(...prices) : 0;
-  const maxPrice = prices.length ? Math.max(...prices) : 1000;
+  const minPrice = prices.length ? Math.floor(Math.min(...prices)) : 0;
+  const maxPrice = prices.length ? Math.ceil(Math.max(...prices)) : 1000;
 
-  // init price inputs
-  priceMinInput.min = Math.floor(minPrice);
-  priceMinInput.max = Math.ceil(maxPrice);
-  priceMaxInput.min = Math.floor(minPrice);
-  priceMaxInput.max = Math.ceil(maxPrice);
+  priceMinInput.min = minPrice;
+  priceMinInput.max = maxPrice;
+  priceMinInput.value = minPrice;
+  priceMaxInput.min = minPrice;
+  priceMaxInput.max = maxPrice;
+  priceMaxInput.value = maxPrice;
 
-  priceMinInput.value = priceMinInput.min;
-  priceMaxInput.value = priceMaxInput.max;
-
-  function fmt(v) {
-    return Number(v).toLocaleString("pt-BR", {
+  function formatPrice(value) {
+    return Number(value).toLocaleString("pt-BR", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
   }
 
-  priceMinDisplay.textContent = fmt(priceMinInput.value);
-  priceMaxDisplay.textContent = fmt(priceMaxInput.value);
+  priceMinDisplay.textContent = formatPrice(priceMinInput.value);
+  priceMaxDisplay.textContent = formatPrice(priceMaxInput.value);
 
-  // build unique color list from product data-color attributes
+  // --- Geração Dinâmica dos Filtros de Cor ---
   const colorSet = new Map();
   productCards.forEach((card) => {
-    let c = (card.dataset.color || "Unspecified").trim();
-    if (!colorSet.has(c)) colorSet.set(c, c);
+    let color = (card.dataset.color || "Unspecified").trim();
+    if (color && color.toLowerCase() !== "unspecified" && !colorSet.has(color)) {
+      colorSet.set(color, color);
+    }
   });
 
-  // render color chips
-  // render color chips (ignora 'Unspecified')
   colorSet.forEach((color, key) => {
-    if (!key || key.toLowerCase() === "unspecified") return; // skip fallback values
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "color-chip";
     btn.dataset.color = key;
     btn.title = key;
-    // tenta usar como cor; se não for um valor válido, deixa um tom neutro e sem texto
-    const isHex = /^#([0-9A-F]{3}){1,2}$/i.test(key.trim());
-    if (isHex) {
-      btn.style.background = key.trim();
-    } else {
-      // tenta aplicar nome CSS; se não fizer efeito, usar um background neutro
-      btn.style.background = key.toLowerCase();
-      if (!btn.style.background) btn.style.background = "#f5f3f1";
-    }
+    btn.style.backgroundColor = key;
     btn.setAttribute("aria-label", "Filtro cor " + key);
     colorFiltersContainer.appendChild(btn);
   });
+  
+  const colorChips = colorFiltersContainer.querySelectorAll(".color-chip");
 
-  // selected states
-  let activeCategory = null;
-  const activeColors = new Set();
-
-  // helper: apply filters
+  // --- Função Principal de Aplicação de Filtros (VERSÃO CORRIGIDA) ---
   function applyFilters() {
     const minVal = parseFloat(priceMinInput.value);
     const maxVal = parseFloat(priceMaxInput.value);
-    const search = ((searchInput && searchInput.value) || "")
-      .toLowerCase()
-      .trim();
+    const searchTerm = (searchInput.value || "").toLowerCase().trim();
+    const selectedCategoryName = activeCategory ? categoryMap[activeCategory] : null;
 
     productCards.forEach((card) => {
-      const price = parseFloat(card.dataset.price || 0);
-      const color = (card.dataset.color || "Unspecified").trim();
-      const name = (
-        card.dataset.name ||
-        card.querySelector(".product-name")?.textContent ||
-        ""
-      ).toLowerCase();
+      const cardPrice = parseFloat(card.dataset.price || 0);
+      const cardColor = (card.dataset.color || "Unspecified").trim();
+      const cardName = (card.dataset.name || "").toLowerCase();
+      const cardCategory = (card.dataset.category || "").trim();
+      
+      // Lógica de checagem dos outros filtros
+      const matchesCategory = !selectedCategoryName || cardCategory === selectedCategoryName;
+      const matchesPrice = cardPrice >= minVal && cardPrice <= maxVal;
+      const matchesColor = activeColors.size === 0 || activeColors.has(cardColor);
+      const matchesSearch = searchTerm.length === 0 || cardName.includes(searchTerm);
 
-      const byPrice = price >= minVal && price <= maxVal;
-      const byColor = activeColors.size === 0 || activeColors.has(color);
-      const bySearch = search.length === 0 || name.includes(search);
-
-      const matches = byPrice && byColor && bySearch;
-
-      // category filter: if active, hide cards not matching category; else within visible rows all cards considered
-      if (activeCategory && card.dataset.category !== activeCategory) {
-        card.style.display = "none";
+      // --- LÓGICA DE TAMANHO CORRIGIDA E ISOLADA ---
+      let matchesSize = false;
+      if (activeSizes.size === 0) {
+        // Se nenhum tamanho for selecionado, todos os produtos passam neste filtro.
+        matchesSize = true;
       } else {
-        card.style.display = matches ? "" : "none";
+        // Pega a string de tamanhos do produto (ex: "39/41/42")
+        const productSizesStr = card.dataset.size || "";
+        // Verifica se ALGUM dos tamanhos selecionados pelo usuário existe na string do produto.
+        // O método .some() para assim que encontra a primeira correspondência.
+        matchesSize = [...activeSizes].some(selectedSize => productSizesStr.split('/').includes(selectedSize));
       }
+      // --- FIM DA LÓGICA DE TAMANHO ---
+
+      // A visibilidade final depende de TODOS os filtros serem verdadeiros.
+      const isVisible = matchesCategory && matchesPrice && matchesColor && matchesSearch && matchesSize;
+      card.style.display = isVisible ? "" : "none";
     });
 
-    // hide/show category rows depending on whether they have visible cards
+    updateCategoryRowVisibility();
+  }
+
+  // --- Funções Auxiliares e de Eventos ---
+
+  function updateCategoryRowVisibility() {
     categoryRows.forEach((row) => {
-      const visibleCards = row.querySelectorAll(
-        '.product-card:not([style*="display: none"])'
-      );
-      if (visibleCards.length === 0) {
-        row.style.display = "none";
-      } else {
-        row.style.display = "";
-        refreshRowArrows(row); // recalc arrows for rows that remain visible
-      }
+      const visibleCards = row.querySelector('.product-card:not([style*="display: none"])');
+      row.style.display = visibleCards ? "" : "none";
+      refreshRowArrows(row);
     });
   }
 
-  // arrow refresh (independent, safe)
   function refreshRowArrows(row) {
     const track = row.querySelector(".category-products");
     const prev = row.querySelector(".scroll-prev");
     const next = row.querySelector(".scroll-next");
     if (!track || !prev || !next) return;
-    requestAnimationFrame(function () {
-      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth - 1);
-      prev.style.display = track.scrollLeft > 5 ? "inline-flex" : "none";
-      next.style.display =
-        track.scrollLeft < maxScroll ? "inline-flex" : "none";
+    
+    requestAnimationFrame(() => {
+        const hasOverflow = track.scrollWidth > track.clientWidth;
+        if (!hasOverflow) {
+            prev.style.display = 'none';
+            next.style.display = 'none';
+            return;
+        }
+        const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth - 1);
+        prev.style.display = track.scrollLeft > 5 ? "inline-flex" : "none";
+        next.style.display = track.scrollLeft < maxScroll ? "inline-flex" : "none";
     });
   }
 
-  // init arrows behavior per row (scroll and refresh)
-  document.querySelectorAll(".category-row").forEach((row) => {
-    const track = row.querySelector(".category-products");
-    const prev = row.querySelector(".scroll-prev");
-    const next = row.querySelector(".scroll-next");
-    if (!track) return;
-    let scrollAmount = Math.round(track.clientWidth * 0.7) || 600;
-    if (prev)
-      prev.addEventListener("click", () => {
-        track.scrollBy({ left: -scrollAmount, behavior: "smooth" });
-        setTimeout(() => refreshRowArrows(row), 260);
-      });
-    if (next)
-      next.addEventListener("click", () => {
-        track.scrollBy({ left: scrollAmount, behavior: "smooth" });
-        setTimeout(() => refreshRowArrows(row), 260);
-      });
-    track.addEventListener("scroll", () => refreshRowArrows(row));
-    window.addEventListener("resize", () => {
-      scrollAmount = Math.round(track.clientWidth * 0.7) || 600;
-      refreshRowArrows(row);
-    });
-    refreshRowArrows(row);
-  });
+  // --- Event Listeners ---
 
-  // category filter buttons (toggle)
+  // Filtros de Categoria (toggle)
   catButtons.forEach((btn) => {
     btn.addEventListener("click", function () {
-      const f = btn.dataset.filter;
-      if (activeCategory === f) {
-        // toggle off
+      const filterValue = this.dataset.filter;
+      if (activeCategory === filterValue) {
         activeCategory = null;
-        catButtons.forEach((b) => b.classList.remove("active"));
+        this.classList.remove("active");
       } else {
-        activeCategory = f;
-        catButtons.forEach((b) => b.classList.toggle("active", b === btn));
+        activeCategory = filterValue;
+        catButtons.forEach((b) => b.classList.remove("active"));
+        this.classList.add("active");
       }
       applyFilters();
     });
   });
 
-  // color chips click
+  // Filtros de Cor (seleção múltipla)
   colorFiltersContainer.addEventListener("click", function (ev) {
-    const btn = ev.target.closest(".color-chip");
-    if (!btn) return;
-    const color = btn.dataset.color;
+    const chip = ev.target.closest(".color-chip");
+    if (!chip) return;
+
+    const color = chip.dataset.color;
     if (activeColors.has(color)) {
       activeColors.delete(color);
-      btn.classList.remove("active");
+      chip.classList.remove("active");
     } else {
       activeColors.add(color);
-      btn.classList.add("active");
+      chip.classList.add("active");
     }
     applyFilters();
   });
+  
+  // Filtros de Tamanho (seleção múltipla)
+  sizeChips.forEach(chip => {
+    chip.addEventListener('click', function() {
+      const size = this.dataset.size;
+      if (activeSizes.has(size)) {
+        activeSizes.delete(size);
+        this.classList.remove('active');
+      } else {
+        activeSizes.add(size);
+        this.classList.add('active');
+      }
+      applyFilters();
+    });
+  });
 
-  // price inputs events (ensure min <= max)
-  function syncPriceInputs() {
+  // Filtro de Preço
+  function handlePriceChange() {
     let min = parseFloat(priceMinInput.value);
     let max = parseFloat(priceMaxInput.value);
     if (min > max) {
-      // swap to keep valid range
-      const t = min;
-      min = max;
-      max = t;
+      [min, max] = [max, min]; // Swap values
     }
-    priceMinInput.value = min;
-    priceMaxInput.value = max;
-    priceMinDisplay.textContent = fmt(min);
-    priceMaxDisplay.textContent = fmt(max);
+    priceMinDisplay.textContent = formatPrice(min);
+    priceMaxDisplay.textContent = formatPrice(max);
     applyFilters();
   }
-  priceMinInput.addEventListener("input", syncPriceInputs);
-  priceMaxInput.addEventListener("input", syncPriceInputs);
+  priceMinInput.addEventListener("input", handlePriceChange);
+  priceMaxInput.addEventListener("input", handlePriceChange);
 
-  // search
-  if (searchInput) {
-    let timeout;
-    searchInput.addEventListener("input", function () {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => applyFilters(), 220);
-    });
-  }
-
-  // clear btn
-  clearBtn.addEventListener("click", function () {
-    // reset category
-    activeCategory = null;
-    catButtons.forEach((b) => b.classList.remove("active"));
-    // reset color chips
-    activeColors.clear();
-    colorFiltersContainer
-      .querySelectorAll(".color-chip")
-      .forEach((c) => c.classList.remove("active"));
-    // reset price
-    priceMinInput.value = priceMinInput.min;
-    priceMaxInput.value = priceMaxInput.max;
-    priceMinDisplay.textContent = fmt(priceMinInput.value);
-    priceMaxDisplay.textContent = fmt(priceMaxInput.value);
-    // reset search
-    if (searchInput) searchInput.value = "";
-    // show all
-    productCards.forEach((c) => (c.style.display = ""));
-    categoryRows.forEach((r) => (r.style.display = ""));
-    // refresh arrows
-    categoryRows.forEach(refreshRowArrows);
+  // Filtro de Busca (com debounce)
+  searchInput.addEventListener("input", function () {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(applyFilters, 250);
   });
 
-  // initial apply to ensure UI consistent
+  // Botão de Limpar Filtros
+  clearBtn.addEventListener("click", function () {
+    // Resetar estados
+    activeCategory = null;
+    activeColors.clear();
+    activeSizes.clear();
+    searchInput.value = "";
+
+    // Resetar UI dos filtros
+    catButtons.forEach((b) => b.classList.remove("active"));
+    colorChips.forEach((c) => c.classList.remove("active"));
+    sizeChips.forEach((s) => s.classList.remove("active"));
+    
+    // Resetar preço
+    priceMinInput.value = priceMinInput.min;
+    priceMaxInput.value = priceMaxInput.max;
+    priceMinDisplay.textContent = formatPrice(priceMinInput.value);
+    priceMaxDisplay.textContent = formatPrice(priceMaxInput.value);
+
+    // Reaplicar filtros (que agora mostrará tudo)
+    applyFilters();
+  });
+
+  // Navegação por setas nas categorias
+  categoryRows.forEach((row) => {
+    const track = row.querySelector(".category-products");
+    const prev = row.querySelector(".scroll-prev");
+    const next = row.querySelector(".scroll-next");
+    if (!track || !prev || !next) return;
+
+    let scrollAmount = () => Math.round(track.clientWidth * 0.7);
+
+    prev.addEventListener("click", () => {
+      track.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+    });
+    next.addEventListener("click", () => {
+      track.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+    });
+
+    // Usa um observer para performance, em vez de 'scroll' event
+    const observer = new IntersectionObserver(() => refreshRowArrows(row), { threshold: 0.1 });
+    observer.observe(row);
+    track.addEventListener("scroll", () => refreshRowArrows(row), { passive: true });
+    window.addEventListener("resize", () => refreshRowArrows(row));
+    refreshRowArrows(row);
+  });
+
+  // Execução inicial para garantir que o estado da UI esteja correto
   applyFilters();
 });
