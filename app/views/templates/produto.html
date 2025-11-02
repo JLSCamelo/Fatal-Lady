@@ -9,22 +9,27 @@
     <link rel="stylesheet" href="{{ url_for('static', path='css/product-detail.css') }}" />
 </head>
 <body>
-    <header>
-        <div class="header-div">
-            <img src="/static/uploads/img/home/icons-main/languages.png" id="language-icon" />
-            <select name="language" id="language">
-                <option value="br">BR</option>
-                <option value="en">EN</option>
-                <option value="es">ES</option>
-            </select>
-        </div>
-        <div class="header-div">
-            <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
-        </div>
-        <div class="header-div">
-            <a href="#">Ajuda</a>
-            <a href="/login" id="login-link">Entrar</a>
-        </div>
+    <header id="main_header">
+      <div class="header-div">
+        <img
+          src="/static/uploads/img/home/icons-main/languages.png"
+          id="language-icon"
+        />
+        <select name="language" id="language">
+          <option value="br">BR</option>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+      </div>
+
+      <div class="header-div">
+        <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
+      </div>
+
+      <div class="header-div">
+        <a href="#">Ajuda</a>
+        <a href="/login">Entrar</a>
+      </div>
     </header>
 
     <nav>
