@@ -553,23 +553,45 @@
     </header>
 
     <nav>
-        <div class="nav-div">
-            <form action="/search" method="get" id="search-form">
-                <button type="submit">
-                    <img src="/static/uploads/img/home/icons-main/lupa.png" id="search-icon" />
-                </button>
-                <input type="search" id="search-input" name="Search" placeholder="Buscar" />
-            </form>
-        </div>
-        <div class="nav-div">
-            <a href="/">
-                <img src="/static/uploads/img/home/icons-main/letreiro-logo.png" id="logo" alt="Logo" />
-            </a>
-        </div>
-        <div class="nav-div">
-            <img src="/static/uploads/img/home/icons-main/carrinho-de-compras.png" id="shopping-kart-icon" class="icons" />
-            <img src="/static/uploads/img/home/icons-main/menu-hamburguer.png" id="menu-hamburguer-icon" class="icons" />
-        </div>
+      <div class="nav-div">
+        <a href="/" class="text_sections">Início</a>
+        <a href="/produtos" class="text_sections">Catálogo</a>
+        <a href="/carrinho" class="text_sections">Carrinho</a>
+      </div>
+
+      <div class="nav-div">
+        <a href="/">
+          <img
+            src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+            id="logo"
+            alt="Logo"
+          />
+        </a>
+      </div>
+
+      <div class="nav-div">
+        <a href="/carrinho">
+          <img
+            src="/static/uploads/img/home/icons-main/kart.png"
+            id="kart-icon"
+            class="icons"
+          />
+        </a>
+        <a href="/produtos">
+          <img
+            src="/static/uploads/img/home/icons-main/shop.png"
+            id="shop-icon"
+            class="icons"
+          />
+        </a>
+        <a href="/">
+          <img
+            src="/static/uploads/img/home/icons-main/user.png"
+            id="user-icon"
+            class="icons"
+          />
+        </a>
+      </div>
     </nav>
 
     <div id="side-overlay" aria-hidden="true" aria-labelledby="side-title" role="dialog">

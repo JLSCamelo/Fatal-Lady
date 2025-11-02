@@ -1,43 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrinho - Fatal Lady</title>
+  <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png">
+  <link rel="stylesheet" href="{{ url_for('static', path='css/carrinho.css') }}">
 </head>
 <body>
-    <h2>Meu Carrinho</h2>
+  <!-- Header (padronizado com index) -->
+  <header id="main_header" role="banner">
+    <div class="header-div">
+      <img src="/static/uploads/img/home/icons-main/languages.png" id="language-icon" alt="Idioma">
+      <label for="language" class="visually-hidden">Selecionar idioma</label>
+      <select name="language" id="language" aria-label="Idioma do site">
+        <option value="br">BR</option>
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+      </select>
+    </div>
+
+    <div class="header-div">
+      <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
+    </div>
+
+    <div class="header-div">
+      <a href="#" aria-label="Ajuda">Ajuda</a>
+      <a href="/login" aria-label="Entrar">Entrar</a>
+    </div>
+  </header>
+
+  <!-- Nav (padronizado com index) -->
+  <nav role="navigation" aria-label="Navegação principal">
+    <div class="nav-div">
+      <a href="/" class="text_sections">Início</a>
+      <a href="/produtos" class="text_sections">Catálogo</a>
+      <a href="/carrinho" class="text_sections" aria-current="page">Carrinho</a>
+    </div>
+
+    <div class="nav-div">
+      <a href="/" aria-label="Página inicial">
+        <img src="/static/uploads/img/home/icons-main/letreiro-logo.png" id="logo" alt="Fatal Lady">
+      </a>
+    </div>
+
+    <div class="nav-div">
+      <a href="/carrinho" aria-label="Ver carrinho">
+        <img src="/static/uploads/img/home/icons-main/kart.png" id="kart-icon" class="icons" alt="Carrinho">
+      </a>
+      <a href="/produtos" aria-label="Loja">
+        <img src="/static/uploads/img/home/icons-main/shop.png" id="shop-icon" class="icons" alt="Loja">
+      </a>
+      <a href="/" aria-label="Perfil">
+        <img src="/static/uploads/img/home/icons-main/user.png" id="user-icon" class="icons" alt="Usuário">
+      </a>
+    </div>
+  </nav>
+
+  <main class="cart-container" id="main" role="main">
+    <div class="cart-header" aria-hidden="false">
+      <h1>Meu Carrinho</h1>
+      <p>Revise seus produtos antes de finalizar a compra</p>
+    </div>
 
     {% if carrinho %}
-    <ul>
+    <div class="cart-content" role="region" aria-label="Itens do carrinho">
+      <div class="cart-items">
         {% for item in carrinho %}
-        <li>
-            <strong>{{ item.id }}</strong> — R$ {{ item.preco_unitario }} -- ID -{{item.produto_id}}<br>
-
-            <!-- Formulário para editar quantidade -->
-            <form action="/carrinho/editar/{{ item.produto_id }}" method="post" style="display:inline;">
-                <input type="number" name="quantidade" value="{{ item.quantidade }}" min="1" required>
-                <button type="submit">Atualizar</button>
+        <div class="cart-item" data-product-id="{{ item.produto_id }}" aria-labelledby="item-name-{{ loop.index }}">
+          <div class="item-image">
+            <img src="/static/uploads/img/catalogo/products/default.png" alt="{{ item.id }}">
+          </div>
+          <div class="item-details">
+            <div id="item-name-{{ loop.index }}" class="item-name">{{ item.id }}</div>
+            <div class="item-id">ID: {{ item.produto_id }}</div>
+            <div class="item-price" data-price="{{ item.preco_unitario }}">R$ {{ item.preco_unitario }}</div>
+          </div>
+          <div class="item-controls">
+            <form action="/carrinho/editar/{{ item.produto_id }}" method="post" class="quantity-control" aria-label="Atualizar quantidade de {{ item.id }}">
+              <input type="number" name="quantidade" value="{{ item.quantidade }}" min="1" required class="quantity-input" aria-label="Quantidade">
+              <button type="submit">Atualizar</button>
             </form>
-
-            <!-- Formulário para remover produto -->
-            <form action="/carrinho/remover/{{ item.produto_id }}" method="post" style="display:inline;">
-                <button type="submit" style="color:red;">Remover</button>
+            <form action="/carrinho/remover/{{ item.produto_id }}" method="post" aria-label="Remover {{ item.id }}">
+              <button type="submit" class="btn-remove">Remover</button>
             </form>
-        </li>
+          </div>
+        </div>
         {% endfor %}
-    </ul>
+      </div>
 
-    <p><strong>Total:</strong> R$ {{ total }}</p>
-
-    <form action="/checkout" method="post">
-        <button type="submit">Finalizar compra</button>
-    </form>
-
+      <aside class="cart-summary" role="complementary" aria-label="Resumo do pedido">
+        <div class="summary-title">Resumo do Pedido</div>
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span id="subtotal">R$ {{ total }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Frete:</span>
+          <span id="shipping">{% if total|float >= 299 %}Grátis{% else %}A calcular{% endif %}</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total:</span>
+          <span id="total">R$ {{ total }}</span>
+        </div>
+        <form action="/checkout" method="post">
+          <button type="submit" class="btn-checkout">Finalizar Compra</button>
+        </form>
+        <a href="/produtos" class="btn-continue">Continuar Comprando</a>
+      </aside>
+    </div>
     {% else %}
-        <p>Carrinho está vazio!</p>
+    <div class="empty-cart" role="status" aria-live="polite">
+      <img src="/static/uploads/img/carrinho/kart_alert.png" alt="Carrinho Vazio">
+      <h2>Seu carrinho está vazio</h2>
+      <p>Adicione produtos e volte aqui para finalizar sua compra!</p>
+      <a href="/produtos" class="btn-continue-empty">Explorar Produtos</a>
+    </div>
     {% endif %}
+  </main>
 
-    <a href="/">Voltar à loja</a>
+  <!-- Footer padronizado (conteúdo padronizado com index) -->
+  <footer role="contentinfo">
+    <div class="footer-links">
+      <div>
+        <h4>Minha Conta</h4>
+        <a href="#">Meus Dados</a>
+        <a href="#">Meus Pedidos</a>
+        <a href="#">Cashback</a>
+        <a href="#">Login</a>
+      </div>
+      <div>
+        <h4>Suporte e Políticas</h4>
+        <a href="#">Trocas e Devoluções</a>
+        <a href="#">Dúvidas Frequentes</a>
+        <a href="#">Fale Conosco</a>
+        <a href="#">Política de Privacidade</a>
+      </div>
+      <div>
+        <h4>Formas de Pagamento</h4>
+        <img src="/static/uploads/img/catalogo/footer/payment.png" alt="Formas de Pagamento">
+      </div>
+    </div>
+    <hr>
+    <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+  </footer>
+
+  <script src="{{ url_for('static', path='js/carrinho.js') }}"></script>
 </body>
 </html>

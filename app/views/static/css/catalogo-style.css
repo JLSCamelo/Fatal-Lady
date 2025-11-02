@@ -48,13 +48,18 @@ body {
 }
 
 /* Header */
-header {
+#main_header {
   background-color: white;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1001;
 }
 
 .header-div {
@@ -91,8 +96,13 @@ nav {
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  position: relative;
+  position: fixed;
+  top: 3.2rem;
+  left: 0;
+  right: 0;
+  width: 100%;
   min-height: 5rem;
+  z-index: 1000;
 }
 
 #logo {
@@ -110,15 +120,34 @@ nav {
   justify-content: center;
 }
 
+.text_sections {
+  text-decoration: none;
+  color: var(--background);
+  margin-left: 1.1rem;
+}
+
 .icons {
   cursor: pointer;
   margin-right: 2rem;
 }
 
-#search-icon,
-#shopping-kart-icon,
-#menu-hamburguer-icon {
+#shop-icon,
+#kart-icon,
+#user-icon {
   width: 1.7rem;
+}
+
+/* Compensar altura do header + nav */
+body {
+  background-color: var(--background);
+  padding-top: 0.5rem;
+}
+
+/* Remover classes antigas não usadas */
+.nav-fixed,
+.nav-hidden,
+.nav-placeholder {
+  display: none !important;
 }
 
 #search-form {

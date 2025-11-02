@@ -42,43 +42,6 @@ body {
 }
 
 /* Header */
-header {
-  background-color: white;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  position: relative;
-}
-
-.header-div {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#language {
-  border: none;
-  background-color: white;
-  cursor: pointer;
-}
-
-.header-div p {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.header-div a {
-  text-decoration: none;
-  color: var(--dark-gray);
-  margin-left: 1.1rem;
-}
-
-/* Header */
 #main_header {
   background-color: white;
   padding: 1rem;
