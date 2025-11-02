@@ -1,7 +1,3 @@
-// static/js/pop_up.js
-// Autonomo: detecta ?msg=success ou ?msg=invalid e mostra toast.
-// Coloque <script src="/static/js/pop_up.js" defer></script> antes de </body>
-
 (function () {
   // roda após parse do HTML se usar 'defer'
   try {
