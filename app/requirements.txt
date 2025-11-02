@@ -13,3 +13,4 @@ python-dotenv
 httpx
 itsdangerous
 aiofiles
+authlib
