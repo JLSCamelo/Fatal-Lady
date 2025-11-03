@@ -5,21 +5,16 @@ router = APIRouter()
 
 @router.api_route("/logout", methods=["GET", "POST"])
 async def logout(request: Request, response: Response):
-    """
-    Logout universal para:
-    - JWT (login interno)
-    - OAuth Google
-    - OAuth Facebook
-    """
+    # ... (Comentários omitidos)
 
-    # 🔒 Limpar cookies de JWT
+    # 🔒 Limpar cookies de JWT com o PATH de exclusão para garantir que o navegador encontre e apague o cookie.
+    response.delete_cookie(key="token", path="/") # <-- ADICIONE O PATH="/" AQUI
+
+    # Os outros cookies podem ser mantidos por precaução ou removidos se não forem usados:
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")
 
-    # 🔑 Limpar dados da sessão (usado por OAuth)
-    if hasattr(request, "session"):
-        request.session.clear()
+    # ... (Restante do código)
 
-    # 🔁 Redirecionar ou retornar mensagem
-    return RedirectResponse(url="/login", status_code=status.HTTP_302_FOUND)
-
+    # 🔁 Redirecionar para o index principal.
+    return RedirectResponse(url="/", status_code=status.HTTP_302_FOUND)

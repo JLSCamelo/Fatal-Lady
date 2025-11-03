@@ -137,7 +137,7 @@
           </header>
 
           <div id="products-grid" class="products-grid" aria-live="polite">
-            {% for group in produtos|groupby('nome_categoria') %}
+            {% for group in produtos|groupby('id_categoria') %}
             <section class="category-row" id="category-{{ group.grouper }}">
               <div class="category-header">
                 <h3 class="category-title">
@@ -157,14 +157,14 @@
               <div class="category-products" role="list">
                 {% for p in group.list %}
                 <article class="product-card"
-                         data-category="{{ p.nome_categoria }}"
+                         data-category="{{ p.id_categoria }}"
                          data-name="{{ p.nome }}"
                          data-id="p{{ p.id_produto }}"
                          data-price="{{ (p.preco) }}"
                          data-color="{% if p.cor is defined %}{{ p.cor }}{% else %}Unspecified{% endif %}"
                          data-size="{{ p.tamanhos }}"
                          role="listitem">
-                  <div class="product-badge">{{ (p.nome_categoria)|upper }}</div>
+                  <div class="product-badge">{{ (p.id_categoria)|upper }}</div>
 
                   <a href="/produto-get/{{ p.id_produto }}" class="product-media">
                     <img src="/static/uploads/img/catalogo/products/default.png" alt="{{ p.nome }}" />

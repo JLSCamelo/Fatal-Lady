@@ -16,6 +16,7 @@ class UsuarioDB(Base):
     cidade = Column(String(120), nullable=True)
     telefone = Column(String(30), nullable=True)     
     is_admin = Column(Boolean, default=False)
+    complemento = Column(String(120), nullable=True)
     #relação de tabela
     pedidos=relationship("PedidoDB",back_populates="usuario")
     carrinho =relationship("CarrinhoDB",back_populates="usuario")

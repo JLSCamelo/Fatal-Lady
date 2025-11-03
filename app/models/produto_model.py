@@ -14,7 +14,6 @@ class ProdutoDB(Base):
     id_categoria = Column(Integer, ForeignKey("categoria.id"), nullable=False)
     id_fabricante = Column(Integer,nullable=False)
     caminhoimagem = Column(String,nullable=True)
-    nome_categoria = Column(String,nullable=True)
     
     categoria = relationship("CategoriaDB", back_populates="produtos")
     itens_pedido = relationship("ItemPedidoDB", back_populates="produto")
