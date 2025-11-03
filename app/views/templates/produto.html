@@ -74,65 +74,6 @@
       </div>
     </nav>
 
-    <div id="side-overlay" aria-hidden="true" aria-labelledby="side-title" role="dialog">
-        <aside id="side-panel" aria-modal="true">
-            <div class="side-header">
-                <h2 id="side-title">Menu</h2>
-                <button id="side-close" aria-label="Fechar menu">✕</button>
-            </div>
-            <nav id="side-nav">
-                <ul>
-                    <li><a href="/" class="side-link">Home</a></li>
-                    <li><a href="/produtos" class="side-link">Catálogo</a></li>
-                </ul>
-            </nav>
-            <section class="side-section" id="cart-section" aria-labelledby="cart-title">
-                <div class="cart-header">
-                    <h3 id="cart-title">Carrinho</h3>
-                    <div id="cart-summary"><span id="cart-count">0</span> itens</div>
-                </div>
-                <div id="cart-preview" aria-live="polite">
-                    <p class="cart-empty">Seu carrinho está vazio.</p>
-                </div>
-                <div class="cart-actions">
-                    <a id="view-cart-btn" class="btn" href="/carrinho">Ver carrinho</a>
-                    <a id="checkout-btn" class="btn primary" href="/checkout">Finalizar</a>
-                </div>
-            </section>
-            <section class="side-section">
-                <h3>Categorias</h3>
-                <ul class="side-cats">
-                    <li><a href="#">Saltos</a></li>
-                    <li><a href="#">Rasteiras</a></li>
-                    <li><a href="#">Botas</a></li>
-                    <li><a href="#">Tênis</a></li>
-                    <li><a href="#">Sapatilhas</a></li>
-                    <li><a href="#">Sandálias</a></li>
-                </ul>
-            </section>
-            <section class="side-section">
-                <h3>Conta</h3>
-                <ul class="side-options-account">
-                    <li><a href="#">Minha Conta</a></li>
-                    <li><a href="#">Meus Pedidos</a></li>
-                    <li><a href="#">Favoritos</a></li>
-                    <li><a href="#">Configurações</a></li>
-                </ul>
-            </section>
-            <section class="side-section">
-                <h3>Ajuda</h3>
-                <ul class="side-options">
-                    <li><a href="#">Fale conosco</a></li>
-                    <li><a href="#">FAQ</a></li>
-                </ul>
-            </section>
-            <div class="side-footer">
-                <button id="clear-cart" class="text-btn">Limpar carrinho</button>
-                <a href="#" id="logout-link" class="text-btn">Sair</a>
-            </div>
-        </aside>
-    </div>
-
     <div id="size-popup" class="popup-overlay">
         <div class="popup-content">
             <button class="popup-close" onclick="closePopup('size-popup')">&times;</button>
@@ -188,7 +129,7 @@
                 </div>
 
                 <div class="product-price">
-                    <span class="current-price">R$ {{produto.preco}}</span>
+                    <span class="current-price">R$ {{ ('%.2f'|format(produto.preco)).replace('.', ',') }}</span>
                     <span class="installments">ou 3x de R$ {{(produto.preco / 3)|round(2)}} sem juros</span>
                 </div>
 

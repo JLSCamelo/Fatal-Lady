@@ -175,9 +175,6 @@
                     <div class="product-price">R$ <span class="price-value">{{ ('%.2f'|format(p.preco)).replace('.', ',') }}</span></div>
                   </div>
 
-                  <div class="product-actions">
-                    <button class="add-to-cart" type="button" aria-label="Adicionar {{ p.nome }} ao carrinho" data-id="{{ p.id_produto }}">Adicionar</button>
-                  </div>
                 </article>
                 {% endfor %}
               </div>
