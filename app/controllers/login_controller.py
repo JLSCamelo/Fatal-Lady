@@ -23,7 +23,7 @@ def login_controller(request: Request,
     if usuario.is_admin:
         destino="/admin"
     else:
-        destino="/"
+        destino="/me/painel"
 
     response = RedirectResponse(url=destino, status_code=303)
     response.set_cookie(key="token", value=token, httponly=True) 
