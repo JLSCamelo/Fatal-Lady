@@ -79,3 +79,10 @@ def meus_pedidos(request: Request, db: Session = Depends(get_db)):
         "usuario": usuario,
         "pedidos": pedidos
     })
+
+#remove o cookie do token do usuário
+@router.get("/logout")
+def logout(request:Request):
+    response=RedirectResponse(url="/",status_code=303)
+    response.delete_cookie(key="token")
+    return response
