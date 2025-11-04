@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('register-form');
+  const emailInput = document.getElementById('email');
   const senhaInput = document.getElementById('senha');
   const confirmarSenhaInput = document.getElementById('confirmar-senha');
   const cepInput = document.getElementById('cep');
-  const telefoneInput = document.getElementById('telefone');
+  const telefoneInput = document.getElementById('telefone'); // Já estava sendo capturado
   const strengthProgress = document.getElementById('strength-progress');
   const strengthText = document.getElementById('strength-text');
 
@@ -101,23 +102,68 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (form) {
     form.addEventListener('submit', function(e) {
-      e.preventDefault();
+      e.preventDefault(); // Impede o envio padrão do formulário
       
+      const email = emailInput.value;
+      const telefone = telefoneInput.value; // Captura o valor do telefone
       const senha = senhaInput.value;
       const confirmarSenha = confirmarSenhaInput.value;
       
-      if (senha !== confirmarSenha) {
-        alert('As senhas não coincidem!');
-        confirmarSenhaInput.focus();
+      // Expressões regulares para validação
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+      const hasNumber = /\d/;
+      const hasSpecialChar = /[^a-zA-Z0-9]/;
+
+      // --- VALIDAÇÕES ---
+
+      // 1. Validação de Email
+      if (!emailRegex.test(email)) {
+        alert('Por favor, insira um email válido (ex: seu@exemplo.com).');
+        emailInput.focus();
         return;
       }
       
+      // 2. Validação de Telefone (NOVO)
+      const telefoneLimpo = telefone.replace(/\D/g, ''); // Remove máscara
+      if (telefoneLimpo.length < 10) { // Telefones no Brasil têm 10 (fixo) ou 11 (celular) dígitos com DDD
+        alert('Por favor, insira um telefone válido com DDD (mínimo 10 dígitos).');
+        telefoneInput.focus();
+        return;
+      }
+
+      // --- VALIDAÇÕES DE SENHA ---
+      
+      // 3. Validação de Comprimento Mínimo
       if (senha.length < 8) {
         alert('A Senha deve ter no mínimo 8 caracteres!');
         senhaInput.focus();
         return;
       }
       
+      // 4. Validação de Número
+      if (!hasNumber.test(senha)) {
+        alert('A senha deve conter ao menos um número.');
+        senhaInput.focus();
+        return;
+      }
+  
+      // 5. Validação de Caracter Especial
+      if (!hasSpecialChar.test(senha)) {
+        alert('A senha deve conter ao menos um caracter especial (ex: !, @, #, $).');
+        senhaInput.focus();
+        return;
+      }
+
+      // 6. Validação de Confirmação de Senha
+      if (senha !== confirmarSenha) {
+        alert('As senhas não coincidem!');
+        confirmarSenhaInput.focus();
+        return;
+      }
+      
+      // --- VALIDAÇÃO DOS TERMOS ---
+
+      // 7.
       const termsCheckbox = form.querySelector('input[name="terms"]');
       if (!termsCheckbox.checked) {
         alert('Você precisa aceitar os Termos de Uso e Política de Privacidade!');
@@ -125,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
+      // Se todas as validações passarem, envia o formulário
       form.submit();
     });
   }

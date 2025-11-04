@@ -12,13 +12,14 @@ def cadastro_controller(request: Request,
                         cep:str,
                         rua:str,
                         cidade:str,
+                        complemento:str,
                         telefone:str,
                         db:Session):
     usuario=db.query(UsuarioDB).filter(UsuarioDB.email==email).first()
     if usuario:
         return {"mensagem":"E-mail já cadastrado"}
     senha_hash=gerar_hash_senha(senha)
-    novo_usuario=UsuarioDB(nome=nome,email=email,senha=senha_hash,cep=cep,rua=rua,cidade=cidade,telefone=telefone)
+    novo_usuario=UsuarioDB(nome=nome,email=email,senha=senha_hash,cep=cep,rua=rua,cidade=cidade,complemento=complemento,telefone=telefone)
     db.add(novo_usuario)
     db.commit()
     db.refresh(novo_usuario)
