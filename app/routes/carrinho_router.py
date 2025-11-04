@@ -15,8 +15,9 @@ def get_carrinho(request: Request, db: Session = Depends(get_db)):
 def post_carrinho(request:Request,
                        produto_id: int,
                        quantidade: int=Form(1),
+                       tamanho: int=Form(...),
                        db:Session=Depends(get_db)):
-    return carrinho_add(request, produto_id, quantidade, db)
+    return carrinho_add(request, produto_id, quantidade, tamanho, db)
 
 @router.post("/carrinho/editar/{produto_id}")
 def put_carrinho(

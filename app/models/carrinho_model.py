@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, ForeignKey, Date, String
+from sqlalchemy import Column, Integer, Float, ForeignKey, Date
 from database import * 
 from datetime import datetime
 # import sql puro para add uma nova coluna
@@ -23,10 +23,11 @@ class ItemCarrinhoDB(Base):
     __tablename__ = "itens_carrinho"
 
     id = Column(Integer, primary_key=True, index=True)
-    carrinho_id = Column(Integer, ForeignKey("carrinho.id"))  # nome da tabela corrigido
+    carrinho_id = Column(Integer, ForeignKey("carrinho.id"))
     produto_id = Column(Integer, ForeignKey("produtos.id_produto"))
     quantidade = Column(Integer)
     preco_unitario = Column(Float)
+    tamanho = Column(Integer)
 
     # relações
     carrinho = relationship("CarrinhoDB", back_populates="itens")
