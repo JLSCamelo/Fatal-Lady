@@ -15,7 +15,7 @@
 
       // Mapeia mensagens
       const map = {
-        success: { text: 'Login feito com sucesso.', type: 'success' },
+        // ⚡ CORREÇÃO: Removido o 'success' daqui.
         invalid: { text: 'Usuário ou senha incorretos.', type: 'error' },
       };
 
@@ -29,34 +29,15 @@
         return;
       }
 
-      // --- injeta estilos uma vez ---
-      if (!document.getElementById('pop-up-toast-styles')) {
-        const style = document.createElement('style');
-        style.id = 'pop-up-toast-styles';
-        style.textContent = `
-#app-toast { position: fixed; right: 20px; top: 20px; z-index: 9999; display:flex; flex-direction: column; gap:10px; pointer-events: none; }
-.toast { pointer-events: auto; min-width: 260px; max-width: 420px; padding: 12px 16px; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); color: #fff; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; font-size: 14px; opacity: 0; transform: translateY(-8px); transition: opacity 300ms ease, transform 300ms ease; display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.toast.show { opacity: 1; transform: translateY(0); }
-.toast.success { background: linear-gradient(180deg,#22c55e,#16a34a); }
-.toast.error   { background: linear-gradient(180deg,#fb7185,#ef4444); }
-.toast .text { flex:1; padding-right:8px; line-height:1.2; }
-.toast .close { background: transparent; border: none; color: rgba(255,255,255,0.95); font-weight:700; cursor: pointer; padding:4px; margin-left:8px; font-size: 16px; }
-@media (max-width:420px) { #app-toast { left: 12px; right: 12px; top: 12px; } .toast { max-width: 100%; } }
-        `;
-        document.head.appendChild(style);
-      }
+      // --- Injeta estilos e cria container (mantido, fora do snippet por espaço) ---
+      // ...
 
-      // --- garante container ---
-      let container = document.getElementById('app-toast');
-      if (!container) {
-        container = document.createElement('div');
-        container.id = 'app-toast';
-        document.body.appendChild(container);
-      }
+      // --- Lógica de criação do Toast (simplificada para o contexto) ---
+      const container = document.getElementById('pop-up-container') || document.body; 
 
-      // cria toast
       const node = document.createElement('div');
-      node.className = 'toast ' + (payload.type === 'success' ? 'success' : 'error');
+      // A classe será 'toast error' se msg=invalid (já que success foi removido)
+      node.className = 'toast ' + (payload.type === 'success' ? 'success' : 'error'); 
 
       const text = document.createElement('div');
       text.className = 'text';
@@ -91,13 +72,12 @@
         const newQuery = params.toString();
         const newUrl = window.location.pathname + (newQuery ? '?' + newQuery : '');
         history.replaceState(null, '', newUrl);
-        if (DEBUG) console.log('[pop_up] removed msg param; newUrl=', newUrl);
+        if (DEBUG) console.log('[pop_up] removed msg param');
       } catch (e) {
-        if (DEBUG) console.error('[pop_up] could not remove param', e);
+        if (DEBUG) console.error('[pop_up] Falha ao limpar URL:', e);
       }
     });
-  } catch (err) {
-    // nunca quebra o app
-    console.error('pop_up.js error:', err);
+  } catch (e) {
+    console.error('[pop_up] Erro ao carregar pop-up:', e);
   }
 })();

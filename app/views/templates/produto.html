@@ -64,13 +64,23 @@
             class="icons"
           />
         </a>
-        <a href="/">
-          <img
+        {% if usuario %}
+          <a href="/me/painel">
+            <img
             src="/static/uploads/img/home/icons-main/user.png"
             id="user-icon"
             class="icons"
-          />
-        </a>
+            />
+          </a>
+        {% else %}
+          <a href="/login">
+            <img
+            src="/static/uploads/img/home/icons-main/user.png"
+            id="user-icon"
+            class="icons"
+            />
+          </a>
+        {% endif %}
       </div>
     </nav>
 

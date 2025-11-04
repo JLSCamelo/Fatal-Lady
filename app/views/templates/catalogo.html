@@ -58,9 +58,23 @@
         <a href="/produtos" aria-label="Loja">
           <img src="/static/uploads/img/home/icons-main/shop.png" id="shop-icon" class="icons" alt="Loja" />
         </a>
-        <a href="/" aria-label="Perfil">
-          <img src="/static/uploads/img/home/icons-main/user.png" id="user-icon" class="icons" alt="Usuário" />
-        </a>
+        {% if usuario %}
+          <a href="/me/painel">
+            <img
+            src="/static/uploads/img/home/icons-main/user.png"
+            id="user-icon"
+            class="icons"
+            />
+          </a>
+        {% else %}
+          <a href="/login">
+            <img
+            src="/static/uploads/img/home/icons-main/user.png"
+            id="user-icon"
+            class="icons"
+            />
+          </a>
+        {% endif %}
       </div>
     </nav>
 
