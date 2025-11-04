@@ -69,6 +69,7 @@
                 <th>Estoque</th>
                 <th>Tamanho</th>
                 <th>Categoria</th>
+                <th>Fabricante</th>
                 <th>Imagem</th>
                 <th style="width:170px">Ações</th>
               </tr>
@@ -82,6 +83,7 @@
                 <td>{{ p.estoque }}</td>
                 <td>{{ p.tamanhos }}</td>
                 <td>{{ p.nome_categoria or (p.categoria.nome if p.categoria else "-") }}</td>
+                <td>{{ p.id_fabricante or (p.fabricante.nome if p.fabricante else "-") }}</td>
                 <td>
                   {% if p.caminhoimagem %}
                     <img src="/static/uploads/img/{{ p.caminhoimagem }}" alt="{{ p.nome }}" width="70">
@@ -113,7 +115,7 @@
       <!-- Formulário de criação -->
       <aside class="card">
         <h3 style="margin-top:0">Adicionar novo produto</h3>
-        <form action="/admin/produto" method="post" enctype="multipart/form-data">
+        <form action="/admin/produto/criar" method="post" enctype="multipart/form-data">
           <fieldset>
             <label for="nome">Nome</label>
             <input id="nome" name="nome" type="text" required />
@@ -123,20 +125,28 @@
 
             <label for="estoque">Estoque</label>
             <input id="estoque" name="estoque" type="number" step="1" min="0" required />
-
-            <label for="tamanhos">Tamanhos</label>
-            <input id="tamanhos" name="tamanhos" type="number" required />
+          
+            <label for="tamanho">Tamanhos</label>
+            <input id="tamanho" name="tamanho" type="number" step="1" min="0" required />
 
             <label for="id_categoria">Categoria</label>
-            <select id="id_categoria" name="id_categoria">
-              <option value="">Selecione uma categoria</option>
-              {% for c in categoria %}
-                <option>{{ c.nome }}</option>
-                {% endfor %}
+            <select id="id_categoria" name="categoria" required>
+            <option value="">Selecione uma categoria</option>
+            {% for c in categorias %}
+              <option value="{{ c.id }}">{{ c.nome }}</option>
+            {% endfor %}
             </select>
 
+            <label for="id_fabricante">Fabricante</label>
+            <input type="number" name="id_fabricante" id="id_fabricante">
 
-
+             <!-- <label for="id_fabricante">Fabricante</label>
+            <select id="id_fabricante" name="id_fabricante" required>
+              <option value="">Selecione um fabricante</option>
+              {% for f in fabricantes %}
+                <option value="{{ f.id }}">{{ f.nome }}</option>
+              {% endfor %}
+            </select> -->
 
             <label for="imagem">Imagem</label>
             <input id="imagem" name="imagem" type="file" />

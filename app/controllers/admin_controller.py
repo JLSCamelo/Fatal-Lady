@@ -22,20 +22,20 @@ def pagina_admin(request:Request,db:Session):
         return RedirectResponse(url="/",status_code=303)
     
     produtos=db.query(ProdutoDB).all()
+    categorias = db.query(CategoriaDB).all()
     
     return templates.TemplateResponse("admin.html",{
-        "request":request,"produtos":produtos
+        "request":request,"produtos":produtos, "categorias":categorias
     })
 
 def criar_produto(request: Request, 
                   nome: str, 
                   preco: float, 
-                  quantidade: int, 
+                  estoque: int, 
                   id_fabricante: int,
                   id_categoria: int, 
                   tamanhos: int,
                   imagem: UploadFile, 
-                  nome_categoria : str,
                   db: Session):
     caminho_arquivo = None
 
@@ -47,12 +47,11 @@ def criar_produto(request: Request,
     novo_produto = ProdutoDB(
         nome=nome,
         preco=preco,
-        estoque=quantidade,
-        fabricante = id_fabricante,
-        categoria=id_categoria,
+        estoque=estoque,
+        id_fabricante = id_fabricante,
+        id_categoria=id_categoria,
         tamanhos = tamanhos,
-        imagem=caminho_arquivo,
-        nome_categoria = nome_categoria
+        caminhoimagem=caminho_arquivo,
     )
 
     db.add(novo_produto)
@@ -77,7 +76,7 @@ def editar_produto(id:int, request: Request,db:Session):
     })
 
 def atualizar_produto(id:int,nome:str,
-                      preco:float, quantidade:int,
+                      preco:float, estoque:int,
                       imagem:UploadFile,db:Session):
     
     produto = db.query(ProdutoDB).filter(ProdutoDB.id_produto==id).first()
@@ -87,7 +86,7 @@ def atualizar_produto(id:int,nome:str,
     #atualizar campos
     produto.nome = nome
     produto.preco = preco
-    produto.estoque = quantidade
+    produto.estoque = estoque
     #atualizar image se uma nova for enviada
     if imagem and imagem.filename !="":
         caminho_arquivo=f"{UPLOAD_DIR}/{imagem.filename}"

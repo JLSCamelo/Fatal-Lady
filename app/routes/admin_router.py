@@ -18,12 +18,14 @@ async def post_produto(
     request: Request,
     nome: str = Form(...),
     preco: float = Form(...),
-    quantidade: int = Form(...),
-    categoria: str = Form(""),
+    estoque: int = Form(...),
+    id_fabricante: int = Form(...),
+    categoria: int = Form(...),
+    tamanho: int = Form(...),
     imagem: UploadFile = File(None),
     db: Session = Depends(get_db)
 ):
-    return await criar_produto(request, nome, preco, quantidade, categoria, imagem, db)
+    return criar_produto(request, nome, preco, estoque, id_fabricante , categoria, tamanho,imagem, db)
 
 #editar produto
 @router.get("/admin/produto/editar/{id}")
@@ -33,9 +35,9 @@ def get_editar_produto(id:int, request: Request,db:Session=Depends(get_db)):
 #rota atualzar produto post
 @router.post("/admin/produto/atualizar/{id}")
 def get_atualizar_produto(id:int,nome:str=Form(...),
-                      preco:float=Form(...), quantidade:int=Form(...),
+                      preco:float=Form(...), estoque:int=Form(...),
                       imagem:UploadFile=File(None),db:Session=Depends(get_db)):
-    return atualizar_produto(id,nome,preco,quantidade,imagem,db)
+    return atualizar_produto(id,nome,preco,estoque,imagem,db)
    
 
 #deletar produto
