@@ -52,10 +52,13 @@ def checkout(request: Request, db: Session):
 
     db.commit()
 
-        # Antes de remover os itens do carrinho, salve os dados que serão usados
+    # Atualiza o estoque
+    alterar_estoque(db, itens_carrinho)
+
+    # salve os dados que serão usados, antes de apagar o carrinho
     itens_email = []
     for item in itens_carrinho:
-        produto_nome = getattr(item, "nome_produto", f"Produto {item.produto_id}")
+        produto_nome = item.produto.nome  # <-- puxa o nome do produto
         itens_email.append({
             "nome": produto_nome,
             "quantidade": item.quantidade,
@@ -80,6 +83,30 @@ def checkout(request: Request, db: Session):
     return RedirectResponse(url="/meus-pedidos", status_code=303)
 
 
+from models.produto_model import ProdutoDB
+
+def alterar_estoque(db: Session, itens_pedido):
+    for item in itens_pedido:
+        produto = db.query(ProdutoDB).filter_by(id_produto=item.produto_id).first()
+        
+        if produto:
+            # Verifica se há estoque suficiente
+            if produto.estoque >= item.quantidade:
+                produto.estoque -= item.quantidade
+            else:
+                # Caso o estoque seja insuficiente, lança uma exceção
+                raise ValueError(
+                    f"Estoque insuficiente para o produto '{produto.nome}'. "
+                    f"Disponível: {produto.estoque}, Solicitado: {item.quantidade}"
+                )
+        else:
+            raise ValueError(f"Produto com ID {item.produto_id} não encontrado.")
+
+    db.commit()
+
+
+
+
 
 import smtplib
 from email.message import EmailMessage
@@ -90,7 +117,6 @@ load_dotenv()
 EMAIL_REMITENTE = os.getenv("EMAIL_REMITENTE")
 EMAIL_SENHA = os.getenv("EMAIL_SENHA")
 EMAIL_FROM_NAME = os.getenv("EMAIL_FROM_NAME", EMAIL_REMITENTE)
-
 
 def enviar_email_checkout(destinatario: str, nome_usuario: str, itens: list, total: float):
     """
@@ -160,7 +186,7 @@ def enviar_email_checkout(destinatario: str, nome_usuario: str, itens: list, tot
 
           <tr>
             <td align="center" style="padding:20px;">
-              <a href="https://fatallady.com.br/meus-pedidos" style="display:inline-block; background-color:#d00000; color:#fff; padding:14px 28px; border-radius:4px; text-decoration:none; font-weight:bold;">
+              <a href="http://127.0.0.1:8000/meus-pedidos" style="display:inline-block; background-color:#d00000; color:#fff; padding:14px 28px; border-radius:4px; text-decoration:none; font-weight:bold;">
                 Acompanhar Pedido
               </a>
             </td>
@@ -181,56 +207,3 @@ def enviar_email_checkout(destinatario: str, nome_usuario: str, itens: list, tot
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
         smtp.login(EMAIL_REMITENTE, EMAIL_SENHA)
         smtp.send_message(msg)
-
-
-
-# def checkout(request: Request, db: Session):
-#     token = request.cookies.get("token")
-#     payload = verificar_token(token)
-#     if not payload:
-#         return RedirectResponse(url="/login", status_code=303)
-
-#     email = payload.get("sub")
-#     usuario = db.query(UsuarioDB).filter_by(email=email).first()
-
-#     # Busca o carrinho atual
-#     carrinho = db.query(CarrinhoDB).filter_by(id_cliente=usuario.id_cliente).first()
-#     if not carrinho:
-#         return {"mensagem": "Carrinho vazio"}
-
-#     itens_carrinho = db.query(ItemCarrinhoDB).filter_by(carrinho_id=carrinho.id).all()
-#     if not itens_carrinho:
-#         return {"mensagem": "Nenhum item no carrinho"}
-
-#     # Calcula o total
-#     total = sum(item.quantidade * item.preco_unitario for item in itens_carrinho)
-
-#     # Cria o pedido
-#     pedido = PedidoDB(
-#         id_cliente=usuario.id_cliente,
-#         data=datetime.utcnow(),
-#         valortotal=total,
-#         status="Em processamento"  # se houver campo status
-#     )
-#     db.add(pedido)
-#     db.commit()
-#     db.refresh(pedido)
-
-#     # Cria os itens do pedido
-#     for item in itens_carrinho:
-#         item_pedido = ItemPedidoDB(
-#             pedido_id=pedido.id,       # FK para PedidoDB
-#             produto_id=item.produto_id,       # FK para ProdutoDB
-#             quantidade=item.quantidade,
-#             preco_unitario=item.preco_unitario
-#         )
-#         db.add(item_pedido)
-
-#     db.commit()
-
-#     db.query(ItemCarrinhoDB).filter_by(carrinho_id=carrinho.id).delete()
-#     carrinho.valortotal = 0
-#     db.commit()
-
-#     return RedirectResponse(url="/meus-pedidos", status_code=303)
-
