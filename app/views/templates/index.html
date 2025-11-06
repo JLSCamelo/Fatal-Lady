@@ -41,7 +41,7 @@
       <div class="header-div">
         <a href="#">Ajuda</a>
         {% if usuario %}
-            <a href="/me/painel">Olá, {{ usuario.nome }}</a>
+            <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
         {% else %}
             <a href="/login">Entrar</a>
         {% endif %}
