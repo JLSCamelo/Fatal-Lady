@@ -4,6 +4,7 @@ sqlalchemy
 jinja2
 python-jose
 passlib[bcrypt]
+psycopg2
 python-multipart
 pydantic
 email-validator
@@ -14,3 +15,5 @@ httpx
 itsdangerous
 aiofiles
 authlib
+pandas
+plotly
