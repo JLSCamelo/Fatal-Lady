@@ -699,3 +699,7 @@ footer hr {
     margin-bottom: 1.5rem;
   }
 }
+
+.required {
+    color: #cb1313;
+}

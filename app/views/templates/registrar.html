@@ -72,21 +72,21 @@
           />
         </a>
         {% if usuario %}
-          <a href="/me/painel">
-            <img
+        <a href="/me/painel">
+          <img
             src="/static/uploads/img/home/icons-main/user.png"
             id="user-icon"
             class="icons"
-            />
-          </a>
+          />
+        </a>
         {% else %}
-          <a href="/login">
-            <img
+        <a href="/login">
+          <img
             src="/static/uploads/img/home/icons-main/user.png"
             id="user-icon"
             class="icons"
-            />
-          </a>
+          />
+        </a>
         {% endif %}
       </div>
     </nav>
@@ -198,7 +198,9 @@
                 <h3 class="section-title">Dados Pessoais</h3>
 
                 <div class="input-row">
-                  <label for="nome">Nome Completo</label>
+                  <label for="nome"
+                    >Nome Completo <span class="required">*</span></label
+                  >
                   <input
                     id="nome"
                     name="nome"
@@ -210,7 +212,9 @@
                 </div>
 
                 <div class="input-row">
-                  <label for="email">Email</label>
+                  <label for="email"
+                    >Email <span class="required">*</span></label
+                  >
                   <input
                     id="email"
                     name="email"
@@ -222,7 +226,9 @@
                 </div>
 
                 <div class="input-row">
-                  <label for="telefone">Telefone</label>
+                  <label for="telefone"
+                    >Telefone <span class="required">*</span></label
+                  >
                   <input
                     id="telefone"
                     name="telefone"
@@ -239,7 +245,7 @@
                 <h3 class="section-title">Endereço</h3>
 
                 <div class="input-row">
-                  <label for="cep">CEP</label>
+                  <label for="cep">CEP <span class="required">*</span></label>
                   <input
                     id="cep"
                     name="cep"
@@ -249,11 +255,13 @@
                     placeholder="12345-678"
                     maxlength="9"
                   />
-                  <small class="input-hint">Informe seu CEP para busca automática</small>
+                  <small class="input-hint"
+                    >Informe seu CEP para busca automática</small
+                  >
                 </div>
 
                 <div class="input-row">
-                  <label for="rua">Rua</label>
+                  <label for="rua">Rua <span class="required">*</span></label>
                   <input
                     id="rua"
                     name="rua"
@@ -266,7 +274,9 @@
 
                 <div class="input-group">
                   <div class="input-row">
-                    <label for="numero">Número</label>
+                    <label for="numero"
+                      >Número <span class="required">*</span></label
+                    >
                     <input
                       id="numero"
                       name="numero"
@@ -291,7 +301,9 @@
 
                 <div class="input-group">
                   <div class="input-row">
-                    <label for="bairro">Bairro</label>
+                    <label for="bairro"
+                      >Bairro <span class="required">*</span></label
+                    >
                     <input
                       id="bairro"
                       name="bairro"
@@ -303,7 +315,9 @@
                   </div>
 
                   <div class="input-row">
-                    <label for="cidade">Cidade</label>
+                    <label for="cidade"
+                      >Cidade <span class="required">*</span></label
+                    >
                     <input
                       id="cidade"
                       name="cidade"
@@ -316,8 +330,15 @@
                 </div>
 
                 <div class="input-row">
-                  <label for="estado">Estado</label>
-                  <select id="estado" name="estado" class="input-field" required>
+                  <label for="estado"
+                    >Estado <span class="required">*</span></label
+                  >
+                  <select
+                    id="estado"
+                    name="estado"
+                    class="input-field"
+                    required
+                  >
                     <option value="">Selecione o estado</option>
                     <option value="AC">Acre</option>
                     <option value="AL">Alagoas</option>
@@ -354,7 +375,9 @@
                 <h3 class="section-title">Segurança</h3>
 
                 <div class="input-row">
-                  <label for="senha">Senha</label>
+                  <label for="senha"
+                    >Senha <span class="required">*</span></label
+                  >
                   <div class="password-wrapper">
                     <input
                       id="senha"
@@ -365,24 +388,81 @@
                       placeholder="Mínimo 8 caracteres"
                       minlength="8"
                     />
-                    <button type="button" class="toggle-password" id="toggle-password" aria-label="Mostrar senha" aria-pressed="false">
-                      <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 5C5.63636 5 2 12 2 12C2 12 5.63636 19 12 19C18.3636 19 22 12 22 12C22 12 18.3636 5 12 5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <button
+                      type="button"
+                      class="toggle-password"
+                      id="toggle-password"
+                      aria-label="Mostrar senha"
+                      aria-pressed="false"
+                    >
+                      <svg
+                        class="eye-icon"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12 5C5.63636 5 2 12 2 12C2 12 5.63636 19 12 19C18.3636 19 22 12 22 12C22 12 18.3636 5 12 5Z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
                       </svg>
-                      <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none">
-                        <path d="M3 3L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        <path d="M10.5 10.677C10.1872 11.0009 10 11.4758 10 12C10 13.1046 10.8954 14 12 14C12.5242 14 12.9991 13.8128 13.323 13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        <path d="M7.36185 7.5611C5.68002 8.7355 4.37992 10.4315 3.5 12C4.5 14 7.5 19 12 19C13.3407 19 14.5686 18.6805 15.6653 18.1535" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        <path d="M12 5C16.5 5 19.5 10 20.5 12C20.1466 12.7682 19.6999 13.5201 19.1632 14.2263" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      <svg
+                        class="eye-off-icon"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style="display: none"
+                      >
+                        <path
+                          d="M3 3L21 21"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M10.5 10.677C10.1872 11.0009 10 11.4758 10 12C10 13.1046 10.8954 14 12 14C12.5242 14 12.9991 13.8128 13.323 13.5"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M7.36185 7.5611C5.68002 8.7355 4.37992 10.4315 3.5 12C4.5 14 7.5 19 12 19C13.3407 19 14.5686 18.6805 15.6653 18.1535"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M12 5C16.5 5 19.5 10 20.5 12C20.1466 12.7682 19.6999 13.5201 19.1632 14.2263"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                        />
                       </svg>
                     </button>
                   </div>
-                  <small class="input-hint">Use letras, números e símbolos</small>
+                  <small class="input-hint"
+                    >Use letras, números e símbolos</small
+                  >
                 </div>
 
                 <div class="input-row">
-                  <label for="confirmar-senha">Confirmar Senha</label>
+                  <label for="confirmar-senha"
+                    >Confirmar Senha <span class="required">*</span></label
+                  >
                   <input
                     id="confirmar-senha"
                     name="confirmar-senha"
@@ -397,18 +477,21 @@
                   <div class="strength-bar">
                     <div class="strength-progress" id="strength-progress"></div>
                   </div>
-                  <span class="strength-text" id="strength-text">Força da senha</span>
+                  <span class="strength-text" id="strength-text"
+                    >Força da senha</span
+                  >
                 </div>
               </div>
 
               <div class="terms-row">
                 <label class="terms-label">
                   <input type="checkbox" name="terms" required />
-                  <span
-                    >Li e aceito os
+                  <span>
+                    Li e aceito os
                     <a href="/terms" class="link">Termos de Uso</a> e
-                    <a href="/privacy" class="link">Política de Privacidade</a></span
-                  >
+                    <a href="/privacy" class="link">Política de Privacidade</a>
+                    <span class="required">*</span>
+                  </span>
                 </label>
               </div>
 

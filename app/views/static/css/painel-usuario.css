@@ -1,0 +1,205 @@
+.painel-container {
+    width: min(1200px, 94%);
+    margin: 2rem auto;
+    padding: 2rem 0;
+}
+
+.painel-header {
+    background: linear-gradient(135deg, var(--main-red) 0%, var(--light-red) 100%);
+    padding: 3rem 2rem;
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 8px 24px rgba(203, 19, 19, 0.15);
+}
+
+.user-welcome h1 {
+    color: white;
+    font-size: 2.5rem;
+    font-family: "Questrial", sans-serif;
+    letter-spacing: 2.5px;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.user-welcome h1 span {
+    color: var(--background);
+}
+
+.user-welcome p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.painel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.painel-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.painel-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.card-icon {
+    width: 4rem;
+    height: 4rem;
+    background: linear-gradient(135deg, var(--main-red) 0%, var(--light-red) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.card-icon img {
+    width: 2rem;
+    filter: brightness(0) invert(1);
+}
+
+.card-icon-2 {
+    width: 4rem;
+    height: 4rem;
+    background: linear-gradient(135deg, var(--main-red) 0%, var(--light-red) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.card-icon-2 img {
+    width: 5rem;
+    filter: brightness(0) invert(1);
+}
+
+.painel-card h3 {
+    color: var(--dark-gray);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+}
+
+.painel-card p {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 0 0 1.5rem 0;
+    flex: 1;
+}
+
+.card-button {
+    background: var(--main-red);
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 2rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.card-button:hover {
+    background: var(--light-red);
+    transform: scale(1.05);
+}
+
+.painel-quick-actions {
+    background: var(--light-gray);
+    padding: 2.5rem 2rem;
+    border-radius: 1rem;
+}
+
+.painel-quick-actions h2 {
+    color: var(--dark-gray);
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 2rem 0;
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.quick-action-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: var(--dark-gray);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.quick-action-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.quick-action-item img {
+    width: 2rem;
+}
+
+.quick-action-item span {
+    font-weight: 600;
+    text-align: center;
+}
+
+.quick-action-item.logout {
+    background: var(--main-red);
+    color: white;
+}
+
+.quick-action-item.logout:hover {
+    background: var(--light-red);
+}
+
+@media (max-width: 768px) {
+    .painel-header {
+        padding: 2rem 1.5rem;
+    }
+
+    .user-welcome h1 {
+        font-size: 1.8rem;
+    }
+
+    .user-welcome p {
+        font-size: 1rem;
+    }
+
+    .painel-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .quick-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .quick-actions-grid {
+        grid-template-columns: 1fr;
+    }
+}

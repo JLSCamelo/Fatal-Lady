@@ -1,18 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="PT-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel do Usuário</title>
+    <title>Painel do Usuário - Fatal Lady</title>
+    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png"/>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/painel-usuario.css') }}"/>
 </head>
 <body>
-{% extends "base.html" %}
-{% block content %}
-    <h2>Painel do Usuário</h2>
-    <p>Bem-vindo(a), {{usuario.nome}}</p>
-    <a href="/me/dados">Meus Dados</a>
-    <a href="/meus-pedidos">Meus Pedidos</a>
-    <hr>
-{% endblock %}
+    <header id="main_header">
+        <div class="header-div">
+            <img src="/static/uploads/img/home/icons-main/languages.png" id="language-icon"/>
+            <select name="language" id="language">
+                <option value="br">BR</option>
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+            </select>
+        </div>
+
+        <div class="header-div">
+            <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
+        </div>
+
+        <div class="header-div">
+            <a href="#">Ajuda</a>
+            <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-div">
+            <a href="/" class="text_sections">Início</a>
+            <a href="/produtos" class="text_sections">Catálogo</a>
+            <a href="/carrinho" class="text_sections">Carrinho</a>
+        </div>
+
+        <div class="nav-div">
+            <a href="/">
+                <img src="/static/uploads/img/home/icons-main/letreiro-logo.png" id="logo" alt="Logo"/>
+            </a>
+        </div>
+
+        <div class="nav-div">
+            <a href="/carrinho">
+                <img src="/static/uploads/img/home/icons-main/kart.png" id="kart-icon" class="icons"/>
+            </a>
+            <a href="/produtos">
+                <img src="/static/uploads/img/home/icons-main/shop.png" id="shop-icon" class="icons"/>
+            </a>
+            <a href="/me/painel">
+                <img src="/static/uploads/img/home/icons-main/user.png" id="user-icon" class="icons"/>
+            </a>
+        </div>
+    </nav>
+
+    <main class="painel-container">
+        <section class="painel-header">
+            <div class="user-welcome">
+                <h1>Bem-vindo(a), <span>{{ usuario.nome }}</span></h1>
+                <p>Gerencie sua conta e acompanhe seus pedidos</p>
+            </div>
+        </section>
+
+        <section class="painel-grid">
+            <div class="painel-card">
+                <div class="card-icon">
+                    <img src="/static/uploads/img/home/icons-main/user.png" alt="Meus Dados"/>
+                </div>
+                <h3>Meus Dados</h3>
+                <p>Atualize suas informações pessoais e de contato</p>
+                <a href="/me/dados" class="card-button">Acessar</a>
+            </div>
+
+            <div class="painel-card">
+                <div class="card-icon">
+                    <img src="/static/uploads/img/home/icons-main/kart.png" alt="Meus Pedidos"/>
+                </div>
+                <h3>Meus Pedidos</h3>
+                <p>Acompanhe o status e histórico de suas compras</p>
+                <a href="/meus-pedidos" class="card-button">Acessar</a>
+            </div>
+
+            <div class="painel-card">
+                <div class="card-icon">
+                    <img src="/static/uploads/img/home/icons-main/shop.png" alt="Cashback"/>
+                </div>
+                <h3>Catálogo</h3>
+                <p>Explore nosso catálogo e aproveite preços imperdíveis</p>
+                <a href="#" class="card-button">Em Breve</a>
+            </div>
+
+            <div class="painel-card">
+                <div class="card-icon-2">
+                    <img src="/static/uploads/img/home/icons-discount/3.png" alt="Cashback"/>
+                </div>
+                <h3>Cashback</h3>
+                <p>Veja seus pontos e benefícios acumulados</p>
+                <a href="#" class="card-button">Em Breve</a>
+            </div>
+
+            <div class="painel-card">
+                <div class="card-icon-2">
+                    <img src="/static/uploads/img/home/icons-discount/4.png" alt="Pagamentos"/>
+                </div>
+                <h3>Formas de Pagamento</h3>
+                <p>Adicione ou remova cartões e métodos de pagamento</p>
+                <a href="#" class="card-button">Em Breve</a>
+            </div>
+
+            <div class="painel-card">
+                <div class="card-icon-2">
+                    <img src="/static/uploads/img/home/icons-discount/2.png" alt="Cupons"/>
+                </div>
+                <h3>Cupons e Promoções</h3>
+                <p>Seus cupons de desconto disponíveis</p>
+                <a href="#" class="card-button">Em Breve</a>
+            </div>
+        </section>
+
+        <section class="painel-quick-actions">
+            <h2>Ações Rápidas</h2>
+            <div class="quick-actions-grid">
+                <a href="/produtos" class="quick-action-item">
+                    <span>Continuar Comprando</span>
+                </a>
+                <a href="/carrinho" class="quick-action-item">
+                    <span>Ir para Carrinho</span>
+                </a>
+                <a href="#" class="quick-action-item">
+                    <span>Falar com Suporte</span>
+                </a>
+                <a href="/logout" class="quick-action-item logout">
+                    <span>Sair da Conta</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <div>
+                <h4>MINHA CONTA</h4>
+                <a href="/me/dados">Meus Dados</a>
+                <a href="/meus-pedidos">Meus Pedidos</a>
+                <a href="#">Cashback</a>
+                <a href="/login">Login</a>
+            </div>
+            <div>
+                <h4>SUPORTE E POLÍTICAS</h4>
+                <a href="#">Trocas e Devoluções</a>
+                <a href="#">Dúvidas Frequentes</a>
+                <a href="#">Fale Conosco</a>
+                <a href="#">Política de Privacidade</a>
+            </div>
+            <div>
+                <h4>FORMAS DE PAGAMENTO</h4>
+                <img src="/static/uploads/img/catalogo/footer/payment.png" alt="Formas de Pagamento"/>
+            </div>
+        </div>
+        <hr/>
+        <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+    </footer>
 </body>
 </html>
