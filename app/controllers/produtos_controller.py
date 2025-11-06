@@ -1,6 +1,16 @@
 from models.produto_model import ProdutoDB
 from database import *
 from sqlalchemy import Date
+from fastapi import Request
+from fastapi.responses import RedirectResponse
+from sqlalchemy.orm import Session
+from auth import verificar_token
+from models.usuario_model import UsuarioDB
+from models.carrinho_model import CarrinhoDB, ItemCarrinhoDB
+from models.produto_model import ProdutoDB
+from fastapi.templating import Jinja2Templates
+
+templates = Jinja2Templates(directory="views/templates")
 
 #criar tabelas
 Base.metadata.create_all(bind=engine)
@@ -87,3 +97,21 @@ def deletar_produto(id_produto: int):
         raise erro
     finally:
         db.close()
+
+def produtos_visualizar(request: Request, db: Session):
+    token = request.cookies.get("token")
+    payload = verificar_token(token)
+
+    if not payload:
+        return RedirectResponse(url="/login", status_code=303)
+
+    email = payload.get("sub")
+    usuario = db.query(UsuarioDB).filter_by(email=email).first()
+
+    produtos = listar_produto()
+
+    # Passa o 'usuario' para o template
+    return templates.TemplateResponse(
+        "catalogo.html",
+        {"request": request, "usuario": usuario, "produtos": produtos}
+    )

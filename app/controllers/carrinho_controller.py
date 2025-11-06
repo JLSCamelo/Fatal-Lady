@@ -147,7 +147,7 @@ def carrinho_visualizar(request: Request, db: Session):
     carrinho = db.query(CarrinhoDB).filter_by(id_cliente=usuario.id_cliente).first()
 
     if not carrinho:
-        # ⚡ CORREÇÃO: Passa o 'usuario' para o template, mesmo se o carrinho estiver vazio
+        # Passa o 'usuario' para o template, mesmo se o carrinho estiver vazio
         return templates.TemplateResponse(
             "carrinho.html",
             {"request": request, "carrinho": [], "total": 0.0, "usuario": usuario}
@@ -156,7 +156,7 @@ def carrinho_visualizar(request: Request, db: Session):
     itens = db.query(ItemCarrinhoDB).filter_by(carrinho_id=carrinho.id).all()
     total = sum(item.quantidade * item.preco_unitario for item in itens)
 
-    # ⚡ CORREÇÃO: Passa o 'usuario' para o template
+    # Passa o 'usuario' para o template
     return templates.TemplateResponse(
         "carrinho.html",
         {"request": request, "carrinho": itens, "total": total, "usuario": usuario}

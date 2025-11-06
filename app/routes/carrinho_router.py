@@ -4,9 +4,7 @@ from database import *
 from sqlalchemy.orm import Session
 from controllers.carrinho_controller import carrinho_add, carrinho_visualizar, carrinho_update, carrinho_remover
 from fastapi.templating import Jinja2Templates
-from auth import verificar_token
 from database import get_db
-from models import UsuarioDB
 
 router = APIRouter()
 templates = Jinja2Templates(directory="views/templates")
