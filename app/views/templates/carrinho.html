@@ -107,10 +107,12 @@
             <div class="item-price" data-price="{{ item.preco_unitario }}">R$ {{ item.preco_unitario }}</div>
           </div>
           <div class="item-controls">
-            <form action="/carrinho/editar/{{ item.produto_id }}" method="post" class="quantity-control" aria-label="Atualizar quantidade de {{ item.id }}">
-              <input type="number" name="quantidade" value="{{ item.quantidade }}" min="1" required class="quantity-input" aria-label="Quantidade">
+            <form action="/carrinho/editar/{{item.produto_id }}" method="post">
+              <input type="hidden" name="tamanho" value="{{ item.tamanho }}">
+              <input type="number" name="quantidade" value="{{ item.quantidade }}">
               <button type="submit">Atualizar</button>
             </form>
+
             <form action="/carrinho/remover/{{ item.produto_id }}" method="post" aria-label="Remover {{ item.id }}">
               <button type="submit" class="btn-remove">Remover</button>
             </form>

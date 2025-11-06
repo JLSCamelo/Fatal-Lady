@@ -42,29 +42,43 @@ def produtos_por_categoria():
     finally:
         db.close()
 
-def get_produto(id_produto):
-    db = SessionLocal()
+
+def get_produto(request: Request, id_produto: int, db: Session):
+    token = request.cookies.get("token")
+    payload = verificar_token(token)
+
+    if not payload:
+        return RedirectResponse(url="/login", status_code=303)
+
+    email = payload.get("sub")
+    produto = db.query(ProdutoDB).filter(ProdutoDB.id_produto == id_produto).first()
+    usuario = db.query(UsuarioDB).filter_by(email=email).first()
+    return produto, usuario
+
+
+
+# Criar produto (somente se logado)
+def criar_produto(request: Request, produto: ProdutoDB, db: Session):
     try:
-        produto = db.query(ProdutoDB).filter(ProdutoDB.id_produto==id_produto).first()
-        return produto
-    except Exception as erro:
-        raise erro
-    finally:
-        db.close()
-    
-def criar_produto(produto: ProdutoDB):
-    db = SessionLocal()
-    try:
+        # Verifica token
+        token = request.cookies.get("token")
+        payload = verificar_token(token)
+        if not payload:
+            return RedirectResponse(url="/login", status_code=303)
+
+        email = payload.get("sub")
+
         db.add(produto)
         db.commit()
         db.refresh(produto)
+
         return produto
     except Exception as erro:
         db.rollback()
         raise erro
     finally:
         db.close()
- 
+
 def atualizar_produto(
     id_produto: int, data: Date, metodo: str):
     db = SessionLocal() 
@@ -110,7 +124,6 @@ def produtos_visualizar(request: Request, db: Session):
 
     produtos = listar_produto()
 
-    # Passa o 'usuario' para o template
     return templates.TemplateResponse(
         "catalogo.html",
         {"request": request, "usuario": usuario, "produtos": produtos}

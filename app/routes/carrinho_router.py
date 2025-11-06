@@ -11,25 +11,33 @@ templates = Jinja2Templates(directory="views/templates")
 
 @router.get("/carrinho", response_class=HTMLResponse)
 def get_carrinho(request: Request, db: Session = Depends(get_db)):
-    # A rota agora simplesmente chama o controller, que faz todo o trabalho.
     return carrinho_visualizar(request, db)
 
 @router.post("/carrinho/adicionar/{produto_id}")
 def post_carrinho(request:Request,
                        produto_id: int,
-                       quantidade: int=Form(1),
                        tamanho: int=Form(...),
-                       db:Session=Depends(get_db)):
+                        quantidade: int=Form(1),
+                       db:Session=Depends(get_db)
+):
     return carrinho_add(request, produto_id, quantidade, tamanho, db)
 
 @router.post("/carrinho/editar/{produto_id}")
 def put_carrinho(
     request: Request,
     produto_id: int,
+    tamanho: int = Form(...),
     quantidade: int = Form(...),
     db: Session = Depends(get_db)
 ):
-    return carrinho_update(request, produto_id, quantidade, db)
+    return carrinho_update(
+    request=request,
+    produto_id=produto_id,
+    tamanho=tamanho,
+    quantidade=quantidade,
+    db=db
+)
+
 
 
 @router.post("/carrinho/remover/{produto_id}")

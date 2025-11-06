@@ -68,7 +68,7 @@ def carrinho_add(request: Request, id_produto: int, quantidade: int, tamanho: in
 
 
 #  REMOVER ITEM 
-def carrinho_remover(request: Request, produto_id: int, tamanho: int, db: Session):
+def carrinho_remover(request: Request, produto_id: int, db: Session):
     token = request.cookies.get("token")
     payload = verificar_token(token)
 
@@ -85,7 +85,7 @@ def carrinho_remover(request: Request, produto_id: int, tamanho: int, db: Sessio
 
     item = (
         db.query(ItemCarrinhoDB)
-        .filter_by(carrinho_id=carrinho.id, produto_id=produto_id, tamanho=tamanho)
+        .filter_by(carrinho_id=carrinho.id, produto_id=produto_id)
         .first()
     )
 
@@ -137,17 +137,21 @@ def carrinho_update(request: Request, produto_id: int, tamanho: int, quantidade:
 #  VISUALIZAR CARRINHO 
 def carrinho_visualizar(request: Request, db: Session):
     token = request.cookies.get("token")
+
+    if not token:
+        return RedirectResponse(url="/login", status_code=303) 
+    
     payload = verificar_token(token)
 
-    if not payload:
+    if not payload: 
         return RedirectResponse(url="/login", status_code=303)
+
 
     email = payload.get("sub")
     usuario = db.query(UsuarioDB).filter_by(email=email).first()
     carrinho = db.query(CarrinhoDB).filter_by(id_cliente=usuario.id_cliente).first()
 
     if not carrinho:
-        # Passa o 'usuario' para o template, mesmo se o carrinho estiver vazio
         return templates.TemplateResponse(
             "carrinho.html",
             {"request": request, "carrinho": [], "total": 0.0, "usuario": usuario}
@@ -156,7 +160,6 @@ def carrinho_visualizar(request: Request, db: Session):
     itens = db.query(ItemCarrinhoDB).filter_by(carrinho_id=carrinho.id).all()
     total = sum(item.quantidade * item.preco_unitario for item in itens)
 
-    # Passa o 'usuario' para o template
     return templates.TemplateResponse(
         "carrinho.html",
         {"request": request, "carrinho": itens, "total": total, "usuario": usuario}

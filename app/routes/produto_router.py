@@ -29,9 +29,12 @@ async def get_produtos_categoria(request: Request):
 
 #rota para detalhar produto
 @router.get("/produto-get/{id_produto}", response_class=HTMLResponse)
-async def get_detalhe_produto(request:Request, id_produto:int):
-        produto = get_produto(id_produto)
-        return templates.TemplateResponse("produto.html",{
-        "request":request, "produto":produto
+async def get_detalhe_produto(request: Request, id_produto: int, db: Session = Depends(get_db)):
+    produto, usuario = get_produto(request, id_produto, db)
+
+    return templates.TemplateResponse("produto.html", {
+        "request": request,
+        "produto": produto,
+        "usuario": usuario
     })
 
