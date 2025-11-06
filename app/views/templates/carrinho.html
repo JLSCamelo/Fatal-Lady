@@ -8,50 +8,66 @@
   <link rel="stylesheet" href="{{ url_for('static', path='css/carrinho.css') }}">
 </head>
 <body>
-  <!-- Header (padronizado com index) -->
-  <header id="main_header" role="banner">
-    <div class="header-div">
-      <img src="/static/uploads/img/home/icons-main/languages.png" id="language-icon" alt="Idioma">
-      <label for="language" class="visually-hidden">Selecionar idioma</label>
-      <select name="language" id="language" aria-label="Idioma do site">
-        <option value="br">BR</option>
-        <option value="en">EN</option>
-        <option value="es">ES</option>
-      </select>
-    </div>
+  <header id="main_header">
+      <div class="header-div">
+        <img
+          src="/static/uploads/img/home/icons-main/languages.png"
+          id="language-icon"
+        />
+        <select name="language" id="language">
+          <option value="br">BR</option>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+      </div>
 
-    <div class="header-div">
-      <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
-    </div>
+      <div class="header-div">
+        <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
+      </div>
 
-    <div class="header-div">
-      <a href="#" aria-label="Ajuda">Ajuda</a>
-      <a href="/login" aria-label="Entrar">Entrar</a>
-    </div>
-  </header>
+      <div class="header-div">
+        <a href="#">Ajuda</a>
+        {% if usuario %}
+            <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+        {% else %}
+            <a href="/login">Entrar</a>
+        {% endif %}
+      </div>
+    </header>
 
-  <!-- Nav (padronizado com index) -->
-  <nav role="navigation" aria-label="Navegação principal">
-    <div class="nav-div">
-      <a href="/" class="text_sections">Início</a>
-      <a href="/produtos" class="text_sections">Catálogo</a>
-      <a href="/carrinho" class="text_sections" aria-current="page">Carrinho</a>
-    </div>
+    <nav>
+      <div class="nav-div">
+        <a href="/" class="text_sections">Início</a>
+        <a href="/produtos" class="text_sections">Catálogo</a>
+        <a href="/carrinho" class="text_sections">Carrinho</a>
+      </div>
 
-    <div class="nav-div">
-      <a href="/" aria-label="Página inicial">
-        <img src="/static/uploads/img/home/icons-main/letreiro-logo.png" id="logo" alt="Fatal Lady">
-      </a>
-    </div>
+      <div class="nav-div">
+        <a href="/">
+          <img
+            src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+            id="logo"
+            alt="Logo"
+          />
+        </a>
+      </div>
 
-    <div class="nav-div">
-      <a href="/carrinho" aria-label="Ver carrinho">
-        <img src="/static/uploads/img/home/icons-main/kart.png" id="kart-icon" class="icons" alt="Carrinho">
-      </a>
-      <a href="/produtos" aria-label="Loja">
-        <img src="/static/uploads/img/home/icons-main/shop.png" id="shop-icon" class="icons" alt="Loja">
-      </a>
-      {% if usuario %}
+      <div class="nav-div">
+        <a href="/carrinho">
+          <img
+            src="/static/uploads/img/home/icons-main/kart.png"
+            id="kart-icon"
+            class="icons"
+          />
+        </a>
+        <a href="/produtos">
+          <img
+            src="/static/uploads/img/home/icons-main/shop.png"
+            id="shop-icon"
+            class="icons"
+          />
+        </a>
+        {% if usuario %}
           <a href="/me/painel">
             <img
             src="/static/uploads/img/home/icons-main/user.png"
@@ -68,8 +84,8 @@
             />
           </a>
         {% endif %}
-    </div>
-  </nav>
+      </div>
+    </nav>
 
   <main class="cart-container" id="main" role="main">
     <div class="cart-header" aria-hidden="false">

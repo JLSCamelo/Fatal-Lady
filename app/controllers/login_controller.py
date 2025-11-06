@@ -12,21 +12,20 @@ def login_controller(request: Request,
 
     usuario = db.query(UsuarioDB).filter(UsuarioDB.email == email).first()
 
-    # ⚡ CORREÇÃO 1: Adicionar ?msg=invalid no redirecionamento de erro
+    # Se o login falhar, redireciona para /login com a mensagem de erro.
     if not usuario or not verificar_senha(senha, usuario.senha):
-        # AQUI garantimos que o pop-up de senha incorreta será acionado pelo JS
         return RedirectResponse(url=f"/login?msg=invalid", status_code=303)
 
-    # criar o token no campo is_admin
+    #criar o token no campo is_admin
     token=criar_token({"sub":usuario.email,
                        "is_admin":usuario.is_admin})
     
-    # verificar se o user é admin e direcionar a rota
+    #verificar se o user é admin e direcionar a rota
     if usuario.is_admin:
         destino="/admin"
     else:
-        # ⚡ CORREÇÃO 2 (Conceitual): O sucesso agora redireciona para o painel ou home (sem o ?msg=success)
-        # O fato de ser redirecionado para outra página já indica sucesso.
+        # CORREÇÃO DO REDIRECIONAMENTO DE SUCESSO:
+        # (Não é mais /login?msg=success, é direto para o painel)
         destino="/me/painel"
 
     response = RedirectResponse(url=destino, status_code=303)

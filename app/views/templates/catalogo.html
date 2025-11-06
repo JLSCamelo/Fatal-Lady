@@ -15,12 +15,13 @@
   </head>
 
   <body>
-    <!-- Header padronizado -->
-    <header id="main_header" role="banner">
+    <header id="main_header">
       <div class="header-div">
-        <img src="/static/uploads/img/home/icons-main/languages.png" id="language-icon" alt="Idioma" />
-        <label for="language" class="visually-hidden">Selecionar idioma</label>
-        <select name="language" id="language" aria-label="Idioma do site">
+        <img
+          src="/static/uploads/img/home/icons-main/languages.png"
+          id="language-icon"
+        />
+        <select name="language" id="language">
           <option value="br">BR</option>
           <option value="en">EN</option>
           <option value="es">ES</option>
@@ -33,30 +34,45 @@
 
       <div class="header-div">
         <a href="#">Ajuda</a>
-        <a href="/login">Entrar</a>
+        {% if usuario %}
+            <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+        {% else %}
+            <a href="/login">Entrar</a>
+        {% endif %}
       </div>
     </header>
 
-    <!-- Nav padronizado -->
-    <nav role="navigation" aria-label="Navegação principal">
+    <nav>
       <div class="nav-div">
         <a href="/" class="text_sections">Início</a>
-        <a href="/produtos" class="text_sections" aria-current="page">Catálogo</a>
+        <a href="/produtos" class="text_sections">Catálogo</a>
         <a href="/carrinho" class="text_sections">Carrinho</a>
       </div>
 
       <div class="nav-div">
-        <a href="/" aria-label="Página inicial">
-          <img src="/static/uploads/img/home/icons-main/letreiro-logo.png" id="logo" alt="Logo" />
+        <a href="/">
+          <img
+            src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+            id="logo"
+            alt="Logo"
+          />
         </a>
       </div>
 
       <div class="nav-div">
-        <a href="/carrinho" aria-label="Ver carrinho">
-          <img src="/static/uploads/img/home/icons-main/kart.png" id="kart-icon" class="icons" alt="Carrinho" />
+        <a href="/carrinho">
+          <img
+            src="/static/uploads/img/home/icons-main/kart.png"
+            id="kart-icon"
+            class="icons"
+          />
         </a>
-        <a href="/produtos" aria-label="Loja">
-          <img src="/static/uploads/img/home/icons-main/shop.png" id="shop-icon" class="icons" alt="Loja" />
+        <a href="/produtos">
+          <img
+            src="/static/uploads/img/home/icons-main/shop.png"
+            id="shop-icon"
+            class="icons"
+          />
         </a>
         {% if usuario %}
           <a href="/me/painel">

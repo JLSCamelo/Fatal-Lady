@@ -35,7 +35,11 @@
 
       <div class="header-div">
         <a href="#">Ajuda</a>
-        <a href="/login">Entrar</a>
+        {% if usuario %}
+            <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+        {% else %}
+            <a href="/login">Entrar</a>
+        {% endif %}
       </div>
     </header>
 
@@ -72,21 +76,21 @@
           />
         </a>
         {% if usuario %}
-        <a href="/me/painel">
-          <img
+          <a href="/me/painel">
+            <img
             src="/static/uploads/img/home/icons-main/user.png"
             id="user-icon"
             class="icons"
-          />
-        </a>
+            />
+          </a>
         {% else %}
-        <a href="/login">
-          <img
+          <a href="/login">
+            <img
             src="/static/uploads/img/home/icons-main/user.png"
             id="user-icon"
             class="icons"
-          />
-        </a>
+            />
+          </a>
         {% endif %}
       </div>
     </nav>

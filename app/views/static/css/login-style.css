@@ -586,43 +586,68 @@ footer hr {
   }
 }
 
+
+/* --- Estilos para o Container do Pop-up (opcional, mas recomendado) --- */
+/* Se você quiser um container para organizar múltiplos toasts */
+#pop-up-container {
+    position: fixed;
+    top: 70px; /* Distância do topo */
+    right: 20px; /* Distância da direita */
+    z-index: 1000; /* Garante que ficará acima de outros elementos */
+    display: flex;
+    flex-direction: column; /* Para empilhar vários toasts */
+    gap: 10px; /* Espaço entre múltiplos toasts */
+    pointer-events: none; /* Permite cliques através do container para elementos abaixo */
+}
+
+/* --- Estilos para o Toast Individual --- */
 .toast {
-  min-width: 260px;
-  max-width: 380px;
-  padding: 12px 16px;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  color: #fff;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  font-size: 14px;
-  opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity 300ms ease, transform 300ms ease;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+    position: relative; /* Para posicionar o botão de fechar */
+    background-color: #333; /* Cor de fundo padrão */
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 250px;
+    max-width: 350px;
+    font-family: Arial, sans-serif; /* Ou sua fonte preferida */
+    font-size: 15px;
+
+    /* Propriedades de animação (inicia fora da tela, esconde por padrão) */
+    opacity: 0;
+    transform: translateX(100%); /* Começa fora da tela à direita */
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    pointer-events: all; /* Permite interação com o toast em si */
 }
 
+/* Estado visível (adicionado pelo JS) */
 .toast.show {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateX(0); /* Desliza para dentro da tela */
 }
 
-.toast.success { 
-  background: #16a34a;
+/* --- Estilos para o Toast de ERRO --- */
+.toast.error {
+    background-color: #dc3545; /* Vermelho para erro */
+    border-left: 5px solid #bd2130; /* Borda esquerda destacada */
 }
 
-.toast.error { 
-  background: #ef4444;
-}
-
+/* --- Estilos para o Botão de Fechar --- */
 .toast .close {
-  background: transparent;
-  border: 0;
-  color: rgba(255,255,255,0.95);
-  font-weight: 700;
-  cursor: pointer;
-  padding: 4px;
-  line-height: 1;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s ease-in-out;
+}
+
+.toast .close:hover {
+    color: #f0f0f0;
 }

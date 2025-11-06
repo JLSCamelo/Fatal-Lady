@@ -28,7 +28,11 @@
 
       <div class="header-div">
         <a href="#">Ajuda</a>
-        <a href="/login">Entrar</a>
+        {% if usuario %}
+            <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+        {% else %}
+            <a href="/login">Entrar</a>
+        {% endif %}
       </div>
     </header>
 
@@ -241,10 +245,9 @@
       <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
     </footer>
 
-    <script src="/static/js/menu.js" defer></script>
-    <script src="/static/js/cart-ui.js" defer></script>
+    <div id="pop-up-container"></div>
+    
     <script src="/static/js/pop_up.js" defer></script>
     <script src="/static/js/toggle_password.js" defer></script>
-    <div id="app-toast" aria-live="polite" style="position: fixed; right: 20px; top: 20px; z-index: 9999; display:flex; flex-direction:column; gap:10px;"></div>
   </body>
 </html>
