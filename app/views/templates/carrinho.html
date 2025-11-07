@@ -122,7 +122,7 @@
             <img src="/static/uploads/img/catalogo/products/default.png" alt="{{ item.id }}">
           </div>
           <div class="item-details">
-            <div id="item-name-{{ loop.index }}" class="item-name">{{ item.nome }}</div>
+            <div id="item-name-{{ loop.index }}" class="item-name">{{ item.produto.nome }}</div>
             <div class="item-id">ID: {{ item.produto_id }}</div>
             <div class="item-price" data-price="{{ item.preco_unitario }}">R$ {{ item.preco_unitario }}</div>
           </div>

@@ -9,6 +9,9 @@ from models.carrinho_model import CarrinhoDB, ItemCarrinhoDB
 from models.produto_model import ProdutoDB
 from fastapi.templating import Jinja2Templates
 
+from sqlalchemy.orm import joinedload
+
+
 templates = Jinja2Templates(directory="views/templates")
 
 #  ADICIONAR ITEM AO CARRINHO 
@@ -158,9 +161,11 @@ def carrinho_visualizar(request: Request, db: Session):
         )
 
     itens = db.query(ItemCarrinhoDB).filter_by(carrinho_id=carrinho.id).all()
+    produto = db.query(ItemCarrinhoDB.produto).filter_by(carrinho_id=carrinho.id).all()
+
     total = sum(item.quantidade * item.preco_unitario for item in itens)
 
     return templates.TemplateResponse(
         "carrinho.html",
-        {"request": request, "carrinho": itens, "total": total, "usuario": usuario}
+        {"request": request, "carrinho": itens, "total": total, "usuario": usuario, "produto":produto}
     )
