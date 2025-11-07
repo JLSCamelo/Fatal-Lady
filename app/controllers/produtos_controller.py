@@ -35,7 +35,7 @@ def listar_produto(request:Request, db: Session):
 
         return templates.TemplateResponse(
             "catalogo.html",
-            {"request": request, "produtos": produtos}
+            {"request": request, "produtos": produtos, "usuario": None}
         )
 
 def produtos_por_categoria():

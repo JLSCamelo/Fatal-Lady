@@ -58,7 +58,7 @@ def checkout(request: Request, db: Session):
     # salve os dados que serão usados, antes de apagar o carrinho
     itens_email = []
     for item in itens_carrinho:
-        produto_nome = item.produto.nome  # <-- puxa o nome do produto
+        produto_nome = item.produto.nome
         itens_email.append({
             "nome": produto_nome,
             "quantidade": item.quantidade,
