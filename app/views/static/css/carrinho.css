@@ -501,3 +501,46 @@ footer hr {
     font-size: 14px;
   }
 }
+
+/* Estilo para o texto 'Tamanho: M' */
+.size-display {
+  font-size: 14px;
+  color: var(--muted);
+  text-align: right; /* Alinha com os controles */
+  margin-bottom: 10px;
+}
+
+/* Alinha o formulário de atualização à direita */
+.form-update-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Garante que os botões +/- e o input fiquem bem alinhados */
+.quantity-control {
+  justify-content: flex-end; /* Alinha à direita */
+}
+
+/* Re-usa o estilo do input que você já tinha */
+.quantity-control .input-quantity {
+  width: 50px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  font-family: inherit;
+}
+
+/* Remove as setas padrão do input[type=number] */
+.input-quantity::-webkit-outer-spin-button,
+.input-quantity::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input-quantity[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}

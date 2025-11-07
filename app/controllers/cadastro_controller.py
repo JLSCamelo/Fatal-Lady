@@ -57,7 +57,7 @@ def enviar_email_boas_vindas(destinatario: str, nome_usuario: str):
         raise RuntimeError("Configurações de e-mail não definidas. Verifique o .env")
 
     msg = EmailMessage()
-    msg["Subject"] = "👠 Bem-vinda à Fatal Lady!"
+    msg["Subject"] = "👠 Bem-vindo(a) à Fatal Lady!"
     msg["From"] = EMAIL_FROM_NAME
     msg["To"] = destinatario
 
@@ -71,7 +71,7 @@ def enviar_email_boas_vindas(destinatario: str, nome_usuario: str):
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center" style="padding:40px 0;">
-              <img src="views/static/upload/img/catalogo/icons-main/letreiro-logo.pn" width="80" alt="Fatal Lady">
+              <img src="views/static/upload/img/catalogo/icons-main/letreiro-logo.png" width="80" alt="Fatal Lady">
               <h1 style="color:#000; font-size:28px; margin-top:10px;">FATAL <span style="color:#d00000;">LADY</span></h1>
             </td>
           </tr>

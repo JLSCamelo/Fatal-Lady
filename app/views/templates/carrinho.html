@@ -102,16 +102,28 @@
             <img src="/static/uploads/img/catalogo/products/default.png" alt="{{ item.id }}">
           </div>
           <div class="item-details">
-            <div id="item-name-{{ loop.index }}" class="item-name">{{ item.id }}</div>
+            <div id="item-name-{{ loop.index }}" class="item-name">{{ item.nome }}</div>
             <div class="item-id">ID: {{ item.produto_id }}</div>
             <div class="item-price" data-price="{{ item.preco_unitario }}">R$ {{ item.preco_unitario }}</div>
           </div>
           <div class="item-controls">
-            <form action="/carrinho/editar/{{item.produto_id }}" method="post">
+            <form action="/carrinho/editar/{{item.produto_id }}" method="post" class="form-update-cart">
+              
               <input type="hidden" name="tamanho" value="{{ item.tamanho }}">
-              <input type="number" name="quantidade" value="{{ item.quantidade }}">
-              <button type="submit">Atualizar</button>
-            </form>
+              
+              <div class="size-display">
+                Tamanho: {{ item.tamanho }}
+              </div>
+
+              <div class="quantity-control">
+                <button type="button" class="btn-qty-minus" data-action="decrement">-</button>
+                
+                <input type="number" name="quantidade" value="{{ item.quantidade }}" min="1" class="input-quantity" aria-label="Quantidade">
+                
+                <button type="button" class="btn-qty-plus" data-action="increment">+</button>
+              </div>
+              
+              </form>
 
             <form action="/carrinho/remover/{{ item.produto_id }}" method="post" aria-label="Remover {{ item.id }}">
               <button type="submit" class="btn-remove">Remover</button>
@@ -125,7 +137,7 @@
         <div class="summary-title">Resumo do Pedido</div>
         <div class="summary-row">
           <span>Subtotal:</span>
-          <span id="subtotal">R$ {{ total }}</span>
+          <span id="subtotal">R$ {{ "%.2f"|format(total|float) }}</span>
         </div>
         <div class="summary-row">
           <span>Frete:</span>
@@ -133,7 +145,7 @@
         </div>
         <div class="summary-row total">
           <span>Total:</span>
-          <span id="total">R$ {{ total }}</span>
+          <span id="total">R$ {{ "%.2f"|format(total|float) }}</span>
         </div>
         <form action="/checkout" method="post">
           <button type="submit" class="btn-checkout">Finalizar Compra</button>
@@ -177,6 +189,6 @@
     <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
   </footer>
 
-  <script src="{{ url_for('static', path='js/carrinho.js') }}"></script>
+  <script src="/static/js/carrinho.js" defer></script>
 </body>
 </html>

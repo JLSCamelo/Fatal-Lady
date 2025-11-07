@@ -184,10 +184,14 @@
                 </div>
               </div>
 
+              {% for c in categorias %}
+                <span>{{ c.nome }}</span>
+              {% endfor %}
+
               <div class="category-products" role="list">
                 {% for p in group.list %}
                 <article class="product-card"
-                         data-category="{{ p.id_categoria }}"
+                         data-category="{% for c in categorias %}{% if p.id_categoria == c.id %}{{ c.nome }}{% endif %}{% endfor %}"
                          data-name="{{ p.nome }}"
                          data-id="p{{ p.id_produto }}"
                          data-price="{{ (p.preco) }}"
@@ -258,11 +262,7 @@
 
     <script src="/static/js/swiper.js" defer></script>
     <script src="/static/js/banner.js" defer></script>
-    <script src="/static/js/menu.js" defer></script>
-    <script src="/static/js/add_cart.js" defer></script>
-    <script src="/static/js/cart-ui.js" defer></script>
     <script src="/static/js/products-toggle.js" defer></script>
-    <script src="/static/js/nav-enhancements.js" defer></script>
     <script src="/static/js/arrows.js" defer></script>
     <script src="/static/js/catalogo_filter.js" defer></script>
   </body>
