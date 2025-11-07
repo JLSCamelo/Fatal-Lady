@@ -7,6 +7,6 @@ from database import *
 
 router = APIRouter()
 
-@router.get("/meus-pedidos",response_class=HTMLResponse)
+@router.get("me/meus-pedidos",response_class=HTMLResponse)
 def meus_pedidos(request:Request,db:Session=Depends(get_db)):
     return pedidos_usuario(request, db)
