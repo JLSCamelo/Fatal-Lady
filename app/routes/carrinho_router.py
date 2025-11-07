@@ -39,7 +39,6 @@ def put_carrinho(
 )
 
 
-
 @router.post("/carrinho/remover/{produto_id}")
 def delete_item_carrinho(
     request: Request,
