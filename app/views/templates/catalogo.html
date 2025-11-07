@@ -33,11 +33,7 @@
       </div>
 
       <div class="header-div">
-        {% if usuario.is_admin == True %}
-          <a href="/admin" style="color: rgb(223, 16, 16);">Painel do Admin</a>
-        {% else %}
-          <a href="#">Ajuda</a>
-        {% endif %}
+        <a href="#">Ajuda</a>
         {% if usuario %}
           <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
         {% else %}
@@ -64,22 +60,6 @@
       </div>
 
       <div class="nav-div">
-        {% if usuario.is_admin == True %}
-          <a href="/admin">
-            <img
-              src="/static/uploads/img/home/icons-main/shield-check.png"
-              id="kart-icon"
-              class="icons"
-            />
-          </a>
-          <a href="/dashboard">
-            <img
-              src="/static/uploads/img/home/icons-main/dashboard-panel.png"
-              id="kart-icon"
-              class="icons"
-            />
-          </a>
-        {% endif %}
         <a href="/carrinho">
           <img
             src="/static/uploads/img/home/icons-main/kart.png"
