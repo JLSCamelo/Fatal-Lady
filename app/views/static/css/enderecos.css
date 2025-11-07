@@ -4,21 +4,6 @@
     padding: 2rem 0;
 }
 
-.breadcrumb {
-    color: #666;
-    margin-bottom: 1.5rem;
-    font-size: 0.9rem;
-}
-
-.breadcrumb a {
-    color: var(--main-red);
-    text-decoration: none;
-}
-
-.breadcrumb a:hover {
-    text-decoration: underline;
-}
-
 .enderecos-header {
     display: flex;
     justify-content: space-between;
@@ -31,7 +16,7 @@
 .enderecos-header h1 {
     color: var(--dark-gray);
     font-size: 2.5rem;
-    font-family: "Playfair Display", serif;
+    font-family: "Questrial", sans-serif;
     font-weight: 600;
     margin: 0 0 0.5rem 0;
 }
@@ -111,7 +96,7 @@
     font-weight: 600;
     margin-top: 1rem;
     border-top: 1px solid #eee;
-    padding-top: 1.5rem;
+    justify-content: center;
 }
 
 .enderecos-grid {

@@ -109,10 +109,6 @@
     </nav>
 
     <main class="enderecos-container">
-        <div class="breadcrumb">
-            <a href="/">Início</a> / <a href="/me/painel">Minha Conta</a> / <span>Meus Endereços</span>
-        </div>
-
         <section class="enderecos-header">
             <div>
                 <h1>Meus Endereços</h1>
@@ -126,19 +122,19 @@
         <section class="enderecos-content">
             <div class="enderecos-sidebar">
                 <a href="/me/painel" class="sidebar-link">
-                    <img src="/static/uploads/img/home/icons-main/user.png" alt="Painel"/>
+                    <img src="/static/uploads/img/home/hover-icons/settings.png" alt="Painel"/>
                     <span>Painel Geral</span>
                 </a>
                 <a href="/me/dados" class="sidebar-link">
-                    <img src="/static/uploads/img/home/icons-main/user.png" alt="Meus Dados"/>
+                    <img src="/static/uploads/img/home/hover-icons/user (1).png" alt="Meus Dados"/>
                     <span>Meus Dados</span>
                 </a>
-                <a href="/meus-pedidos" class="sidebar-link">
-                    <img src="/static/uploads/img/home/icons-main/kart.png" alt="Pedidos"/>
+                <a href="/me/meus-pedidos" class="sidebar-link">
+                    <img src="/static/uploads/img/home/hover-icons/document.png" alt="Pedidos"/>
                     <span>Meus Pedidos</span>
                 </a>
-                <a href="/enderecos" class="sidebar-link active">
-                    <img src="/static/uploads/img/home/icons-discount/1.png" alt="Endereços"/>
+                <a href="/me/enderecos" class="sidebar-link active">
+                    <img src="/static/uploads/img/home/hover-icons/truck-box.png" alt="Endereços"/>
                     <span>Endereços</span>
                 </a>
                 <a href="/logout" class="sidebar-link logout">
@@ -147,40 +143,40 @@
             </div>
 
             <div class="enderecos-main">
-                {% if enderecos %}
+                {% if endereco %}
                     <div class="enderecos-grid">
-                        {% for endereco in enderecos %}
-                        <div class="endereco-card" data-id="{{ endereco.id }}">
-                            {% if endereco.principal %}
+                        {% for e in endereco %}
+                        <div class="endereco-card" data-id="{{ e.id }}">
+                            {% if e.principal %}
                             <span class="badge-principal">Principal</span>
                             {% endif %}
                             
                             <div class="endereco-icon">
-                                <img src="/static/uploads/img/home/icons-discount/1.png" alt="Endereço"/>
+                                <img src="/static/uploads/img/home/icons-main/map-marker-home.png" alt="Endereço"/>
                             </div>
 
                             <div class="endereco-info">
-                                <h3>{{ endereco.apelido or 'Casa' }}</h3>
-                                <p class="endereco-nome">{{ endereco.destinatario or usuario.nome }}</p>
-                                <p class="endereco-rua">{{ endereco.logradouro }}, {{ endereco.numero }}</p>
-                                {% if endereco.complemento %}
-                                <p class="endereco-complemento">{{ endereco.complemento }}</p>
+                                <h3>{{ e.apelido or 'Casa' }}</h3>
+                                <p class="endereco-nome">{{ e.destinatario or usuario.nome }}</p>
+                                <p class="endereco-rua">{{ e.logradouro }}, {{ e.numero }}</p>
+                                {% if e.complemento %}
+                                <p class="endereco-complemento">{{ e.complemento }}</p>
                                 {% endif %}
-                                <p class="endereco-bairro">{{ endereco.bairro }}</p>
-                                <p class="endereco-cidade">{{ endereco.cidade }} - {{ endereco.estado }}</p>
-                                <p class="endereco-cep">CEP: {{ endereco.cep }}</p>
+                                <p class="endereco-bairro">{{ e.bairro }}</p>
+                                <p class="endereco-cidade">{{ e.cidade }} - {{ e.estado }}</p>
+                                <p class="endereco-cep">CEP: {{ e.cep }}</p>
                             </div>
 
                             <div class="endereco-actions">
-                                <button class="btn-icon btn-edit" onclick="editAddress('{{ endereco.id }}')" title="Editar">
+                                <button class="btn-icon btn-edit" onclick="editAddress('{{ e.id }}')" title="Editar">
                                     ✏️
                                 </button>
-                                {% if not endereco.principal %}
-                                <button class="btn-icon btn-set-principal" onclick="setPrincipal('{{ endereco.id }}')" title="Definir como principal">
+                                {% if not e.principal %}
+                                <button class="btn-icon btn-set-principal" onclick="setPrincipal('{{ e.id }}')" title="Definir como principal">
                                     ⭐
                                 </button>
                                 {% endif %}
-                                <button class="btn-icon btn-delete" onclick="deleteAddress('{{ endereco.id }}')" title="Excluir">
+                                <button class="btn-icon btn-delete" onclick="deleteAddress('{{ e.id }}')" title="Excluir">
                                     🗑️
                                 </button>
                             </div>
@@ -189,7 +185,7 @@
                     </div>
                 {% else %}
                     <div class="empty-state">
-                        <img src="/static/uploads/img/home/icons-discount/1.png" alt="Sem endereços"/>
+                        <img src="/static/uploads/img/home/icons-main/map-marker-home.png" alt="Sem endereços"/>
                         <h2>Nenhum endereço cadastrado</h2>
                         <p>Adicione um endereço para facilitar suas compras</p>
                         <button class="btn-add-first" onclick="openModal()">
