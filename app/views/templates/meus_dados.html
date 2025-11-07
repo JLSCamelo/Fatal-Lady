@@ -1,16 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="PT-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meus Dados </title>
+    <title>Meus Dados - Fatal Lady</title>
+    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png"/>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/meus-dados.css') }}"/>
 </head>
 <body>
-    {% extends "base.html" %}
-    {% block content %}
-    <h2>Meus Dados</h2>
-    <p>Nome: {{usuario.nome}}</p>
-    <p>Email: {{usuario.email}}</p>
-    {% endblock %}
+    <header id="main_header">
+        <div class="header-div">
+            <img src="/static/uploads/img/home/icons-main/languages.png" id="language-icon"/>
+            <select name="language" id="language">
+                <option value="br">BR</option>
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+            </select>
+        </div>
+
+        <div class="header-div">
+            <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
+        </div>
+
+        <div class="header-div">
+            <a href="#">Ajuda</a>
+            <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-div">
+            <a href="/" class="text_sections">Início</a>
+            <a href="/produtos" class="text_sections">Catálogo</a>
+            <a href="/carrinho" class="text_sections">Carrinho</a>
+        </div>
+
+        <div class="nav-div">
+            <a href="/">
+                <img src="/static/uploads/img/home/icons-main/letreiro-logo.png" id="logo" alt="Logo"/>
+            </a>
+        </div>
+
+        <div class="nav-div">
+            <a href="/carrinho">
+                <img src="/static/uploads/img/home/icons-main/kart.png" id="kart-icon" class="icons"/>
+            </a>
+            <a href="/produtos">
+                <img src="/static/uploads/img/home/icons-main/shop.png" id="shop-icon" class="icons"/>
+            </a>
+            <a href="/me/painel">
+                <img src="/static/uploads/img/home/icons-main/user.png" id="user-icon" class="icons"/>
+            </a>
+        </div>
+    </nav>
+
+    <main class="dados-container">
+        <section class="dados-header">
+            <h1>Meus Dados</h1>
+            <p>Gerencie suas informações pessoais</p>
+        </section>
+
+        <section class="dados-content">
+            <div class="dados-sidebar">
+                <a href="/me/painel" class="sidebar-link">
+                    <img src="/static/uploads/img/home/hover-icons/settings.png" alt="Painel"/>
+                    <span>Painel Geral</span>
+                </a>
+                <a href="/me/dados" class="sidebar-link active">
+                    <img src="/static/uploads/img/home/icons-main/user.png" alt="Meus Dados"/>
+                    <span>Meus Dados</span>
+                </a>
+                <a href="/meus-pedidos" class="sidebar-link">
+                    <img src="/static/uploads/img/home/hover-icons/document.png" alt="Pedidos"/>
+                    <span>Meus Pedidos</span>
+                </a>
+                <a href="/views/templates/meus_endereços.html" class="sidebar-link">
+                    <img src="/static/uploads/img/home/hover-icons/truck-box.png" alt="Endereços"/>
+                    <span>Endereços</span>
+                </a>
+                <a href="/logout" class="sidebar-link logout">
+                    <span>Sair</span>
+                </a>
+            </div>
+
+            <div class="dados-main">
+                <div class="dados-card">
+                    <div class="card-header">
+                        <h2>Informações Pessoais</h2>
+                        <button class="btn-edit" id="btn-edit">Editar</button>
+                    </div>
+
+                    <form class="dados-form" id="dados-form">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" name="nome" value="{{ usuario.nome }}" readonly/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" value="{{ usuario.email }}" readonly/>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefone">Telefone</label>
+                                <input type="tel" id="telefone" name="telefone" value="{{ usuario.telefone or '' }}" readonly/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cpf">CPF</label>
+                                <input type="text" id="cpf" name="cpf" value="{{ usuario.cpf or '' }}" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nascimento">Data de Nascimento</label>
+                                <input type="date" id="nascimento" name="nascimento" value="{{ usuario.data_nascimento or '' }}" readonly/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="genero">Gênero</label>
+                                <select id="genero" name="genero" disabled>
+                                    <option value="">Selecione</option>
+                                    <option value="F" {% if usuario.genero == 'F' %}selected{% endif %}>Feminino</option>
+                                    <option value="M" {% if usuario.genero == 'M' %}selected{% endif %}>Masculino</option>
+                                    <option value="O" {% if usuario.genero == 'O' %}selected{% endif %}>Outro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions hidden" id="form-actions">
+                            <button type="button" class="btn-cancel" id="btn-cancel">Cancelar</button>
+                            <button type="submit" class="btn-save">Salvar Alterações</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="dados-card">
+                    <div class="card-header">
+                        <h2>Segurança</h2>
+                    </div>
+
+                    <div class="security-info">
+                        <div class="security-item">
+                            <img src="/static/uploads/img/home/icons-discount/3.png" alt="Senha"/>
+                            <div class="security-text">
+                                <h3>Senha</h3>
+                                <p>Última alteração há 30 dias</p>
+                            </div>
+                            <button class="btn-secondary">Alterar</button>
+                        </div>
+
+                        <div class="security-item">
+                            <img src="/static/uploads/img/home/icons-discount/2.png" alt="Email"/>
+                            <div class="security-text">
+                                <h3>E-mail Verificado</h3>
+                                <p>{{ usuario.email }}</p>
+                            </div>
+                            <span class="badge-verified">Verificado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dados-card danger-zone">
+                    <div class="card-header">
+                        <h2>Zona de Perigo</h2>
+                    </div>
+                    <p>Ao excluir sua conta, todos os seus dados serão permanentemente removidos.</p>
+                    <button class="btn-danger">Excluir Conta</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <div>
+                <h4>MINHA CONTA</h4>
+                <a href="/me/dados">Meus Dados</a>
+                <a href="/meus-pedidos">Meus Pedidos</a>
+                <a href="#">Cashback</a>
+                <a href="/login">Login</a>
+            </div>
+            <div>
+                <h4>SUPORTE E POLÍTICAS</h4>
+                <a href="#">Trocas e Devoluções</a>
+                <a href="#">Dúvidas Frequentes</a>
+                <a href="#">Fale Conosco</a>
+                <a href="#">Política de Privacidade</a>
+            </div>
+            <div>
+                <h4>FORMAS DE PAGAMENTO</h4>
+                <img src="/static/uploads/img/catalogo/footer/payment.png" alt="Formas de Pagamento"/>
+            </div>
+        </div>
+        <hr/>
+        <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+    </footer>
+
+    <script src="/static/js/meus-dados.js"></script>
 </body>
-</html> 
+</html>

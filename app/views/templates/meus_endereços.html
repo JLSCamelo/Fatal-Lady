@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Endereços - Fatal Lady</title>
+    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png"/>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/enderecos.css') }}"/>
+</head>
+<body>
+    <header id="main_header">
+        <div class="header-div">
+            <img src="/static/uploads/img/home/icons-main/languages.png" id="language-icon"/>
+            <select name="language" id="language">
+                <option value="br">BR</option>
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+            </select>
+        </div>
+
+        <div class="header-div">
+            <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
+        </div>
+
+        <div class="header-div">
+            <a href="#">Ajuda</a>
+            <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-div">
+            <a href="/" class="text_sections">Início</a>
+            <a href="/produtos" class="text_sections">Catálogo</a>
+            <a href="/carrinho" class="text_sections">Carrinho</a>
+        </div>
+
+        <div class="nav-div">
+            <a href="/">
+                <img src="/static/uploads/img/home/icons-main/letreiro-logo.png" id="logo" alt="Logo"/>
+            </a>
+        </div>
+
+        <div class="nav-div">
+            <a href="/carrinho">
+                <img src="/static/uploads/img/home/icons-main/kart.png" id="kart-icon" class="icons"/>
+            </a>
+            <a href="/produtos">
+                <img src="/static/uploads/img/home/icons-main/shop.png" id="shop-icon" class="icons"/>
+            </a>
+            <a href="/me/painel">
+                <img src="/static/uploads/img/home/icons-main/user.png" id="user-icon" class="icons"/>
+            </a>
+        </div>
+    </nav>
+
+    <main class="enderecos-container">
+        <div class="breadcrumb">
+            <a href="/">Início</a> / <a href="/me/painel">Minha Conta</a> / <span>Meus Endereços</span>
+        </div>
+
+        <section class="enderecos-header">
+            <div>
+                <h1>Meus Endereços</h1>
+                <p>Gerencie seus endereços de entrega</p>
+            </div>
+            <button class="btn-add-address" id="btn-add-address">
+                + Novo Endereço
+            </button>
+        </section>
+
+        <section class="enderecos-content">
+            <div class="enderecos-sidebar">
+                <a href="/me/painel" class="sidebar-link">
+                    <img src="/static/uploads/img/home/icons-main/user.png" alt="Painel"/>
+                    <span>Painel Geral</span>
+                </a>
+                <a href="/me/dados" class="sidebar-link">
+                    <img src="/static/uploads/img/home/icons-main/user.png" alt="Meus Dados"/>
+                    <span>Meus Dados</span>
+                </a>
+                <a href="/meus-pedidos" class="sidebar-link">
+                    <img src="/static/uploads/img/home/icons-main/kart.png" alt="Pedidos"/>
+                    <span>Meus Pedidos</span>
+                </a>
+                <a href="/enderecos" class="sidebar-link active">
+                    <img src="/static/uploads/img/home/icons-discount/1.png" alt="Endereços"/>
+                    <span>Endereços</span>
+                </a>
+                <a href="/logout" class="sidebar-link logout">
+                    <span>Sair</span>
+                </a>
+            </div>
+
+            <div class="enderecos-main">
+                {% if enderecos %}
+                    <div class="enderecos-grid">
+                        {% for endereco in enderecos %}
+                        <div class="endereco-card" data-id="{{ endereco.id }}">
+                            {% if endereco.principal %}
+                            <span class="badge-principal">Principal</span>
+                            {% endif %}
+                            
+                            <div class="endereco-icon">
+                                <img src="/static/uploads/img/home/icons-discount/1.png" alt="Endereço"/>
+                            </div>
+
+                            <div class="endereco-info">
+                                <h3>{{ endereco.apelido or 'Casa' }}</h3>
+                                <p class="endereco-nome">{{ endereco.destinatario or usuario.nome }}</p>
+                                <p class="endereco-rua">{{ endereco.logradouro }}, {{ endereco.numero }}</p>
+                                {% if endereco.complemento %}
+                                <p class="endereco-complemento">{{ endereco.complemento }}</p>
+                                {% endif %}
+                                <p class="endereco-bairro">{{ endereco.bairro }}</p>
+                                <p class="endereco-cidade">{{ endereco.cidade }} - {{ endereco.estado }}</p>
+                                <p class="endereco-cep">CEP: {{ endereco.cep }}</p>
+                            </div>
+
+                            <div class="endereco-actions">
+                                <button class="btn-icon btn-edit" onclick="editAddress('{{ endereco.id }}')" title="Editar">
+                                    ✏️
+                                </button>
+                                {% if not endereco.principal %}
+                                <button class="btn-icon btn-set-principal" onclick="setPrincipal('{{ endereco.id }}')" title="Definir como principal">
+                                    ⭐
+                                </button>
+                                {% endif %}
+                                <button class="btn-icon btn-delete" onclick="deleteAddress('{{ endereco.id }}')" title="Excluir">
+                                    🗑️
+                                </button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <img src="/static/uploads/img/home/icons-discount/1.png" alt="Sem endereços"/>
+                        <h2>Nenhum endereço cadastrado</h2>
+                        <p>Adicione um endereço para facilitar suas compras</p>
+                        <button class="btn-add-first" onclick="openModal()">
+                            + Adicionar Primeiro Endereço
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    <div class="modal hidden" id="modal-endereco">
+        <div class="modal-overlay" onclick="closeModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Novo Endereço</h2>
+                <button class="btn-close" onclick="closeModal()">✕</button>
+            </div>
+
+            <form class="endereco-form" id="endereco-form">
+                <input type="hidden" id="endereco-id" name="id"/>
+
+                <div class="form-group">
+                    <label for="apelido">Apelido do Endereço</label>
+                    <input type="text" id="apelido" name="apelido" placeholder="Ex: Casa, Trabalho, Casa da Mãe" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="destinatario">Nome do Destinatário</label>
+                    <input type="text" id="destinatario" name="destinatario" placeholder="Quem vai receber?" required/>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cep">CEP</label>
+                        <input type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" required/>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn-buscar-cep" id="btn-buscar-cep">
+                            Buscar CEP
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="logradouro">Logradouro</label>
+                        <input type="text" id="logradouro" name="logradouro" placeholder="Rua, Avenida..." required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="numero">Número</label>
+                        <input type="text" id="numero" name="numero" placeholder="123" required/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="complemento">Complemento</label>
+                    <input type="text" id="complemento" name="complemento" placeholder="Apto, Bloco, Casa..."/>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bairro">Bairro</label>
+                        <input type="text" id="bairro" name="bairro" placeholder="Centro" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" id="cidade" name="cidade" placeholder="São Paulo" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="estado">Estado</label>
+                        <select id="estado" name="estado" required>
+                            <option value="">UF</option>
+                            <option value="AC">AC</option>
+                            <option value="AL">AL</option>
+                            <option value="AP">AP</option>
+                            <option value="AM">AM</option>
+                            <option value="BA">BA</option>
+                            <option value="CE">CE</option>
+                            <option value="DF">DF</option>
+                            <option value="ES">ES</option>
+                            <option value="GO">GO</option>
+                            <option value="MA">MA</option>
+                            <option value="MT">MT</option>
+                            <option value="MS">MS</option>
+                            <option value="MG">MG</option>
+                            <option value="PA">PA</option>
+                            <option value="PB">PB</option>
+                            <option value="PR">PR</option>
+                            <option value="PE">PE</option>
+                            <option value="PI">PI</option>
+                            <option value="RJ">RJ</option>
+                            <option value="RN">RN</option>
+                            <option value="RS">RS</option>
+                            <option value="RO">RO</option>
+                            <option value="RR">RR</option>
+                            <option value="SC">SC</option>
+                            <option value="SP">SP</option>
+                            <option value="SE">SE</option>
+                            <option value="TO">TO</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="principal" name="principal"/>
+                        <span>Definir como endereço principal</span>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn-save">Salvar Endereço</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <div>
+                <h4>MINHA CONTA</h4>
+                <a href="/me/dados">Meus Dados</a>
+                <a href="/meus-pedidos">Meus Pedidos</a>
+                <a href="#">Cashback</a>
+                <a href="/login">Login</a>
+            </div>
+            <div>
+                <h4>SUPORTE E POLÍTICAS</h4>
+                <a href="#">Trocas e Devoluções</a>
+                <a href="#">Dúvidas Frequentes</a>
+                <a href="#">Fale Conosco</a>
+                <a href="#">Política de Privacidade</a>
+            </div>
+            <div>
+                <h4>FORMAS DE PAGAMENTO</h4>
+                <img src="/static/uploads/img/catalogo/footer/payment.png" alt="Formas de Pagamento"/>
+            </div>
+        </div>
+        <hr/>
+        <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+    </footer>
+
+    <script src="/static/js/enderecos.js"></script>
+</body>
+</html>
