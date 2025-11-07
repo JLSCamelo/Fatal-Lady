@@ -59,7 +59,6 @@ def meus_dados(request: Request, db: Session = Depends(get_db)):
         "usuario": usuario
     })
 
-#rota para pagina listar produtos
 @router.get("/me/enderecos", response_class=HTMLResponse)
 def listar_endereco_usuario(request: Request, db: Session = Depends(get_db)):
     token = request.cookies.get("token")
@@ -84,7 +83,7 @@ def listar_endereco_usuario(request: Request, db: Session = Depends(get_db)):
     }
 
     return templates.TemplateResponse(
-        "meus_dados.html",
+        "meus_endereços.html",
         {
             "request": request,
             "usuario": usuario,
@@ -94,20 +93,6 @@ def listar_endereco_usuario(request: Request, db: Session = Depends(get_db)):
 
 
 
-# # meus pedidos
-# @router.get("/me/meus-pedidos", response_class=HTMLResponse)
-# def meus_pedidos(request: Request, db: Session = Depends(get_db)):
-#     token = request.cookies.get("token")
-#     payload = verificar_token(token)
-#     if not payload:
-#         return RedirectResponse(url="/login", status_code=303)
-#     usuario = db.query(UsuarioDB).filter(UsuarioDB.email == payload["sub"]).first()
-#     pedidos = db.query(PedidoDB).filter(PedidoDB.id_cliente == usuario.id_cliente).all()
-#     return templates.TemplateResponse("meus_pedidos.html", {
-#         "request": request,
-#         "usuario": usuario,
-#         "pedidos": pedidos
-#     })
 
 #remove o cookie do token do usuário
 @router.get("/logout")
