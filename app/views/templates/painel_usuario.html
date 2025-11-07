@@ -10,49 +10,102 @@
 </head>
 <body>
     <header id="main_header">
-        <div class="header-div">
-            <img src="/static/uploads/img/home/icons-main/languages.png" id="language-icon"/>
-            <select name="language" id="language">
-                <option value="br">BR</option>
-                <option value="en">EN</option>
-                <option value="es">ES</option>
-            </select>
-        </div>
+      <div class="header-div">
+        <img
+          src="/static/uploads/img/home/icons-main/languages.png"
+          id="language-icon"
+        />
+        <select name="language" id="language">
+          <option value="br">BR</option>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+      </div>
 
-        <div class="header-div">
-            <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
-        </div>
+      <div class="header-div">
+        <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
+      </div>
 
-        <div class="header-div">
-            <a href="#">Ajuda</a>
-            <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
-        </div>
+      <div class="header-div">
+        {% if usuario.is_admin == True %}
+          <a href="/admin" style="color: rgb(223, 16, 16);">Painel do Admin</a>
+        {% else %}
+          <a href="#">Ajuda</a>
+        {% endif %}
+        {% if usuario %}
+          <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+        {% else %}
+          <a href="/login">Entrar</a>
+        {% endif %}
+      </div>
     </header>
 
     <nav>
-        <div class="nav-div">
-            <a href="/" class="text_sections">Início</a>
-            <a href="/produtos" class="text_sections">Catálogo</a>
-            <a href="/carrinho" class="text_sections">Carrinho</a>
-        </div>
+      <div class="nav-div">
+        <a href="/" class="text_sections">Início</a>
+        <a href="/produtos" class="text_sections">Catálogo</a>
+        <a href="/carrinho" class="text_sections">Carrinho</a>
+      </div>
 
-        <div class="nav-div">
-            <a href="/">
-                <img src="/static/uploads/img/home/icons-main/letreiro-logo.png" id="logo" alt="Logo"/>
-            </a>
-        </div>
+      <div class="nav-div">
+        <a href="/">
+          <img
+            src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+            id="logo"
+            alt="Logo"
+          />
+        </a>
+      </div>
 
-        <div class="nav-div">
-            <a href="/carrinho">
-                <img src="/static/uploads/img/home/icons-main/kart.png" id="kart-icon" class="icons"/>
-            </a>
-            <a href="/produtos">
-                <img src="/static/uploads/img/home/icons-main/shop.png" id="shop-icon" class="icons"/>
-            </a>
-            <a href="/me/painel">
-                <img src="/static/uploads/img/home/icons-main/user.png" id="user-icon" class="icons"/>
-            </a>
-        </div>
+      <div class="nav-div">
+        {% if usuario.is_admin == True %}
+          <a href="/admin">
+            <img
+              src="/static/uploads/img/home/icons-main/shield-check.png"
+              id="kart-icon"
+              class="icons"
+            />
+          </a>
+          <a href="/dashboard">
+            <img
+              src="/static/uploads/img/home/icons-main/dashboard-panel.png"
+              id="kart-icon"
+              class="icons"
+            />
+          </a>
+        {% endif %}
+        <a href="/carrinho">
+          <img
+            src="/static/uploads/img/home/icons-main/kart.png"
+            id="kart-icon"
+            class="icons"
+          />
+        </a>
+        <a href="/produtos">
+          <img
+            src="/static/uploads/img/home/icons-main/shop.png"
+            id="shop-icon"
+            class="icons"
+          />
+        </a>
+        {% if usuario %}
+          <a href="/me/painel">
+            <img
+            src="/static/uploads/img/home/icons-main/user.png"
+            id="user-icon"
+            class="icons"
+            />
+          </a>
+        {% else %}
+          <a href="/login">
+            <img
+            src="/static/uploads/img/home/icons-main/user.png"
+            id="user-icon"
+            class="icons"
+            />
+          </a>
+        {% endif %}
+      </div>
     </nav>
 
     <main class="painel-container">
@@ -75,7 +128,7 @@
 
             <div class="painel-card">
                 <div class="card-icon">
-                    <img src="/static/uploads/img/home/icons-main/kart.png" alt="Meus Pedidos"/>
+                    <img src="/static/uploads/img/home/hover-icons/document.png" alt="Meus Pedidos"/>
                 </div>
                 <h3>Meus Pedidos</h3>
                 <p>Acompanhe o status e histórico de suas compras</p>
@@ -84,10 +137,10 @@
 
             <div class="painel-card">
                 <div class="card-icon">
-                    <img src="/static/uploads/img/home/icons-main/shop.png" alt="Cashback"/>
+                    <img src="/static/uploads/img/home/hover-icons/truck-box.png" alt="Cashback"/>
                 </div>
-                <h3>Catálogo</h3>
-                <p>Explore nosso catálogo e aproveite preços imperdíveis</p>
+                <h3>Endereços</h3>
+                <p>Edite e adicione seus endereços para entregas</p>
                 <a href="#" class="card-button">Acessar</a>
             </div>
 
