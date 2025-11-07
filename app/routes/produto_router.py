@@ -17,8 +17,7 @@ os.makedirs(UPLOAD_DIR,exist_ok=True)
 #rota para pagina listar produtos
 @router.get("/produtos", response_class=HTMLResponse)
 async def get_listar_produtos(request: Request, db: Session = Depends(get_db)):
-     # A rota agora simplesmente chama o controller, que faz todo o trabalho.
-    return produtos_visualizar(request, db)
+    return listar_produto(request, db)
 
 @router.get("/categoria", response_class=HTMLResponse)
 async def get_produtos_categoria(request: Request):
@@ -30,11 +29,7 @@ async def get_produtos_categoria(request: Request):
 #rota para detalhar produto
 @router.get("/produto-get/{id_produto}", response_class=HTMLResponse)
 async def get_detalhe_produto(request: Request, id_produto: int, db: Session = Depends(get_db)):
-    produto, usuario = get_produto(request, id_produto, db)
+    return get_produto(request, id_produto, db)
 
-    return templates.TemplateResponse("produto.html", {
-        "request": request,
-        "produto": produto,
-        "usuario": usuario
-    })
+
 

@@ -80,7 +80,7 @@ def checkout(request: Request, db: Session):
 
 
     # Redireciona para a página de pedidos
-    return RedirectResponse(url="/meus-pedidos", status_code=303)
+    return RedirectResponse(url="/me/meus-pedidos", status_code=303)
 
 
 from models.produto_model import ProdutoDB

@@ -16,21 +16,32 @@ templates = Jinja2Templates(directory="views/templates")
 Base.metadata.create_all(bind=engine)
 
 
-def listar_produto():
-    db = SessionLocal()
-    try:
-        produtos = db.query(ProdutoDB).all() 
-        return produtos
-    except Exception as erro:
-        raise erro 
-    finally:
-        db.close()
+def listar_produto(request:Request, db: Session):
+
+    token = request.cookies.get("token")
+    if token:
+        payload = verificar_token(token)
+    
+        email = payload.get("sub")
+        usuario = db.query(UsuarioDB).filter_by(email=email).first()
+        produtos = db.query(ProdutoDB).all()
+
+        return templates.TemplateResponse(
+            "catalogo.html",
+            {"request": request, "usuario": usuario, "produtos": produtos}
+        )
+    else:
+        produtos = db.query(ProdutoDB).all()
+
+        return templates.TemplateResponse(
+            "catalogo.html",
+            {"request": request, "produtos": produtos}
+        )
 
 def produtos_por_categoria():
     db = SessionLocal()
     try:
         produtos =db.query(ProdutoDB).all() 
-        # Agrupar produtos por categoria
         produtos_por_categoria = {}
         for p in produtos:
             categoria = p.categoria.strip().lower()
@@ -45,6 +56,9 @@ def produtos_por_categoria():
 
 def get_produto(request: Request, id_produto: int, db: Session):
     token = request.cookies.get("token")
+    if not token:
+        return RedirectResponse(url="/login", status_code=303)
+
     payload = verificar_token(token)
 
     if not payload:
@@ -53,78 +67,8 @@ def get_produto(request: Request, id_produto: int, db: Session):
     email = payload.get("sub")
     produto = db.query(ProdutoDB).filter(ProdutoDB.id_produto == id_produto).first()
     usuario = db.query(UsuarioDB).filter_by(email=email).first()
-    return produto, usuario
-
-
-
-# Criar produto (somente se logado)
-def criar_produto(request: Request, produto: ProdutoDB, db: Session):
-    try:
-        # Verifica token
-        token = request.cookies.get("token")
-        payload = verificar_token(token)
-        if not payload:
-            return RedirectResponse(url="/login", status_code=303)
-
-        email = payload.get("sub")
-
-        db.add(produto)
-        db.commit()
-        db.refresh(produto)
-
-        return produto
-    except Exception as erro:
-        db.rollback()
-        raise erro
-    finally:
-        db.close()
-
-def atualizar_produto(
-    id_produto: int, data: Date, metodo: str):
-    db = SessionLocal() 
-    try:
-        produto = db.query(ProdutoDB).filter(ProdutoDB.id == id_produto).first()
-        if produto:
-            produto.data = data
-            produto.metodo = metodo    
-            db.commit()
-            db.refresh(produto)
-            return produto
-        return None
-    except Exception as erro:
-        db.rollback()
-        raise erro  
-    finally:
-        db.close()
-
-def deletar_produto(id_produto: int):
-    db = SessionLocal()
-    try:
-        produto=db.query(ProdutoDB).filter(ProdutoDB.id==id_produto).first()
-        if produto:
-            db.delete(produto)
-            db.commit()
-            return True
-        return False
-    except Exception as erro:
-        db.rollback()
-        raise erro
-    finally:
-        db.close()
-
-def produtos_visualizar(request: Request, db: Session):
-    token = request.cookies.get("token")
-    payload = verificar_token(token)
-
-    if not payload:
-        return RedirectResponse(url="/login", status_code=303)
-
-    email = payload.get("sub")
-    usuario = db.query(UsuarioDB).filter_by(email=email).first()
-
-    produtos = listar_produto()
-
-    return templates.TemplateResponse(
-        "catalogo.html",
-        {"request": request, "usuario": usuario, "produtos": produtos}
-    )
+    return templates.TemplateResponse("produto.html", {
+        "request": request,
+        "produto": produto,
+        "usuario": usuario
+    })

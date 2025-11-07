@@ -21,4 +21,4 @@ def pedidos_usuario(request:Request,db:Session):
     pedidos=db.query(PedidoDB).filter_by(id_cliente=usuario.id_cliente).all()
 
     return templates.TemplateResponse("meus_pedidos.html",
-            {"request":request,"pedidos":pedidos})
+            {"request":request,"pedidos":pedidos, "usuario":usuario})
