@@ -4,21 +4,6 @@
     padding: 2rem 0;
 }
 
-.breadcrumb {
-    color: #666;
-    margin-bottom: 1.5rem;
-    font-size: 0.9rem;
-}
-
-.breadcrumb a {
-    color: var(--main-red);
-    text-decoration: none;
-}
-
-.breadcrumb a:hover {
-    text-decoration: underline;
-}
-
 .dados-header {
     margin-bottom: 2.5rem;
 }
