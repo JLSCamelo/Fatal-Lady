@@ -171,6 +171,11 @@ body {
   cursor: pointer;
   border: none;
   padding: 0.8rem 4rem;
+  transition: transform 0.8s ease, box-shadow 0.3s ease;
+}
+
+#descubra:hover {
+  transform: translateY(-4px);
 }
 
 h1 {
