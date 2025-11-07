@@ -59,6 +59,41 @@ def meus_dados(request: Request, db: Session = Depends(get_db)):
         "usuario": usuario
     })
 
+#rota para pagina listar produtos
+@router.get("/me/enderecos", response_class=HTMLResponse)
+def listar_endereco_usuario(request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("token")
+    if not token:
+        return RedirectResponse(url="/login", status_code=303)
+
+    payload = verificar_token(token)
+    if not payload:
+        return RedirectResponse(url="/login", status_code=303)
+
+    email = payload.get("sub")
+
+    usuario = db.query(UsuarioDB).filter_by(email=email).first()
+    if not usuario:
+        return RedirectResponse(url="/login", status_code=303)
+
+    endereco = {
+        "rua": usuario.rua,
+        "cidade": usuario.cidade,
+        "cep": usuario.cep,
+        "complemento": usuario.complemento,
+    }
+
+    return templates.TemplateResponse(
+        "meus_dados.html",
+        {
+            "request": request,
+            "usuario": usuario,
+            "endereco": endereco
+        }
+    )
+
+
+
 # # meus pedidos
 # @router.get("/me/meus-pedidos", response_class=HTMLResponse)
 # def meus_pedidos(request: Request, db: Session = Depends(get_db)):
