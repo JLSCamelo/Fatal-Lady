@@ -29,21 +29,24 @@ class ItemPedidoDB(Base):
     __tablename__ = "itens_pedido"
 
     id = Column(Integer, primary_key=True, index=True)
-    pedido_id = Column(Integer, ForeignKey("pedidos.id", ondelete="CASCADE")) 
-    produto_id = Column(Integer, ForeignKey("produtos.id_produto",  ondelete="SET NULL"))
-    quantidade = Column(Integer)
-    preco_unitario = Column(Float)
+    pedido_id = Column(Integer, ForeignKey("pedidos.id"))
+    produto_id = Column(Integer, ForeignKey("produtos.id_produto", ondelete="SET NULL"))
 
-    # relações
-    pedido = relationship("PedidoDB", back_populates="itens")
+    nome_produto = Column(String, nullable=False)
+    preco_unitario = Column(Float, nullable=False)
+    quantidade = Column(Integer, nullable=False)
+    tamanho = Column(Integer)
+
     produto = relationship("ProdutoDB", back_populates="itens_pedido")
+    pedido = relationship("PedidoDB", back_populates="itens")
+
 
 
 
 #Usado para adiciona coluna sem deletar a tabela
-#with engine.connect() as conexao:
-#    conexao.execute(text("""
-#ALTER TABLE usuarios ADD COLUMN is_admin BOOLEAN DEFAULT 0"""))
+# with engine.connect() as conexao:
+#    conexao.execute(te("""
+# ALTER TABLE usuarios ADD COLUMN is_admin BOOLEAN DEFAULT 0"""))
 """
 db = SessionLocal()
 admin=Usuario(nome="admin",email="admin@loja.com",senha=gerar_hash_senha("123456"),is_admin=True)

@@ -42,13 +42,19 @@ def checkout(request: Request, db: Session):
 
     # Cria os itens do pedido
     for item in itens_carrinho:
+        produto = db.query(ProdutoDB).filter(ProdutoDB.id_produto == item.produto_id).first()
+        
         item_pedido = ItemPedidoDB(
             pedido_id=pedido.id,
             produto_id=item.produto_id,
+            nome_produto=produto.nome if produto else "Produto removido",
+            preco_unitario=produto.preco if produto else 0.0,
             quantidade=item.quantidade,
-            preco_unitario=item.preco_unitario
+            tamanho=item.tamanho
         )
         db.add(item_pedido)
+
+    db.commit()
 
     db.commit()
 

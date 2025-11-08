@@ -163,7 +163,7 @@
                                         <img src="/static/uploads/img/catalogo/products/default.png" alt="{{ item.produto.nome }}"/>
                                     </div>
                                     <div class="item-details">
-                                        <h4>{{ item.produto.nome }}</h4>
+                                        <h4>{{ item.nome_produto }}</h4>
                                         <p class="item-quantity">Quantidade: {{ item.quantidade }}</p>
                                         <p class="item-price">R$ {{ ('%.2f'|format(item.preco_unitario)).replace('.', ',') }}</p>
                                     </div>
