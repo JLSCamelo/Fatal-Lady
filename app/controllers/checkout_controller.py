@@ -23,8 +23,8 @@ def checkout(request: Request, db: Session):
         return {"mensagem": "Carrinho vazio"}
 
     itens_carrinho = db.query(ItemCarrinhoDB).filter_by(carrinho_id=carrinho.id).all()
-    if not itens_carrinho:
-        return {"mensagem": "Nenhum item no carrinho"}
+    # if not itens_carrinho:
+    #     return {"mensagem": "Nenhum item no carrinho"}
 
     # Calcula o total
     total = sum(item.quantidade * item.preco_unitario for item in itens_carrinho)

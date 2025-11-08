@@ -146,7 +146,7 @@
                         <div class="pedido-header">
                             <div class="pedido-info">
                                 <h3>Pedido #{{ p.id }}</h3>
-                                <span class="pedido-data">{{ p.data_pedido.strftime('%d/%m/%Y') if p.data_pedido else 'Data não disponível' }}</span>
+                                <span class="pedido-data">{{ p.data.strftime('%d/%m/%Y') if p.data else 'Data não disponível' }}</span>
                             </div>
                             <div class="pedido-status">
                                 <span class="status-badge status-{{ p.status or 'pendente' }}">

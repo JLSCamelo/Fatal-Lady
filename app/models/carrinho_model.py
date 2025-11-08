@@ -24,7 +24,7 @@ class ItemCarrinhoDB(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     carrinho_id = Column(Integer, ForeignKey("carrinho.id"))
-    produto_id = Column(Integer, ForeignKey("produtos.id_produto"))
+    produto_id = Column(Integer, ForeignKey("produtos.id_produto", ondelete="CASCADE"))
     quantidade = Column(Integer)
     preco_unitario = Column(Float)
     tamanho = Column(Integer)

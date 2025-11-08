@@ -15,22 +15,22 @@ class PedidoDB(Base):
     __tablename__ = "pedidos"
 
     id = Column(Integer, primary_key=True, index=True)
-    id_cliente = Column(Integer, ForeignKey("usuarios.id_cliente")) 
+    id_cliente = Column(Integer, ForeignKey("usuarios.id_cliente",  ondelete="CASCADE")) 
     data = Column(Date, default=datetime.utcnow)
     status = Column(String, default="Processo")
     valortotal = Column(Float, default=0.0)
 
     #relacionamento
     usuario = relationship("UsuarioDB", back_populates="pedidos")
-    itens = relationship("ItemPedidoDB", back_populates="pedido")
+    itens = relationship("ItemPedidoDB", back_populates="pedido", cascade="all, delete-orphan")
 
 # tabela ItemPedido
 class ItemPedidoDB(Base):
     __tablename__ = "itens_pedido"
 
     id = Column(Integer, primary_key=True, index=True)
-    pedido_id = Column(Integer, ForeignKey("pedidos.id"))  # nome da tabela corrigido
-    produto_id = Column(Integer, ForeignKey("produtos.id_produto"))
+    pedido_id = Column(Integer, ForeignKey("pedidos.id", ondelete="CASCADE")) 
+    produto_id = Column(Integer, ForeignKey("produtos.id_produto",  ondelete="SET NULL"))
     quantidade = Column(Integer)
     preco_unitario = Column(Float)
 
