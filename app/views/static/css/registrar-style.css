@@ -78,7 +78,7 @@ body {
   cursor: pointer;
 }
 
-.header-div p {
+.header-div span {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -150,6 +150,28 @@ body {
 .nav-hidden,
 .nav-placeholder {
   display: none !important;
+}
+
+/* animação de fade + leve deslocamento */
+.promo-text{
+  display: inline-block;
+  transition: opacity .35s ease, transform .35s ease;
+  opacity: 1;
+}
+
+.promo-text.is-hidden{
+  opacity: 0;
+}
+
+/* animação de fade + leve deslocamento */
+.promo-text{
+  display: inline-block;
+  transition: opacity .35s ease, transform .35s ease;
+  opacity: 1;
+}
+
+.promo-text.is-hidden{
+  opacity: 0;
 }
 
 .text-btn {

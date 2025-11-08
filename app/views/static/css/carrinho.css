@@ -68,7 +68,7 @@ body {
   cursor: pointer;
 }
 
-.header-div p {
+.header-div span {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -127,6 +127,17 @@ nav {
 #kart-icon,
 #user-icon {
   width: 1.7rem;
+}
+
+/* animação de fade + leve deslocamento */
+.promo-text{
+  display: inline-block;
+  transition: opacity .35s ease, transform .35s ease;
+  opacity: 1;
+}
+
+.promo-text.is-hidden{
+  opacity: 0;
 }
 
 /* --- Main / Sections / Cards --- */

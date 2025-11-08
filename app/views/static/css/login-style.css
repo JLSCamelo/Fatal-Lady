@@ -78,7 +78,7 @@ body {
   cursor: pointer;
 }
 
-.header-div p {
+.header-div span {
   position: absolute;
   left: 50%;
   top: 50%;

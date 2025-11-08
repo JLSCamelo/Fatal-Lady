@@ -70,7 +70,7 @@ body {
   cursor: pointer;
 }
 
-.header-div p {
+.header-div span {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -143,6 +143,23 @@ body {
 .nav-hidden,
 .nav-placeholder {
   display: none !important;
+}
+
+/* animação de fade + leve deslocamento */
+.promo-text{
+  display: inline-block;
+  transition: opacity .35s ease, transform .35s ease;
+  opacity: 1;
+}
+
+.promo-text.is-hidden{
+  opacity: 0;
+}
+
+/* responsividade: reduz tamanho em telas pequenas */
+@media (max-width: 480px){
+  .promo-rotator { font-size: 0.82rem; gap: 0.4rem; }
+  .promo-arrow { font-size: 0.92rem; }
 }
 
 /* Página Principal */
