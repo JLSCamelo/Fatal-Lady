@@ -20,12 +20,12 @@ async def post_produto(
     preco: float = Form(...),
     estoque: int = Form(...),
     id_fabricante: int = Form(...),
-    categoria: int = Form(...),
+    id_categoria: int = Form(...),
     tamanho: int = Form(...),
     imagem: UploadFile = File(None),
     db: Session = Depends(get_db)
 ):
-    return criar_produto(request, nome, preco, estoque, id_fabricante , categoria, tamanho,imagem, db)
+    return criar_produto(request, nome, preco, estoque, id_fabricante , id_categoria, tamanho,imagem, db)
 
 #editar produto
 @router.get("/admin/produto/editar/{id}")

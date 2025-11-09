@@ -131,18 +131,15 @@
             <input id="tamanho" name="tamanho" type="number" step="1" min="0" required />
 
             <label for="id_categoria">Categoria</label>
-            <select id="id_categoria" name="categoria" required>
+            <select id="id_categoria" name="id_categoria" required>
             <option value="">Selecione uma categoria</option>
             {% for c in categorias %}
               <option value="{{ c.id }}">{{ c.nome }}</option>
             {% endfor %}
             </select>
-<!-- 
+            
             <label for="id_fabricante">Fabricante</label>
-            <input type="number" name="id_fabricante" id="id_fabricante"> -->
-
-            <label for="id_fabricante">Fabricante</label>
-            <select id="id_fabricante" name="fabricante" required>
+            <select id="id_fabricante" name="id_fabricante" required>
             <option value="">Selecione um fabricante</option>
             {% for f in fabricantes %}
               <option value="{{ f.id }}">{{ f.nome }}</option>
