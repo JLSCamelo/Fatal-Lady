@@ -191,7 +191,7 @@
           </header>
 
           <div id="products-grid" class="products-grid" aria-live="polite">
-            {% for group in produtos|groupby('id_categoria') %}
+            {% for group in produtos|groupby('categoria.nome') %}
             <section class="category-row" id="category-{{ group.grouper }}">
               <div class="category-header">
                 <h3 class="category-title">
@@ -222,7 +222,7 @@
                          data-color="{% if p.cor is defined %}{{ p.cor }}{% else %}Unspecified{% endif %}"
                          data-size="{{ p.tamanhos }}"
                          role="listitem">
-                  <div class="product-badge">{{ (p.id_categoria)|upper }}</div>
+                  <div class="product-badge">{{ (p.categoria.nome)|upper }}</div>
 
                   <a href="/produto-get/{{ p.id_produto }}" class="product-media">
                     <img src="/static/uploads/img/catalogo/products/default.png" alt="{{ p.nome }}" />
