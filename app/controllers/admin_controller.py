@@ -4,6 +4,8 @@ import os, shutil
 from database import *
 from models.produto_model import ProdutoDB
 from models.categoria_model import CategoriaDB
+from models.fabricante_model import FabricanteDB
+
 from fastapi.templating import Jinja2Templates
 from auth import *
 from sqlalchemy.orm import Session
@@ -23,9 +25,10 @@ def pagina_admin(request:Request,db:Session):
     
     produtos=db.query(ProdutoDB).all()
     categorias = db.query(CategoriaDB).all()
+    fabricantes = db.query(FabricanteDB).all()
     
     return templates.TemplateResponse("admin.html",{
-        "request":request,"produtos":produtos, "categorias":categorias
+        "request":request,"produtos":produtos, "categorias":categorias, "fabricantes": fabricantes 
     })
 
 def criar_produto(request: Request, 

@@ -137,17 +137,17 @@
               <option value="{{ c.id }}">{{ c.nome }}</option>
             {% endfor %}
             </select>
+<!-- 
+            <label for="id_fabricante">Fabricante</label>
+            <input type="number" name="id_fabricante" id="id_fabricante"> -->
 
             <label for="id_fabricante">Fabricante</label>
-            <input type="number" name="id_fabricante" id="id_fabricante">
-
-             <!-- <label for="id_fabricante">Fabricante</label>
-            <select id="id_fabricante" name="id_fabricante" required>
-              <option value="">Selecione um fabricante</option>
-              {% for f in fabricantes %}
-                <option value="{{ f.id }}">{{ f.nome }}</option>
-              {% endfor %}
-            </select> -->
+            <select id="id_fabricante" name="fabricante" required>
+            <option value="">Selecione um fabricante</option>
+            {% for f in fabricantes %}
+              <option value="{{ f.id }}">{{ f.nome }}</option>
+            {% endfor %}
+            </select>
 
             <label for="imagem">Imagem</label>
             <input id="imagem" name="imagem" type="file" />
