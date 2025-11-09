@@ -13,8 +13,9 @@ from routes.checkout_router import router as checkout_router
 from routes.meus_pedidos_router import router as meus_pedidos_router
 from routes.admin_router import router as admin_router
 from routes.categoria_router import router as categoria_router
-from routes.painel_usuario import router as painel_usuario_router
+from routes.usuario_router import router as painel_usuario_router
 from routes.dashboard_router import router as dashboard_routes
+from routes.logout_router import router as logout_router
 
 from database import Base, engine
 from models import *
@@ -47,4 +48,5 @@ app.include_router(admin_router)
 app.include_router(painel_usuario_router)   
 app.include_router(categoria_router)
 app.include_router(dashboard_routes)
+app.include_router(logout_router)
  

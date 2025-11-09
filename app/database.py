@@ -38,7 +38,8 @@ def get_db():
         yield db
     finally:
         db.close()
-
+#criar banco e tabelas
+# Base.metadata.create_all(bind=engine)
 
 
 """from sqlalchemy import create_engine

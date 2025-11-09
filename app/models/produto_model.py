@@ -19,5 +19,3 @@ class ProdutoDB(Base):
     itens_pedido = relationship("ItemPedidoDB", back_populates="produto")
     itens_carrinho = relationship("ItemCarrinhoDB",back_populates="produto",cascade="all, delete-orphan")
 
-#criar banco e tabelas
-# Base.metadata.create_all(bind=engine)
