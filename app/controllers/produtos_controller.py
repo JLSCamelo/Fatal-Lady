@@ -14,27 +14,27 @@ templates = Jinja2Templates(directory="app/views/templates")
 Base.metadata.create_all(bind=engine)
 
 
-def listar_produto(request:Request, db: Session):
-
+def listar_produto(request: Request, db: Session):
     token = request.cookies.get("token")
+
     if token:
         payload = verificar_token(token)
-    
-        email = payload.get("sub")
-        usuario = db.query(UsuarioDB).filter_by(email=email).first()
-        produtos = db.query(ProdutoDB).all()
 
-        return templates.TemplateResponse(
-            "catalogo.html",
-            {"request": request, "usuario": usuario, "produtos": produtos}
-        )
+        if payload: 
+            email = payload.get("sub")
+            usuario = db.query(UsuarioDB).filter_by(email=email).first()
+        else:
+            usuario = None  # token inválido
     else:
-        produtos = db.query(ProdutoDB).all()
+        usuario = None  # nenhum token no cookie
 
-        return templates.TemplateResponse(
-            "catalogo.html",
-            {"request": request, "produtos": produtos, "usuario": None}
-        )
+    produtos = db.query(ProdutoDB).all()
+
+    return templates.TemplateResponse(
+        "catalogo.html",
+        {"request": request, "usuario": usuario, "produtos": produtos}
+    )
+
 
 def produtos_por_categoria():
     db = SessionLocal()
