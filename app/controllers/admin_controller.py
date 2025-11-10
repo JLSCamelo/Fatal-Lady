@@ -1,17 +1,17 @@
 from fastapi import Form, Request, UploadFile, File
 from fastapi.responses import RedirectResponse
 import os, shutil
-from database import *
-from models.produto_model import ProdutoDB
-from models.categoria_model import CategoriaDB
-from models.fabricante_model import FabricanteDB
+from app.database import *
+from app.models.produto_model import ProdutoDB
+from app.models.categoria_model import CategoriaDB
+from app.models.fabricante_model import FabricanteDB
 
 from fastapi.templating import Jinja2Templates
-from auth import *
+from app.auth import *
 from sqlalchemy.orm import Session
 
-templates =Jinja2Templates(directory="views/templates")
-UPLOAD_DIR="views/static/uploads/img"
+templates =Jinja2Templates(directory="app/views/templates")
+UPLOAD_DIR="app/views/static/uploads/img"
 #caminho para o os
 os.makedirs(UPLOAD_DIR,exist_ok=True)
 

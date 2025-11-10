@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Request, Depends
-from auth import *
-from controllers.meus_pedidos_controller import pedidos_usuario
+from app.auth import *
+from app.controllers.meus_pedidos_controller import pedidos_usuario
 from sqlalchemy.orm import Session
 from fastapi.responses import HTMLResponse
-from database import *
+from app.database import *
 
 router = APIRouter()
 

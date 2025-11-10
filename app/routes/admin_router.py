@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Form, Request, Depends, UploadFile, File, HTTPException
-from controllers.admin_controller import *
+from app.controllers.admin_controller import *
 from fastapi.responses import HTMLResponse
-from database import *
-from auth import *
+from app.database import *
+from app.auth import *
 from sqlalchemy.orm import Session
 
 router = APIRouter()

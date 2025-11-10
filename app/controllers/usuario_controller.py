@@ -1,7 +1,9 @@
 from fastapi.responses import RedirectResponse
-from auth import verificar_token
-from models import UsuarioDB, PedidoDB, ProdutoDB
+from app.auth import verificar_token
+from app.models import UsuarioDB, PedidoDB, ProdutoDB
+from fastapi.templating import Jinja2Templates
 
+templates =Jinja2Templates(directory="app/views/templates")
 # Página inicial
 def home_controller(request, db, templates):
     token = request.cookies.get("token")

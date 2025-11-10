@@ -3,11 +3,11 @@ from fastapi import APIRouter, Request, Depends, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
-from controllers.endereco_controller import *
-from database import get_db
+from app.controllers.endereco_controller import *
+from app.database import get_db
 
 router = APIRouter()
-templates = Jinja2Templates(directory="views/templates")
+templates = Jinja2Templates(directory="app/views/templates")
 
 
 @router.get("/me/enderecos", response_class=HTMLResponse)

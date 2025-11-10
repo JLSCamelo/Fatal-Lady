@@ -1,6 +1,6 @@
-from models.usuario_model import UsuarioDB
-from database import *
-from auth import *
+from app.models.usuario_model import UsuarioDB
+from app.database import *
+from app.auth import *
 from fastapi import Request
 from sqlalchemy.orm import Session
 import smtplib

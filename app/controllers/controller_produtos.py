@@ -1,5 +1,5 @@
-from models.produto_model import ProdutoDB
-from database import *
+from app.models.produto_model import ProdutoDB
+from app.database import *
 from sqlalchemy import Date
 
 #criar tabelas

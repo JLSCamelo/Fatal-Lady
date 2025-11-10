@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.orm import relationship
-from models.produto_model import ProdutoDB
-from database import *
+from app.models.produto_model import ProdutoDB
+from app.database import *
 
 class UsuarioDB(Base):
     __tablename__ = "usuarios"

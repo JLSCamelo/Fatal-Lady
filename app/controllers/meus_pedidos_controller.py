@@ -1,13 +1,13 @@
 from fastapi import Request
-from models.pedido_model import PedidoDB
-from auth import *
+from app.models.pedido_model import PedidoDB
+from app.auth import *
 from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
-from models.usuario_model import UsuarioDB
-from database import *
+from app.models.usuario_model import UsuarioDB
+from app.database import *
 
-templates = Jinja2Templates(directory="views/templates")
+templates = Jinja2Templates(directory="app/views/templates")
 
 def pedidos_usuario(request:Request,db:Session):
     token=request.cookies.get("token")

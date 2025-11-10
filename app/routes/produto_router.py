@@ -1,13 +1,13 @@
-from fastapi import APIRouter, Request, Form, UploadFile, File, Depends 
+from fastapi import APIRouter, Request, Form, File, Depends 
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-import os, shutil
+import os
 from sqlalchemy.orm import Session
-from database import get_db
-from controllers.produtos_controller import *
+from app.database import get_db
+from app.controllers.produtos_controller import *
 
 router = APIRouter() #rotas
-templates = Jinja2Templates(directory="views/templates") #front-end
+templates = Jinja2Templates(directory="app/views/templates") #front-end
 
 #pasta para dalvar imagens
 UPLOAD_DIR= "views/static/uploads"

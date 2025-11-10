@@ -3,16 +3,16 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from datetime import datetime
 
-from auth import verificar_token
-from models.usuario_model import UsuarioDB
-from models.carrinho_model import CarrinhoDB, ItemCarrinhoDB
-from models.produto_model import ProdutoDB
+from app.auth import verificar_token
+from app.models.usuario_model import UsuarioDB
+from app.models.carrinho_model import CarrinhoDB, ItemCarrinhoDB
+from app.models.produto_model import ProdutoDB
 from fastapi.templating import Jinja2Templates
 
 from sqlalchemy.orm import joinedload
 
 
-templates = Jinja2Templates(directory="views/templates")
+templates = Jinja2Templates(directory="app/views/templates")
 
 #  ADICIONAR ITEM AO CARRINHO 
 def carrinho_add(request: Request, id_produto: int, quantidade: int, tamanho: int, db: Session):

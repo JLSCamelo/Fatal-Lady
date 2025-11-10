@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from database import *
+from app.database import *
 # from sqlalchemy import text
 from sqlalchemy.orm import relationship
-from models.usuario_model import UsuarioDB
+from app.models.usuario_model import UsuarioDB
 
 class EnderecoDB(Base):
     __tablename__ = "enderecos"

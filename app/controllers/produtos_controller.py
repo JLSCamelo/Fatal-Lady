@@ -1,16 +1,14 @@
-from models.produto_model import ProdutoDB
-from database import *
+from app.database import *
 from sqlalchemy import Date
 from fastapi import Request
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
-from auth import verificar_token
-from models.usuario_model import UsuarioDB
-from models.carrinho_model import CarrinhoDB, ItemCarrinhoDB
-from models.produto_model import ProdutoDB
+from app.auth import verificar_token
+from app.models.usuario_model import UsuarioDB
+from app.models.produto_model import ProdutoDB
 from fastapi.templating import Jinja2Templates
 
-templates = Jinja2Templates(directory="views/templates")
+templates = Jinja2Templates(directory="app/views/templates")
 
 #criar tabelas
 Base.metadata.create_all(bind=engine)

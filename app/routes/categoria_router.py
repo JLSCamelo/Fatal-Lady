@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
-from controllers.categoria_controller import *
-from database import *
+from app.controllers.categoria_controller import *
+from app.database import *
 from sqlalchemy.orm import Session
 
 router = APIRouter()

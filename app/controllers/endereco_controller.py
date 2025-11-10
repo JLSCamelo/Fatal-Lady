@@ -1,10 +1,10 @@
 from fastapi import Request, Depends
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
-from auth import verificar_token
-from database import get_db
-from models.usuario_model import UsuarioDB
-from models.enderecos_model import EnderecoDB
+from app.auth import verificar_token
+from app.database import get_db
+from app.models.usuario_model import UsuarioDB
+from app.models.enderecos_model import EnderecoDB
 
 
 def listar_enderecos(request: Request, db: Session):

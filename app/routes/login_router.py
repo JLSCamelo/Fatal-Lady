@@ -3,21 +3,22 @@ import json
 from fastapi import APIRouter, Request, Form, Depends
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
-from database import get_db
-from controllers.login_controller import login_controller
+from app.database import get_db
+from app.controllers.login_controller import login_controller
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi import Request
 
 # login com facebook e google =========================
-from oauth_config import oauth
+from app.oauth_config import oauth
 from authlib.integrations.starlette_client import OAuth
 from starlette.requests import Request as LoginStarlette
 import os
 
-from auth import criar_token
-from models.usuario_model import UsuarioDB
+from app.auth import criar_token
+from app.models.usuario_model import UsuarioDB
+
 router = APIRouter()
-templates = Jinja2Templates(directory="views/templates")
+templates = Jinja2Templates(directory="app/views/templates")
 
 @router.get("/login",response_class=HTMLResponse)
 def home(request:Request):

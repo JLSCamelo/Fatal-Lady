@@ -1,12 +1,10 @@
 from sqlalchemy import Column, Integer, String
-from database import * 
+from app.database import * 
 # import sql puro para add uma nova coluna
 # from sqlalchemy import text
-from models.usuario_model import UsuarioDB
+from app.models.usuario_model import UsuarioDB
 from sqlalchemy.orm import relationship
 
-
-from database import Base
 
 #tabela Categoria
 class CategoriaDB(Base):

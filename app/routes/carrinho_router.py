@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Form, Depends, Request
 from fastapi.responses import HTMLResponse
-from database import *
+from app.database import *
 from sqlalchemy.orm import Session
-from controllers.carrinho_controller import carrinho_add, carrinho_visualizar, carrinho_update, carrinho_remover
+from app.controllers.carrinho_controller import carrinho_add, carrinho_visualizar, carrinho_update, carrinho_remover
 from fastapi.templating import Jinja2Templates
-from database import get_db
+from app.database import get_db
 
 router = APIRouter()
-templates = Jinja2Templates(directory="views/templates")
+templates = Jinja2Templates(directory="app/views/templates")
 
 @router.get("/carrinho", response_class=HTMLResponse)
 def get_carrinho(request: Request, db: Session = Depends(get_db)):

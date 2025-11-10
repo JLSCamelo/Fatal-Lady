@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, Float, ForeignKey, Date, String
-from database import * 
+from app.database import * 
 from datetime import datetime
 # import sql puro para add uma nova coluna
 # from sqlalchemy import text
@@ -7,7 +7,6 @@ from datetime import datetime
 from sqlalchemy.orm import relationship
 
 from sqlalchemy import Column, Integer, Float, ForeignKey, Date, String
-from database import Base
 from sqlalchemy.orm import relationship
 
 #tabela Pedido

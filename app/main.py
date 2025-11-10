@@ -5,20 +5,20 @@ from starlette.middleware.sessions import SessionMiddleware
 from dotenv import load_dotenv
 import os
 
-from routes.produto_router import router as produto_router
-from routes.login_router import router as login_router
-from routes.cadastro_router import router as cadastro_router
-from routes.carrinho_router import router as carrinho_router
-from routes.checkout_router import router as checkout_router
-from routes.meus_pedidos_router import router as meus_pedidos_router
-from routes.admin_router import router as admin_router
-from routes.categoria_router import router as categoria_router
-from routes.usuario_router import router as painel_usuario_router
-from routes.dashboard_router import router as dashboard_routes
-from routes.logout_router import router as logout_router
+from app.routes.produto_router import router as produto_router
+from app.routes.login_router import router as login_router
+from app.routes.cadastro_router import router as cadastro_router
+from app.routes.carrinho_router import router as carrinho_router
+from app.routes.checkout_router import router as checkout_router
+from app.routes.meus_pedidos_router import router as meus_pedidos_router
+from app.routes.admin_router import router as admin_router
+from app.routes.categoria_router import router as categoria_router
+from app.routes.usuario_router import router as painel_usuario_router
+from app.routes.dashboard_router import router as dashboard_routes
+from app.routes.logout_router import router as logout_router
 
-from database import Base, engine
-from models import *
+from app.database import Base, engine
+from app.models import *
 
 
 Base.metadata.create_all(bind=engine)
@@ -36,7 +36,7 @@ app.add_middleware(
 )
 
 
-app.mount("/static", StaticFiles(directory="views/static"), name="static")
+app.mount("/static", StaticFiles(directory="app/views/static"), name="static")
 
 app.include_router(produto_router)    
 app.include_router(login_router)    

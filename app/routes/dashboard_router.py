@@ -8,10 +8,10 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-from database import get_db
+from app.database import get_db
 
 router = APIRouter()
-templates = Jinja2Templates(directory="views/templates")
+templates = Jinja2Templates(directory="app/views/templates")
 
 
 @router.get("/dashboard")

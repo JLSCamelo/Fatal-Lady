@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, Float, ForeignKey, Date
-from database import * 
+from app.database import * 
 from datetime import datetime
 # import sql puro para add uma nova coluna
 # from sqlalchemy import text

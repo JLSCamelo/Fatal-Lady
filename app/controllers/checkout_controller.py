@@ -3,10 +3,10 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from datetime import datetime
 
-from auth import verificar_token
-from models.usuario_model import UsuarioDB
-from models.carrinho_model import CarrinhoDB, ItemCarrinhoDB
-from models.pedido_model import PedidoDB, ItemPedidoDB  
+from app.auth import verificar_token
+from app.models.usuario_model import UsuarioDB
+from app.models.carrinho_model import CarrinhoDB, ItemCarrinhoDB
+from app.models.pedido_model import PedidoDB, ItemPedidoDB  
 
 def checkout(request: Request, db: Session):
     token = request.cookies.get("token")
@@ -89,7 +89,7 @@ def checkout(request: Request, db: Session):
     return RedirectResponse(url="/me/meus-pedidos", status_code=303)
 
 
-from models.produto_model import ProdutoDB
+from app.models.produto_model import ProdutoDB
 
 def alterar_estoque(db: Session, itens_pedido):
     for item in itens_pedido:

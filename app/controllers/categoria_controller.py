@@ -1,7 +1,7 @@
 from fastapi import HTTPException
-from database import *
-from models.produto_model import ProdutoDB
-from models.categoria_model import CategoriaDB
+from app.database import *
+from app.models.produto_model import ProdutoDB
+from app.models.categoria_model import CategoriaDB
 from sqlalchemy.orm import Session
 
 

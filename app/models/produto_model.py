@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
-from database import *
+from app.database import *
 from sqlalchemy.orm import relationship
 # from models.produto_model import ProdutoDB
 
