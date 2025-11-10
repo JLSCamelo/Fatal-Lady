@@ -215,7 +215,7 @@
               <div class="category-products" role="list">
                 {% for p in group.list %}
                 <article class="product-card"
-                         data-category="{% for c in categorias %}{% if p.id_categoria == c.id %}{{ c.nome }}{% endif %}{% endfor %}"
+                         data-category="{{ p.categoria.nome }}"
                          data-name="{{ p.nome }}"
                          data-id="p{{ p.id_produto }}"
                          data-price="{{ (p.preco) }}"
