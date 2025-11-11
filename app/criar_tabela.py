@@ -1,5 +1,5 @@
-from database import Base, engine
+from app.database import Base, engine
 #import as tabelas
-from models import usuario_model, EnderecoDB
+from app.models import favorito_model
 
 Base.metadata.create_all(bind=engine)

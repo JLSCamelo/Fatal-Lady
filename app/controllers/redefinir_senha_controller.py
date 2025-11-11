@@ -9,7 +9,7 @@ from email.message import EmailMessage
 import smtplib
 import os
 from dotenv import load_dotenv
-from models import UsuarioDB
+from app.models import UsuarioDB
 
 SECRET_KEY = "seu_segredo_super_seguro"
 ALGORITHM = "HS256"
