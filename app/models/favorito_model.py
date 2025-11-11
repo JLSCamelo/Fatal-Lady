@@ -8,7 +8,7 @@ class FavoritoDB(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     id_usuario = Column(Integer, ForeignKey("usuarios.id_cliente", ondelete="CASCADE"))
-    id_produto = Column(Integer, ForeignKey("produtos.id", ondelete="CASCADE"))
+    id_produto = Column(Integer, ForeignKey("produtos.id_produto", ondelete="CASCADE"))
 
     usuario = relationship("UsuarioDB", back_populates="favoritos")
     produto = relationship("ProdutoDB", back_populates="favoritos")
@@ -22,7 +22,7 @@ class ItemFavoritoDB(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     favorito_id = Column(Integer, ForeignKey("favoritos.id", ondelete="CASCADE"))
-    produto_id = Column(Integer, ForeignKey("produtos.id", ondelete="CASCADE"))
+    produto_id = Column(Integer, ForeignKey("produtos.id_produto", ondelete="CASCADE"))
     preco_unitario = Column(Float)
     tamanho = Column(Integer)
 

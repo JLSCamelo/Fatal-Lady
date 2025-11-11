@@ -51,6 +51,6 @@ app.include_router(painel_usuario_router)
 app.include_router(categoria_router)
 app.include_router(dashboard_routes)
 app.include_router(logout_router)
-app.include_router(redefinir_senha_router)
 app.include_router(favorito_router)
+app.include_router(redefinir_senha_router)
  
