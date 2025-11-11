@@ -16,6 +16,8 @@ from app.routes.categoria_router import router as categoria_router
 from app.routes.usuario_router import router as painel_usuario_router
 from app.routes.dashboard_router import router as dashboard_routes
 from app.routes.logout_router import router as logout_router
+from app.routes.favorito_router import router as favorito_router
+from app.routes.redefinir_senha_router import router as redefinir_senha_router
 
 from app.database import Base, engine
 from app.models import *
@@ -49,4 +51,6 @@ app.include_router(painel_usuario_router)
 app.include_router(categoria_router)
 app.include_router(dashboard_routes)
 app.include_router(logout_router)
+app.include_router(redefinir_senha_router)
+app.include_router(favorito_router)
  

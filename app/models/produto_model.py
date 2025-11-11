@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from app.database import *
 from sqlalchemy.orm import relationship
-# from models.produto_model import ProdutoDB
 
 class ProdutoDB(Base):
     __tablename__ = "produtos"
@@ -18,4 +17,7 @@ class ProdutoDB(Base):
     categoria = relationship("CategoriaDB", back_populates="produtos")
     itens_pedido = relationship("ItemPedidoDB", back_populates="produto")
     itens_carrinho = relationship("ItemCarrinhoDB",back_populates="produto",cascade="all, delete-orphan")
+    favoritos = relationship("FavoritoDB", back_populates="produto", cascade="all, delete")
+    itens_favoritos = relationship("ItemFavoritoDB", back_populates="produto", cascade="all, delete")
+
 

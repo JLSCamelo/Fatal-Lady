@@ -22,3 +22,4 @@ class UsuarioDB(Base):
     pedidos = relationship("PedidoDB", back_populates="usuario")
     carrinho = relationship("CarrinhoDB", back_populates="usuario")
     enderecos = relationship("EnderecoDB", back_populates="usuario", cascade="all, delete")
+    favoritos = relationship("FavoritoDB", back_populates="usuario", cascade="all, delete")
