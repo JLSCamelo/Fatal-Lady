@@ -40,6 +40,8 @@ app.add_middleware(
 
 app.mount("/static", StaticFiles(directory="app/views/static"), name="static")
 
+app.include_router(favorito_router)
+app.include_router(redefinir_senha_router)
 app.include_router(produto_router)    
 app.include_router(login_router)    
 app.include_router(cadastro_router)
@@ -51,6 +53,4 @@ app.include_router(painel_usuario_router)
 app.include_router(categoria_router)
 app.include_router(dashboard_routes)
 app.include_router(logout_router)
-app.include_router(favorito_router)
-app.include_router(redefinir_senha_router)
  
