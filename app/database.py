@@ -43,14 +43,14 @@ from supabase import create_client, Client
 # --- Parte 1: Cliente Supabase (Para Auth, Storage, etc.) ---
 # Isso é para os serviços do Supabase, não para o SQLAlchemy.
 supabase_api_url = "https://xomisypdbkawfgzsddwn.supabase.co"
-supabase_api_key = "sua_anon_key_aqui" # Ou service_role_key
+supabase_api_key = "sb_secret_hXIMd5QJpNGKunYQiiYv_Q_sMkyanQm" # Ou service_role_key
 supabase: Client = create_client(supabase_api_url, supabase_api_key)
 
 # --- Parte 2: SQLAlchemy (Para o ORM com FastAPI) ---
 # Isso é para conectar o SQLAlchemy direto no banco PostgreSQL.
 
 # PEGUE SUA SENHA NO PAINEL DO SUPABASE!
-DB_PASSWORD = "SUA_SENHA_DO_BANCO_AQUI" 
+DB_PASSWORD = "fatallady" 
 DB_URL = f"postgresql://postgres:{DB_PASSWORD}@db.xomisypdbkawfgzsddwn.supabase.co:5432/postgres"
 
 # Agora use a URL correta no create_engine
@@ -74,9 +74,5 @@ def get_db():
         yield db
     finally:
         db.close()
-
-print("Configuração do SQLAlchemy e Supabase Client pronta!")
-
-
 
 """
