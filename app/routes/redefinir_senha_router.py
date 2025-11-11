@@ -11,13 +11,21 @@ templates = Jinja2Templates(directory="app/views/templates")
 
 # Rota para solicitar redefinição
 @router.post("/esqueci-senha")
-def esqueci_senha(email: str = Form(...), db: Session = Depends(get_db)):
-    return esqueci_senha(email,db)
+def esqueci_senha(request: Request, db: Session = Depends(get_db)):
+    return controller_esqueci_senha(request,db)
+
+@router.post("/esqueci-senha-login")
+def esqueci_senha_login(request: Request, db: Session = Depends(get_db), email: str = Form(...)):
+    return controller_esqueci_senha_login(request,db, email)
+
+@router.get("/esqueci-senha-login", response_class=HTMLResponse)
+def form_esqueci_senha(request: Request):
+    return templates.TemplateResponse("esqueci_senha.html", {"request": request})
 
 # Página de redefinição (GET)
 @router.get("/redefinir-senha", response_class=HTMLResponse)
-def redefinir_senha_form(request: Request, token: str):
-    return redefinir_senha_form(request, token)
+def redefinir_senha(request: Request, token: str):
+    return controller_redefinir_senha_form(request, token)
 
 # Rota para redefinir (POST)
 @router.post("/redefinir-senha")
@@ -26,4 +34,4 @@ def redefinir_senha(
     nova_senha: str = Form(...),
     db: Session = Depends(get_db)
 ):
-    return redefinir_senha(token, nova_senha, db)
+    return controller_redefinir_senha(token, nova_senha, db)

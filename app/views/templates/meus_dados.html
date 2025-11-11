@@ -198,25 +198,28 @@
                         <h2>Segurança</h2>
                     </div>
 
-                    <div class="security-info">
-                        <div class="security-item">
-                            <img src="/static/uploads/img/home/icons-main/lock.png" alt="Senha"/>
-                            <div class="security-text">
-                                <h3>Senha</h3>
-                                <p>Última alteração há 30 dias</p>
-                            </div>
-                            <button class="btn-secondary">Alterar</button>
-                        </div>
+                      <div class="security-info">
+                          <div class="security-item">
+                              <img src="/static/uploads/img/home/icons-main/lock.png" alt="Senha"/>
+                              <div class="security-text">
+                                  <h3>Senha</h3>
+                                  <p>Última alteração há 30 dias</p>
+                              </div>
+                              <form action="/esqueci-senha" method="post">
+                                <button type="submit" class="btn-secondary">Alterar</button>
+                              </form>
+                              <!-- <button class="btn-secondary">Alterar</button> -->
+                          </div>
 
-                        <div class="security-item">
-                            <img src="/static/uploads/img/home/icons-main/envelope.png" alt="Email"/>
-                            <div class="security-text">
-                                <h3>E-mail Verificado</h3>
-                                <p>{{ usuario.email }}</p>
-                            </div>
-                            <span class="badge-verified">Verificado</span>
-                        </div>
-                    </div>
+                          <div class="security-item">
+                              <img src="/static/uploads/img/home/icons-main/envelope.png" alt="Email"/>
+                              <div class="security-text">
+                                  <h3>E-mail Verificado</h3>
+                                  <p>{{ usuario.email }}</p>
+                              </div>
+                              <span class="badge-verified">Verificado</span>
+                          </div>
+                      </div>
                 </div>
 
                 <div class="dados-card danger-zone">
