@@ -2,10 +2,12 @@ from fastapi import Request, Form, Depends, APIRouter
 from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
 from app.controllers.redefinir_senha_controller import *
+from fastapi.templating import Jinja2Templates
 from app.database import get_db
 
 
 router = APIRouter()
+templates = Jinja2Templates(directory="app/views/templates")
 
 # Rota para solicitar redefinição
 @router.post("/esqueci-senha")

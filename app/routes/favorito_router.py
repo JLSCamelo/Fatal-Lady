@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
+from fastapi.templating import Jinja2Templates
 from app.database import get_db
 from app.controllers.favorito_controller import *
 from app.auth import verificar_token 
 
 router = APIRouter()
+templates = Jinja2Templates(directory="app/views/templates")
 
 @router.get("/favorito")
 def listar_favoritos(request: Request, db: Session = Depends(get_db)):
