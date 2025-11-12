@@ -94,24 +94,23 @@ def enviar_email(destinatario: str, nome_usuario: str, link: str):
         smtp.login(EMAIL_REMITENTE, EMAIL_SENHA)
         smtp.send_message(msg)
 
-
 def controller_esqueci_senha_login(request: Request, db: Session, email: str):
     usuario = db.query(UsuarioDB).filter_by(email=email).first()
     if not usuario:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
-    # Cria o token de redefinição
+    
     payload = {
-        "sub": usuario.email,
-        "exp": datetime.utcnow() + timedelta(hours=1)  # token válido por 1 hora
+        "sub": email,  
+        "exp": datetime.utcnow() + timedelta(hours=1) 
     }
-    reset_token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
-    link = f"http://localhost:8000/redefinir-senha?token={reset_token}"
+    token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
-    # Envia o e-mail
+    link = f"http://localhost:8000/redefinir-senha?token={token}"
+
     enviar_email(usuario.email, usuario.nome, link)
 
     return RedirectResponse("/login", status_code=303)
+
 
 def controller_esqueci_senha(request: Request, db: Session):
     token = request.cookies.get("token")

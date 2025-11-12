@@ -15,8 +15,8 @@ def esqueci_senha(request: Request, db: Session = Depends(get_db)):
     return controller_esqueci_senha(request,db)
 
 @router.post("/esqueci-senha-login")
-def esqueci_senha_login(request: Request, db: Session = Depends(get_db), email: str = Form(...)):
-    return controller_esqueci_senha_login(request,db, email)
+async def esqueci_senha_login(request: Request, email: str = Form(...), db: Session = Depends(get_db)):
+    return controller_esqueci_senha_login(request, db, email)
 
 @router.get("/esqueci-senha-login", response_class=HTMLResponse)
 def form_esqueci_senha(request: Request):
