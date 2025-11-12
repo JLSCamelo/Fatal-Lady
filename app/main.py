@@ -19,6 +19,7 @@ from app.routes.logout_router import router as logout_router
 from app.routes.favorito_router import router as favorito_router
 from app.routes.redefinir_senha_router import router as redefinir_senha_router
 from app.routes.frete_router import router as frete_router
+from app.routes.excluir_conta_router import router as excluit_conta_router
 
 from app.database import Base, engine
 from app.models import *
@@ -56,6 +57,7 @@ app.include_router(meus_pedidos_router, tags=["Pedidos"])
 app.include_router(carrinho_router, tags=["Carrinho"])
 app.include_router(checkout_router, tags=["Checkout"])
 app.include_router(favorito_router, tags=["Favoritos"])
+app.include_router(excluit_conta_router, tags=["Exclusão"])
 
 # --- Rotas administrativas ---
 app.include_router(admin_router, tags=["Administração"])

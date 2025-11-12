@@ -1,3 +1,4 @@
+from fastapi.responses import RedirectResponse
 from fastapi import HTTPException, Request, Depends
 from app.auth import verificar_token
 from app.database import get_db
@@ -18,4 +19,4 @@ def exlcuir_conta(request: Request, db: Session = Depends(get_db)):
 
     db.delete(usuario)
     db.commit()
-    return {"message": "Conta excluída com sucesso"}
+    return RedirectResponse(url="/login", status_code=303)
