@@ -46,6 +46,7 @@ def controller_completar_cadastro(cep_destino: str):
     # consulta no ViaCep
     via_cep_url = f"https://viacep.com.br/ws/{cep_destino}/json/"
     resposta = requests.get(via_cep_url)
+
     if resposta.status_code != 200:
         raise HTTPException(status_code=400, detail="Erro ao consultar o CEP")
 
@@ -55,8 +56,8 @@ def controller_completar_cadastro(cep_destino: str):
 
     return {
         "cep": cep_destino,
-        "rua": dados.get("logradouro"),
-        "bairro": dados.get("bairro"),
-        "estado": dados.get("uf"),
-        "cidade": dados.get("localidade"),
+        "rua": dados.get("logradouro", ""),
+        "bairro": dados.get("bairro", ""),
+        "estado": dados.get("uf", ""),
+        "cidade": dados.get("localidade", "")
     }

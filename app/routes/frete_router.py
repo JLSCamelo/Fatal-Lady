@@ -7,6 +7,6 @@ router = APIRouter(prefix="/frete")
 def calcular_frete(request: Request, cep_destino: str = Query(...)):
     return controller_calcular_frete(request, cep_destino)
 
-@router.get("/completar_cadastro")
-def completar_cadastro(cep_destino: str = Query(...)):
+@router.get("/completar_cadastro/{cep_destino}")
+def completar_cadastro(cep_destino: str):
     return controller_completar_cadastro(cep_destino)
