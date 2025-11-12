@@ -10,10 +10,6 @@ from fastapi.templating import Jinja2Templates
 
 templates = Jinja2Templates(directory="app/views/templates")
 
-#criar tabelas
-Base.metadata.create_all(bind=engine)
-
-
 def listar_produto(request: Request, db: Session):
     token = request.cookies.get("token")
 

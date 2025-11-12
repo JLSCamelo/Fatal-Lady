@@ -22,6 +22,10 @@ def cadastro_controller(request: Request,
                         rua: str,
                         cidade: str,
                         telefone: str,
+                        complemento: str,
+                        cpf: int,
+                        genero: str,
+                        data_nascimento: datetime,
                         db: Session):
     # Verifica se o e-mail já existe
     usuario = db.query(UsuarioDB).filter(UsuarioDB.email == email).first()
@@ -37,7 +41,11 @@ def cadastro_controller(request: Request,
         cep=cep,
         rua=rua,
         cidade=cidade,
-        telefone=telefone
+        telefone=telefone,
+        complemento=complemento,
+        cpf=cpf,
+        genero=genero,
+        data_nascimento=data_nascimento
     )
     db.add(novo_usuario)
     db.commit()

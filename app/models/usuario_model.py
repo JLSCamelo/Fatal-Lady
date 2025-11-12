@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String, Boolean, Date
 from sqlalchemy.orm import relationship
 from app.models.produto_model import ProdutoDB
 from app.database import *
@@ -10,13 +10,16 @@ class UsuarioDB(Base):
     nome = Column(String(255), nullable=False)
     email = Column(String(255), unique=True, nullable=False)
     senha = Column(String(255), nullable=False)
-    cep = Column(String(20), nullable=True)
-    rua = Column(String(255), nullable=True)
-    numero = Column(String, nullable=True)
-    cidade = Column(String(120), nullable=True)
-    telefone = Column(String(30), nullable=True)
+    cep = Column(String(20), nullable=False)
+    rua = Column(String(255), nullable=False)
+    numero = Column(String, nullable=False)
+    cidade = Column(String(120), nullable=False)
+    telefone = Column(String(30), nullable=False)
     is_admin = Column(Boolean, default=False)
     complemento = Column(String(120), nullable=True)
+    cpf = Column(Integer, nullable=False)
+    genero = Column(String, nullable=False)
+    data_nascimento = Column(Date, nullable=False)
 
     # Relações
     pedidos = relationship("PedidoDB", back_populates="usuario")

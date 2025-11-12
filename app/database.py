@@ -30,49 +30,31 @@ def get_db():
         yield db
     finally:
         db.close()
-# #criar banco e tabelas
-# # Base.metadata.create_all(bind=engine)
+
 
 
 
 """
-from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
 from supabase import create_client, Client
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-# --- Parte 1: Cliente Supabase (Para Auth, Storage, etc.) ---
-# Isso é para os serviços do Supabase, não para o SQLAlchemy.
-supabase_api_url = "https://xomisypdbkawfgzsddwn.supabase.co"
-supabase_api_key = "sb_secret_hXIMd5QJpNGKunYQiiYv_Q_sMkyanQm" # Ou service_role_key
-supabase: Client = create_client(supabase_api_url, supabase_api_key)
+# --- Parte 1: Cliente Supabase (Auth, Storage, etc.) ---
+SUPABASE_URL = "https://xomisypdbkawfgzsddwn.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhvbWlzeXBkYmthd2ZnenNkZHduIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1OTc3NzMyMywiZXhwIjoyMDc1MzUzMzIzfQ.DqwT9AjxAc7L316ZkIEwOo9Ykuol71pPI68dBtK0Ox4"
 
-# --- Parte 2: SQLAlchemy (Para o ORM com FastAPI) ---
-# Isso é para conectar o SQLAlchemy direto no banco PostgreSQL.
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-# PEGUE SUA SENHA NO PAINEL DO SUPABASE!
-DB_PASSWORD = "fatallady" 
-DB_URL = f"postgresql://postgres:{DB_PASSWORD}@db.xomisypdbkawfgzsddwn.supabase.co:5432/postgres"
-
-# Agora use a URL correta no create_engine
-engine = create_engine(
-    DB_URL,
-    pool_pre_ping=True,
-)
-
-#############################################################
-# O resto do seu código estava certo:
-# Criar sessões
-SessionLocal = sessionmaker(bind=engine)
-
-# Base para os models
+# --- Parte 2: Dummy SQLAlchemy para manter Base e get_db ---
+# Base para declarar models (compatível com FastAPI)
 Base = declarative_base()
 
-# Dependência para injetar sessão (FastAPI)
+# Criar sessões
+SessionLocal = sessionmaker(bind=supabase)
+
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
-
 """
