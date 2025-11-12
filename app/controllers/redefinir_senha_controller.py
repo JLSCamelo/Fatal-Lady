@@ -135,7 +135,7 @@ def controller_esqueci_senha(request: Request, db: Session):
     # Envia o e-mail
     enviar_email(usuario.email, usuario.nome, link)
 
-    return RedirectResponse("/login", status_code=303)
+    return {"mensagem": "EMAIL ENVIADO"}
 
 def controller_redefinir_senha_form(request: Request, token: str):
     return templates.TemplateResponse("redefinir_senha.html", {"request": request, "token": token})
