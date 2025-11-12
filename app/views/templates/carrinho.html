@@ -6,6 +6,10 @@
   <title>Carrinho - Fatal Lady</title>
   <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png">
   <link rel="stylesheet" href="{{ url_for('static', path='css/carrinho.css') }}">
+  <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/cart-badge.css') }}"
+    />
 </head>
 <body>
   <header id="main_header">
@@ -75,13 +79,15 @@
             />
           </a>
         {% endif %}
-        <a href="/carrinho">
-          <img
-            src="/static/uploads/img/home/icons-main/kart.png"
-            id="kart-icon"
-            class="icons"
-          />
-        </a>
+        <div class="cart-link-wrapper">
+          <a href="/carrinho">
+            <img
+              src="/static/uploads/img/home/icons-main/kart.png"
+              id="kart-icon"
+              class="icons"
+            />
+          </a>
+        </div>
         <a href="/produtos">
           <img
             src="/static/uploads/img/home/icons-main/shop.png"
@@ -213,5 +219,6 @@
 
   <script src="/static/js/carrinho.js" defer></script>
   <script src="/static/js/promo-rotator.js" defer></script>
+  <script src="/static/js/cart-badge.js" defer></script> </body>
 </body>
 </html>

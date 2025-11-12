@@ -1,5 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Seleciona todos os formulários de atualização de item
+  
+  // --- INÍCIO DA LÓGICA DE CONTAGEM (QUE FALTAVA) ---
+  const updateLocalStorageCount = () => {
+    // Busca todos os itens visíveis na página
+    const allItems = document.querySelectorAll(".cart-item");
+    let totalCount = 0;
+
+    if (allItems.length > 0) {
+      // Itera em cada item para somar as quantidades
+      allItems.forEach(item => {
+        // Usa as classes do seu HTML
+        const qtyInput = item.querySelector(".input-quantity"); 
+        if (qtyInput) {
+          totalCount += parseInt(qtyInput.value, 10) || 0;
+        }
+      });
+    }
+    // Se .cart-item não for encontrado (carrinho vazio), totalCount será 0.
+
+    // Salva o total calculado no localStorage
+    localStorage.setItem("cartItemCount", totalCount);
+    
+    // Dispara um evento para o 'cart-badge.js' (Exibidor) ler o novo valor imediatamente
+    window.dispatchEvent(new Event('cartUpdated'));
+  };
+
+  // Calcula e salva o total assim que a página do carrinho carregar
+  updateLocalStorageCount();
+  // --- FIM DA LÓGICA DE CONTAGEM ---
+
+
+  // --- INÍCIO DA SUA LÓGICA DE FORMULÁRIO (EXISTENTE) ---
   const updateForms = document.querySelectorAll(".form-update-cart");
 
   updateForms.forEach(form => {
@@ -9,23 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Função para submeter o formulário
     const submitForm = () => {
-      // Adiciona um feedback visual de "carregando"
-      // Reutiliza a classe .removing que você já tem no CSS
       const cartItem = form.closest('.cart-item');
       if (cartItem) {
-        cartItem.classList.add('removing'); // Fica semitransparente
+        cartItem.classList.add('removing'); 
       }
-      
-      // Envia o formulário (isso causará um recarregamento da página)
       form.submit();
     };
-
-    // ---- OUVINTES DE EVENTOS ----
 
     // 1. Clique no Botão de Mais
     btnPlus.addEventListener("click", () => {
       qtyInput.value = parseInt(qtyInput.value, 10) + 1;
-      submitForm(); // Envia o formulário
+      submitForm();
     });
 
     // 2. Clique no Botão de Menos
@@ -33,18 +58,18 @@ document.addEventListener("DOMContentLoaded", () => {
       let currentValue = parseInt(qtyInput.value, 10);
       if (currentValue > 1) {
         qtyInput.value = currentValue - 1;
-        submitForm(); // Envia o formulário
+        submitForm();
       }
-      // Se for 1 e clicar menos, não faz nada
     });
 
-    // 3. Mudar manualmente e teclar 'Enter' ou sair do campo
+    // 3. Mudar manualmente
     qtyInput.addEventListener("change", () => {
       let currentValue = parseInt(qtyInput.value, 10);
       if (currentValue < 1 || isNaN(currentValue)) {
-        qtyInput.value = 1; // Reseta para 1 se for inválido
+        qtyInput.value = 1; 
       }
-      submitForm(); // Envia o formulário
+      submitForm();
     });
   });
+  // --- FIM DA LÓGICA DE FORMULÁRIO ---
 });
