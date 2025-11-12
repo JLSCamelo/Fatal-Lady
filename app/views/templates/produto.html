@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="PT-BR">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{produto.nome}} | Loja</title>
-    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png" />
-    <link rel="stylesheet" href="{{ url_for('static', path='css/product-style.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', path='css/product-detail.css') }}" />
-</head>
-<body>
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/product-style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/product-detail.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/cart-badge.css') }}"
+    />
+  </head>
+  <body>
     <header id="main_header">
       <div class="header-div">
         <img
@@ -23,21 +37,27 @@
       </div>
 
       <div class="header-div">
-        <div class="promo-rotator" role="status" aria-live="polite" aria-atomic="true">
-          <span id="promo-text" class="promo-text"><b>Frete Grátis</b> para Compras Acima de R$ 299,00</span>
+        <div
+          class="promo-rotator"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span id="promo-text" class="promo-text"
+            ><b>Frete Grátis</b> para Compras Acima de R$ 299,00</span
+          >
         </div>
       </div>
 
       <div class="header-div">
         {% if usuario.is_admin == True %}
-          <a href="/admin" style="color: rgb(223, 16, 16);">Painel do Admin</a>
+        <a href="/admin" style="color: rgb(223, 16, 16)">Painel do Admin</a>
         {% else %}
-          <a href="#">Ajuda</a>
-        {% endif %}
-        {% if usuario %}
-          <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+        <a href="#">Ajuda</a>
+        {% endif %} {% if usuario %}
+        <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
         {% else %}
-          <a href="/login">Entrar</a>
+        <a href="/login">Entrar</a>
         {% endif %}
       </div>
     </header>
@@ -61,28 +81,30 @@
 
       <div class="nav-div">
         {% if usuario.is_admin == True %}
-          <a href="/admin">
-            <img
-              src="/static/uploads/img/home/icons-main/shield-check.png"
-              id="kart-icon"
-              class="icons"
-            />
-          </a>
-          <a href="/dashboard">
-            <img
-              src="/static/uploads/img/home/icons-main/dashboard-panel.png"
-              id="kart-icon"
-              class="icons"
-            />
-          </a>
-        {% endif %}
-        <a href="/carrinho">
+        <a href="/admin">
           <img
-            src="/static/uploads/img/home/icons-main/kart.png"
+            src="/static/uploads/img/home/icons-main/shield-check.png"
             id="kart-icon"
             class="icons"
           />
         </a>
+        <a href="/dashboard">
+          <img
+            src="/static/uploads/img/home/icons-main/dashboard-panel.png"
+            id="kart-icon"
+            class="icons"
+          />
+        </a>
+        {% endif %}
+        <div class="cart-link-wrapper">
+          <a href="/carrinho">
+            <img
+              src="/static/uploads/img/home/icons-main/kart.png"
+              id="kart-icon"
+              class="icons"
+            />
+          </a>
+        </div>
         <a href="/produtos">
           <img
             src="/static/uploads/img/home/icons-main/shop.png"
@@ -91,197 +113,288 @@
           />
         </a>
         {% if usuario %}
-          <a href="/me/painel">
-            <img
+        <a href="/me/painel">
+          <img
             src="/static/uploads/img/home/icons-main/user.png"
             id="user-icon"
             class="icons"
-            />
-          </a>
+          />
+        </a>
         {% else %}
-          <a href="/login">
-            <img
+        <a href="/login">
+          <img
             src="/static/uploads/img/home/icons-main/user.png"
             id="user-icon"
             class="icons"
-            />
-          </a>
+          />
+        </a>
         {% endif %}
       </div>
     </nav>
 
     <div id="size-popup" class="popup-overlay">
-        <div class="popup-content">
-            <button class="popup-close" onclick="closePopup('size-popup')">&times;</button>
-            <div class="popup-icon">⚠️</div>
-            <h2>Tamanho Obrigatório</h2>
-            <p>Por favor, selecione um tamanho antes de adicionar o produto ao carrinho.</p>
-            <div class="popup-actions">
-                <button class="popup-btn primary" onclick="closePopup('size-popup')">Entendi</button>
-            </div>
+      <div class="popup-content">
+        <button class="popup-close" onclick="closePopup('size-popup')">
+          &times;
+        </button>
+        <div class="popup-icon">⚠️</div>
+        <h2>Tamanho Obrigatório</h2>
+        <p>
+          Por favor, selecione um tamanho antes de adicionar o produto ao
+          carrinho.
+        </p>
+        <div class="popup-actions">
+          <button class="popup-btn primary" onclick="closePopup('size-popup')">
+            Entendi
+          </button>
         </div>
+      </div>
     </div>
 
     <div id="login-popup" class="popup-overlay">
-        <div class="popup-content">
-            <button class="popup-close" onclick="closePopup('login-popup')">&times;</button>
-            <div class="popup-icon">🔒</div>
-            <h2>Login Necessário</h2>
-            <p>Você precisa estar logado para adicionar produtos ao carrinho e finalizar sua compra.</p>
-            <div class="popup-actions">
-                <a href="/login" class="popup-btn primary">Fazer Login</a>
-                <a href="/cadastro" class="popup-btn secondary">Criar Conta</a>
-            </div>
+      <div class="popup-content">
+        <button class="popup-close" onclick="closePopup('login-popup')">
+          &times;
+        </button>
+        <div class="popup-icon">🔒</div>
+        <h2>Login Necessário</h2>
+        <p>
+          Você precisa estar logado para adicionar produtos ao carrinho e
+          finalizar sua compra.
+        </p>
+        <div class="popup-actions">
+          <a href="/login" class="popup-btn primary">Fazer Login</a>
+          <a href="/cadastro" class="popup-btn secondary">Criar Conta</a>
         </div>
+      </div>
     </div>
 
     <main class="product-page">
-        <div class="breadcrumb">
-            <a href="/">Home</a> / <a href="/produtos">Produtos</a> / <span>{{produto.nome}}</span>
+      <div class="breadcrumb">
+        <a href="/">Home</a> / <a href="/produtos">Produtos</a> /
+        <span>{{produto.nome}}</span>
+      </div>
+
+      <div class="product-container">
+        <div class="product-gallery">
+          <div class="main-image">
+            <img
+              src="{{produto.caminhoimagem or '/static/uploads/img/catalogo/products/default.png'}}"
+              alt="{{produto.nome}}"
+              id="main-product-img"
+            />
+          </div>
         </div>
 
-        <div class="product-container">
-            <div class="product-gallery">
-                <div class="main-image">
-                    <img src="{{produto.caminhoimagem or '/static/uploads/img/catalogo/products/default.png'}}" 
-                         alt="{{produto.nome}}" 
-                         id="main-product-img" />
+        <div class="product-info">
+          <div class="product-category">
+            {{produto.nome_categoria or 'Calçados'}}
+          </div>
+          <h1 class="product-title">{{produto.nome}}</h1>
+
+          <div class="product-rating">
+            <div class="stars">
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star">★</span>
+            </div>
+            <span class="rating-count">(127 avaliações)</span>
+          </div>
+
+          <div class="product-price">
+            <span class="current-price"
+              >R$ {{ ('%.2f'|format(produto.preco)).replace('.', ',') }}</span
+            >
+            <span class="installments"
+              >ou 3x de R$ {{(produto.preco / 3)|round(2)}} sem juros</span
+            >
+          </div>
+
+          <div class="product-stock">
+            <span class="stock-badge">✓ {{produto.estoque}} em estoque</span>
+          </div>
+
+          <form
+            id="add-to-cart-form"
+            action="/carrinho/adicionar/{{produto.id_produto}}"
+            method="POST"
+          >
+            <div class="product-options">
+              <div class="option-group">
+                <label class="option-label"
+                  >Tamanho <span class="required">*</span></label
+                >
+                <div class="size-selector" id="size-selector">
+                  <button type="button" class="size-btn" data-size="32">
+                    32
+                  </button>
+                  <button type="button" class="size-btn" data-size="33">
+                    33
+                  </button>
+                  <button type="button" class="size-btn" data-size="34">
+                    34
+                  </button>
+                  <button type="button" class="size-btn" data-size="35">
+                    35
+                  </button>
+                  <button type="button" class="size-btn" data-size="36">
+                    36
+                  </button>
+                  <button type="button" class="size-btn" data-size="37">
+                    37
+                  </button>
+                  <button type="button" class="size-btn" data-size="38">
+                    38
+                  </button>
+                  <button type="button" class="size-btn" data-size="39">
+                    39
+                  </button>
                 </div>
+                <input type="hidden" name="tamanho" id="tamanho-input" />
+              </div>
+
+              <div class="option-group">
+                <label class="option-label"
+                  >Quantidade <span class="required">*</span></label
+                >
+                <div class="quantity-selector">
+                  <button type="button" class="qty-btn" id="qty-minus">
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    name="quantidade"
+                    id="quantidade-input"
+                    value="1"
+                    min="1"
+                    max="{{produto.estoque}}"
+                  />
+                  <button type="button" class="qty-btn" id="qty-plus">+</button>
+                </div>
+              </div>
             </div>
 
-            <div class="product-info">
-                <div class="product-category">{{produto.nome_categoria or 'Calçados'}}</div>
-                <h1 class="product-title">{{produto.nome}}</h1>
-                
-                <div class="product-rating">
-                    <div class="stars">
-                        <span class="star filled">★</span>
-                        <span class="star filled">★</span>
-                        <span class="star filled">★</span>
-                        <span class="star filled">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <span class="rating-count">(127 avaliações)</span>
-                </div>
+            <button type="button" class="add-cart-btn" id="add-cart-btn">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M9 2L9 6M15 2L15 6M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-8.9-4h9.8c.6 0 1.2-.4 1.4-1l2.4-7.1c.1-.2 0-.5-.1-.7-.2-.2-.4-.2-.5-.2H7.2L7 5H3v2h2l3.6 7.6-1.4 2.4c0 .1 0 .2-.1.3 0 .4.3.7.7.7h12v-2H7.4c-.1 0-.2-.1-.2-.2l.1-.1L9.1 14z"
+                />
+              </svg>
+              ADICIONAR AO CARRINHO
+            </button>
+          </form>
 
-                <div class="product-price">
-                    <span class="current-price">R$ {{ ('%.2f'|format(produto.preco)).replace('.', ',') }}</span>
-                    <span class="installments">ou 3x de R$ {{(produto.preco / 3)|round(2)}} sem juros</span>
-                </div>
-
-                <div class="product-stock">
-                    <span class="stock-badge">✓ {{produto.estoque}} em estoque</span>
-                </div>
-
-                <form id="add-to-cart-form" action="/carrinho/adicionar/{{produto.id_produto}}" method="POST">
-                    <div class="product-options">
-                        <div class="option-group">
-                            <label class="option-label">Tamanho <span class="required">*</span></label>
-                            <div class="size-selector" id="size-selector">
-                                <button type="button" class="size-btn" data-size="32">32</button>
-                                <button type="button" class="size-btn" data-size="33">33</button>
-                                <button type="button" class="size-btn" data-size="34">34</button>
-                                <button type="button" class="size-btn" data-size="35">35</button>
-                                <button type="button" class="size-btn" data-size="36">36</button>
-                                <button type="button" class="size-btn" data-size="37">37</button>
-                                <button type="button" class="size-btn" data-size="38">38</button>
-                                <button type="button" class="size-btn" data-size="39">39</button>
-                            </div>
-                            <input type="hidden" name="tamanho" id="tamanho-input" />
-                        </div>
-
-                        <div class="option-group">
-                            <label class="option-label">Quantidade <span class="required">*</span></label>
-                            <div class="quantity-selector">
-                                <button type="button" class="qty-btn" id="qty-minus">−</button>
-                                <input type="number" name="quantidade" id="quantidade-input" value="1" min="1" max="{{produto.estoque}}" />
-                                <button type="button" class="qty-btn" id="qty-plus">+</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="button" class="add-cart-btn" id="add-cart-btn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 2L9 6M15 2L15 6M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-8.9-4h9.8c.6 0 1.2-.4 1.4-1l2.4-7.1c.1-.2 0-.5-.1-.7-.2-.2-.4-.2-.5-.2H7.2L7 5H3v2h2l3.6 7.6-1.4 2.4c0 .1 0 .2-.1.3 0 .4.3.7.7.7h12v-2H7.4c-.1 0-.2-.1-.2-.2l.1-.1L9.1 14z"/>
-                        </svg>
-                        ADICIONAR AO CARRINHO
-                    </button>
-                </form>
-
-                <div class="product-features">
-                    <div class="feature">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                            <circle cx="12" cy="7" r="4"/>
-                        </svg>
-                        <span>Frete grátis acima de R$ 299</span>
-                    </div>
-                    <div class="feature">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span>Primeira troca grátis</span>
-                    </div>
-                    <div class="feature">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
-                            <line x1="1" y1="10" x2="23" y2="10"/>
-                        </svg>
-                        <span>Parcele em até 3x sem juros</span>
-                    </div>
-                </div>
-
-                <div class="product-description">
-                    <h3>Descrição do Produto</h3>
-                    <p>Conforto e estilo se encontram neste design exclusivo. Confeccionado com materiais de alta qualidade, este produto oferece durabilidade e elegância para qualquer ocasião.</p>
-                    <ul>
-                        <li>Material de alta qualidade</li>
-                        <li>Design moderno e confortável</li>
-                        <li>Acabamento premium</li>
-                        <li>Versatilidade para diversas ocasiões</li>
-                    </ul>
-                </div>
+          <div class="product-features">
+            <div class="feature">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <span>Frete grátis acima de R$ 299</span>
             </div>
+            <div class="feature">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <span>Primeira troca grátis</span>
+            </div>
+            <div class="feature">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                <line x1="1" y1="10" x2="23" y2="10" />
+              </svg>
+              <span>Parcele em até 3x sem juros</span>
+            </div>
+          </div>
+
+          <div class="product-description">
+            <h3>Descrição do Produto</h3>
+            <p>
+              Conforto e estilo se encontram neste design exclusivo.
+              Confeccionado com materiais de alta qualidade, este produto
+              oferece durabilidade e elegância para qualquer ocasião.
+            </p>
+            <ul>
+              <li>Material de alta qualidade</li>
+              <li>Design moderno e confortável</li>
+              <li>Acabamento premium</li>
+              <li>Versatilidade para diversas ocasiões</li>
+            </ul>
+          </div>
         </div>
+      </div>
     </main>
 
     <section class="newsletter">
-        <h2>CADASTRE-SE</h2>
-        <p>E GANHE <b>10% OFF</b> NA SUA PRIMEIRA COMPRA</p>
-        <form>
-            <input type="text" placeholder="Nome Completo" />
-            <input type="email" placeholder="Email" />
-            <button type="submit">ENVIAR</button>
-        </form>
+      <h2>CADASTRE-SE</h2>
+      <p>E GANHE <b>10% OFF</b> NA SUA PRIMEIRA COMPRA</p>
+      <form>
+        <input type="text" placeholder="Nome Completo" />
+        <input type="email" placeholder="Email" />
+        <button type="submit">ENVIAR</button>
+      </form>
     </section>
 
     <footer>
-        <div class="footer-links">
-            <div>
-                <h4>MINHA CONTA</h4>
-                <a href="#">Meus Dados</a>
-                <a href="#">Meus Pedidos</a>
-                <a href="#">Cashback</a>
-                <a href="#">Login</a>
-            </div>
-            <div>
-                <h4>SUPORTE E POLÍTICAS</h4>
-                <a href="#">Trocas e Devoluções</a>
-                <a href="#">Dúvidas Frequentes</a>
-                <a href="#">Fale Conosco</a>
-                <a href="#">Política de Privacidade</a>
-            </div>
-            <div>
-                <h4>FORMAS DE PAGAMENTO</h4>
-                <img src="/static/uploads/img/catalogo/footer/payment.png" alt="Formas de Pagamento" />
-            </div>
+      <div class="footer-links">
+        <div>
+          <h4>MINHA CONTA</h4>
+          <a href="#">Meus Dados</a>
+          <a href="#">Meus Pedidos</a>
+          <a href="#">Cashback</a>
+          <a href="#">Login</a>
         </div>
-        <hr />
-        <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+        <div>
+          <h4>SUPORTE E POLÍTICAS</h4>
+          <a href="#">Trocas e Devoluções</a>
+          <a href="#">Dúvidas Frequentes</a>
+          <a href="#">Fale Conosco</a>
+          <a href="#">Política de Privacidade</a>
+        </div>
+        <div>
+          <h4>FORMAS DE PAGAMENTO</h4>
+          <img
+            src="/static/uploads/img/catalogo/footer/payment.png"
+            alt="Formas de Pagamento"
+          />
+        </div>
+      </div>
+      <hr />
+      <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
     </footer>
 
     <script src="/static/js/pop_up_product.js" defer></script>
     <script src="/static/js/promo-rotator.js" defer></script>
-</body>
+  </body>
 </html>

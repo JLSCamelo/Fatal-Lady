@@ -8,10 +8,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catálogo</title>
-    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png" />
-    <link rel="stylesheet" href="{{ url_for('static', path='css/catalogo-style.css') }}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/catalogo-style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/cart-badge.css') }}"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"
+      defer
+    ></script>
   </head>
 
   <body>
@@ -29,21 +46,27 @@
       </div>
 
       <div class="header-div">
-        <div class="promo-rotator" role="status" aria-live="polite" aria-atomic="true">
-          <span id="promo-text" class="promo-text"><b>Frete Grátis</b> para Compras Acima de R$ 299,00</span>
+        <div
+          class="promo-rotator"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span id="promo-text" class="promo-text"
+            ><b>Frete Grátis</b> para Compras Acima de R$ 299,00</span
+          >
         </div>
       </div>
 
       <div class="header-div">
         {% if usuario.is_admin == True %}
-          <a href="/admin" style="color: rgb(223, 16, 16);">Painel do Admin</a>
+        <a href="/admin" style="color: rgb(223, 16, 16)">Painel do Admin</a>
         {% else %}
-          <a href="#">Ajuda</a>
-        {% endif %}
-        {% if usuario %}
-          <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+        <a href="#">Ajuda</a>
+        {% endif %} {% if usuario %}
+        <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
         {% else %}
-          <a href="/login">Entrar</a>
+        <a href="/login">Entrar</a>
         {% endif %}
       </div>
     </header>
@@ -66,31 +89,31 @@
       </div>
 
       <div class="nav-div">
-        {% if usuario %}
-          {% if usuario.is_admin == True %}
-            <a href="/admin">
-              <img
-                src="/static/uploads/img/home/icons-main/shield-check.png"
-                id="kart-icon"
-                class="icons"
-              />
-            </a>
-            <a href="/dashboard">
-              <img
-                src="/static/uploads/img/home/icons-main/dashboard-panel.png"
-                id="kart-icon"
-                class="icons"
-              />
-            </a>
-          {% endif %}
-        {% endif %}
-        <a href="/carrinho">
+        {% if usuario %} {% if usuario.is_admin == True %}
+        <a href="/admin">
           <img
-            src="/static/uploads/img/home/icons-main/kart.png"
+            src="/static/uploads/img/home/icons-main/shield-check.png"
             id="kart-icon"
             class="icons"
           />
         </a>
+        <a href="/dashboard">
+          <img
+            src="/static/uploads/img/home/icons-main/dashboard-panel.png"
+            id="kart-icon"
+            class="icons"
+          />
+        </a>
+        {% endif %} {% endif %}
+        <div class="cart-link-wrapper">
+          <a href="/carrinho">
+            <img
+              src="/static/uploads/img/home/icons-main/kart.png"
+              id="kart-icon"
+              class="icons"
+            />
+          </a>
+        </div>
         <a href="/produtos">
           <img
             src="/static/uploads/img/home/icons-main/shop.png"
@@ -99,89 +122,230 @@
           />
         </a>
         {% if usuario %}
-          <a href="/me/painel">
-            <img
+        <a href="/me/painel">
+          <img
             src="/static/uploads/img/home/icons-main/user.png"
             id="user-icon"
             class="icons"
-            />
-          </a>
+          />
+        </a>
         {% else %}
-          <a href="/login">
-            <img
+        <a href="/login">
+          <img
             src="/static/uploads/img/home/icons-main/user.png"
             id="user-icon"
             class="icons"
-            />
-          </a>
+          />
+        </a>
         {% endif %}
       </div>
     </nav>
 
     <main>
-      <section id="products" class="products-section" aria-label="Seção de produtos">
+      <section
+        id="products"
+        class="products-section"
+        aria-label="Seção de produtos"
+      >
         <div class="container">
           <header class="products-header">
             <div class="products-header-inner">
               <h2 class="catalog-title">CATÁLOGO</h2>
 
               <div class="filters-top-row">
-                <div class="cat-filters" id="cat-filters" role="tablist" aria-label="Filtros de categoria">
-                  <button class="filter-btn" data-filter="1" type="button">Sandália</button>
-                  <button class="filter-btn" data-filter="2" type="button">Botas</button>
-                  <button class="filter-btn" data-filter="3" type="button">Salto Alto</button>
-                  <button class="filter-btn" data-filter="4" type="button">Rasteirinha</button>
-                  <button class="filter-btn" data-filter="5" type="button">Sapatilha</button>
-                  <button class="filter-btn" data-filter="6" type="button">Tênis</button>
+                <div
+                  class="cat-filters"
+                  id="cat-filters"
+                  role="tablist"
+                  aria-label="Filtros de categoria"
+                >
+                  <button class="filter-btn" data-filter="1" type="button">
+                    Sandália
+                  </button>
+                  <button class="filter-btn" data-filter="2" type="button">
+                    Botas
+                  </button>
+                  <button class="filter-btn" data-filter="3" type="button">
+                    Salto Alto
+                  </button>
+                  <button class="filter-btn" data-filter="4" type="button">
+                    Rasteirinha
+                  </button>
+                  <button class="filter-btn" data-filter="5" type="button">
+                    Sapatilha
+                  </button>
+                  <button class="filter-btn" data-filter="6" type="button">
+                    Tênis
+                  </button>
                 </div>
               </div>
 
               <div class="filters-middle-row">
                 <div class="search-left">
-                  <label for="products-search" class="visually-hidden">Buscar produtos</label>
+                  <label for="products-search" class="visually-hidden"
+                    >Buscar produtos</label
+                  >
                   <div class="search-box">
-                    <input id="products-search" type="search" placeholder="Buscar Produto" aria-label="Buscar produtos" />
+                    <input
+                      id="products-search"
+                      type="search"
+                      placeholder="Buscar Produto"
+                      aria-label="Buscar produtos"
+                    />
                   </div>
                 </div>
 
                 <div class="right-controls">
-                  <div class="price-filter" id="price-filter" aria-label="Filtro de preço">
+                  <div
+                    class="price-filter"
+                    id="price-filter"
+                    aria-label="Filtro de preço"
+                  >
                     <div class="price-values">
                       <label>R$ <span id="price-min-display">0,00</span></label>
                       <span>—</span>
                       <label>R$ <span id="price-max-display">0,00</span></label>
                     </div>
                     <div class="price-ranges">
-                      <input id="price-min" type="range" min="0" max="1000" value="0" step="0.01" />
-                      <input id="price-max" type="range" min="0" max="1000" value="1000" step="0.01" />
+                      <input
+                        id="price-min"
+                        type="range"
+                        min="0"
+                        max="1000"
+                        value="0"
+                        step="0.01"
+                      />
+                      <input
+                        id="price-max"
+                        type="range"
+                        min="0"
+                        max="1000"
+                        value="1000"
+                        step="0.01"
+                      />
                     </div>
                   </div>
 
-                  <div class="color-filter" id="color-filter" aria-label="Filtro por cor">
-                    <div id="color-filters" class="color-filters" role="list"></div>
+                  <div
+                    class="color-filter"
+                    id="color-filter"
+                    aria-label="Filtro por cor"
+                  >
+                    <div
+                      id="color-filters"
+                      class="color-filters"
+                      role="list"
+                    ></div>
                   </div>
 
                   <div class="filter-actions">
-                    <button id="clear-filters" class="filter-clear" type="button">Limpar filtros</button>
+                    <button
+                      id="clear-filters"
+                      class="filter-clear"
+                      type="button"
+                    >
+                      Limpar filtros
+                    </button>
                   </div>
                 </div>
               </div>
 
               <div class="filters-size-row">
-                <div class="size-filter" id="size-filter" aria-label="Filtro de tamanho">
+                <div
+                  class="size-filter"
+                  id="size-filter"
+                  aria-label="Filtro de tamanho"
+                >
                   <span class="size-label">Tamanhos:</span>
                   <div class="size-filters" id="size-filters">
-                    <button class="size-chip" data-size="32" type="button" aria-label="Tamanho 32">32</button>
-                    <button class="size-chip" data-size="33" type="button" aria-label="Tamanho 33">33</button>
-                    <button class="size-chip" data-size="34" type="button" aria-label="Tamanho 34">34</button>
-                    <button class="size-chip" data-size="35" type="button" aria-label="Tamanho 35">35</button>
-                    <button class="size-chip" data-size="36" type="button" aria-label="Tamanho 36">36</button>
-                    <button class="size-chip" data-size="37" type="button" aria-label="Tamanho 37">37</button>
-                    <button class="size-chip" data-size="38" type="button" aria-label="Tamanho 38">38</button>
-                    <button class="size-chip" data-size="39" type="button" aria-label="Tamanho 39">39</button>
-                    <button class="size-chip" data-size="40" type="button" aria-label="Tamanho 40">40</button>
-                    <button class="size-chip" data-size="41" type="button" aria-label="Tamanho 41">41</button>
-                    <button class="size-chip" data-size="42" type="button" aria-label="Tamanho 42">42</button>
+                    <button
+                      class="size-chip"
+                      data-size="32"
+                      type="button"
+                      aria-label="Tamanho 32"
+                    >
+                      32
+                    </button>
+                    <button
+                      class="size-chip"
+                      data-size="33"
+                      type="button"
+                      aria-label="Tamanho 33"
+                    >
+                      33
+                    </button>
+                    <button
+                      class="size-chip"
+                      data-size="34"
+                      type="button"
+                      aria-label="Tamanho 34"
+                    >
+                      34
+                    </button>
+                    <button
+                      class="size-chip"
+                      data-size="35"
+                      type="button"
+                      aria-label="Tamanho 35"
+                    >
+                      35
+                    </button>
+                    <button
+                      class="size-chip"
+                      data-size="36"
+                      type="button"
+                      aria-label="Tamanho 36"
+                    >
+                      36
+                    </button>
+                    <button
+                      class="size-chip"
+                      data-size="37"
+                      type="button"
+                      aria-label="Tamanho 37"
+                    >
+                      37
+                    </button>
+                    <button
+                      class="size-chip"
+                      data-size="38"
+                      type="button"
+                      aria-label="Tamanho 38"
+                    >
+                      38
+                    </button>
+                    <button
+                      class="size-chip"
+                      data-size="39"
+                      type="button"
+                      aria-label="Tamanho 39"
+                    >
+                      39
+                    </button>
+                    <button
+                      class="size-chip"
+                      data-size="40"
+                      type="button"
+                      aria-label="Tamanho 40"
+                    >
+                      40
+                    </button>
+                    <button
+                      class="size-chip"
+                      data-size="41"
+                      type="button"
+                      aria-label="Tamanho 41"
+                    >
+                      41
+                    </button>
+                    <button
+                      class="size-chip"
+                      data-size="42"
+                      type="button"
+                      aria-label="Tamanho 42"
+                    >
+                      42
+                    </button>
                   </div>
                 </div>
               </div>
@@ -195,50 +359,79 @@
             <section class="category-row" id="category-{{ group.grouper }}">
               <div class="category-header">
                 <h3 class="category-title">
-                  {% if group.list and group.list[0].categoria_nome is defined %}
-                    {{ group.list[0].categoria_nome }}
-                  {% else %}
-                    {{ group.grouper }}
-                  {% endif %}
+                  {% if group.list and group.list[0].categoria_nome is defined
+                  %} {{ group.list[0].categoria_nome }} {% else %} {{
+                  group.grouper }} {% endif %}
                 </h3>
 
                 <div class="category-arrows">
-                  <button class="arrow scroll-prev" aria-label="Rolar para a esquerda">‹</button>
-                  <button class="arrow scroll-next" aria-label="Rolar para a direita">›</button>
+                  <button
+                    class="arrow scroll-prev"
+                    aria-label="Rolar para a esquerda"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    class="arrow scroll-next"
+                    aria-label="Rolar para a direita"
+                  >
+                    ›
+                  </button>
                 </div>
               </div>
 
               {% for c in categorias %}
-                <span>{{ c.nome }}</span>
+              <span>{{ c.nome }}</span>
               {% endfor %}
 
               <div class="category-products" role="list">
                 {% for p in group.list %}
-                <article class="product-card"
-                         data-category="{{ p.categoria.nome }}"
-                         data-name="{{ p.nome }}"
-                         data-id="p{{ p.id_produto }}"
-                         data-price="{{ (p.preco) }}"
-                         data-color="{% if p.cor is defined %}{{ p.cor }}{% else %}Unspecified{% endif %}"
-                         data-size="{{ p.tamanhos }}"
-                         role="listitem">
-                  <div class="product-badge">{{ (p.categoria.nome)|upper }}</div>
+                <article
+                  class="product-card"
+                  data-category="{{ p.categoria.nome }}"
+                  data-name="{{ p.nome }}"
+                  data-id="p{{ p.id_produto }}"
+                  data-price="{{ (p.preco) }}"
+                  data-color="{% if p.cor is defined %}{{ p.cor }}{% else %}Unspecified{% endif %}"
+                  data-size="{{ p.tamanhos }}"
+                  role="listitem"
+                >
+                  <div class="product-badge">
+                    {{ (p.categoria.nome)|upper }}
+                  </div>
 
-                  <a href="/produto-get/{{ p.id_produto }}" class="product-media">
-                    <img src="/static/uploads/img/catalogo/products/default.png" alt="{{ p.nome }}" />
+                  <a
+                    href="/produto-get/{{ p.id_produto }}"
+                    class="product-media"
+                  >
+                    <img
+                      src="/static/uploads/img/catalogo/products/default.png"
+                      alt="{{ p.nome }}"
+                    />
                   </a>
 
                   <div class="product-body">
                     <h3 class="product-name">{{ p.nome }}</h3>
-                    <div class="product-price">R$ <span class="price-value">{{ ('%.2f'|format(p.preco)).replace('.', ',') }}</span></div>
+                    <div class="product-price">
+                      R$
+                      <span class="price-value"
+                        >{{ ('%.2f'|format(p.preco)).replace('.', ',') }}</span
+                      >
+                    </div>
                   </div>
 
                   <div class="product-actions">
                     <a href="/produto-get/{{ p.id_produto }}">
-                      <button class="add-to-cart" type="button" aria-label="Ver {{ p.nome }}" data-id="{{ p.id_produto }}" >Ver mais</button>
+                      <button
+                        class="add-to-cart"
+                        type="button"
+                        aria-label="Ver {{ p.nome }}"
+                        data-id="{{ p.id_produto }}"
+                      >
+                        Ver mais
+                      </button>
                     </a>
                   </div>
-
                 </article>
                 {% endfor %}
               </div>
@@ -277,7 +470,10 @@
         </div>
         <div>
           <h4>FORMAS DE PAGAMENTO</h4>
-          <img src="/static/uploads/img/catalogo/footer/payment.png" alt="Formas de Pagamento" />
+          <img
+            src="/static/uploads/img/catalogo/footer/payment.png"
+            alt="Formas de Pagamento"
+          />
         </div>
       </div>
       <hr />

@@ -7,6 +7,10 @@
     <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png"/>
     <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', path='css/meus-dados.css') }}"/>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/cart-badge.css') }}"
+    />
 </head>
 <body>
     <header id="main_header">
@@ -76,13 +80,15 @@
             />
           </a>
         {% endif %}
-        <a href="/carrinho">
-          <img
-            src="/static/uploads/img/home/icons-main/kart.png"
-            id="kart-icon"
-            class="icons"
-          />
-        </a>
+        <div class="cart-link-wrapper">
+          <a href="/carrinho">
+            <img
+              src="/static/uploads/img/home/icons-main/kart.png"
+              id="kart-icon"
+              class="icons"
+            />
+          </a>
+        </div>
         <a href="/produtos">
           <img
             src="/static/uploads/img/home/icons-main/shop.png"

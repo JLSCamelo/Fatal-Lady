@@ -30,17 +30,24 @@
       </div>
 
       <div class="header-div">
-        <div class="promo-rotator" role="status" aria-live="polite" aria-atomic="true">
-          <span id="promo-text" class="promo-text"><b>Frete Grátis</b> para Compras Acima de R$ 299,00</span>
+        <div
+          class="promo-rotator"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span id="promo-text" class="promo-text"
+            ><b>Frete Grátis</b> para Compras Acima de R$ 299,00</span
+          >
         </div>
       </div>
 
       <div class="header-div">
         <a href="#">Ajuda</a>
         {% if usuario %}
-          <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+        <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
         {% else %}
-          <a href="/login">Entrar</a>
+        <a href="/login">Entrar</a>
         {% endif %}
       </div>
     </header>
@@ -78,21 +85,21 @@
           />
         </a>
         {% if usuario %}
-          <a href="/me/painel">
-            <img
+        <a href="/me/painel">
+          <img
             src="/static/uploads/img/home/icons-main/user.png"
             id="user-icon"
             class="icons"
-            />
-          </a>
+          />
+        </a>
         {% else %}
-          <a href="/login">
-            <img
+        <a href="/login">
+          <img
             src="/static/uploads/img/home/icons-main/user.png"
             id="user-icon"
             class="icons"
-            />
-          </a>
+          />
+        </a>
         {% endif %}
       </div>
     </nav>
