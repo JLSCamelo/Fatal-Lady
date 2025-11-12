@@ -20,6 +20,9 @@ class UsuarioDB(Base):
     cpf = Column(Integer, nullable=False)
     genero = Column(String, nullable=False)
     data_nascimento = Column(Date, nullable=False)
+    estado = Column(String, nullable=False)
+    bairro= Column(String, nullable=False)
+
 
     # Relações
     pedidos = relationship("PedidoDB", back_populates="usuario")

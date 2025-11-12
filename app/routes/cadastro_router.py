@@ -32,9 +32,11 @@ def post_usuario(
     cpf: int = Form(...),
     genero: str = Form(...),
     data_nascimento: datetime = Form(...),
+    bairro: str = Form(...),
+    estado: str = Form(...),
     db: Session = Depends(get_db) 
 ):
     resultado = cadastro_controller(
-        request, nome, email, senha, cep, rua, cidade, telefone, complemento, cpf, genero, data_nascimento, db
+        request, nome, email, senha, cep, rua, cidade, telefone, complemento, cpf, genero, data_nascimento, bairro, estado, db
     )
     return RedirectResponse(url="/login", status_code=303)
