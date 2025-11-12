@@ -8,7 +8,7 @@ from app.models.usuario_model import UsuarioDB
 from app.models.carrinho_model import CarrinhoDB, ItemCarrinhoDB
 from app.models.pedido_model import PedidoDB, ItemPedidoDB  
 
-def checkout(request: Request, db: Session):
+def finalizar(request: Request, db: Session):
     token = request.cookies.get("token")
     payload = verificar_token(token)
     if not payload:

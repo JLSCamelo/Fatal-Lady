@@ -6,20 +6,20 @@ from app.database import get_db
 from app.controllers.cadastro_controller import *
 from app.auth import *
 
-router = APIRouter()
+router = APIRouter(prefix="/cadastrar")
 templates = Jinja2Templates(directory="app/views/templates")
 
 # Página do formulário de cadastro
-@router.get("/cadastrar", response_class=HTMLResponse)
-def get_cadastro(request: Request):
+@router.get("/", response_class=HTMLResponse)
+def page(request: Request):
     return templates.TemplateResponse(
         "registrar.html", 
         {"request": request}
     )
 
 # Cadastro de novo usuário
-@router.post("/cadastrar")
-def post_usuario(
+@router.post("/")
+def create(
     request: Request,
     nome: str = Form(...),
     email: str = Form(...),

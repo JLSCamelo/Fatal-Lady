@@ -18,6 +18,7 @@ from app.routes.dashboard_router import router as dashboard_routes
 from app.routes.logout_router import router as logout_router
 from app.routes.favorito_router import router as favorito_router
 from app.routes.redefinir_senha_router import router as redefinir_senha_router
+from app.routes.frete_router import router as frete_router
 
 from app.database import Base, engine
 from app.models import *
@@ -40,17 +41,22 @@ app.add_middleware(
 
 app.mount("/static", StaticFiles(directory="app/views/static"), name="static")
 
-app.include_router(produto_router)    
-app.include_router(login_router)    
-app.include_router(cadastro_router)
-app.include_router(carrinho_router)   
-app.include_router(checkout_router)   
-app.include_router(meus_pedidos_router)   
-app.include_router(admin_router)   
-app.include_router(painel_usuario_router)   
-app.include_router(categoria_router)
-app.include_router(dashboard_routes)
-app.include_router(logout_router)
-app.include_router(favorito_router)
-app.include_router(redefinir_senha_router)
- 
+# --- Rotas públicas ---
+app.include_router(login_router, tags=["Autenticação"])
+app.include_router(logout_router, tags=["Autenticação"])
+app.include_router(cadastro_router, tags=["Cadastro"])
+app.include_router(redefinir_senha_router, tags=["Recuperação de Senha"])
+app.include_router(produto_router, tags=["Produtos"])
+app.include_router(categoria_router, tags=["Categorias"])
+app.include_router(frete_router, tags=["Frete e Cep"])
+
+# --- Rotas de usuário autenticado ---
+app.include_router(painel_usuario_router, tags=["Usuário"])
+app.include_router(meus_pedidos_router, tags=["Pedidos"])
+app.include_router(carrinho_router, tags=["Carrinho"])
+app.include_router(checkout_router, tags=["Checkout"])
+app.include_router(favorito_router, tags=["Favoritos"])
+
+# --- Rotas administrativas ---
+app.include_router(admin_router, tags=["Administração"])
+app.include_router(dashboard_routes, tags=["Dashboard"])

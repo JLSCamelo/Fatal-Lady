@@ -11,7 +11,7 @@ templates = Jinja2Templates(directory="app/views/templates")
 
 
 @router.get("/me/enderecos", response_class=HTMLResponse)
-def pagina_enderecos(request: Request, db: Session = Depends(get_db)):
+def page_enderecos(request: Request, db: Session = Depends(get_db)):
     enderecos = listar_enderecos(request, db)
     if isinstance(enderecos, HTMLResponse):
         return enderecos  # redirecionamento de login
@@ -22,7 +22,7 @@ def pagina_enderecos(request: Request, db: Session = Depends(get_db)):
 
 
 @router.post("/me/enderecos", response_class=HTMLResponse)
-def adicionar_endereco(
+def add_endereco(
     request: Request,
     cep: str = Form(...),
     rua: str = Form(...),

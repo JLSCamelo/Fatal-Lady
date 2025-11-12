@@ -6,15 +6,15 @@ from app.controllers.carrinho_controller import carrinho_add, carrinho_visualiza
 from fastapi.templating import Jinja2Templates
 from app.database import get_db
 
-router = APIRouter()
+router = APIRouter(prefix="/carrinho")
 templates = Jinja2Templates(directory="app/views/templates")
 
-@router.get("/carrinho", response_class=HTMLResponse)
-def get_carrinho(request: Request, db: Session = Depends(get_db)):
+@router.get("/", response_class=HTMLResponse)
+def list_items(request: Request, db: Session = Depends(get_db)):
     return carrinho_visualizar(request, db)
 
-@router.post("/carrinho/adicionar/{produto_id}")
-def post_carrinho(request:Request,
+@router.post("/adicionar/{produto_id}")
+def add(request:Request,
                        produto_id: int,
                        tamanho: int=Form(...),
                         quantidade: int=Form(1),
@@ -22,8 +22,8 @@ def post_carrinho(request:Request,
 ):
     return carrinho_add(request, produto_id, quantidade, tamanho, db)
 
-@router.post("/carrinho/editar/{produto_id}")
-def put_carrinho(
+@router.post("/editar/{produto_id}")
+def update(
     request: Request,
     produto_id: int,
     tamanho: int = Form(...),
@@ -40,7 +40,7 @@ def put_carrinho(
 
 
 @router.post("/carrinho/remover/{produto_id}")
-def delete_item_carrinho(
+def delete_item(
     request: Request,
     produto_id: int,
     db: Session = Depends(get_db)

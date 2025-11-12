@@ -8,5 +8,5 @@ templates = Jinja2Templates(directory="app/views/templates")
 
 # Logout
 @router.get("/logout")
-def logout(request: Request):
+def exit_account(request: Request):
     return logout_controller(request)

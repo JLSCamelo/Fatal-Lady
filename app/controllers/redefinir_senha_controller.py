@@ -111,7 +111,6 @@ def controller_esqueci_senha_login(request: Request, db: Session, email: str):
 
     return RedirectResponse("/login", status_code=303)
 
-
 def controller_esqueci_senha(request: Request, db: Session):
     token = request.cookies.get("token")
     if not token:

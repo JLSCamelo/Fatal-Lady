@@ -56,30 +56,3 @@ def meus_dados_controller(request, db, templates):
         "usuario": usuario
     })
 
-
-# Endereços
-def enderecos_controller(request, db, templates):
-    token = request.cookies.get("token")
-    if not token:
-        return RedirectResponse(url="/login", status_code=303)
-
-    payload = verificar_token(token)
-    if not payload:
-        return RedirectResponse(url="/login", status_code=303)
-
-    email = payload.get("sub")
-    usuario = db.query(UsuarioDB).filter_by(email=email).first()
-    if not usuario:
-        return RedirectResponse(url="/login", status_code=303)
-
-    endereco = {
-        "rua": usuario.rua,
-        "cidade": usuario.cidade,
-        "cep": usuario.cep,
-        "complemento": usuario.complemento,
-    }
-
-    return templates.TemplateResponse(
-        "meus_endereços.html",
-        {"request": request, "usuario": usuario, "endereco": endereco}
-    )

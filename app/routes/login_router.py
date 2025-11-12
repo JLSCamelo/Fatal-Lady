@@ -21,13 +21,13 @@ router = APIRouter()
 templates = Jinja2Templates(directory="app/views/templates")
 
 @router.get("/login",response_class=HTMLResponse)
-def home(request:Request):
+def page(request:Request):
     return templates.TemplateResponse("login.html",{
         "request":request
     })
 
 @router.post("/login")
-def post_login(request: Request,
+def logar(request: Request,
                email: str = Form(...),
                senha: str = Form(...),
                db: Session = Depends(get_db)):

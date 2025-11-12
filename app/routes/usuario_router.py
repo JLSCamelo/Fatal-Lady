@@ -21,8 +21,3 @@ def painel_usuario(request: Request, db: Session = Depends(get_db)):
 def meus_dados(request: Request, db: Session = Depends(get_db)):
     return meus_dados_controller(request, db, templates)
 
-# Endereços
-@router.get("/me/enderecos", response_class=HTMLResponse)
-def listar_endereco_usuario(request: Request, db: Session = Depends(get_db)):
-    return enderecos_controller(request, db, templates)
-
