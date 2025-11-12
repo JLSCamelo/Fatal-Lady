@@ -11,7 +11,7 @@
       href="{{ url_for('static', path='css/cart-badge.css') }}"
     />
 </head>
-<body>
+<body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
   <header id="main_header">
       <div class="header-div">
         <img
