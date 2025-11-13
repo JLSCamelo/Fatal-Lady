@@ -1,21 +1,18 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from app.database import *
-# from sqlalchemy import text
 from sqlalchemy.orm import relationship
-from app.models.usuario_model import UsuarioDB
+from app.database import Base
 
 class EnderecoDB(Base):
     __tablename__ = "enderecos"
 
-    id_endereco = Column(Integer, primary_key=True, index=True)
-    id_cliente= Column(Integer, ForeignKey("usuarios.id_cliente"), nullable=False)
+    id = Column(Integer, primary_key=True, index=True)
+    usuario_id = Column(Integer, ForeignKey("usuarios.id_cliente"))
+    cep = Column(String(10), nullable=False)
+    rua = Column(String(120), nullable=False)
+    bairro = Column(String(120), nullable=False)
+    cidade = Column(String(120), nullable=False)
+    estado = Column(String(2), nullable=False)
+    complemento = Column(String(120))
+    numero = Column(String, nullable=False )
 
-    cep = Column(String, nullable=True)     
-    rua = Column(String, nullable=True)
-    numero = Column(String, nullable=True)
-    cidade = Column(String, nullable=True)
-    complemento = Column(String, nullable=True)
-    
-    # Relacionamento com usuário
     usuario = relationship("UsuarioDB", back_populates="enderecos")
-

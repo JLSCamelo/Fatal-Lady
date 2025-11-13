@@ -18,7 +18,12 @@ def enviar_email(destinatario, assunto, corpo):
     msg["From"] = "fatallady@gmail.com.br"
     msg["To"] = destinatario
 
-    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+    with smtplib.SMTP("smtp.gmail.com", 465) as server:
         server.starttls()
         server.login(EMAIL_REMITENTE,EMAIL_SENHA)
         server.send_message(msg)
+
+"""
+465	cmc ja criptografado
+587	criptografa após starttls	
+"""

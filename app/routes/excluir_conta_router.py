@@ -16,11 +16,6 @@ from fastapi.templating import Jinja2Templates
 templates = Jinja2Templates(directory="app/views/templates")
 router = APIRouter(prefix="/excluir", tags=["Usuários"])
 
-"""@router.delete("/conta")
-def delete_account(request: Request, db: Session = Depends(get_db)):
-    return exlcuir_conta(request, db)
-
-"""
 load_dotenv()
 
 

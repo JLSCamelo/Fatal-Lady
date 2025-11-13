@@ -34,9 +34,10 @@ def create(
     data_nascimento: date = Form(...),
     bairro: str = Form(...),
     estado: str = Form(...),
+    numero: str = Form(...),
     db: Session = Depends(get_db) 
 ):
     resultado = cadastro_controller(
-        request, nome, email, senha, cep, rua, cidade, telefone, complemento, cpf, genero, data_nascimento, bairro, estado, db
+        request, nome, email, senha, cep, rua, cidade, telefone, complemento, cpf, genero, data_nascimento, bairro, estado, numero,db
     )
     return RedirectResponse(url="/login", status_code=303)
