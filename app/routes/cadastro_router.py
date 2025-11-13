@@ -29,9 +29,9 @@ def create(
     cidade: str = Form(...),
     telefone: str = Form(...),
     complemento: str = Form(...),
-    cpf: int = Form(...),
+    cpf: str = Form(...),
     genero: str = Form(...),
-    data_nascimento: datetime = Form(...),
+    data_nascimento: date = Form(...),
     bairro: str = Form(...),
     estado: str = Form(...),
     db: Session = Depends(get_db) 

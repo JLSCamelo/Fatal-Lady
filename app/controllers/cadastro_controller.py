@@ -1,7 +1,9 @@
+import re
 from app.models.usuario_model import UsuarioDB
 from app.database import *
 from app.auth import *
 from fastapi import Request
+from datetime import date
 from sqlalchemy.orm import Session
 import smtplib
 from email.message import EmailMessage
@@ -23,9 +25,9 @@ def cadastro_controller(request: Request,
                         cidade: str,
                         telefone: str,
                         complemento: str,
-                        cpf: int,
+                        cpf: str,
                         genero: str,
-                        data_nascimento: datetime,
+                        data_nascimento: date,
                         bairro: str,
                         estado:str,
                         db: Session):
@@ -33,6 +35,11 @@ def cadastro_controller(request: Request,
     usuario = db.query(UsuarioDB).filter(UsuarioDB.email == email).first()
     if usuario:
         return {"mensagem": "E-mail já cadastrado"}
+    
+    validator=validar_cpf(cpf)
+    if validator == False:
+        return  {"mensagem": "cpf invalido!"}
+
 
     # Cria o hash da senha e salva o usuário
     senha_hash = gerar_hash_senha(senha)
@@ -63,6 +70,26 @@ def cadastro_controller(request: Request,
 
     return {"mensagem": "Usuário cadastrado com sucesso!"}
 
+
+
+def validar_cpf(cpf: str) -> bool: #bool: faz retornar True ou False
+    #remove tudo que não for número
+    #\D: qualquer coisa que não seja numero
+    #\d: qualquer numero de 0 a 9
+    #função re substitui "x" por "y"
+    cpf = str(cpf)
+    cpf = re.sub(r"\D", "", cpf)
+
+    if len(cpf) != 11 or cpf == cpf[0] * 11:
+        return False
+    
+    #fazendo calculo par ver se é valido o cpf
+    for i in range(9, 11):
+        soma = sum(int(cpf[j]) * ((i + 1) - j) for j in range(i))
+        digito = (soma * 10 % 11) % 10
+        if digito != int(cpf[i]):
+            return False
+    return True
 
 def enviar_email_boas_vindas(destinatario: str, nome_usuario: str):
     if not EMAIL_REMITENTE or not EMAIL_SENHA:

@@ -17,7 +17,7 @@ class UsuarioDB(Base):
     telefone = Column(String(30), nullable=False)
     is_admin = Column(Boolean, default=False)
     complemento = Column(String(120), nullable=True)
-    cpf = Column(Integer, nullable=False)
+    cpf = Column(String(11), nullable=False)
     genero = Column(String, nullable=False)
     data_nascimento = Column(Date, nullable=False)
     estado = Column(String, nullable=False)

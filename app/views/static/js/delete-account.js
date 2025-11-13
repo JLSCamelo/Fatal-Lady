@@ -4,12 +4,12 @@ document.getElementById("btn-danger").addEventListener("click", async () => {
     }
 
     const resposta = await fetch("/excluir/conta", {
-        method: "DELETE",
+        method: "post",
         credentials: "include" // envia o cookie do token
     });
 
     if (resposta.ok) {
-        alert("Conta excluída com sucesso!");
+        alert("Enviamos um email, para confirmação!");
         window.location.href = "/"; // redireciona para home
     } else {
         const erro = await resposta.json();

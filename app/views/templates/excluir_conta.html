@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Confirmar Exclusão - Fatal Lady</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', Arial, sans-serif;
+        background-color: #fff;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        text-align: center;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        padding: 40px;
+        max-width: 420px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      }
+      img {
+        width: 80px;
+        margin-bottom: 10px;
+      }
+      h1 {
+        font-size: 26px;
+        margin-bottom: 30px;
+      }
+      form {
+        text-align: left;
+      }
+      label {
+        font-weight: 600;
+        display: block;
+        margin: 10px 0 5px;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 15px;
+      }
+      button {
+        margin-top: 25px;
+        width: 100%;
+        background-color: #d00000;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      button:hover {
+        background-color: #a00000;
+      }
+      .footer {
+        margin-top: 30px;
+        font-size: 13px;
+        color: #777;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <img src="/static/upload/img/catalogo/icons-main/letreiro-logo.png" alt="Fatal Lady">
+      <h1>Confirmação de Exclusão</h1>
+      <p style="margin-bottom: 25px;">
+        Para confirmar a exclusão da sua conta, preencha os dados abaixo:
+      </p>
+      <form method="post" action="/excluir/confirmar/{{ token }}">
+        <label>CPF:</label>
+        <input type="text" name="cpf" placeholder="000.000.000-00" required>
+
+        <label>Data de Nascimento:</label>
+        <input type="date" name="data_nascimento" required>
+
+        <label>Senha:</label>
+        <input type="password" name="senha" placeholder="Digite sua senha" required>
+
+        <button type="submit">Confirmar Exclusão</button>
+      </form>
+
+      <div class="footer">
+        <p>© 2025 Fatal Lady — Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </body>
+</html>
