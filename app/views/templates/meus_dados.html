@@ -7,8 +7,12 @@
     <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png"/>
     <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', path='css/meus-dados.css') }}"/>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/cart-badge.css') }}"
+    />
 </head>
-<body>
+<body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
     <header id="main_header">
       <div class="header-div">
         <img
@@ -76,13 +80,15 @@
             />
           </a>
         {% endif %}
-        <a href="/carrinho">
-          <img
-            src="/static/uploads/img/home/icons-main/kart.png"
-            id="kart-icon"
-            class="icons"
-          />
-        </a>
+        <div class="cart-link-wrapper">
+          <a href="/carrinho">
+            <img
+              src="/static/uploads/img/home/icons-main/kart.png"
+              id="kart-icon"
+              class="icons"
+            />
+          </a>
+        </div>
         <a href="/produtos">
           <img
             src="/static/uploads/img/home/icons-main/shop.png"
@@ -260,6 +266,10 @@
 
     <script src="/static/js/meus-dados.js"></script>
     <script src="/static/js/promo-rotator.js" defer></script>
+<<<<<<< HEAD
     <script src="/static/js/delete-account.js"></script>
+=======
+    <script src="/static/js/cart-badge.js" defer></script>
+>>>>>>> 2f83a896f0591057fc0396b9b780563efa6ce6e8
 </body>
 </html>

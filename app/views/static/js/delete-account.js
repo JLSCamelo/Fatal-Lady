@@ -4,7 +4,7 @@ document.getElementById("btn-danger").addEventListener("click", async () => {
     }
 
     const resposta = await fetch("/excluir/conta", {
-        method: "POST",
+        method: "DELETE",
         credentials: "include" // envia o cookie do token
     });
 
