@@ -15,7 +15,7 @@ from sqlalchemy.orm import joinedload
 templates = Jinja2Templates(directory="app/views/templates")
 
 #  ADICIONAR ITEM AO CARRINHO 
-def carrinho_add(request: Request, id_produto: int, quantidade: int, tamanho: int, db: Session):
+def carrinho_add(request: Request, id_produto: int, quantidade: int, tamanho: str, db: Session):
     token = request.cookies.get("token")
     payload = verificar_token(token)
 

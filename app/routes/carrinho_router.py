@@ -26,7 +26,7 @@ def add(request:Request,
 def update(
     request: Request,
     produto_id: int,
-    tamanho: int = Form(...),
+    tamanho: str = Form(...),
     quantidade: int = Form(...),
     db: Session = Depends(get_db)
 ):
@@ -39,7 +39,7 @@ def update(
 )
 
 
-@router.post("/carrinho/remover/{produto_id}")
+@router.post("/remover/{produto_id}")
 def delete_item(
     request: Request,
     produto_id: int,

@@ -21,7 +21,7 @@ async def create(
     estoque: int = Form(...),
     id_fabricante: int = Form(...),
     id_categoria: int = Form(...),
-    tamanho: int = Form(...),
+    tamanho: str = Form(...),
     imagem: UploadFile = File(None),
     db: Session = Depends(get_db)
 ):

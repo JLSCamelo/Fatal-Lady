@@ -5,19 +5,12 @@ from app.database import get_db
 from app.controllers.editar_usuario_controller import editar_usuario_controller
 from fastapi.templating import Jinja2Templates
 
-router = APIRouter()
+router = APIRouter(prefix="/me")
 
 templates = Jinja2Templates(directory="app/views/templates") 
 
 
-#Testee
-@router.get("/me/editar/dados")
-def page(request: Request, db: Session = Depends(get_db)):
-    return templates.TemplateResponse("meus_dados.html", {
-        "request": request
-    })
-
-@router.post("/me/editar/dados")
+@router.post("/editar/dados")
 def editar_usuario(
     request: Request,
     nome: str = Form(...),

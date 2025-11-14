@@ -37,7 +37,7 @@ def criar_produto(request: Request,
                   estoque: int, 
                   id_fabricante: int,
                   id_categoria: int, 
-                  tamanhos: int,
+                  tamanhos: str,
                   imagem: UploadFile, 
                   db: Session):
     caminho_arquivo = None
