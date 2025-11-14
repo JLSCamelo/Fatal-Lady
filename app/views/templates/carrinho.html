@@ -167,10 +167,27 @@
           <span>Subtotal:</span>
           <span id="subtotal">R$ {{ "%.2f"|format(total|float) }}</span>
         </div>
+
         <div class="summary-row">
-          <span>Frete:</span>
-          <span id="shipping">{% if total|float >= 299 %}Grátis{% else %}A calcular{% endif %}</span>
+          <div id="resultadoFrete">
+            <div class="summary-row">
+              <span>Endereço:</span>
+              <span id="endereco">{{ usuario.rua }}</span>
+            </div>
+
+            <div class="summary-row">
+              <span>Frete:</span>
+              <span id="valor_frete">{% if total|float >= 299 %}Grátis{% else %}A calcular{% endif %}</span>
+            </div>
+
+            <div class="summary-row">
+              <span>Prazo:</span>
+              <span id="prazo"></span>
+            </div>
+          </div>
+          <button type="button" id="btnCalcularFrete">Calcular Frete</button>
         </div>
+        
         <div class="summary-row total">
           <span>Total:</span>
           <span id="total">R$ {{ "%.2f"|format(total|float) }}</span>
@@ -220,5 +237,6 @@
   <script src="/static/js/carrinho.js" defer></script>
   <script src="/static/js/promo-rotator.js" defer></script>
   <script src="/static/js/cart-badge.js" defer></script>
+  <script src="/static/js/frete-calcular.js" defer></script>
 </body>
 </html>

@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, Date
 from sqlalchemy.orm import relationship
 from datetime import datetime
-from app.models.produto_model import ProdutoDB
 from app.database import *
 
 class UsuarioDB(Base):
