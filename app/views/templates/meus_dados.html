@@ -152,7 +152,7 @@
                         <button class="btn-edit" id="btn-edit">Editar</button>
                     </div>
 
-                    <form class="dados-form" id="dados-form">
+                    <form action="/me/editar/dados" method="post" class="dados-form" id="dados-form">
                         <div class="form-group">
                             <label for="nome">Nome Completo</label>
                             <input type="text" id="nome" name="nome" value="{{ usuario.nome }}" readonly/>
@@ -178,18 +178,18 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="nascimento">Data de Nascimento</label>
-                                <input type="date" id="nascimento" name="nascimento" value="{{ usuario.data_nascimento or '' }}" readonly/>
+                                <input type="date" id="data_nascimento" name="data_nascimento" value="{{ usuario.data_nascimento or '' }}" readonly/>
                             </div>
 
                             <div class="form-group">
-                                <label for="genero">Gênero</label>
-                                <select id="genero" name="genero" disabled>
-                                    <option value="">Selecione</option>
-                                    <option value="F" {% if usuario.genero == 'F' %}selected{% endif %}>Feminino</option>
-                                    <option value="M" {% if usuario.genero == 'M' %}selected{% endif %}>Masculino</option>
-                                    <option value="O" {% if usuario.genero == 'O' %}selected{% endif %}>Outro</option>
-                                </select>
-                            </div>
+                              <label for="genero">Gênero</label>
+                              <select id="genero" name="genero" disabled>
+                                  <option value="">Selecione</option>
+                                  <option value="F" {% if usuario.genero == 'F' %}selected{% endif %}>Feminino</option>
+                                  <option value="M" {% if usuario.genero == 'M' %}selected{% endif %}>Masculino</option>
+                                  <option value="O" {% if usuario.genero == 'O' %}selected{% endif %}>Outro</option>
+                              </select>
+                          </div>
                         </div>
 
                         <div class="form-actions hidden" id="form-actions">

@@ -10,11 +10,10 @@ def editar_usuario_controller(
     db: Session,
     nome: str = None,
     email: str = None,
-    senha: str = None,
-    cep: str = None,
-    rua: str = None,
-    cidade: str = None,
-    telefone: str = None
+    telefone: str = None,
+    genero: str = None,
+    cpf: str = None,
+    data_nascimento: str = None
 ):
 
     # Verifica autenticação
@@ -24,7 +23,7 @@ def editar_usuario_controller(
         raise HTTPException(status_code=401, detail="Usuário não autenticado")
 
     usuario_id = payload.get("id")
-    usuario = db.query(UsuarioDB).filter(UsuarioDB.id == usuario_id).first()
+    usuario = db.query(UsuarioDB).filter(UsuarioDB.id_cliente== usuario_id).first()
 
     if not usuario:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
@@ -32,7 +31,7 @@ def editar_usuario_controller(
     #  Verifica se o e-mail já está sendo usado por outro usuário
     if email:
         email_existente = db.query(UsuarioDB).filter(
-            UsuarioDB.email == email, UsuarioDB.id != usuario_id
+            UsuarioDB.email == email, UsuarioDB.id_cliente != usuario_id
         ).first()
         if email_existente:
             raise HTTPException(status_code=400, detail="E-mail já está em uso por outro usuário")
@@ -42,16 +41,14 @@ def editar_usuario_controller(
         usuario.nome = nome
     if email:
         usuario.email = email
-    if cep:
-        usuario.cep = cep
-    if rua:
-        usuario.rua = rua
-    if cidade:
-        usuario.cidade = cidade
     if telefone:
         usuario.telefone = telefone
-    if senha:
-        usuario.senha = gerar_hash_senha(senha)  # Gera novo hash
+    if genero:
+        usuario.genero = genero
+    if cpf:
+        usuario.cpf = cpf
+    if data_nascimento:
+        usuario.data_nascimento = data_nascimento
 
     #  Salva alterações
     db.commit()
@@ -61,12 +58,12 @@ def editar_usuario_controller(
     return {
         "mensagem": "Dados atualizados com sucesso!",
         "usuario": {
-            "id": usuario.id,
+            "id": usuario.id_cliente,
             "nome": usuario.nome,
             "email": usuario.email,
-            "cep": usuario.cep,
-            "rua": usuario.rua,
-            "cidade": usuario.cidade,
-            "telefone": usuario.telefone
+            "telefone": usuario.telefone,
+            "genero":usuario.genero,
+            "cpf":usuario.cpf,
+            "data_nascimento":usuario.data_nascimento
         }
     }
