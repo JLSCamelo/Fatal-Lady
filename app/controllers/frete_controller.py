@@ -10,6 +10,8 @@ def controller_calcular_frete(request: Request, cep_destino: str):
     if not payload:
         raise HTTPException(status_code=401, detail="Usuário não autenticado")
 
+    cep_destino = cep_destino.strip().replace("-", "")
+    
     # validação simples de CEP
     if not cep_destino.isdigit() or len(cep_destino) != 8:
         raise HTTPException(status_code=400, detail="CEP inválido")

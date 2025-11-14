@@ -172,8 +172,8 @@
           <div id="resultadoFrete">
             <div class="summary-row">
               <span>Endereço:</span>
-              <span id="endereco">{{ usuario.rua }}</span>
-            </div>
+              <span id="endereco">{{ usuario.enderecos[0].cep if usuario.enderecos else '' }}</span>
+            </div> 
 
             <div class="summary-row">
               <span>Frete:</span>
@@ -237,6 +237,9 @@
   <script src="/static/js/carrinho.js" defer></script>
   <script src="/static/js/promo-rotator.js" defer></script>
   <script src="/static/js/cart-badge.js" defer></script>
+  <script>
+   const cepUsuario = "{{ usuario.enderecos[0].cep if usuario.enderecos else '' }}";
+  </script>
   <script src="/static/js/frete-calcular.js" defer></script>
 </body>
 </html>
