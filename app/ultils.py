@@ -64,15 +64,54 @@ def verificar_inativos():
         enviar_email(
             user.email,
             assunto="Sentimos sua falta 💛",
-            corpo="""
-        Olá! Faz 1 mês que você não acessa nossa plataforma.
+            corpo="""<html>
+  <body style="margin:0; padding:0; font-family:'Poppins',Arial,sans-serif; background-color:#fff;">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center" style="padding:40px 0;">
+          <img src="views/static/upload/img/catalogo/icons-main/letreiro-logo.png" width="80" alt="Fatal Lady">
+          <h1 style="color:#000; font-size:28px; margin-top:10px;">
+            FATAL <span style="color:#d00000;">LADY</span>
+          </h1>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" style="padding:20px 40px; max-width:600px; margin:0 auto;">
+          <h2 style="color:#000;">Olá, {user.nome}! 👋</h2>
 
-        Estamos com novidades incríveis esperando por você!
+          <p style="font-size:15px; color:#333; line-height:1.6; margin-top:10px;">
+            Percebemos que faz <b>1 mês</b> desde seu último acesso à nossa plataforma.
+          </p>
 
-        Clique para voltar ➜  http://127.0.0.1:8000
-        """
-                     )
+          <p style="font-size:15px; color:#333; line-height:1.6;">
+            A Fatal Lady está cheia de <b>novidades incríveis</b> que você vai amar — incluindo novos lançamentos, promoções exclusivas e coleções que acabaram de chegar!
+          </p>
 
+          <a href="http://127.0.0.1:8000"
+            style="display:inline-block;
+                   margin-top:25px;
+                   background-color:#d00000;
+                   color:#fff;
+                   padding:14px 28px;
+                   border-radius:4px;
+                   text-decoration:none;
+                   font-weight:bold;">
+            Voltar para a loja
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" style="padding:40px 0; background-color:#000; color:#fff; font-size:13px;">
+          <p style="margin:5px 0;">Frete grátis em compras acima de R$299</p>
+          <p style="margin:5px 0;">© 2025 Fatal Lady. Todos os direitos reservados.</p>
+        </td>
+      </tr>
+
+    </table>
+  </body>
+</html>
+"""
+)
     db.close()
 
 

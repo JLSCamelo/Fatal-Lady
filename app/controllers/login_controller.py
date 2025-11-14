@@ -17,6 +17,8 @@ def login_controller(request: Request,
     if not usuario or not verificar_senha(senha, usuario.senha):
         return RedirectResponse(url=f"/login?msg=invalid", status_code=303)
 
+    usuario.ultima_atividade = datetime.utcnow()
+    db.commit()
     #criar o token no campo is_admin
     token=criar_token({"sub":usuario.email,
                        "is_admin":usuario.is_admin})
