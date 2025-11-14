@@ -15,10 +15,10 @@ def list_items(request: Request, db: Session = Depends(get_db)):
 
 @router.post("/adicionar/{produto_id}")
 def add(request:Request,
-                       produto_id: int,
-                       tamanho: int=Form(...),
+                        produto_id: int,
+                        tamanho: int=Form(...),
                         quantidade: int=Form(1),
-                       db:Session=Depends(get_db)
+                        db:Session=Depends(get_db)
 ):
     return carrinho_add(request, produto_id, quantidade, tamanho, db)
 
@@ -26,7 +26,7 @@ def add(request:Request,
 def update(
     request: Request,
     produto_id: int,
-    tamanho: str = Form(...),
+    tamanho: int = Form(...),
     quantidade: int = Form(...),
     db: Session = Depends(get_db)
 ):

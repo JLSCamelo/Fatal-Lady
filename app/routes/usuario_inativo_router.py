@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request
+"""from fastapi import APIRouter, Request
 from datetime import datetime
 from app.database import *
 from app.models.usuario_model import UsuarioDB
@@ -27,3 +27,4 @@ async def atualizar_atividade(request: Request, call_next):
             db.close()
 
     return response
+"""

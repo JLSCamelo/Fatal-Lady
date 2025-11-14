@@ -1,5 +1,6 @@
 from app.models.usuario_model import UsuarioDB
 from fastapi import Request
+from datetime import datetime
 from app.auth import verificar_senha, criar_token, rehash_password_if_needed
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session

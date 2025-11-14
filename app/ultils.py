@@ -77,5 +77,6 @@ def verificar_inativos():
 
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(verificar_inativos, "cron", hour=0)  # executa todo dia às 00:00
+# scheduler.add_job(verificar_inativos, "interval", seconds=10)  # executa todo dia às 00:00
+scheduler.add_job(verificar_inativos, "cron", hour=0)
 scheduler.start()

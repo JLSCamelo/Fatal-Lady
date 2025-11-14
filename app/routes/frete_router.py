@@ -3,7 +3,7 @@ from app.controllers.frete_controller import *
 
 router = APIRouter(prefix="/frete")
 
-@router.get("/calcular")
+@router.get("/calcular/")
 def calcular_frete(request: Request, cep_destino: str = Query(...)):
     return controller_calcular_frete(request, cep_destino)
 

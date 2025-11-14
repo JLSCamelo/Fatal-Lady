@@ -23,7 +23,7 @@ from app.routes.excluir_conta_router import router as excluit_conta_router
 from app.routes.endereco_router import router as endereco_router
 from app.routes.politica_privacidade import router as termos_router
 from app.routes.editar_usuario_router import router as editar_user_router
-from app.routes.usuario_inativo_router import router as usuario_inativo_router
+# from app.routes.usuario_inativo_router import router as usuario_inativo_router
 
 from app.database import Base, engine
 from app.models import *
@@ -42,11 +42,51 @@ app.add_middleware(
     https_only=False,
     max_age=3600
 )
+
+
+
+from datetime import datetime
+from app.database import *
+from app.models.usuario_model import UsuarioDB
+import jwt
+from app.auth import *
+
+from jose import jwt, ExpiredSignatureError, JWTError
+
 @app.middleware("http")
 async def verificar_usuario_inativo(request, call_next):
-    # Seu código aqui
     response = await call_next(request)
+
+    token = request.cookies.get("token")
+    if token:
+        try:
+            payload = jwt.decode(
+                token,
+                SECRET_KEY,
+                algorithms=[ALGORITHM]
+            )
+
+            user_id = payload.get("id")  # ID real do usuário
+
+            if user_id:
+                db = SessionLocal()
+                user = db.query(UsuarioDB).filter(UsuarioDB.id_cliente == user_id).first()
+                if user:
+                    user.ultima_atividade = datetime.utcnow()
+                    db.commit()
+                db.close()
+
+        # TOKEN EXPIRADO → ignora
+        except ExpiredSignatureError:
+            pass
+        # TOKEN INVÁLIDO OU CORROMPIDO → ignora
+        except JWTError:
+            pass
+        except Exception:
+            pass
+
     return response
+
 
 
 app.mount("/static", StaticFiles(directory="app/views/static"), name="static")
@@ -70,7 +110,7 @@ app.include_router(favorito_router, tags=["Favoritos"])
 app.include_router(excluit_conta_router, tags=["Exclusão"])
 app.include_router(endereco_router, tags=["Enderecos"])
 app.include_router(editar_user_router, tags=["Editar Usuário"])
-app.include_router(usuario_inativo_router , tags=["Usuario Inativo"])
+# app.include_router(usuario_inativo_router , tags=["Usuario Inativo"])
 
 # --- Rotas administrativas ---
 app.include_router(admin_router, tags=["Administração"])
