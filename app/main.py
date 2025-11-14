@@ -23,6 +23,7 @@ from app.routes.excluir_conta_router import router as excluit_conta_router
 from app.routes.endereco_router import router as endereco_router
 from app.routes.politica_privacidade import router as termos_router
 from app.routes.editar_usuario_router import router as editar_user_router
+from app.routes.usuario_inativo_router import router as usuario_inativo_router
 
 from app.database import Base, engine
 from app.models import *
@@ -41,6 +42,11 @@ app.add_middleware(
     https_only=False,
     max_age=3600
 )
+@app.middleware("http")
+async def verificar_usuario_inativo(request, call_next):
+    # Seu código aqui
+    response = await call_next(request)
+    return response
 
 
 app.mount("/static", StaticFiles(directory="app/views/static"), name="static")
@@ -64,6 +70,7 @@ app.include_router(favorito_router, tags=["Favoritos"])
 app.include_router(excluit_conta_router, tags=["Exclusão"])
 app.include_router(endereco_router, tags=["Enderecos"])
 app.include_router(editar_user_router, tags=["Editar Usuário"])
+app.include_router(usuario_inativo_router , tags=["Usuario Inativo"])
 
 # --- Rotas administrativas ---
 app.include_router(admin_router, tags=["Administração"])
