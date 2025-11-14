@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="stylesheet" href="redefinir.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fale Conosco | Fatal Lady</title>
+    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}">
+</head>
+
+<body>
+    <header>
+        <div class="header-div">
+            <img src="languages.png" id="language-icon" />
+            <select name="language" id="language">
+                <option value="br">BR</option>
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+            </select>
+        </div>
+
+        <div class="header-div">
+            <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
+        </div>
+
+        <div class="header-div">
+            <a href="#">Ajuda</a>
+            <a href="#">Entrar</a>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-div">
+            <form action="/search" method="get" id="search-form">
+                <button type="submit">
+                    <img src="lupa.png" id="search-icon" />
+                </button>
+                <input type="search" id="search-input" name="Search" placeholder="Buscar">
+            </form>
+        </div>
+
+        <div class="nav-div">
+            <img src="letreiro-logo.png" id="logo" alt="Logo" />
+        </div>
+
+        <div class="nav-div">
+            <img src="carrinho-de-compras.png" id="shopping-kart-icon" class="icons" />
+            <img src="menu-hamburguer.png" id="menu-hamburguer-icon" class="icons" />
+        </div>
+    </nav>
+
+    <main class="conteudo">
+        <section class="reset-password">
+            <h2>Redefinir Senha</h2>
+            <div class="form-container">
+                <p class="form-info">Insira sua nova senha. Ela deve ser diferente das senhas que você usou
+                    anteriormente.</p>
+
+                <form action="/mudar-senha" method="POST">
+                    <input type="hidden" name="token" value="SEU_TOKEN_AQUI">
+
+                    <label for="new_password">Nova Senha</label>
+                    <input type="password" id="new_password" name="new_password" required minlength="6"
+                        placeholder="Mínimo 6 caracteres">
+
+                    <label for="confirm_password">Confirme a Nova Senha</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required minlength="6"
+                        placeholder="Digite a senha novamente">
+
+                    <button type="submit">Redefinir Senha</button>
+                </form>
+
+                <a href="#" class="form-link">Voltar para a Home</a>
+            </div>
+        </section>
+    </main>
+
+
+    <footer>
+        <div class="footer-links">
+            <div>
+                <h4>MINHA CONTA</h4>
+                <a href="#">Meus Dados</a>
+                <a href="#">Meus Pedidos</a>
+                <a href="#">Cashback</a>
+                <a href="#">Login</a>
+            </div>
+            <div>
+                <h4>SUPORTE E POLÍTICAS</h4>
+                <a href="trocas e devoluções.html">Trocas e Devoluções</a>
+                <a href="duvidasfreq.html">Dúvidas Frequentes</a>
+                <a href="faleconosco.html">Fale Conosco</a>
+                <a href="#">Política de Privacidade</a>
+            </div>
+            <div>
+                <h4>FORMAS DE PAGAMENTO</h4>
+                <img src="payment.png" alt="Formas de Pagamento">
+            </div>
+        </div>
+        <hr>
+        <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+    </footer>
+</body>
+
+</html>

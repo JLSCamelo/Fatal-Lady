@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+/*--------------------=========================== DEFAULT SITE ===========================--------------------*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    background: url(WhatsApp\ Image\ 2025-11-03\ at\ 17.40.28.jpeg) ;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+    font-family: "Questrial", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/*--------------------=========================== CORES ===========================--------------------*/
+:root {
+    --background: #e6e2dc;
+    --main-red: #cb1313; 
+    --light-red: #FF1111;
+    --light-gray: #b8ad9d;
+    --dark-gray: #191919;
+}
+
+/*--------------------=========================== HOME ===========================--------------------*/
+/* Icones e Imagens */
+#language-icon {
+    width: 1.2rem;
+}
+
+#logo {
+    width: 15rem;
+}
+
+/* Header */
+header {
+    background-color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    position: relative;
+}
+
+.header-div {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#language {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.header-div p {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.header-div a {
+    text-decoration: none;
+    color: var(--dark-gray);
+    margin-left: 1.1rem;
+}
+
+/* Barra de Navegação */
+nav {
+    background-color: var(--dark-gray);
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    position: relative;
+    min-height: 5rem;
+}
+
+#logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.nav-div {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icons {
+    cursor: pointer;
+    margin-right: 2rem;
+}
+
+#search-icon, #shopping-kart-icon, #menu-hamburguer-icon {
+    width: 1.7rem;
+}
+
+#search-form {
+    display: flex; 
+    
+}
+
+.nav-div button {
+    border: none;
+    background-color: var(--dark-gray);
+    cursor: pointer;
+    margin: 0 1rem 0 2rem;
+}
+
+.nav-div input {
+    border: none;
+    padding: 0.5rem;
+    padding-left: 1.5rem;
+    font-size: 1rem;
+    border-radius: 1.5rem;
+}
+
+/* classe aplicada pelo JS para tornar o nav fixed sem tocar nas regras já existentes */
+.nav-fixed {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998; /* abaixo do side-overlay (9999) */
+  /* NÃO alterei background, padding ou cor: só fixo e preserva aparência */
+  transform: translateY(0);
+  transition: transform .18s ease;
+}
+
+/* estado escondido ao rolar (opcional; mantive com transition suave) */
+.nav-hidden {
+  transform: translateY(-100%);
+}
+
+/* placeholder para evitar jump — JS controla sua altura */
+.nav-placeholder { height: 0px; display: block; }
+
+/* badge mínima para contador do carrinho — escapável e discreta */
+#cart-count-badge {
+  display: inline-block;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--main-red, #cb1313);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 18px;
+  vertical-align: middle;
+  margin-left: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+
+.container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  margin-left: 40%;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+/* CONTEÚDO */
+.conteudo {
+    max-width: 900px;
+    margin: 60px auto;
+    background-color: #ffffff;
+    padding: 50px;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(200, 169, 81, 0.1);
+}
+
+h2 {
+    color: var(--dark-gray);
+    text-align: center;
+    font-size: 1.9rem;
+    margin-bottom: 15px;
+    font-family: "Cinzel", serif;
+}
+
+h3 {
+    color: var(--main-red);
+    font-size: 1.2rem;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+p, li {
+    color: #333;
+    line-height: 1.6;
+}
+
+/* FAQ */
+.faq-item {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+/* FOOTER */
+footer {
+    padding: 30px 20px 10px 20px;
+    background-color: var(--light-gray);
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-links h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.footer-links a {
+    display: block;
+    color: var(--dark-gray);
+    margin: 5px 0;
+    text-decoration: none;
+}
+
+footer img {
+    width: 10rem;
+}
+
+.copy {
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+    margin-top: 20px;
+}
