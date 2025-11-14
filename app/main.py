@@ -21,6 +21,8 @@ from app.routes.redefinir_senha_router import router as redefinir_senha_router
 from app.routes.frete_router import router as frete_router
 from app.routes.excluir_conta_router import router as excluit_conta_router
 from app.routes.endereco_router import router as endereco_router
+from app.routes.termos_router import router as termos_router
+from app.routes.editar_usuario_router import router as editar_user_router
 
 from app.database import Base, engine
 from app.models import *
@@ -51,6 +53,7 @@ app.include_router(redefinir_senha_router, tags=["Recuperação de Senha"])
 app.include_router(produto_router, tags=["Produtos"])
 app.include_router(categoria_router, tags=["Categorias"])
 app.include_router(frete_router, tags=["Frete e Cep"])
+app.include_router(termos_router, tags=["Termos"])
 
 # --- Rotas de usuário autenticado ---
 app.include_router(painel_usuario_router, tags=["Usuário"])
@@ -59,7 +62,8 @@ app.include_router(carrinho_router, tags=["Carrinho"])
 app.include_router(checkout_router, tags=["Checkout"])
 app.include_router(favorito_router, tags=["Favoritos"])
 app.include_router(excluit_conta_router, tags=["Exclusão"])
-app.include_router(endereco_router, tags=["Usuário"])
+app.include_router(endereco_router, tags=["Enderecos"])
+app.include_router(editar_user_router, tags=["Editar Usuário"])
 
 # --- Rotas administrativas ---
 app.include_router(admin_router, tags=["Administração"])
