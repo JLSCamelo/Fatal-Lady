@@ -1,13 +1,12 @@
-from fastapi import Request, Depends
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
-from app.auth import verificar_token
-from app.database import get_db
-from app.models.usuario_model import UsuarioDB
 from app.models.enderecos_model import EnderecoDB
+from app.models.usuario_model import UsuarioDB
+from app.auth import *
 
 
-def listar_enderecos(request: Request, db: Session):
+
+def listar_enderecos(request, db: Session):
     token = request.cookies.get("token")
     if not token:
         return RedirectResponse(url="/login", status_code=303)
@@ -22,11 +21,12 @@ def listar_enderecos(request: Request, db: Session):
     if not usuario:
         return RedirectResponse(url="/login", status_code=303)
 
-    enderecos = db.query(EnderecoDB).filter_by(id_cliente=usuario.id_cliente).all()
-    return enderecos
+    enderecos = db.query(EnderecoDB).filter_by(usuario_id=usuario.id_cliente).all()
+
+    return {"usuario": usuario, "enderecos": enderecos}
 
 
-def criar_endereco(request: Request, db: Session, cep: str, rua: str, cidade: str, complemento: str):
+def criar_endereco(request, db: Session, cep, rua, bairro, cidade, estado, complemento, numero, apelido):
     token = request.cookies.get("token")
     if not token:
         return RedirectResponse(url="/login", status_code=303)
@@ -37,16 +37,19 @@ def criar_endereco(request: Request, db: Session, cep: str, rua: str, cidade: st
 
     email = payload.get("sub")
     usuario = db.query(UsuarioDB).filter_by(email=email).first()
-
     if not usuario:
         return RedirectResponse(url="/login", status_code=303)
 
     novo_endereco = EnderecoDB(
-        id_cliente=usuario.id_cliente,
+        usuario_id=usuario.id_cliente,
         cep=cep,
         rua=rua,
+        bairro=bairro,
         cidade=cidade,
-        complemento=complemento
+        estado=estado,
+        complemento=complemento,
+        numero=numero,
+        apelido=apelido
     )
 
     db.add(novo_endereco)
@@ -54,6 +57,3 @@ def criar_endereco(request: Request, db: Session, cep: str, rua: str, cidade: st
     db.refresh(novo_endereco)
 
     return novo_endereco
-
-
-
