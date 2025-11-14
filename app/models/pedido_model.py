@@ -18,6 +18,8 @@ class PedidoDB(Base):
     data = Column(Date, default=datetime.utcnow)
     status = Column(String, default="Processo")
     valortotal = Column(Float, default=0.0)
+    valorfrete = Column(Float, default=0.0)
+    total_compra = Column(Float, default=0.0)
 
     #relacionamento
     usuario = relationship("UsuarioDB", back_populates="pedidos")
