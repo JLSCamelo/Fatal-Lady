@@ -138,7 +138,7 @@ def controller_esqueci_senha(request: Request, db: Session):
     return {"mensagem": "EMAIL ENVIADO"}
 
 def controller_redefinir_senha_form(request: Request, token: str):
-    return templates.TemplateResponse("redefinir_senha.html", {"request": request, "token": token})
+    return templates.TemplateResponse("redefinir.html", {"request": request, "token": token})
 
 def controller_redefinir_senha(
     token: str,

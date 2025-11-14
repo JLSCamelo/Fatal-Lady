@@ -21,7 +21,7 @@ from app.routes.redefinir_senha_router import router as redefinir_senha_router
 from app.routes.frete_router import router as frete_router
 from app.routes.excluir_conta_router import router as excluit_conta_router
 from app.routes.endereco_router import router as endereco_router
-from app.routes.termos_router import router as termos_router
+from app.routes.politica_privacidade import router as termos_router
 from app.routes.editar_usuario_router import router as editar_user_router
 
 from app.database import Base, engine

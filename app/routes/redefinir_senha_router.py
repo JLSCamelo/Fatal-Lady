@@ -20,7 +20,7 @@ async def send_email(request: Request, email: str = Form(...), db: Session = Dep
 
 @router.get("/esqueci-senha-login", response_class=HTMLResponse)
 def page(request: Request):
-    return templates.TemplateResponse("esqueci_senha.html", {"request": request})
+    return templates.TemplateResponse("esqueci.html", {"request": request})
 
 # Página de redefinição (GET)
 @router.get("/redefinir-senha", response_class=HTMLResponse)

@@ -58,11 +58,11 @@
                 <p class="form-info">Insira sua nova senha. Ela deve ser diferente das senhas que você usou
                     anteriormente.</p>
 
-                <form action="/mudar-senha" method="POST">
-                    <input type="hidden" name="token" value="SEU_TOKEN_AQUI">
+                <form action="/redefinir-senha" method="POST">
+                    <input type="hidden" name="token" value="{{ token }}">
 
                     <label for="new_password">Nova Senha</label>
-                    <input type="password" id="new_password" name="new_password" required minlength="6"
+                    <input type="password" id="new_password" name="nova_senha" required minlength="6"
                         placeholder="Mínimo 6 caracteres">
 
                     <label for="confirm_password">Confirme a Nova Senha</label>
@@ -72,7 +72,7 @@
                     <button type="submit">Redefinir Senha</button>
                 </form>
 
-                <a href="#" class="form-link">Voltar para a Home</a>
+                <a href="/login" class="form-link">Voltar para a Home</a>
             </div>
         </section>
     </main>

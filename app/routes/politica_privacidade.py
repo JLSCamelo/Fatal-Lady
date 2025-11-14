@@ -8,8 +8,8 @@ router = APIRouter()
 templates = Jinja2Templates(directory="app/views/templates")
 
 
-@router.get("/termos", response_class=HTMLResponse)
+@router.get("/privacy", response_class=HTMLResponse)
 def home(request: Request, db: Session = Depends(get_db)):
-    return templates.TemplateResponse("termos.html", {
+    return templates.TemplateResponse("politicadeprivacidade.html", {
         "request": request
     })
