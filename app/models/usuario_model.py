@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, Boolean, Date
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, Date
 from sqlalchemy.orm import relationship
+from datetime import datetime
 from app.models.produto_model import ProdutoDB
 from app.database import *
 
@@ -15,7 +16,7 @@ class UsuarioDB(Base):
     cpf = Column(String(11), nullable=False) #colcoar unique
     genero = Column(String, nullable=False)
     data_nascimento = Column(Date, nullable=False)
-
+    ultima_atividade = Column(DateTime, default=datetime.utcnow)
 
 
     # Relações
