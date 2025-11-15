@@ -1,107 +1,301 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redefinir Senha | Fatal Lady</title>
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/registrar-style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/auth-simples.css') }}"
+    />
+  </head>
 
-<head>
-    <link rel="stylesheet" href="redefinir.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fale Conosco | Fatal Lady</title>
-    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}">
-</head>
-
-<body>
-    <header>
-        <div class="header-div">
-            <img src="languages.png" id="language-icon" />
-            <select name="language" id="language">
-                <option value="br">BR</option>
-                <option value="en">EN</option>
-                <option value="es">ES</option>
-            </select>
+  <body>
+    <header id="main_header">
+      <div class="header-div">
+        <img
+          src="/static/uploads/img/home/icons-main/languages.png"
+          id="language-icon"
+        />
+        <select name="language" id="language">
+          <option value="br">BR</option>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+      </div>
+      <div class="header-div">
+        <div class="promo-rotator" role="status" aria-live="polite" aria-atomic="true">
+          <span id="promo-text" class="promo-text"
+            ><b>Frete Grátis</b> para Compras Acima de R$ 299,00</span
+          >
         </div>
-
-        <div class="header-div">
-            <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
-        </div>
-
-        <div class="header-div">
-            <a href="#">Ajuda</a>
-            <a href="#">Entrar</a>
-        </div>
+      </div>
+      <div class="header-div">
+        <a href="/">Ajuda</a>
+        {% if usuario %}
+        <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+        {% else %}
+        <a href="/login">Entrar</a>
+        {% endif %}
+      </div>
     </header>
 
     <nav>
-        <div class="nav-div">
-            <form action="/search" method="get" id="search-form">
-                <button type="submit">
-                    <img src="lupa.png" id="search-icon" />
-                </button>
-                <input type="search" id="search-input" name="Search" placeholder="Buscar">
-            </form>
-        </div>
-
-        <div class="nav-div">
-            <img src="letreiro-logo.png" id="logo" alt="Logo" />
-        </div>
-
-        <div class="nav-div">
-            <img src="carrinho-de-compras.png" id="shopping-kart-icon" class="icons" />
-            <img src="menu-hamburguer.png" id="menu-hamburguer-icon" class="icons" />
-        </div>
+      <div class="nav-div">
+        <a href="/" class="text_sections">Início</a>
+        <a href="/produtos" class="text_sections">Catálogo</a>
+        <a href="/carrinho" class="text_sections">Carrinho</a>
+      </div>
+      <div class="nav-div">
+        <a href="/">
+          <img
+            src="/static/uploads/img/home/icons-main/letreiro-logo.png"
+            id="logo"
+            alt="Logo"
+          />
+        </a>
+      </div>
+      <div class="nav-div">
+        <a href="/carrinho">
+          <img
+            src="/static/uploads/img/home/icons-main/kart.png"
+            id="kart-icon"
+            class="icons"
+          />
+        </a>
+        <a href="/produtos">
+          <img
+            src="/static/uploads/img/home/icons-main/shop.png"
+            id="shop-icon"
+            class="icons"
+          />
+        </a>
+        {% if usuario %}
+        <a href="/me/painel">
+          <img
+            src="/static/uploads/img/home/icons-main/user.png"
+            id="user-icon"
+            class="icons"
+          />
+        </a>
+        {% else %}
+        <a href="/login">
+          <img
+            src="/static/uploads/img/home/icons-main/user.png"
+            id="user-icon"
+            class="icons"
+          />
+        </a>
+        {% endif %}
+      </div>
     </nav>
 
-    <main class="conteudo">
-        <section class="reset-password">
-            <h2>Redefinir Senha</h2>
-            <div class="form-container">
-                <p class="form-info">Insira sua nova senha. Ela deve ser diferente das senhas que você usou
-                    anteriormente.</p>
-
-                <form action="/redefinir-senha" method="POST">
-                    <input type="hidden" name="token" value="{{ token }}">
-
-                    <label for="new_password">Nova Senha</label>
-                    <input type="password" id="new_password" name="nova_senha" required minlength="6"
-                        placeholder="Mínimo 6 caracteres">
-
-                    <label for="confirm_password">Confirme a Nova Senha</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required minlength="6"
-                        placeholder="Digite a senha novamente">
-
-                    <button type="submit">Redefinir Senha</button>
-                </form>
-
-                <a href="/login" class="form-link">Voltar para a Home</a>
+    <main class="container">
+      <div class="auth-page-grid">
+        <aside class="register-wrapper">
+          <div class="register-card">
+            <div class="card-header">
+              <div class="icon-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <h2>Redefinir Senha</h2>
+              <p class="subtitle">
+                Crie uma nova senha forte. Ela deve ser diferente das senhas
+                anteriores.
+              </p>
             </div>
-        </section>
+
+            <form
+              class="register-form"
+              action="/redefinir-senha"
+              method="POST"
+              id="reset-form" 
+              novalidate 
+            >
+              <input type="hidden" name="token" value="{{ token }}" />
+
+              <div class="input-row">
+                <label for="senha"
+                  >Nova Senha <span class="required">*</span></label
+                >
+                <div class="password-wrapper">
+                  <input
+                    type="password"
+                    id="senha"
+                    name="nova_senha"
+                    required
+                    minlength="8"
+                    placeholder="Mínimo 8 caracteres"
+                    class="input-field"
+                  />
+                  <button
+                    type="button"
+                    class="toggle-password"
+                    id="toggle-password"
+                    aria-label="Mostrar senha"
+                    aria-pressed="false"
+                  >
+                    <svg
+                      class="eye-icon"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 5C5.63636 5 2 12 2 12C2 12 5.63636 19 12 19C18.3636 19 22 12 22 12C22 12 18.3636 5 12 5Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="eye-off-icon"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      style="display: none"
+                    >
+                      <path
+                        d="M3 3L21 21"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      ></path>
+                      <path
+                        d="M10.5 10.677C10.1872 11.0009 10 11.4758 10 12C10 13.1046 10.8954 14 12 14C12.5242 14 12.9991 13.8128 13.323 13.5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      ></path>
+                      <path
+                        d="M7.36185 7.5611C5.68002 8.7355 4.37992 10.4315 3.5 12C4.5 14 7.5 19 12 19C13.3407 19 14.5686 18.6805 15.6653 18.1535"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      ></path>
+                      <path
+                        d="M12 5C16.5 5 19.5 10 20.5 12C20.1466 12.7682 19.6999 13.5201 19.1632 14.2263"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="password-strength" id="password-strength">
+                  <div class="strength-bar">
+                    <div class="strength-progress" id="strength-progress"></div>
+                  </div>
+                  <span class="strength-text" id="strength-text"
+                    >Força da senha</span
+                  >
+                </div>
+              </div>
+
+              <div class="input-row">
+                <label for="confirmar-senha"
+                  >Confirmar Nova Senha <span class="required">*</span></label
+                >
+                <input
+                  type="password"
+                  id="confirmar-senha"
+                  name="confirm_password"
+                  required
+                  minlength="8"
+                  placeholder="Digite a senha novamente"
+                  class="input-field"
+                />
+                <small
+                  id="confirm-error"
+                  style="
+                    display: none;
+                    color: var(--main-red);
+                    font-weight: 600;
+                    margin-top: 0.5rem;
+                  "
+                >
+                  As senhas não coincidem.
+                </small>
+              </div>
+
+              <button type="submit" class="btn btn-primary">
+                Redefinir Senha
+              </button>
+            </form>
+          </div>
+        </aside>
+      </div>
     </main>
 
-
     <footer>
-        <div class="footer-links">
-            <div>
-                <h4>MINHA CONTA</h4>
-                <a href="#">Meus Dados</a>
-                <a href="#">Meus Pedidos</a>
-                <a href="#">Cashback</a>
-                <a href="#">Login</a>
-            </div>
-            <div>
-                <h4>SUPORTE E POLÍTICAS</h4>
-                <a href="trocas e devoluções.html">Trocas e Devoluções</a>
-                <a href="duvidasfreq.html">Dúvidas Frequentes</a>
-                <a href="faleconosco.html">Fale Conosco</a>
-                <a href="#">Política de Privacidade</a>
-            </div>
-            <div>
-                <h4>FORMAS DE PAGAMENTO</h4>
-                <img src="payment.png" alt="Formas de Pagamento">
-            </div>
+      <div class="footer-links">
+        <div>
+          <h4>MINHA CONTA</h4>
+          <a href="#">Meus Dados</a>
+          <a href="#">Meus Pedidos</a>
+          <a href="#">Cashback</a>
+          <a href="#">Login</a>
         </div>
-        <hr>
-        <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+        <div>
+          <h4>SUPORTE E POLÍTICAS</h4>
+          <a href="trocas e devoluções.html">Trocas e Devoluções</a>
+          <a href="duvidasfreq.html">Dúvidas Frequentes</a>
+          <a href="faleconosco.html">Fale Conosco</a>
+          <a href="#">Política de Privacidade</a>
+        </div>
+        <div>
+          <h4>FORMAS DE PAGAMENTO</h4>
+          <img
+            src="../static/uploads/img/home/footer/payment.png"
+            alt="Formas de Pagamento"
+          />
+        </div>
+      </div>
+      <hr />
+      <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
     </footer>
-</body>
 
+    <script
+      src="{{ url_for('static', path='js/toggle_password.js') }}"
+      defer
+    ></script>
+    <script
+      src="{{ url_for('static', path='js/redefinir-senha.js') }}"
+      defer
+    ></script>
+  </body>
 </html>

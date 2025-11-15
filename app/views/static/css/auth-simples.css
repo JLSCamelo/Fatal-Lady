@@ -1,0 +1,38 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  flex: 1;
+}
+
+.auth-page-grid {
+  display: flex;
+  justify-content: center; /* Centraliza o card */
+  align-items: flex-start;
+  min-height: calc(100vh - 280px); /* Altura aprox. (header/nav/footer) */
+  padding: 3rem 0;
+}
+
+/* Reutiliza o .register-wrapper para consistência */
+.register-wrapper {
+  width: 100%;
+  max-width: 540px;
+}
+
+/* Estilo para o ícone de cadeado adicionado */
+.card-header .icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background: #fdf0f0; /* Cor de fundo suave (vermelho) */
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  color: var(--main-red); /* Puxa a cor do root */
+}
+
+.card-header .icon-wrapper svg {
+  width: 28px;
+  height: 28px;
+}
