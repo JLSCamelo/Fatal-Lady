@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <h2>Boleto gerado</h2>
+    <p>Pagamento ID: {{ pagamento.id }}</p>
+    <p>Valor: R$ {{ "%.2f"|format(pagamento.valor if pagamento.valor else 0) }}</p>
+    <p>Linha digitável (simulada): 34191.79001 01043.510047 91000.000000 1 00000000000000</p>
+    <p>Guarde o comprovante e marque como pago na sua conta ao compensar.</p>
+    <a href="/pagamentos/success">Marcar como pago (simulação)</a>
+    {% endblock %}
+    
+</body>
+</html>

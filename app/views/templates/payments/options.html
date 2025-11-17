@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  {% extends "base.html" %}
+  {% block content %}
+  <h2>Escolha a forma de pagamento</h2>
+  <form method="post" action="/pagamentos/iniciar">
+    <input type="hidden" name="pedido_id" value="{{ pedido_id }}">
+    <label><input type="radio" name="metodo" value="boleto" checked> Boleto</label><br>
+    <label><input type="radio" name="metodo" value="pix"> PIX</label><br>
+    <label><input type="radio" name="metodo" value="cartao"> Cartão de Crédito</label><br>
+    <label><input type="radio" name="metodo" value="debito"> Cartão de Débito</label><br>
+    <label><input type="radio" name="metodo" value="transferencia"> Transferência Bancária</label><br>
+    <button type="submit">Continuar</button>
+  </form>
+  {% endblock %}
+  
+</body>
+</html>

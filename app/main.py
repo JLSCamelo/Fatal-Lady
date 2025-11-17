@@ -10,6 +10,7 @@ from app.routes.login_router import router as login_router
 from app.routes.cadastro_router import router as cadastro_router
 from app.routes.carrinho_router import router as carrinho_router
 from app.routes.checkout_router import router as checkout_router
+from app.routes.pagamento_router import router as pagamento_router
 from app.routes.meus_pedidos_router import router as meus_pedidos_router
 from app.routes.admin_router import router as admin_router
 from app.routes.categoria_router import router as categoria_router
@@ -106,6 +107,7 @@ app.include_router(painel_usuario_router, tags=["Usuário"])
 app.include_router(meus_pedidos_router, tags=["Pedidos"])
 app.include_router(carrinho_router, tags=["Carrinho"])
 app.include_router(checkout_router, tags=["Checkout"])
+app.include_router(pagamento_router, tags=["Pagamentos"])
 app.include_router(favorito_router, tags=["Favoritos"])
 app.include_router(excluit_conta_router, tags=["Exclusão"])
 app.include_router(endereco_router, tags=["Enderecos"])

@@ -21,6 +21,7 @@ class PedidoDB(Base):
     valorfrete = Column(Float, default=0.0)
 
     #relacionamento
+    pagamentos = relationship("PagamentoDB", back_populates="pedido")
     usuario = relationship("UsuarioDB", back_populates="pedidos")
     itens = relationship("ItemPedidoDB", back_populates="pedido", cascade="all, delete-orphan")
 
@@ -30,7 +31,7 @@ class ItemPedidoDB(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     pedido_id = Column(Integer, ForeignKey("pedidos.id"))
-    produto_id = Column(Integer, ForeignKey("produtos.id_produto", ondelete="SET NULL"))
+    produto_id = Column(Integer, ForeignKey("produtos.id_produto", ondelete="RESTRICT"), nullable=False)
 
     nome_produto = Column(String, nullable=False)
     preco_unitario = Column(Float, nullable=False)

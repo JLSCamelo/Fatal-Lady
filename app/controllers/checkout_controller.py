@@ -153,7 +153,7 @@ def finalizar(request: Request, db: Session):
     db.commit()
 
     # Redireciona para a página de pedidos
-    return RedirectResponse(url="/me/meus-pedidos", status_code=303)
+    return RedirectResponse(url=f"/pagamentos?pedido_id={pedido.id}", status_code=303)
 
 
 from app.models.produto_model import ProdutoDB

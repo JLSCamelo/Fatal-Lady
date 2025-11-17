@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  {% extends "base.html" %}
+  {% block content %}
+  <h2>Pagar com cartão</h2>
+  <form method="post" action="/pagamentos/cartao/processar">
+    <input type="hidden" name="pagamento_id" value="{{ pagamento.id }}">
+    <label>Nome no cartão: <input name="nome" required></label><br>
+    <label>Número: <input name="numero" required></label><br>
+    <label>Validade (MM/AA): <input name="validade" required></label><br>
+    <label>CVV: <input name="cvv" required></label><br>
+    <button type="submit">Pagar</button>
+  </form>
+  {% endblock %}
+  
+</body>
+</html>
