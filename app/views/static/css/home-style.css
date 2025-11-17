@@ -235,7 +235,7 @@ nav {
 
 .hero-scroll-indicator {
   position: absolute;
-  top: 27rem;
+  top: 88%;
   left: 50%;
   right: 50%;
   transform: translateX(-50%);
