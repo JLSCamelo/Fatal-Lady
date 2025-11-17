@@ -77,16 +77,46 @@ document.addEventListener('DOMContentLoaded', function() {
     el.style.transition = 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
     fadeInObserver.observe(el);
   });
+
+  // Função de 'easing' para aceleração e desaceleração suave
+    function easeInOutCubic(t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) return c / 2 * t * t * t + b;
+    t -= 2;
+    return c / 2 * (t * t * t + 2) + b;
+    }
+
+    // Função de rolagem personalizada
+    function customSmoothScroll(targetPosition, duration) {
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    let startTime = null;
+
+    function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+    }
+
+    requestAnimationFrame(animation);
+    }
   
   const heroScrollIndicatorEl = document.querySelector('.hero-scroll-indicator');
   if (heroScrollIndicatorEl) {
     heroScrollIndicatorEl.addEventListener('click', function() {
       const benefitsSection = document.getElementById('benefits-bar');
       if (benefitsSection) {
-        window.scrollTo({
-          top: benefitsSection.offsetTop - 80,
-          behavior: 'smooth'
-        });
+        
+        // Posição alvo (com 80px de offset para a navbar)
+        const targetPosition = benefitsSection.offsetTop - 80;
+        
+        // Duração da rolagem em milissegundos (aqui está o controle de "lenta")
+        const scrollDuration = 1200; // 1.2 segundos. Aumente se quiser mais lento.
+
+        // Chama a nova função em vez do window.scrollTo
+        customSmoothScroll(targetPosition, scrollDuration);
       }
     });
   }

@@ -140,6 +140,7 @@ nav {
   transition: opacity 0.35s ease, transform 0.35s ease;
   opacity: 1;
   font-size: 0.85rem;
+  cursor: pointer;
 }
 
 .promo-text.is-hidden {
@@ -194,21 +195,45 @@ nav {
 
 .hero-cta {
   display: inline-block;
-  background-color: var(--main-red);
   color: white;
   font-size: 0.9rem;
   font-weight: 600;
   padding: 0.8rem 2.8rem;
   border-radius: 50px;
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(203, 19, 19, 0.35);
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: var(--main-red);
+    position: relative;
+    transition: all 1s linear;
+    overflow: hidden;
 }
 
 .hero-cta:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(203, 19, 19, 0.5);
+    color: var(--main-red);
+    transform: translateY(-3px);
 }
+
+.hero-cta::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    top: 0;
+    left: -40px;
+    transform: skewX(45deg);
+    background-color: var(--background);
+    z-index: -1;
+    transition: all 0.6s;
+}
+
+.hero-cta:hover::before {
+  width: 180%;
+}
+
+
+
+
 
 .hero-scroll-indicator {
   position: absolute;
@@ -290,6 +315,7 @@ nav {
   gap: 1rem;
   color: white;
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .benefit-item:hover {
@@ -355,7 +381,7 @@ nav {
 }
 
 .featured-card {
-  background: var(--background);
+  background: #3f3a3a;
   border-radius: 10px;
   overflow: hidden;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -396,7 +422,7 @@ nav {
   position: relative;
   width: 100%;
   height: 260px;
-  background: white;
+  background: #f1f1f1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -417,7 +443,7 @@ nav {
 .featured-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(32, 2, 2, 0.664);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -446,7 +472,12 @@ nav {
 }
 
 .featured-info {
-  padding: 1rem;
+  padding: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.featured-info:hover {
+  background-color: #191919;
 }
 
 .featured-category {
@@ -460,17 +491,18 @@ nav {
 }
 
 .featured-name {
-  font-size: 0.95rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  color: var(--dark-gray);
+  letter-spacing: 1px;
+  color: #ffe0e0c4;
   margin-bottom: 0.5rem;
   line-height: 1.3;
 }
 
 .featured-price {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  color: #222;
+  color: #ffffff;
 }
 
 .section-footer {
