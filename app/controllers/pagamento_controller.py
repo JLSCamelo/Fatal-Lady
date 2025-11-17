@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from datetime import datetime
-from app.models.pagamento_model import PagamentoDB, StatusPagamento, TipoPagamento, HistoricoPagamentoDB
+from app.models.pagamento_model import PagamentoDB, StatusPagamento, TipoPagamento
 
 def criar_pagamento(db: Session, pedido_id: int, tipo: TipoPagamento, dados: dict):
     """

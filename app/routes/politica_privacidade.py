@@ -11,5 +11,5 @@ templates = Jinja2Templates(directory="app/views/templates")
 @router.get("/privacy", response_class=HTMLResponse)
 def home(request: Request, db: Session = Depends(get_db)):
     return templates.TemplateResponse("politicadeprivacidade.html", {
-        "request": request
+        "request": request 
     })
