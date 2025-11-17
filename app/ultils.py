@@ -64,7 +64,7 @@ def verificar_inativos():
         enviar_email(
             user.email,
             assunto="Sentimos sua falta 💛",
-            corpo="""<html>
+            corpo=f"""<html>
   <body style="margin:0; padding:0; font-family:'Poppins',Arial,sans-serif; background-color:#fff;">
     <table width="100%" cellpadding="0" cellspacing="0">
       <tr>
@@ -116,6 +116,6 @@ def verificar_inativos():
 
 
 scheduler = BackgroundScheduler()
-# scheduler.add_job(verificar_inativos, "interval", seconds=10)  # executa todo dia às 00:00
-scheduler.add_job(verificar_inativos, "cron", hour=0)
+# scheduler.add_job(verificar_inativos, "interval", seconds=10) 
+scheduler.add_job(verificar_inativos, "cron", hour=0) # executa todo dia às 00:00
 scheduler.start()
