@@ -59,19 +59,3 @@ class PagamentoDB(Base):
     
     # RELACIONAMENTO
     pedido = relationship("PedidoDB", back_populates="pagamentos")
-
-# MODEL PARA HISTÓRICO DE STATUS
-class HistoricoPagamentoDB(Base):
-    __tablename__ = "historico_pagamentos"
-
-    id = Column(Integer, primary_key=True, index=True)
-    pagamento_id = Column(Integer, ForeignKey("pagamentos.id"), nullable=False)
-    status = Column(Enum(StatusPagamento), nullable=False)
-    data_mudanca = Column(DateTime, default=datetime.utcnow)
-    mensagem = Column(Text, nullable=True)
-    
-    # relacionamento
-    pagamento = relationship("PagamentoDB", back_populates="historico")
-
-# ADICIONAR RELACIONAMENTOS AOS MODELS EXISTENTES
-PagamentoDB.historico = relationship("HistoricoPagamentoDB", back_populates="pagamento", cascade="all, delete-orphan")
