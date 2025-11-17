@@ -4,9 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const senhaInput = document.getElementById('senha');
   const confirmarSenhaInput = document.getElementById('confirmar-senha');
   const cepInput = document.getElementById('cep');
-  const telefoneInput = document.getElementById('telefone'); // Já estava sendo capturado
+  const telefoneInput = document.getElementById('telefone');
   const strengthProgress = document.getElementById('strength-progress');
   const strengthText = document.getElementById('strength-text');
+
+  // NOVOS CAMPOS
+  const cpfInput = document.getElementById('cpf');
+  const dataNascimentoInput = document.getElementById('data_nascimento');
+  const generoInput = document.getElementById('genero');
 
   if (senhaInput && strengthProgress && strengthText) {
     senhaInput.addEventListener('input', function() {
@@ -100,12 +105,30 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // NOVA FUNÇÃO DE MÁSCARA - CPF
+  if (cpfInput) {
+    cpfInput.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 11) value = value.slice(0, 11);
+      
+      value = value.replace(/(\d{3})(\d)/, '$1.$2');
+      value = value.replace(/(\d{3})(\d)/, '$1.$2');
+      value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+      
+      e.target.value = value;
+    });
+  }
+
   if (form) {
     form.addEventListener('submit', function(e) {
       e.preventDefault(); // Impede o envio padrão do formulário
       
+      // Captura valores dos novos campos
       const email = emailInput.value;
-      const telefone = telefoneInput.value; // Captura o valor do telefone
+      const telefone = telefoneInput.value;
+      const cpf = cpfInput.value;
+      const dataNascimento = dataNascimentoInput.value;
+      const genero = generoInput.value;
       const senha = senhaInput.value;
       const confirmarSenha = confirmarSenhaInput.value;
       
@@ -123,38 +146,60 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // 2. Validação de Telefone (NOVO)
-      const telefoneLimpo = telefone.replace(/\D/g, ''); // Remove máscara
-      if (telefoneLimpo.length < 10) { // Telefones no Brasil têm 10 (fixo) ou 11 (celular) dígitos com DDD
+      // 2. Validação de Telefone
+      const telefoneLimpo = telefone.replace(/\D/g, '');
+      if (telefoneLimpo.length < 10) {
         alert('Por favor, insira um telefone válido com DDD (mínimo 10 dígitos).');
         telefoneInput.focus();
         return;
       }
+      
+      // 3. VALIDAÇÃO CPF (NOVO)
+      const cpfLimpo = cpf.replace(/\D/g, '');
+      if (cpfLimpo.length !== 11) {
+        alert('Por favor, insira um CPF válido (11 dígitos).');
+        cpfInput.focus();
+        return;
+      }
+      
+      // 4. VALIDAÇÃO DATA DE NASCIMENTO (NOVO)
+      if (!dataNascimento) {
+         alert('Por favor, selecione sua data de nascimento.');
+         dataNascimentoInput.focus();
+         return;
+      }
+      
+      // 5. VALIDAÇÃO GÊNERO (NOVO)
+      if (!genero) {
+         alert('Por favor, selecione seu gênero.');
+         generoInput.focus();
+         return;
+      }
 
       // --- VALIDAÇÕES DE SENHA ---
       
-      // 3. Validação de Comprimento Mínimo
+      // 6. Validação de Comprimento Mínimo
       if (senha.length < 8) {
         alert('A Senha deve ter no mínimo 8 caracteres!');
         senhaInput.focus();
         return;
       }
       
-      // 4. Validação de Número
+      // 7. Validação de Número
       if (!hasNumber.test(senha)) {
         alert('A senha deve conter ao menos um número.');
         senhaInput.focus();
         return;
       }
   
-      // 5. Validação de Caracter Especial
+      // 8. Validação de Caracter Especial
       if (!hasSpecialChar.test(senha)) {
         alert('A senha deve conter ao menos um caracter especial (ex: !, @, #, $).');
         senhaInput.focus();
         return;
       }
 
-      // 6. Validação de Confirmação de Senha
+      // 9. Validação de Confirmação de Senha
       if (senha !== confirmarSenha) {
         alert('As senhas não coincidem!');
         confirmarSenhaInput.focus();
@@ -163,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // --- VALIDAÇÃO DOS TERMOS ---
 
-      // 7.
+      // 10.
       const termsCheckbox = form.querySelector('input[name="terms"]');
       if (!termsCheckbox.checked) {
         alert('Você precisa aceitar os Termos de Uso e Política de Privacidade!');
