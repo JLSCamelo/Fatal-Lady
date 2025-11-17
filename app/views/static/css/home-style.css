@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap");
 
 * {
   margin: 0;
@@ -178,15 +179,16 @@ nav {
 
 .hero-title {
   color: white;
-  font-size: 4.5rem;
-  font-family: "Questrial", sans-serif;
+  font-size: 3.5rem;
+  font-family: "Playfair Display", serif;
+  text-transform: uppercase;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
   letter-spacing: 2px;
 }
 
 .hero-subtitle {
-  color: white;
+  color: rgb(255, 196, 196);
   font-size: 2rem;
   font-weight: 400;
   margin: 0 0 2rem 0;
@@ -233,7 +235,7 @@ nav {
 
 .hero-scroll-indicator {
   position: absolute;
-  top: 30rem;
+  top: 27rem;
   left: 50%;
   right: 50%;
   transform: translateX(-50%);
@@ -278,6 +280,7 @@ nav {
   padding: 1.8rem 0;
   position: relative;
   overflow: hidden;
+  user-select: none;
 }
 
 #benefits-bar::before {
