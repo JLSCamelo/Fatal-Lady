@@ -1,4 +1,4 @@
-
+# NAO FUNCIONANDO!!!!!!!!!!!!!!!!!!!!!!!!!! por enquanto
 from fastapi import APIRouter, Request, Depends, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
@@ -18,7 +18,7 @@ def pagamentos_page(request: Request, pedido_id: int, db: Session = Depends(get_
 
 @router.post("/pagamentos/iniciar")
 def iniciar_pagamento(request: Request, pedido_id: int = Form(...), metodo: str = Form(...), db: Session = Depends(get_db)):
-    # Recebe formulário com metodo: 'boleto','pix','cartao','debito','transferencia'
+    # Recebe formulário com metodo do pagamento
     tipo = None
     metodo = metodo.lower()
     if metodo == "boleto":
