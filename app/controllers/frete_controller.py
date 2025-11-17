@@ -1,6 +1,8 @@
 import requests
 from fastapi import HTTPException, Request
 from app.auth import verificar_token
+from app.database import SessionLocal
+from app.models.carrinho_model import *
 
 CEP_LOJA = "03008020"  # CEP SENAI
 
@@ -10,13 +12,17 @@ def controller_calcular_frete(request: Request, cep_destino: str):
     if not payload:
         raise HTTPException(status_code=401, detail="Usuário não autenticado")
 
+    # O token retorna e-mail, mas seu banco espera um INT.
+    try:
+        user_id = int(payload.get("sub"))
+    except:
+        raise HTTPException(status_code=400, detail="Token inválido: ID do usuário não é um número")
+
     cep_destino = cep_destino.strip().replace("-", "")
-    
-    # validação simples de CEP
     if not cep_destino.isdigit() or len(cep_destino) != 8:
         raise HTTPException(status_code=400, detail="CEP inválido")
 
-    # consulta no ViaCep
+    # Consulta ViaCep
     via_cep_url = f"https://viacep.com.br/ws/{cep_destino}/json/"
     resposta = requests.get(via_cep_url)
     if resposta.status_code != 200:
@@ -26,9 +32,26 @@ def controller_calcular_frete(request: Request, cep_destino: str):
     if "erro" in dados:
         raise HTTPException(status_code=400, detail="CEP não encontrado")
 
-    # simulação do frete com dados fixos
-    valor_frete = 15.00
-    prazo_estimado = 6
+    db = SessionLocal()
+    carrinho = (
+        db.query(CarrinhoDB)
+        .filter(CarrinhoDB.id_cliente == user_id)
+        .first()
+    )
+    db.close()
+
+    # Sem carrinho = valor 0
+    total_compra = carrinho.valortotal if carrinho else 0
+
+    # Regras de frete
+    if total_compra >= 299:
+        valor_frete = 0.00
+        prazo_estimado = 4
+        status = "frete grátis aplicado"
+    else:
+        valor_frete = 15.00
+        prazo_estimado = 6
+        status = "simulação concluída"
 
     return {
         "endereco": f"{dados.get('logradouro')}, {dados.get('bairro')}, "
@@ -36,16 +59,14 @@ def controller_calcular_frete(request: Request, cep_destino: str):
         "cep": cep_destino,
         "valor_frete": valor_frete,
         "prazo_estimado_dias": prazo_estimado,
-        "status": "simulação concluída"
+        "status": status
     }
 
 
 def controller_completar_cadastro(cep_destino: str):
-    # validação simples de CEP
     if not cep_destino.isdigit() or len(cep_destino) != 8:
         raise HTTPException(status_code=400, detail="CEP inválido")
 
-    # consulta no ViaCep
     via_cep_url = f"https://viacep.com.br/ws/{cep_destino}/json/"
     resposta = requests.get(via_cep_url)
 

@@ -261,7 +261,7 @@
           <button class="btn-close" onclick="closeModal()">✕</button>
         </div>
 
-        <form action="/me/criar/enderecos" class="endereco-form" id="endereco-form">
+        <form action="/me/criar/enderecos" method="post" class="endereco-form" id="endereco-form">
           <input type="hidden" id="endereco-id" name="id" />
 
           <div class="form-group">
@@ -311,7 +311,7 @@
               <input
                 type="text"
                 id="logradouro"
-                name="logradouro"
+                name="rua"
                 placeholder="Rua, Avenida..."
                 required
               />
@@ -479,7 +479,7 @@
 
       // Fechar modal e atualizar lista, se quiser
       closeModal();
-      // atualizarEnderecos(); // exemplo
+      // atualizarEnderecos(); // exemplo 
     } catch (error) {
       console.error("Erro:", error);
       alert("Ocorreu um erro ao enviar o endereço.");

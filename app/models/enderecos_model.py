@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -14,5 +14,8 @@ class EnderecoDB(Base):
     estado = Column(String(2), nullable=False)
     complemento = Column(String(120))
     numero = Column(String, nullable=False )
+    apelido = Column(String, nullable=False )
+    destinatario = Column(String, nullable=False )
+    principal = Column(Boolean)
 
     usuario = relationship("UsuarioDB", back_populates="enderecos")

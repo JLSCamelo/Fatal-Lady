@@ -26,7 +26,7 @@ def listar_enderecos(request, db: Session):
     return {"usuario": usuario, "enderecos": enderecos}
 
 
-def criar_endereco(request, db: Session, cep, rua, bairro, cidade, estado, complemento, numero, apelido):
+def criar_endereco(request, cep, rua, bairro, cidade, estado, complemento, numero, apelido, destinatario, principal, db: Session):
     token = request.cookies.get("token")
     if not token:
         return RedirectResponse(url="/login", status_code=303)
@@ -49,11 +49,14 @@ def criar_endereco(request, db: Session, cep, rua, bairro, cidade, estado, compl
         estado=estado,
         complemento=complemento,
         numero=numero,
-        apelido=apelido
+        apelido=apelido,
+        destinatario=destinatario,
+        principal = True if principal else False
     )
 
     db.add(novo_endereco)
     db.commit()
     db.refresh(novo_endereco)
 
-    return novo_endereco
+    return RedirectResponse(url="/me/enderecos", status_code=303)
+

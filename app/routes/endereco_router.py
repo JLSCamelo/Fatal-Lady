@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Request, Depends, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
+from typing import Optional
+
 from sqlalchemy.orm import Session
 from app.controllers.endereco_controller import listar_enderecos, criar_endereco
 from app.database import get_db
@@ -37,9 +39,11 @@ def add_endereco(
     complemento: str = Form(None),
     numero: str = Form(...),
     apelido: str = Form(...),
+    destinatario: str = Form(...),
+    principal: Optional[bool] = Form(None),
     db: Session = Depends(get_db)
 ):
-    novo_endereco = criar_endereco(request, db, cep, rua, bairro, cidade, estado, complemento, numero, apelido)
+    novo_endereco = criar_endereco(request, cep, rua, bairro, cidade, estado, complemento, numero, apelido, destinatario, principal, db)
 
     if isinstance(novo_endereco, HTMLResponse):
         return novo_endereco
