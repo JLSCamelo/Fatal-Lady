@@ -23,9 +23,6 @@ class PagamentoDB(Base):
     codigo_pix = Column(Text, nullable=True)
     codigo_barras = Column(String(100), nullable=True)
 
-    # SE VOCÊ QUISER USAR url_pagamento, ADICIONE A COLUNA NO BANCO
-    # SE NÃO TIVER, SÓ REMOVER AQUI
-    url_pagamento = Column(String(500), nullable=True)
 
     # INFORMAÇÕES DE CARTÃO
     ultimos_digitos_cartao = Column(String(4), nullable=True)
@@ -42,24 +39,3 @@ class PagamentoDB(Base):
     pedido = relationship("PedidoDB", back_populates="pagamentos")
 
 
-class HistoricoPagamentoDB(Base):
-    __tablename__ = "historico_pagamentos"
-
-    id = Column(Integer, primary_key=True, index=True)
-    pagamento_id = Column(Integer, ForeignKey("pagamentos.id"), nullable=False)
-
-    status_anterior = Column(String(50), nullable=True)
-    status_novo = Column(String(50), nullable=False)          # Ex: "aprovado"
-    data_mudanca = Column(DateTime, default=datetime.utcnow)
-    mensagem = Column(Text, nullable=True)
-    id_transacao_gateway = Column(String(100), nullable=True)
-
-    pagamento = relationship("PagamentoDB", back_populates="historico")
-
-
-# RELAÇÃO REVERSA
-PagamentoDB.historico = relationship(
-    "HistoricoPagamentoDB",
-    back_populates="pagamento",
-    cascade="all, delete-orphan"
-)
