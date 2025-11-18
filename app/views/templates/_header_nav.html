@@ -27,14 +27,13 @@
 
   <div class="header-div">
     {% if usuario.is_admin == True %}
-      <a href="/admin" style="color: rgb(223, 16, 16);">Painel do Admin</a>
+    <a href="/admin" style="color: rgb(223, 16, 16)">Painel do Admin</a>
     {% else %}
-      <a href="#">Ajuda</a>
-    {% endif %}
-    {% if usuario %}
-      <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+    <a href="#">Ajuda</a>
+    {% endif %} {% if usuario %}
+    <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
     {% else %}
-      <a href="/login">Entrar</a>
+    <a href="/login">Entrar</a>
     {% endif %}
   </div>
 </header>
@@ -80,23 +79,23 @@
     </a>
 
     {% if usuario %}
-      <a href="/me/painel">
-        <img
-          src="/static/uploads/img/home/icons-main/user.png"
-          id="user-icon"
-          class="icons"
-          alt="Perfil"
-        />
-      </a>
+    <a href="/me/painel">
+      <img
+        src="/static/uploads/img/home/icons-main/user.png"
+        id="user-icon"
+        class="icons"
+        alt="Perfil"
+      />
+    </a>
     {% else %}
-      <a href="/login">
-        <img
-          src="/static/uploads/img/home/icons-main/user.png"
-          id="user-icon"
-          class="icons"
-          alt="Login"
-        />
-      </a>
+    <a href="/login">
+      <img
+        src="/static/uploads/img/home/icons-main/user.png"
+        id="user-icon"
+        class="icons"
+        alt="Login"
+      />
+    </a>
     {% endif %}
   </div>
 </nav>

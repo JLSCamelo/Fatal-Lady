@@ -1,87 +1,142 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
-    <link rel="stylesheet" href="faleconosco.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link rel="stylesheet" href="faleconosco.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fale Conosco | Fatal Lady</title>
-    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}">
-      <link rel="stylesheet" href="{{ url_for('static', path='css/layout-responsive.css') }}"/>
-</head>
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/home-style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/layout-responsive.css') }}"
+    />
+  </head>
 
-<body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
-  {% include '_header_nav.html' %}
+  <body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
+    {% include '_header_nav.html' %}
 
     <main class="conteudo">
-        <section class="contato">
-            <h2>Fale Conosco</h2>
-            <p>Estamos aqui para ajudar! Caso tenha dúvidas, sugestões ou precise de suporte, entre em contato conosco preenchendo o formulário abaixo ou enviando um e-mail para <a href="mailto:atendimento@fatallady.com.br">atendimento@fatallady.com.br</a>.</p>
+      <section class="contato">
+        <h2>Fale Conosco</h2>
+        <p>
+          Estamos aqui para ajudar! Caso tenha dúvidas, sugestões ou precise de
+          suporte, entre em contato conosco preenchendo o formulário abaixo ou
+          enviando um e-mail para
+          <a href="mailto:atendimento@fatallady.com.br"
+            >atendimento@fatallady.com.br</a
+          >.
+        </p>
 
-            <form action="mailto:atendimento@fatallady.com.br" method="post" enctype="text/plain" class="form-contato">
-                <label for="nome">Nome completo:</label>
-                <input type="text" id="nome" name="Nome" placeholder="Digite seu nome" required>
+        <form
+          action="mailto:atendimento@fatallady.com.br"
+          method="post"
+          enctype="text/plain"
+          class="form-contato"
+        >
+          <label for="nome">Nome completo:</label>
+          <input
+            type="text"
+            id="nome"
+            name="Nome"
+            placeholder="Digite seu nome"
+            required
+          />
 
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="Email" placeholder="Digite seu e-mail" required>
+          <label for="email">E-mail:</label>
+          <input
+            type="email"
+            id="email"
+            name="Email"
+            placeholder="Digite seu e-mail"
+            required
+          />
 
-                <label for="assunto">Assunto:</label>
-                <input type="text" id="assunto" name="Assunto" placeholder="Digite o assunto" required>
+          <label for="assunto">Assunto:</label>
+          <input
+            type="text"
+            id="assunto"
+            name="Assunto"
+            placeholder="Digite o assunto"
+            required
+          />
 
-                <label for="mensagem">Mensagem:</label>
-                <textarea id="mensagem" name="Mensagem" rows="5" placeholder="Escreva sua mensagem aqui..." required></textarea>
+          <label for="mensagem">Mensagem:</label>
+          <textarea
+            id="mensagem"
+            name="Mensagem"
+            rows="5"
+            placeholder="Escreva sua mensagem aqui..."
+            required
+          ></textarea>
 
-                <button type="submit">Enviar Mensagem</button>
-            </form>
-        </section>
-          <div class="contatos-diretos">
-    <h3>Outros Canais de Atendimento</h3>
-    <p>Se preferir, fale conosco também pelos canais abaixo:</p>
+          <button type="submit">Enviar Mensagem</button>
+        </form>
+      </section>
+      <div class="contatos-diretos">
+        <h3>Outros Canais de Atendimento</h3>
+        <p>Se preferir, fale conosco também pelos canais abaixo:</p>
 
-    <div class="contato-links">
-        <a href="https://wa.me/5599999999999" target="_blank" class="contato-item whatsapp">
-            <img src="whatsapp-icon.png" alt="WhatsApp">
+        <div class="contato-links">
+          <a
+            href="https://wa.me/5599999999999"
+            target="_blank"
+            class="contato-item whatsapp"
+          >
+            <img src="whatsapp-icon.png" alt="WhatsApp" />
             <span>WhatsApp</span>
-        </a>
+          </a>
 
-        <a href="mailto:atendimento@fatallady.com.br" class="contato-item email">
-            <img src="email-icon.png" alt="E-mail">
+          <a
+            href="mailto:atendimento@fatallady.com.br"
+            class="contato-item email"
+          >
+            <img src="email-icon.png" alt="E-mail" />
             <span>E-mail</span>
-        </a>
+          </a>
 
-        <a href="https://www.instagram.com/fatalladyoficial" target="_blank" class="contato-item instagram">
-            <img src="instagram-icon.png" alt="Instagram">
+          <a
+            href="https://www.instagram.com/fatalladyoficial"
+            target="_blank"
+            class="contato-item instagram"
+          >
+            <img src="instagram-icon.png" alt="Instagram" />
             <span>Instagram</span>
-        </a>
-    </div>
-</div>
+          </a>
+        </div>
+      </div>
     </main>
-  
 
     <footer>
-        <div class="footer-links">
-            <div>
-                <h4>MINHA CONTA</h4>
-                <a href="#">Meus Dados</a>
-                <a href="#">Meus Pedidos</a>
-                <a href="#">Cashback</a>
-                <a href="#">Login</a>
-            </div>
-            <div>
-                <h4>SUPORTE E POLÍTICAS</h4>
-                <a href="trocas e devoluções.html">Trocas e Devoluções</a>
-                <a href="duvidasfreq.html">Dúvidas Frequentes</a>
-                <a href="faleconosco.html">Fale Conosco</a>
-                <a href="#">Política de Privacidade</a>
-            </div>
-            <div>
-                <h4>FORMAS DE PAGAMENTO</h4>
-                <img src="payment.png" alt="Formas de Pagamento">
-            </div>
+      <div class="footer-links">
+        <div>
+          <h4>MINHA CONTA</h4>
+          <a href="#">Meus Dados</a>
+          <a href="#">Meus Pedidos</a>
+          <a href="#">Cashback</a>
+          <a href="#">Login</a>
         </div>
-        <hr>
-        <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+        <div>
+          <h4>SUPORTE E POLÍTICAS</h4>
+          <a href="trocas e devoluções.html">Trocas e Devoluções</a>
+          <a href="duvidasfreq.html">Dúvidas Frequentes</a>
+          <a href="faleconosco.html">Fale Conosco</a>
+          <a href="#">Política de Privacidade</a>
+        </div>
+        <div>
+          <h4>FORMAS DE PAGAMENTO</h4>
+          <img src="payment.png" alt="Formas de Pagamento" />
+        </div>
+      </div>
+      <hr />
+      <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
     </footer>
-</body>
+  </body>
 </html>

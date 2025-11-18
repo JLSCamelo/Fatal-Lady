@@ -45,7 +45,7 @@
 
 #status-toast-container {
   position: fixed;
-  top: 5rem;            /* abaixo do header/nav fixos */
+  top: 5rem; /* abaixo do header/nav fixos */
   right: 1.5rem;
   z-index: 1100;
   display: flex;

@@ -151,13 +151,13 @@ body {
 }
 
 /* animação de fade + leve deslocamento */
-.promo-text{
+.promo-text {
   display: inline-block;
-  transition: opacity .35s ease, transform .35s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease;
   opacity: 1;
 }
 
-.promo-text.is-hidden{
+.promo-text.is-hidden {
   opacity: 0;
 }
 
@@ -1959,11 +1959,11 @@ footer hr {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .size-filter {
     justify-content: flex-start;
   }
-  
+
   .size-filters {
     justify-content: flex-start;
   }
@@ -1974,22 +1974,22 @@ footer hr {
     padding-top: 12px;
     margin-top: 12px;
   }
-  
+
   .size-label {
     width: 100%;
     margin-bottom: 6px;
   }
-  
+
   .size-filters {
     width: 100%;
   }
-  
+
   .size-chip {
     min-width: 36px;
     height: 36px;
     font-size: 13px;
   }
-  
+
   #cart-count-badge {
     right: 1.2rem;
   }

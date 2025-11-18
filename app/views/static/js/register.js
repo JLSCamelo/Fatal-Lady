@@ -1,52 +1,52 @@
 // static/js/register.js
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.getElementById('register-form');
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("register-form");
   if (!form) return;
 
-  const nomeInput = document.getElementById('nome');
-  const emailInput = document.getElementById('email');
-  const telefoneInput = document.getElementById('telefone');
-  const cpfInput = document.getElementById('cpf');
-  const dataNascimentoInput = document.getElementById('data_nascimento');
-  const generoInput = document.getElementById('genero');
+  const nomeInput = document.getElementById("nome");
+  const emailInput = document.getElementById("email");
+  const telefoneInput = document.getElementById("telefone");
+  const cpfInput = document.getElementById("cpf");
+  const dataNascimentoInput = document.getElementById("data_nascimento");
+  const generoInput = document.getElementById("genero");
 
-  const cepInput = document.getElementById('cep');
-  const ruaInput = document.getElementById('rua');
-  const numeroInput = document.getElementById('numero');
-  const complementoInput = document.getElementById('complemento');
-  const bairroInput = document.getElementById('bairro');
-  const cidadeInput = document.getElementById('cidade');
-  const estadoInput = document.getElementById('estado');
+  const cepInput = document.getElementById("cep");
+  const ruaInput = document.getElementById("rua");
+  const numeroInput = document.getElementById("numero");
+  const complementoInput = document.getElementById("complemento");
+  const bairroInput = document.getElementById("bairro");
+  const cidadeInput = document.getElementById("cidade");
+  const estadoInput = document.getElementById("estado");
 
-  const senhaInput = document.getElementById('senha');
-  const confirmarSenhaInput = document.getElementById('confirmar-senha');
+  const senhaInput = document.getElementById("senha");
+  const confirmarSenhaInput = document.getElementById("confirmar-senha");
 
-  const strengthProgress = document.getElementById('strength-progress');
-  const strengthText = document.getElementById('strength-text');
+  const strengthProgress = document.getElementById("strength-progress");
+  const strengthText = document.getElementById("strength-text");
 
-  const globalErrorEl = document.getElementById('form-global-error');
+  const globalErrorEl = document.getElementById("form-global-error");
 
   // ================== Helpers de Erro ==================
 
   function clearFieldError(input) {
     if (!input) return;
-    input.classList.remove('input-error');
-    const row = input.closest('.input-row');
+    input.classList.remove("input-error");
+    const row = input.closest(".input-row");
     if (!row) return;
-    const err = row.querySelector('.field-error');
+    const err = row.querySelector(".field-error");
     if (err) err.remove();
   }
 
   function setFieldError(input, message) {
     if (!input) return;
-    input.classList.add('input-error');
-    const row = input.closest('.input-row');
+    input.classList.add("input-error");
+    const row = input.closest(".input-row");
     if (!row) return;
 
-    let err = row.querySelector('.field-error');
+    let err = row.querySelector(".field-error");
     if (!err) {
-      err = document.createElement('p');
-      err.className = 'field-error';
+      err = document.createElement("p");
+      err.className = "field-error";
       row.appendChild(err);
     }
     err.textContent = message;
@@ -68,21 +68,21 @@ document.addEventListener('DOMContentLoaded', function () {
       cidadeInput,
       estadoInput,
       senhaInput,
-      confirmarSenhaInput
+      confirmarSenhaInput,
     ].forEach((input) => clearFieldError(input));
     hideGlobalError();
   }
 
   function showGlobalError(message) {
     if (!globalErrorEl) return;
-    globalErrorEl.textContent = message || '';
+    globalErrorEl.textContent = message || "";
     globalErrorEl.hidden = !message;
   }
 
   function hideGlobalError() {
     if (!globalErrorEl) return;
     globalErrorEl.hidden = true;
-    globalErrorEl.textContent = '';
+    globalErrorEl.textContent = "";
   }
 
   // Limpar erros enquanto digita
@@ -101,10 +101,10 @@ document.addEventListener('DOMContentLoaded', function () {
     cidadeInput,
     estadoInput,
     senhaInput,
-    confirmarSenhaInput
+    confirmarSenhaInput,
   ].forEach((input) => {
     if (!input) return;
-    input.addEventListener('input', () => {
+    input.addEventListener("input", () => {
       clearFieldError(input);
       hideGlobalError();
     });
@@ -113,27 +113,27 @@ document.addEventListener('DOMContentLoaded', function () {
   // ================== Força da senha ==================
 
   if (senhaInput && strengthProgress && strengthText) {
-    senhaInput.addEventListener('input', function () {
+    senhaInput.addEventListener("input", function () {
       const senha = senhaInput.value;
       const strength = calculatePasswordStrength(senha);
 
-      strengthProgress.className = 'strength-progress';
+      strengthProgress.className = "strength-progress";
 
       if (senha.length === 0) {
-        strengthProgress.style.width = '0%';
-        strengthText.textContent = 'Força da senha';
+        strengthProgress.style.width = "0%";
+        strengthText.textContent = "Força da senha";
         return;
       }
 
       if (strength < 3) {
-        strengthProgress.classList.add('weak');
-        strengthText.textContent = 'Fraca';
+        strengthProgress.classList.add("weak");
+        strengthText.textContent = "Fraca";
       } else if (strength < 4) {
-        strengthProgress.classList.add('medium');
-        strengthText.textContent = 'Média';
+        strengthProgress.classList.add("medium");
+        strengthText.textContent = "Média";
       } else {
-        strengthProgress.classList.add('strong');
-        strengthText.textContent = 'Forte';
+        strengthProgress.classList.add("strong");
+        strengthText.textContent = "Forte";
       }
     });
   }
@@ -151,36 +151,36 @@ document.addEventListener('DOMContentLoaded', function () {
   // ================== CEP (máscara + ViaCEP) ==================
 
   if (cepInput) {
-    cepInput.addEventListener('input', function (e) {
-      let value = e.target.value.replace(/\D/g, '');
+    cepInput.addEventListener("input", function (e) {
+      let value = e.target.value.replace(/\D/g, "");
       if (value.length > 8) value = value.slice(0, 8);
 
       if (value.length > 5) {
-        value = value.slice(0, 5) + '-' + value.slice(5);
+        value = value.slice(0, 5) + "-" + value.slice(5);
       }
 
       e.target.value = value;
     });
 
-    cepInput.addEventListener('blur', function () {
+    cepInput.addEventListener("blur", function () {
       clearFieldError(cepInput);
       hideGlobalError();
 
-      const cep = cepInput.value.replace(/\D/g, '');
+      const cep = cepInput.value.replace(/\D/g, "");
       if (cep.length === 8) {
         fetch(`https://viacep.com.br/ws/${cep}/json/`)
           .then((response) => response.json())
           .then((data) => {
             if (!data.erro) {
-              if (ruaInput) ruaInput.value = data.logradouro || '';
-              if (bairroInput) bairroInput.value = data.bairro || '';
-              if (cidadeInput) cidadeInput.value = data.localidade || '';
-              if (estadoInput) estadoInput.value = data.uf || '';
+              if (ruaInput) ruaInput.value = data.logradouro || "";
+              if (bairroInput) bairroInput.value = data.bairro || "";
+              if (cidadeInput) cidadeInput.value = data.localidade || "";
+              if (estadoInput) estadoInput.value = data.uf || "";
               if (numeroInput) numeroInput.focus();
             }
           })
           .catch((error) => {
-            console.error('Erro ao buscar CEP:', error);
+            console.error("Erro ao buscar CEP:", error);
           });
       }
     });
@@ -189,18 +189,18 @@ document.addEventListener('DOMContentLoaded', function () {
   // ================== Telefone (máscara) ==================
 
   if (telefoneInput) {
-    telefoneInput.addEventListener('input', function (e) {
-      let value = e.target.value.replace(/\D/g, '');
+    telefoneInput.addEventListener("input", function (e) {
+      let value = e.target.value.replace(/\D/g, "");
       if (value.length > 11) value = value.slice(0, 11);
 
       if (value.length > 10) {
-        value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+        value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
       } else if (value.length > 6) {
-        value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+        value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
       } else if (value.length > 2) {
-        value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+        value = value.replace(/^(\d{2})(\d{0,5})/, "($1) $2");
       } else if (value.length > 0) {
-        value = value.replace(/^(\d*)/, '($1');
+        value = value.replace(/^(\d*)/, "($1");
       }
 
       e.target.value = value;
@@ -210,24 +210,21 @@ document.addEventListener('DOMContentLoaded', function () {
   // ================== CPF (máscara) ==================
 
   if (cpfInput) {
-    cpfInput.addEventListener('input', function (e) {
-      let value = e.target.value.replace(/\D/g, '');
+    cpfInput.addEventListener("input", function (e) {
+      let value = e.target.value.replace(/\D/g, "");
       if (value.length > 11) value = value.slice(0, 11);
 
       // mesma máscara usada antes, mas mais segura
       if (value.length <= 3) {
         e.target.value = value;
       } else if (value.length <= 6) {
-        e.target.value = value.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+        e.target.value = value.replace(/(\d{3})(\d{1,3})/, "$1.$2");
       } else if (value.length <= 9) {
-        e.target.value = value.replace(
-          /(\d{3})(\d{3})(\d{1,3})/,
-          '$1.$2.$3'
-        );
+        e.target.value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
       } else {
         e.target.value = value.replace(
           /(\d{3})(\d{3})(\d{3})(\d{1,2})/,
-          '$1.$2.$3-$4'
+          "$1.$2.$3-$4"
         );
       }
     });
@@ -235,26 +232,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ================== Validações ==================
 
-  form.addEventListener('submit', function (e) {
+  form.addEventListener("submit", function (e) {
     e.preventDefault();
     clearAllErrors();
 
     let valid = true;
 
-    const emailRegex =
-      /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    const senha = senhaInput ? senhaInput.value : '';
-    const confirmarSenha = confirmarSenhaInput
-      ? confirmarSenhaInput.value
-      : '';
+    const senha = senhaInput ? senhaInput.value : "";
+    const confirmarSenha = confirmarSenhaInput ? confirmarSenhaInput.value : "";
 
     const hasNumber = /\d/;
     const hasSpecialChar = /[^a-zA-Z0-9]/;
 
     // Nome
     if (nomeInput && !nomeInput.value.trim()) {
-      setFieldError(nomeInput, 'Informe seu nome completo.');
+      setFieldError(nomeInput, "Informe seu nome completo.");
       valid = false;
     }
 
@@ -264,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!emailRegex.test(email)) {
         setFieldError(
           emailInput,
-          'Informe um e-mail válido (ex: seu@exemplo.com).'
+          "Informe um e-mail válido (ex: seu@exemplo.com)."
         );
         valid = false;
       }
@@ -272,11 +266,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Telefone
     if (telefoneInput) {
-      const telDigits = telefoneInput.value.replace(/\D/g, '');
+      const telDigits = telefoneInput.value.replace(/\D/g, "");
       if (telDigits.length < 10) {
         setFieldError(
           telefoneInput,
-          'Informe um telefone válido com DDD (mínimo 10 dígitos).'
+          "Informe um telefone válido com DDD (mínimo 10 dígitos)."
         );
         valid = false;
       }
@@ -284,14 +278,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // CPF
     if (cpfInput) {
-      const cpfDigits = cpfInput.value.replace(/\D/g, '');
+      const cpfDigits = cpfInput.value.replace(/\D/g, "");
       if (!cpfDigits) {
-        setFieldError(cpfInput, 'Informe seu CPF.');
+        setFieldError(cpfInput, "Informe seu CPF.");
         valid = false;
       } else if (!isValidCpf(cpfDigits)) {
         setFieldError(
           cpfInput,
-          'CPF inválido. Verifique os números digitados.'
+          "CPF inválido. Verifique os números digitados."
         );
         valid = false;
       }
@@ -302,26 +296,20 @@ document.addEventListener('DOMContentLoaded', function () {
       const value = dataNascimentoInput.value;
 
       if (!value) {
-        setFieldError(
-          dataNascimentoInput,
-          'Informe sua data de nascimento.'
-        );
+        setFieldError(dataNascimentoInput, "Informe sua data de nascimento.");
         valid = false;
       } else {
         const today = new Date();
-        const birthDate = new Date(value + 'T00:00:00');
+        const birthDate = new Date(value + "T00:00:00");
 
         if (Number.isNaN(birthDate.getTime())) {
-          setFieldError(
-            dataNascimentoInput,
-            'Data de nascimento inválida.'
-          );
+          setFieldError(dataNascimentoInput, "Data de nascimento inválida.");
           valid = false;
         } else {
           if (birthDate > today) {
             setFieldError(
               dataNascimentoInput,
-              'A data de nascimento não pode ser futura.'
+              "A data de nascimento não pode ser futura."
             );
             valid = false;
           } else {
@@ -345,79 +333,67 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Gênero
     if (generoInput && !generoInput.value) {
-      setFieldError(
-        generoInput,
-        'Selecione uma opção de gênero.'
-      );
+      setFieldError(generoInput, "Selecione uma opção de gênero.");
       valid = false;
     }
 
     // CEP
     if (cepInput) {
-      const cepDigits = cepInput.value.replace(/\D/g, '');
+      const cepDigits = cepInput.value.replace(/\D/g, "");
       if (cepDigits.length !== 8) {
-        setFieldError(
-          cepInput,
-          'Informe um CEP válido (8 dígitos).'
-        );
+        setFieldError(cepInput, "Informe um CEP válido (8 dígitos).");
         valid = false;
       }
     }
 
     // Rua
     if (ruaInput && !ruaInput.value.trim()) {
-      setFieldError(ruaInput, 'Informe o nome da rua.');
+      setFieldError(ruaInput, "Informe o nome da rua.");
       valid = false;
     }
 
     // Número
     if (numeroInput && !numeroInput.value.trim()) {
-      setFieldError(numeroInput, 'Informe o número.');
+      setFieldError(numeroInput, "Informe o número.");
       valid = false;
     }
 
     // Bairro
     if (bairroInput && !bairroInput.value.trim()) {
-      setFieldError(bairroInput, 'Informe o bairro.');
+      setFieldError(bairroInput, "Informe o bairro.");
       valid = false;
     }
 
     // Cidade
     if (cidadeInput && !cidadeInput.value.trim()) {
-      setFieldError(cidadeInput, 'Informe a cidade.');
+      setFieldError(cidadeInput, "Informe a cidade.");
       valid = false;
     }
 
     // Estado
     if (estadoInput && !estadoInput.value.trim()) {
-      setFieldError(estadoInput, 'Selecione o estado.');
+      setFieldError(estadoInput, "Selecione o estado.");
       valid = false;
     }
 
     // Senha
     if (senhaInput) {
       if (!senha) {
-        setFieldError(senhaInput, 'Informe uma senha.');
+        setFieldError(senhaInput, "Informe uma senha.");
         valid = false;
       } else {
         if (senha.length < 8) {
-          setFieldError(
-            senhaInput,
-            'A senha deve ter no mínimo 8 caracteres.'
-          );
+          setFieldError(senhaInput, "A senha deve ter no mínimo 8 caracteres.");
           valid = false;
         }
         if (!hasNumber.test(senha)) {
-          setFieldError(
-            senhaInput,
-            'A senha deve conter ao menos um número.'
-          );
+          setFieldError(senhaInput, "A senha deve conter ao menos um número.");
           valid = false;
         }
         if (!hasSpecialChar.test(senha)) {
           setFieldError(
             senhaInput,
-            'A senha deve conter ao menos um caractere especial (ex: !, @, #, $).'
+            "A senha deve conter ao menos um caractere especial (ex: !, @, #, $)."
           );
           valid = false;
         }
@@ -427,16 +403,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Confirmar senha
     if (confirmarSenhaInput) {
       if (!confirmarSenha) {
-        setFieldError(
-          confirmarSenhaInput,
-          'Confirme a senha informada.'
-        );
+        setFieldError(confirmarSenhaInput, "Confirme a senha informada.");
         valid = false;
       } else if (senha !== confirmarSenha) {
-        setFieldError(
-          confirmarSenhaInput,
-          'As senhas não coincidem.'
-        );
+        setFieldError(confirmarSenhaInput, "As senhas não coincidem.");
         valid = false;
       }
     }
@@ -445,14 +415,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const termsCheckbox = form.querySelector('input[name="terms"]');
     if (termsCheckbox && !termsCheckbox.checked) {
       showGlobalError(
-        'Você precisa aceitar os Termos de Uso e a Política de Privacidade.'
+        "Você precisa aceitar os Termos de Uso e a Política de Privacidade."
       );
       valid = false;
     }
 
     if (!valid) {
       if (!globalErrorEl.textContent) {
-        showGlobalError('Por favor, corrija os campos destacados.');
+        showGlobalError("Por favor, corrija os campos destacados.");
       }
       return;
     }

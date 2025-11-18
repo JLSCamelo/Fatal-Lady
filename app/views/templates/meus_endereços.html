@@ -21,10 +21,13 @@
       rel="stylesheet"
       href="{{ url_for('static', path='css/cart-badge.css') }}"
     />
-      <link rel="stylesheet" href="{{ url_for('static', path='css/layout-responsive.css') }}"/>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/layout-responsive.css') }}"
+    />
   </head>
   <body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
-  {% include '_header_nav.html' %}
+    {% include '_header_nav.html' %}
 
     <main class="enderecos-container">
       <section class="enderecos-header">
@@ -155,7 +158,12 @@
           <button class="btn-close" onclick="closeModal()">✕</button>
         </div>
 
-        <form action="/me/criar/enderecos" method="post" class="endereco-form" id="endereco-form">
+        <form
+          action="/me/criar/enderecos"
+          method="post"
+          class="endereco-form"
+          id="endereco-form"
+        >
           <input type="hidden" id="endereco-id" name="id" />
 
           <div class="form-group">
@@ -337,49 +345,53 @@
     <script src="/static/js/promo-rotator.js" defer></script>
     <script src="/static/js/cart-badge.js" defer></script>
     <script>
-  document.getElementById("endereco-form").addEventListener("submit", async function (e) {
-    e.preventDefault(); // Impede o reload da página
+      document
+        .getElementById("endereco-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault(); // Impede o reload da página
 
-    const form = e.target;
-    const formData = new FormData(form);
+          const form = e.target;
+          const formData = new FormData(form);
 
-    // Converte o FormData para JSON
-    const data = {};
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
+          // Converte o FormData para JSON
+          const data = {};
+          formData.forEach((value, key) => {
+            data[key] = value;
+          });
 
-    // Ajuste: checkbox precisa ser booleano
-    data.principal = document.getElementById("principal").checked;
+          // Ajuste: checkbox precisa ser booleano
+          data.principal = document.getElementById("principal").checked;
 
-    try {
-      const response = await fetch("/me/criar/enderecos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+          try {
+            const response = await fetch("/me/criar/enderecos", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
 
-      if (!response.ok) {
-        const err = await response.json();
-        alert("Erro ao salvar endereço: " + (err.detail || response.statusText));
-        return;
-      }
+            if (!response.ok) {
+              const err = await response.json();
+              alert(
+                "Erro ao salvar endereço: " +
+                  (err.detail || response.statusText)
+              );
+              return;
+            }
 
-      const result = await response.json();
-      alert("Endereço salvo com sucesso!");
-      console.log("Endereço criado:", result);
+            const result = await response.json();
+            alert("Endereço salvo com sucesso!");
+            console.log("Endereço criado:", result);
 
-      // Fechar modal e atualizar lista, se quiser
-      closeModal();
-      // atualizarEnderecos(); // exemplo 
-    } catch (error) {
-      console.error("Erro:", error);
-      alert("Ocorreu um erro ao enviar o endereço.");
-    }
-  });
-</script>
-
+            // Fechar modal e atualizar lista, se quiser
+            closeModal();
+            // atualizarEnderecos(); // exemplo
+          } catch (error) {
+            console.error("Erro:", error);
+            alert("Ocorreu um erro ao enviar o endereço.");
+          }
+        });
+    </script>
   </body>
 </html>

@@ -1,81 +1,134 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
-    <link rel="stylesheet" href="politicadeprivacidade.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link rel="stylesheet" href="politicadeprivacidade.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Política de Privacidade | Fatal Lady</title>
-    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}">
-      <link rel="stylesheet" href="{{ url_for('static', path='css/layout-responsive.css') }}"/>
-</head>
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/home-style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/layout-responsive.css') }}"
+    />
+  </head>
 
-<body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
-  {% include '_header_nav.html' %}
+  <body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
+    {% include '_header_nav.html' %}
 
     <main class="conteudo">
-        <section class="privacidade">
-            <h2>Política de Privacidade</h2>
-            <p>Na <strong>Fatal Lady</strong>, respeitamos a sua privacidade e estamos comprometidos em proteger os seus dados pessoais. Esta Política de Privacidade explica como coletamos, utilizamos e protegemos suas informações ao utilizar nosso site e serviços.</p>
+      <section class="privacidade">
+        <h2>Política de Privacidade</h2>
+        <p>
+          Na <strong>Fatal Lady</strong>, respeitamos a sua privacidade e
+          estamos comprometidos em proteger os seus dados pessoais. Esta
+          Política de Privacidade explica como coletamos, utilizamos e
+          protegemos suas informações ao utilizar nosso site e serviços.
+        </p>
 
-            <h3>1. Coleta de Informações</h3>
-            <p>Coletamos informações pessoais fornecidas por você ao se cadastrar, realizar compras ou entrar em contato conosco. Essas informações podem incluir nome, e-mail, telefone, endereço e dados de pagamento.</p>
+        <h3>1. Coleta de Informações</h3>
+        <p>
+          Coletamos informações pessoais fornecidas por você ao se cadastrar,
+          realizar compras ou entrar em contato conosco. Essas informações podem
+          incluir nome, e-mail, telefone, endereço e dados de pagamento.
+        </p>
 
-            <h3>2. Uso das Informações</h3>
-            <p>Suas informações são utilizadas para:</p>
-            <ul>
-                <li>Processar e entregar seus pedidos;</li>
-                <li>Oferecer suporte e atendimento personalizado;</li>
-                <li>Melhorar nossos produtos e serviços;</li>
-                <li>Enviar comunicações promocionais (apenas com seu consentimento prévio).</li>
-            </ul>
+        <h3>2. Uso das Informações</h3>
+        <p>Suas informações são utilizadas para:</p>
+        <ul>
+          <li>Processar e entregar seus pedidos;</li>
+          <li>Oferecer suporte e atendimento personalizado;</li>
+          <li>Melhorar nossos produtos e serviços;</li>
+          <li>
+            Enviar comunicações promocionais (apenas com seu consentimento
+            prévio).
+          </li>
+        </ul>
 
-            <h3>3. Proteção dos Dados</h3>
-            <p>Adotamos medidas de segurança adequadas para proteger seus dados contra acessos não autorizados, perda, alteração ou divulgação indevida. As transações realizadas em nosso site são protegidas por criptografia e certificados de segurança.</p>
+        <h3>3. Proteção dos Dados</h3>
+        <p>
+          Adotamos medidas de segurança adequadas para proteger seus dados
+          contra acessos não autorizados, perda, alteração ou divulgação
+          indevida. As transações realizadas em nosso site são protegidas por
+          criptografia e certificados de segurança.
+        </p>
 
-            <h3>4. Compartilhamento de Informações</h3>
-            <p>Não compartilhamos seus dados pessoais com terceiros, exceto quando necessário para processamento de pagamentos, entregas ou cumprimento de obrigações legais.</p>
+        <h3>4. Compartilhamento de Informações</h3>
+        <p>
+          Não compartilhamos seus dados pessoais com terceiros, exceto quando
+          necessário para processamento de pagamentos, entregas ou cumprimento
+          de obrigações legais.
+        </p>
 
-            <h3>5. Cookies e Tecnologias Semelhantes</h3>
-            <p>Utilizamos cookies para melhorar a sua experiência de navegação, personalizar conteúdos e analisar o tráfego do site. Você pode desativar os cookies nas configurações do seu navegador.</p>
+        <h3>5. Cookies e Tecnologias Semelhantes</h3>
+        <p>
+          Utilizamos cookies para melhorar a sua experiência de navegação,
+          personalizar conteúdos e analisar o tráfego do site. Você pode
+          desativar os cookies nas configurações do seu navegador.
+        </p>
 
-            <h3>6. Seus Direitos</h3>
-            <p>Você tem o direito de acessar, corrigir ou excluir seus dados pessoais, bem como retirar seu consentimento para comunicações. Para exercer esses direitos, entre em contato pelo e-mail <a href="mailto:atendimento@fatallady.com.br">atendimento@fatallady.com.br</a>.</p>
+        <h3>6. Seus Direitos</h3>
+        <p>
+          Você tem o direito de acessar, corrigir ou excluir seus dados
+          pessoais, bem como retirar seu consentimento para comunicações. Para
+          exercer esses direitos, entre em contato pelo e-mail
+          <a href="mailto:atendimento@fatallady.com.br"
+            >atendimento@fatallady.com.br</a
+          >.
+        </p>
 
-            <h3>7. Alterações nesta Política</h3>
-            <p>Podemos atualizar esta Política periodicamente. Recomendamos que verifique esta página regularmente para se manter informado sobre quaisquer mudanças.</p>
+        <h3>7. Alterações nesta Política</h3>
+        <p>
+          Podemos atualizar esta Política periodicamente. Recomendamos que
+          verifique esta página regularmente para se manter informado sobre
+          quaisquer mudanças.
+        </p>
 
-            <h3>8. Contato</h3>
-            <p>Em caso de dúvidas sobre esta Política de Privacidade ou sobre o uso dos seus dados, entre em contato conosco pelo e-mail <a href="mailto:atendimento@fatallady.com.br">atendimento@fatallady.com.br</a>.</p>
+        <h3>8. Contato</h3>
+        <p>
+          Em caso de dúvidas sobre esta Política de Privacidade ou sobre o uso
+          dos seus dados, entre em contato conosco pelo e-mail
+          <a href="mailto:atendimento@fatallady.com.br"
+            >atendimento@fatallady.com.br</a
+          >.
+        </p>
 
-            <p class="ultima-atualizacao"><em>Última atualização: Novembro de 2025</em></p>
-        </section>
+        <p class="ultima-atualizacao">
+          <em>Última atualização: Novembro de 2025</em>
+        </p>
+      </section>
     </main>
 
     <footer>
-        <div class="footer-links">
-            <div>
-                <h4>MINHA CONTA</h4>
-                <a href="#">Meus Dados</a>
-                <a href="#">Meus Pedidos</a>
-                <a href="#">Cashback</a>
-                <a href="#">Login</a>
-            </div>
-            <div>
-                <h4>SUPORTE E POLÍTICAS</h4>
-                <a href="trocas e devoluções.html">Trocas e Devoluções</a>
-                <a href="duvidasfreq.html">Dúvidas Frequentes</a>
-                <a href="faleconosco.html">Fale Conosco</a>
-                <a href="politicaprivacidade.html">Política de Privacidade</a>
-            </div>
-            <div>
-                <h4>FORMAS DE PAGAMENTO</h4>
-                <img src="payment.png" alt="Formas de Pagamento">
-            </div>
+      <div class="footer-links">
+        <div>
+          <h4>MINHA CONTA</h4>
+          <a href="#">Meus Dados</a>
+          <a href="#">Meus Pedidos</a>
+          <a href="#">Cashback</a>
+          <a href="#">Login</a>
         </div>
-        <hr>
-        <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+        <div>
+          <h4>SUPORTE E POLÍTICAS</h4>
+          <a href="trocas e devoluções.html">Trocas e Devoluções</a>
+          <a href="duvidasfreq.html">Dúvidas Frequentes</a>
+          <a href="faleconosco.html">Fale Conosco</a>
+          <a href="politicaprivacidade.html">Política de Privacidade</a>
+        </div>
+        <div>
+          <h4>FORMAS DE PAGAMENTO</h4>
+          <img src="payment.png" alt="Formas de Pagamento" />
+        </div>
+      </div>
+      <hr />
+      <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
     </footer>
-</body>
+  </body>
 </html>

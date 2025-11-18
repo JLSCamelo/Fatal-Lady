@@ -199,10 +199,7 @@
       if (len <= 6) return digits.replace(/(\d{3})(\d{1,3})/, "$1.$2");
       if (len <= 9)
         return digits.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
-      return digits.replace(
-        /(\d{3})(\d{3})(\d{3})(\d{1,2})/,
-        "$1.$2.$3-$4"
-      );
+      return digits.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
     }
 
     function isValidCpf(digits) {

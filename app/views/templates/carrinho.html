@@ -1,146 +1,211 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrinho - Fatal Lady</title>
-  <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png">
-  <link rel="stylesheet" href="{{ url_for('static', path='css/carrinho.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', path='css/layout-responsive.css') }}"/>
-  <link
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrinho - Fatal Lady</title>
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/carrinho.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/layout-responsive.css') }}"
+    />
+    <link
       rel="stylesheet"
       href="{{ url_for('static', path='css/cart-badge.css') }}"
     />
-</head>
+  </head>
 
-<body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
-  {% include '_header_nav.html' %}
+  <body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
+    {% include '_header_nav.html' %}
 
-  <main class="cart-container" id="main" role="main">
-    <div class="cart-header" aria-hidden="false">
-      <h1>Meu Carrinho</h1>
-      <p>Revise seus produtos antes de finalizar a compra</p>
-    </div>
+    <main class="cart-container" id="main" role="main">
+      <div class="cart-header" aria-hidden="false">
+        <h1>Meu Carrinho</h1>
+        <p>Revise seus produtos antes de finalizar a compra</p>
+      </div>
 
-    {% if carrinho %}
-    <div class="cart-content" role="region" aria-label="Itens do carrinho">
-      <div class="cart-items">
-        {% for item in carrinho %}
-        <div class="cart-item" data-product-id="{{ item.produto_id }}" aria-labelledby="item-name-{{ loop.index }}">
-          <div class="item-image">
-            <img src="/static/uploads/img/catalogo/products/default.png" alt="{{ item.id }}">
-          </div>
-          <div class="item-details">
-            <div id="item-name-{{ loop.index }}" class="item-name">{{ item.produto.nome }}</div>
-            <div class="item-id">ID: {{ item.produto_id }}</div>
-            <div class="item-price" data-price="{{ item.preco_unitario }}">R$ {{ item.preco_unitario }}</div>
-          </div>
-          <div class="item-controls">
-            <form action="/carrinho/editar/{{item.produto_id }}" method="post" class="form-update-cart">
-              
-              <input type="hidden" name="tamanho" value="{{ item.tamanho }}">
-              
-              <div class="size-display">
-                Tamanho: {{ item.tamanho }}
+      {% if carrinho %}
+      <div class="cart-content" role="region" aria-label="Itens do carrinho">
+        <div class="cart-items">
+          {% for item in carrinho %}
+          <div
+            class="cart-item"
+            data-product-id="{{ item.produto_id }}"
+            aria-labelledby="item-name-{{ loop.index }}"
+          >
+            <div class="item-image">
+              <img
+                src="/static/uploads/img/catalogo/products/default.png"
+                alt="{{ item.id }}"
+              />
+            </div>
+            <div class="item-details">
+              <div id="item-name-{{ loop.index }}" class="item-name">
+                {{ item.produto.nome }}
               </div>
-
-              <div class="quantity-control">
-                <button type="button" class="btn-qty-minus" data-action="decrement">-</button>
-                
-                <input type="number" name="quantidade" value="{{ item.quantidade }}" min="1" class="input-quantity" aria-label="Quantidade">
-                
-                <button type="button" class="btn-qty-plus" data-action="increment">+</button>
+              <div class="item-id">ID: {{ item.produto_id }}</div>
+              <div class="item-price" data-price="{{ item.preco_unitario }}">
+                R$ {{ item.preco_unitario }}
               </div>
-              
+            </div>
+            <div class="item-controls">
+              <form
+                action="/carrinho/editar/{{item.produto_id }}"
+                method="post"
+                class="form-update-cart"
+              >
+                <input
+                  type="hidden"
+                  name="tamanho"
+                  value="{{ item.tamanho }}"
+                />
+
+                <div class="size-display">Tamanho: {{ item.tamanho }}</div>
+
+                <div class="quantity-control">
+                  <button
+                    type="button"
+                    class="btn-qty-minus"
+                    data-action="decrement"
+                  >
+                    -
+                  </button>
+
+                  <input
+                    type="number"
+                    name="quantidade"
+                    value="{{ item.quantidade }}"
+                    min="1"
+                    class="input-quantity"
+                    aria-label="Quantidade"
+                  />
+
+                  <button
+                    type="button"
+                    class="btn-qty-plus"
+                    data-action="increment"
+                  >
+                    +
+                  </button>
+                </div>
               </form>
 
-            <form action="/carrinho/remover/{{ item.produto_id }}" method="post" aria-label="Remover">
-              <button type="submit" class="btn-remove">Remover</button>
-            </form>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-
-      <aside class="cart-summary" role="complementary" aria-label="Resumo do pedido">
-        <div class="summary-title">Resumo do Pedido</div>
-        <div class="summary-row">
-          <span>Subtotal:</span>
-          <span id="subtotal">R$ {{ "%.2f"|format(total|float) }}</span>
-        </div>
-
-        <div class="summary-row">
-          <div id="resultadoFrete">
-            <div class="summary-row">
-              <span>Endereço:</span>
-              <span id="endereco">{{ usuario.enderecos[0].rua if usuario.enderecos else '' }}</span>
-            </div> 
-
-            <div class="summary-row">
-              <span>Frete:</span>
-              <span id="valor_frete">{% if total|float >= 299 %}Grátis{% else %}A calcular{% endif %}</span>
-            </div>
-
-            <div class="summary-row">
-              <span>Prazo:</span>
-              <span id="prazo"></span>
+              <form
+                action="/carrinho/remover/{{ item.produto_id }}"
+                method="post"
+                aria-label="Remover"
+              >
+                <button type="submit" class="btn-remove">Remover</button>
+              </form>
             </div>
           </div>
-          <button type="button" id="btnCalcularFrete">Calcular Frete</button>
+          {% endfor %}
         </div>
-        
-        <div class="summary-row total">
-          <span>Total:</span>
-          <span id="total">R$ {{ "%.2f"|format(total|float) }}</span>
+
+        <aside
+          class="cart-summary"
+          role="complementary"
+          aria-label="Resumo do pedido"
+        >
+          <div class="summary-title">Resumo do Pedido</div>
+          <div class="summary-row">
+            <span>Subtotal:</span>
+            <span id="subtotal">R$ {{ "%.2f"|format(total|float) }}</span>
+          </div>
+
+          <div class="summary-row">
+            <div id="resultadoFrete">
+              <div class="summary-row">
+                <span>Endereço:</span>
+                <span id="endereco"
+                  >{{ usuario.enderecos[0].rua if usuario.enderecos else ''
+                  }}</span
+                >
+              </div>
+
+              <div class="summary-row">
+                <span>Frete:</span>
+                <span id="valor_frete"
+                  >{% if total|float >= 299 %}Grátis{% else %}A calcular{% endif
+                  %}</span
+                >
+              </div>
+
+              <div class="summary-row">
+                <span>Prazo:</span>
+                <span id="prazo"></span>
+              </div>
+            </div>
+            <button type="button" id="btnCalcularFrete">Calcular Frete</button>
+          </div>
+
+          <div class="summary-row total">
+            <span>Total:</span>
+            <span id="total">R$ {{ "%.2f"|format(total|float) }}</span>
+          </div>
+          <form action="/checkout" method="post">
+            <button type="submit" class="btn-checkout">Finalizar Compra</button>
+          </form>
+          <a href="/produtos" class="btn-continue">Continuar Comprando</a>
+        </aside>
+      </div>
+      {% else %}
+      <div class="empty-cart" role="status" aria-live="polite">
+        <img
+          src="/static/uploads/img/carrinho/kart_alert.png"
+          alt="Carrinho Vazio"
+        />
+        <h2>Seu carrinho está vazio</h2>
+        <p>Adicione produtos e volte aqui para finalizar sua compra!</p>
+        <a href="/produtos" class="btn-continue-empty">Explorar Produtos</a>
+      </div>
+      {% endif %}
+    </main>
+
+    <!-- Footer padronizado (conteúdo padronizado com index) -->
+    <footer role="contentinfo">
+      <div class="footer-links">
+        <div>
+          <h4>Minha Conta</h4>
+          <a href="#">Meus Dados</a>
+          <a href="#">Meus Pedidos</a>
+          <a href="#">Cashback</a>
+          <a href="#">Login</a>
         </div>
-        <form action="/checkout" method="post">
-          <button type="submit" class="btn-checkout">Finalizar Compra</button>
-        </form>
-        <a href="/produtos" class="btn-continue">Continuar Comprando</a>
-      </aside>
-    </div>
-    {% else %}
-    <div class="empty-cart" role="status" aria-live="polite">
-      <img src="/static/uploads/img/carrinho/kart_alert.png" alt="Carrinho Vazio">
-      <h2>Seu carrinho está vazio</h2>
-      <p>Adicione produtos e volte aqui para finalizar sua compra!</p>
-      <a href="/produtos" class="btn-continue-empty">Explorar Produtos</a>
-    </div>
-    {% endif %}
-  </main>
+        <div>
+          <h4>Suporte e Políticas</h4>
+          <a href="#">Trocas e Devoluções</a>
+          <a href="#">Dúvidas Frequentes</a>
+          <a href="#">Fale Conosco</a>
+          <a href="#">Política de Privacidade</a>
+        </div>
+        <div>
+          <h4>Formas de Pagamento</h4>
+          <img
+            src="/static/uploads/img/catalogo/footer/payment.png"
+            alt="Formas de Pagamento"
+          />
+        </div>
+      </div>
+      <hr />
+      <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+    </footer>
 
-  <!-- Footer padronizado (conteúdo padronizado com index) -->
-  <footer role="contentinfo">
-    <div class="footer-links">
-      <div>
-        <h4>Minha Conta</h4>
-        <a href="#">Meus Dados</a>
-        <a href="#">Meus Pedidos</a>
-        <a href="#">Cashback</a>
-        <a href="#">Login</a>
-      </div>
-      <div>
-        <h4>Suporte e Políticas</h4>
-        <a href="#">Trocas e Devoluções</a>
-        <a href="#">Dúvidas Frequentes</a>
-        <a href="#">Fale Conosco</a>
-        <a href="#">Política de Privacidade</a>
-      </div>
-      <div>
-        <h4>Formas de Pagamento</h4>
-        <img src="/static/uploads/img/catalogo/footer/payment.png" alt="Formas de Pagamento">
-      </div>
-    </div>
-    <hr>
-    <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
-  </footer>
-
-  <script src="/static/js/carrinho.js" defer></script>
-  <script src="/static/js/promo-rotator.js" defer></script>
-  <script src="/static/js/cart-badge.js" defer></script>
-  <script>
-   const cepUsuario = "{{ usuario.enderecos[0].cep if usuario.enderecos else '' }}";
-  </script>
-  <script src="/static/js/frete-calcular.js" defer></script>
-</body>
+    <script src="/static/js/carrinho.js" defer></script>
+    <script src="/static/js/promo-rotator.js" defer></script>
+    <script src="/static/js/cart-badge.js" defer></script>
+    <script>
+      const cepUsuario =
+        "{{ usuario.enderecos[0].cep if usuario.enderecos else '' }}";
+    </script>
+    <script src="/static/js/frete-calcular.js" defer></script>
+  </body>
 </html>

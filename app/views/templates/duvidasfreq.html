@@ -1,80 +1,121 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
-    <link rel="stylesheet" href="duvidasfreq.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link rel="stylesheet" href="duvidasfreq.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dúvidas Frequentes | Fatal Lady</title>
-    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/layout-responsive.css') }}"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
-</head>
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/home-style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/layout-responsive.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+  </head>
 
-<body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
-  {% include '_header_nav.html' %}
+  <body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
+    {% include '_header_nav.html' %}
 
     <main class="conteudo">
-        <section class="faq">
-            <h2>Dúvidas Frequentes</h2>
-            <p>Confira abaixo as respostas para as perguntas mais comuns sobre nossos produtos, entregas, trocas e outros serviços.</p>
+      <section class="faq">
+        <h2>Dúvidas Frequentes</h2>
+        <p>
+          Confira abaixo as respostas para as perguntas mais comuns sobre nossos
+          produtos, entregas, trocas e outros serviços.
+        </p>
 
-            <div class="faq-item">
-                <h3>Como acompanho meu pedido?</h3>
-                <p>Assim que seu pedido for enviado, você receberá um e-mail com o código de rastreamento e o link da transportadora. Você também pode acompanhar o status em “Meus Pedidos” na sua conta.</p>
-            </div>
+        <div class="faq-item">
+          <h3>Como acompanho meu pedido?</h3>
+          <p>
+            Assim que seu pedido for enviado, você receberá um e-mail com o
+            código de rastreamento e o link da transportadora. Você também pode
+            acompanhar o status em “Meus Pedidos” na sua conta.
+          </p>
+        </div>
 
-            <div class="faq-item">
-                <h3>O produto que quero está esgotado. Ele voltará ao estoque?</h3>
-                <p>Alguns produtos são de edição limitada, mas você pode se cadastrar para ser avisado quando o item estiver disponível novamente.</p>
-            </div>
+        <div class="faq-item">
+          <h3>O produto que quero está esgotado. Ele voltará ao estoque?</h3>
+          <p>
+            Alguns produtos são de edição limitada, mas você pode se cadastrar
+            para ser avisado quando o item estiver disponível novamente.
+          </p>
+        </div>
 
-            <div class="faq-item">
-                <h3>Como faço para trocar um produto?</h3>
-                <p>Você pode solicitar a troca dentro de 7 dias após o recebimento, seguindo as instruções em nossa <a href="trocas e devoluções.html">Política de Trocas e Devoluções</a>.</p>
-            </div>
+        <div class="faq-item">
+          <h3>Como faço para trocar um produto?</h3>
+          <p>
+            Você pode solicitar a troca dentro de 7 dias após o recebimento,
+            seguindo as instruções em nossa
+            <a href="trocas e devoluções.html"
+              >Política de Trocas e Devoluções</a
+            >.
+          </p>
+        </div>
 
-            <div class="faq-item">
-                <h3>Quais são as formas de pagamento aceitas?</h3>
-                <p>Aceitamos cartões de crédito, Pix e boleto bancário. As opções disponíveis aparecem durante o checkout.</p>
-            </div>
+        <div class="faq-item">
+          <h3>Quais são as formas de pagamento aceitas?</h3>
+          <p>
+            Aceitamos cartões de crédito, Pix e boleto bancário. As opções
+            disponíveis aparecem durante o checkout.
+          </p>
+        </div>
 
-            <div class="faq-item">
-                <h3>Meu produto veio com defeito, o que devo fazer?</h3>
-                <p>Entre em contato pelo e-mail <a href="mailto:atendimento@fatallady.com.br">atendimento@fatallady.com.br</a> informando o número do pedido e o problema. Nossa equipe retornará com as instruções de análise e substituição.</p>
-            </div>
+        <div class="faq-item">
+          <h3>Meu produto veio com defeito, o que devo fazer?</h3>
+          <p>
+            Entre em contato pelo e-mail
+            <a href="mailto:atendimento@fatallady.com.br"
+              >atendimento@fatallady.com.br</a
+            >
+            informando o número do pedido e o problema. Nossa equipe retornará
+            com as instruções de análise e substituição.
+          </p>
+        </div>
 
-            <div class="faq-item">
-                <h3>Posso alterar ou cancelar meu pedido?</h3>
-                <p>Enquanto o pedido não tiver sido despachado, é possível solicitar alteração ou cancelamento entrando em contato com nosso atendimento.</p>
-            </div>
-        </section>
+        <div class="faq-item">
+          <h3>Posso alterar ou cancelar meu pedido?</h3>
+          <p>
+            Enquanto o pedido não tiver sido despachado, é possível solicitar
+            alteração ou cancelamento entrando em contato com nosso atendimento.
+          </p>
+        </div>
+      </section>
     </main>
 
     <footer>
-        <div class="footer-links">
-            <div>
-                <h4>MINHA CONTA</h4>
-                <a href="#">Meus Dados</a>
-                <a href="#">Meus Pedidos</a>
-                <a href="#">Cashback</a>
-                <a href="#">Login</a>
-            </div>
-            <div>
-                <h4>SUPORTE E POLÍTICAS</h4>
-                <a href="trocas e devoluções.html">Trocas e Devoluções</a>
-                <a href="duvidas-frequentes.html">Dúvidas Frequentes</a>
-                <a href="#">Fale Conosco</a>
-                <a href="#">Política de Privacidade</a>
-            </div>
-            <div>
-                <h4>FORMAS DE PAGAMENTO</h4>
-                <img src="payment.png" alt="Formas de Pagamento">
-            </div>
+      <div class="footer-links">
+        <div>
+          <h4>MINHA CONTA</h4>
+          <a href="#">Meus Dados</a>
+          <a href="#">Meus Pedidos</a>
+          <a href="#">Cashback</a>
+          <a href="#">Login</a>
         </div>
-        <hr>
-        <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+        <div>
+          <h4>SUPORTE E POLÍTICAS</h4>
+          <a href="trocas e devoluções.html">Trocas e Devoluções</a>
+          <a href="duvidas-frequentes.html">Dúvidas Frequentes</a>
+          <a href="#">Fale Conosco</a>
+          <a href="#">Política de Privacidade</a>
+        </div>
+        <div>
+          <h4>FORMAS DE PAGAMENTO</h4>
+          <img src="payment.png" alt="Formas de Pagamento" />
+        </div>
+      </div>
+      <hr />
+      <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
     </footer>
-</body>
+  </body>
 </html>

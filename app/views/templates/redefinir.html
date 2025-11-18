@@ -17,11 +17,14 @@
       rel="stylesheet"
       href="{{ url_for('static', path='css/auth-simples.css') }}"
     />
-      <link rel="stylesheet" href="{{ url_for('static', path='css/layout-responsive.css') }}"/>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/layout-responsive.css') }}"
+    />
   </head>
 
   <body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
-  {% include '_header_nav.html' %}
+    {% include '_header_nav.html' %}
 
     <main class="container">
       <div class="auth-page-grid">
@@ -40,7 +43,14 @@
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 >
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <rect
+                    x="3"
+                    y="11"
+                    width="18"
+                    height="11"
+                    rx="2"
+                    ry="2"
+                  ></rect>
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                 </svg>
               </div>
@@ -55,8 +65,8 @@
               class="register-form"
               action="/redefinir-senha"
               method="POST"
-              id="reset-form" 
-              novalidate 
+              id="reset-form"
+              novalidate
             >
               <input type="hidden" name="token" value="{{ token }}" />
 

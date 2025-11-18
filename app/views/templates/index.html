@@ -1,409 +1,605 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fatal Lady | Elegância em Cada Passo</title>
-  <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png"/>
-  <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}"/>
-  <link rel="stylesheet" href="{{ url_for('static', path='css/cart-badge.css') }}"/>
-  <link rel="stylesheet" href="{{ url_for('static', path='css/layout-responsive.css') }}"/>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fatal Lady | Elegância em Cada Passo</title>
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/home-style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/cart-badge.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/layout-responsive.css') }}"
+    />
+  </head>
 
-<body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
-  {% include '_header_nav.html' %}
+  <body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
+    {% include '_header_nav.html' %}
 
-  <main>
-    
-    <section id="hero">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1 class="hero-title">Elegância Diária</h1>
-        <h2 class="hero-subtitle">Saltos Finos, Atitude Marcante.</h2>
-        <a href="/produtos" class="hero-cta">Descubra a Coleção</a>
-      </div>
-      <div class="hero-scroll-indicator">
-        <div class="scroll-arrow">↓</div>
-      </div>
-    </section>
+    <main>
+      <section id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1 class="hero-title">Elegância Diária</h1>
+          <h2 class="hero-subtitle">Saltos Finos, Atitude Marcante.</h2>
+          <a href="/produtos" class="hero-cta">Descubra a Coleção</a>
+        </div>
+        <div class="hero-scroll-indicator">
+          <div class="scroll-arrow">↓</div>
+        </div>
+      </section>
 
-    <section id="benefits-bar">
-      <div class="benefits-container">
-        <div class="benefit-item">
-          <img src="/static/uploads/img/home/icons-discount/1.png" alt="Frete"/>
-          <div class="benefit-text">
-            <strong>Frete Grátis</strong>
-            <span>Acima de R$ 299</span>
+      <section id="benefits-bar">
+        <div class="benefits-container">
+          <div class="benefit-item">
+            <img
+              src="/static/uploads/img/home/icons-discount/1.png"
+              alt="Frete"
+            />
+            <div class="benefit-text">
+              <strong>Frete Grátis</strong>
+              <span>Acima de R$ 299</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <img
+              src="/static/uploads/img/home/icons-discount/2.png"
+              alt="PIX"
+            />
+            <div class="benefit-text">
+              <strong>5% OFF</strong>
+              <span>Pagamento via Pix</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <img
+              src="/static/uploads/img/home/icons-discount/3.png"
+              alt="Desconto"
+            />
+            <div class="benefit-text">
+              <strong>10% OFF</strong>
+              <span>Primeira Compra</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <img
+              src="/static/uploads/img/home/icons-discount/4.png"
+              alt="Parcelas"
+            />
+            <div class="benefit-text">
+              <strong>10x sem juros</strong>
+              <span>Em todos os cartões</span>
+            </div>
           </div>
         </div>
-        <div class="benefit-item">
-          <img src="/static/uploads/img/home/icons-discount/2.png" alt="PIX"/>
-          <div class="benefit-text">
-            <strong>5% OFF</strong>
-            <span>Pagamento via Pix</span>
-          </div>
-        </div>
-        <div class="benefit-item">
-          <img src="/static/uploads/img/home/icons-discount/3.png" alt="Desconto"/>
-          <div class="benefit-text">
-            <strong>10% OFF</strong>
-            <span>Primeira Compra</span>
-          </div>
-        </div>
-        <div class="benefit-item">
-          <img src="/static/uploads/img/home/icons-discount/4.png" alt="Parcelas"/>
-          <div class="benefit-text">
-            <strong>10x sem juros</strong>
-            <span>Em todos os cartões</span>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="featured-collection">
-      <div class="container">
-        <div class="section-header">
-          <h2>Coleção em Destaque</h2>
-          <p>Descubra as peças mais desejadas da temporada</p>
-        </div>
-        <div class="featured-grid">
-          {% for p in produtos[:4] %}
-          <article class="featured-card">
-            <a href="/produto-get/{{ p.id_produto }}" class="featured-link">
-              <div class="featured-image">
-                <img src="/static/uploads/img/catalogo/products/default.png" alt="{{ p.nome }}"/>
-                <div class="featured-overlay">
-                  <span class="view-product">Ver Detalhes</span>
+      <section id="featured-collection">
+        <div class="container">
+          <div class="section-header">
+            <h2>Coleção em Destaque</h2>
+            <p>Descubra as peças mais desejadas da temporada</p>
+          </div>
+          <div class="featured-grid">
+            {% for p in produtos[:4] %}
+            <article class="featured-card">
+              <a href="/produto-get/{{ p.id_produto }}" class="featured-link">
+                <div class="featured-image">
+                  <img
+                    src="/static/uploads/img/catalogo/products/default.png"
+                    alt="{{ p.nome }}"
+                  />
+                  <div class="featured-overlay">
+                    <span class="view-product">Ver Detalhes</span>
+                  </div>
                 </div>
+                <div class="featured-info">
+                  <span class="featured-category">{{ p.nome_categoria }}</span>
+                  <h3 class="featured-name">{{ p.nome }}</h3>
+                  <p class="featured-price">
+                    R$ {{ ('%.2f'|format(p.preco)).replace('.', ',') }}
+                  </p>
+                </div>
+              </a>
+            </article>
+            {% endfor %}
+          </div>
+          <div class="section-footer">
+            <a href="/produtos" class="btn-outline">Ver Catálogo Completo</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="brand-story">
+        <div class="container story-layout">
+          <div class="story-image">
+            <img
+              src="/static/uploads/img/home/about/about-us.png"
+              alt="Fatal Lady Brand"
+            />
+          </div>
+          <div class="story-content">
+            <span class="story-label">Nossa História</span>
+            <h2>Fatal Lady</h2>
+            <p>
+              Nascemos com o propósito de empoderar mulheres através da moda.
+              Cada par de sapatos é cuidadosamente desenhado para unir
+              elegância, conforto e modernidade.
+            </p>
+            <p>
+              Nossa missão é proporcionar confiança e estilo com produtos de
+              alta qualidade e design inovador, para que você brilhe em qualquer
+              ocasião.
+            </p>
+            <div class="story-stats">
+              <div class="stat-item">
+                <strong>5000+</strong>
+                <span>Clientes Satisfeitas</span>
               </div>
-              <div class="featured-info">
-                <span class="featured-category">{{ p.nome_categoria }}</span>
-                <h3 class="featured-name">{{ p.nome }}</h3>
-                <p class="featured-price">R$ {{ ('%.2f'|format(p.preco)).replace('.', ',') }}</p>
+              <div class="stat-item">
+                <strong>200+</strong>
+                <span>Modelos Exclusivos</span>
               </div>
+              <div class="stat-item">
+                <strong>98%</strong>
+                <span>Avaliações Positivas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="categories-showcase">
+        <div class="container">
+          <div class="section-header">
+            <h2>Explore por Categoria</h2>
+            <p>Encontre o estilo perfeito para cada momento</p>
+          </div>
+          <div class="categories-grid">
+            <a href="/produtos?cat=1" class="category-card">
+              <div class="category-image">
+                <img
+                  src="/static/uploads/img/home/icons-categories/1.png"
+                  alt="Saltos"
+                />
+              </div>
+              <h3>Saltos</h3>
+              <span class="category-count">45 modelos</span>
             </a>
-          </article>
-          {% endfor %}
+            <a href="/produtos?cat=2" class="category-card">
+              <div class="category-image">
+                <img
+                  src="/static/uploads/img/home/icons-categories/3.png"
+                  alt="Botas"
+                />
+              </div>
+              <h3>Botas</h3>
+              <span class="category-count">32 modelos</span>
+            </a>
+            <a href="/produtos?cat=3" class="category-card">
+              <div class="category-image">
+                <img
+                  src="/static/uploads/img/home/icons-categories/2.png"
+                  alt="Rasteiras"
+                />
+              </div>
+              <h3>Rasteiras</h3>
+              <span class="category-count">28 modelos</span>
+            </a>
+            <a href="/produtos?cat=4" class="category-card">
+              <div class="category-image">
+                <img
+                  src="/static/uploads/img/home/icons-categories/4.png"
+                  alt="Tênis"
+                />
+              </div>
+              <h3>Tênis</h3>
+              <span class="category-count">38 modelos</span>
+            </a>
+            <a href="/produtos?cat=5" class="category-card">
+              <div class="category-image">
+                <img
+                  src="/static/uploads/img/home/icons-categories/5.png"
+                  alt="Sapatilhas"
+                />
+              </div>
+              <h3>Sapatilhas</h3>
+              <span class="category-count">25 modelos</span>
+            </a>
+            <a href="/produtos?cat=6" class="category-card">
+              <div class="category-image">
+                <img
+                  src="/static/uploads/img/home/icons-categories/6.png"
+                  alt="Chinelos"
+                />
+              </div>
+              <h3>Chinelos</h3>
+              <span class="category-count">18 modelos</span>
+            </a>
+          </div>
         </div>
-        <div class="section-footer">
-          <a href="/produtos" class="btn-outline">Ver Catálogo Completo</a>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="brand-story">
-      <div class="container story-layout">
-        <div class="story-image">
-          <img src="/static/uploads/img/home/about/about-us.png" alt="Fatal Lady Brand"/>
+      <section id="carousel-collection">
+        <div class="container">
+          <div class="section-header">
+            <h2>Nossas Coleções</h2>
+          </div>
         </div>
-        <div class="story-content">
-          <span class="story-label">Nossa História</span>
-          <h2>Fatal Lady</h2>
-          <p>Nascemos com o propósito de empoderar mulheres através da moda. Cada par de sapatos é cuidadosamente desenhado para unir elegância, conforto e modernidade.</p>
-          <p>Nossa missão é proporcionar confiança e estilo com produtos de alta qualidade e design inovador, para que você brilhe em qualquer ocasião.</p>
-          <div class="story-stats">
-            <div class="stat-item">
-              <strong>5000+</strong>
-              <span>Clientes Satisfeitas</span>
+        <div class="carousel-wrapper">
+          <div class="carousel-track">
+            <div class="carousel-item">
+              <img
+                src="/static/uploads/img/home/carousel/1.png"
+                alt="Coleção 1"
+              />
             </div>
-            <div class="stat-item">
-              <strong>200+</strong>
-              <span>Modelos Exclusivos</span>
+            <div class="carousel-item">
+              <img
+                src="/static/uploads/img/home/carousel/2.png"
+                alt="Coleção 2"
+              />
             </div>
-            <div class="stat-item">
-              <strong>98%</strong>
-              <span>Avaliações Positivas</span>
+            <div class="carousel-item">
+              <img
+                src="/static/uploads/img/home/carousel/3.png"
+                alt="Coleção 3"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="/static/uploads/img/home/carousel/4.png"
+                alt="Coleção 4"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="/static/uploads/img/home/carousel/5.png"
+                alt="Coleção 5"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="/static/uploads/img/home/carousel/1.png"
+                alt="Coleção 1"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="/static/uploads/img/home/carousel/2.png"
+                alt="Coleção 2"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="/static/uploads/img/home/carousel/3.png"
+                alt="Coleção 3"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="/static/uploads/img/home/carousel/4.png"
+                alt="Coleção 4"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="/static/uploads/img/home/carousel/5.png"
+                alt="Coleção 5"
+              />
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="categories-showcase">
-      <div class="container">
-        <div class="section-header">
-          <h2>Explore por Categoria</h2>
-          <p>Encontre o estilo perfeito para cada momento</p>
+      <section id="testimonials">
+        <div class="container">
+          <div class="section-header">
+            <h2>O que Nossas Clientes Dizem</h2>
+          </div>
+          <div class="testimonials-grid">
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <p>
+                "Qualidade excepcional! Os sapatos são lindos e super
+                confortáveis. Virei cliente fiel."
+              </p>
+              <div class="testimonial-author">
+                <strong>Maria Silva</strong>
+                <span>São Paulo, SP</span>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <p>
+                "Adorei o atendimento e a entrega super rápida. Os produtos são
+                exatamente como nas fotos."
+              </p>
+              <div class="testimonial-author">
+                <strong>Ana Costa</strong>
+                <span>Rio de Janeiro, RJ</span>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <p>
+                "Já comprei 3 pares e pretendo comprar mais. O melhor
+                custo-benefício que encontrei!"
+              </p>
+              <div class="testimonial-author">
+                <strong>Juliana Mendes</strong>
+                <span>Belo Horizonte, MG</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="categories-grid">
-          <a href="/produtos?cat=1" class="category-card">
-            <div class="category-image">
-              <img src="/static/uploads/img/home/icons-categories/1.png" alt="Saltos"/>
-            </div>
-            <h3>Saltos</h3>
-            <span class="category-count">45 modelos</span>
-          </a>
-          <a href="/produtos?cat=2" class="category-card">
-            <div class="category-image">
-              <img src="/static/uploads/img/home/icons-categories/3.png" alt="Botas"/>
-            </div>
-            <h3>Botas</h3>
-            <span class="category-count">32 modelos</span>
-          </a>
-          <a href="/produtos?cat=3" class="category-card">
-            <div class="category-image">
-              <img src="/static/uploads/img/home/icons-categories/2.png" alt="Rasteiras"/>
-            </div>
-            <h3>Rasteiras</h3>
-            <span class="category-count">28 modelos</span>
-          </a>
-          <a href="/produtos?cat=4" class="category-card">
-            <div class="category-image">
-              <img src="/static/uploads/img/home/icons-categories/4.png" alt="Tênis"/>
-            </div>
-            <h3>Tênis</h3>
-            <span class="category-count">38 modelos</span>
-          </a>
-          <a href="/produtos?cat=5" class="category-card">
-            <div class="category-image">
-              <img src="/static/uploads/img/home/icons-categories/5.png" alt="Sapatilhas"/>
-            </div>
-            <h3>Sapatilhas</h3>
-            <span class="category-count">25 modelos</span>
-          </a>
-          <a href="/produtos?cat=6" class="category-card">
-            <div class="category-image">
-              <img src="/static/uploads/img/home/icons-categories/6.png" alt="Chinelos"/>
-            </div>
-            <h3>Chinelos</h3>
-            <span class="category-count">18 modelos</span>
-          </a>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="carousel-collection">
-      <div class="container">
-        <div class="section-header">
-          <h2>Nossas Coleções</h2>
+      <section id="size-guide">
+        <div class="container">
+          <div class="section-header">
+            <h2>Guia de Tamanhos</h2>
+            <p>Encontre o tamanho perfeito para você</p>
+          </div>
+          <div class="size-guide-content">
+            <div class="size-table-wrapper">
+              <table class="size-table">
+                <thead>
+                  <tr>
+                    <th>BR</th>
+                    <th>US</th>
+                    <th>EU</th>
+                    <th>CM</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>34</td>
+                    <td>5</td>
+                    <td>35</td>
+                    <td>22.0</td>
+                  </tr>
+                  <tr>
+                    <td>35</td>
+                    <td>6</td>
+                    <td>36</td>
+                    <td>22.5</td>
+                  </tr>
+                  <tr>
+                    <td>36</td>
+                    <td>7</td>
+                    <td>37</td>
+                    <td>23.0</td>
+                  </tr>
+                  <tr>
+                    <td>37</td>
+                    <td>8</td>
+                    <td>38</td>
+                    <td>23.5</td>
+                  </tr>
+                  <tr>
+                    <td>38</td>
+                    <td>9</td>
+                    <td>39</td>
+                    <td>24.0</td>
+                  </tr>
+                  <tr>
+                    <td>39</td>
+                    <td>10</td>
+                    <td>40</td>
+                    <td>24.5</td>
+                  </tr>
+                  <tr>
+                    <td>40</td>
+                    <td>11</td>
+                    <td>41</td>
+                    <td>25.0</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="size-guide-info">
+              <h3>Como Medir Seu Pé</h3>
+              <p>
+                Para garantir o ajuste perfeito, siga estas instruções simples
+                para medir seu pé corretamente.
+              </p>
+              <div class="size-tips">
+                <h4>Dicas Importantes:</h4>
+                <ul>
+                  <li>
+                    Meça seus pés no final do dia quando estão levemente
+                    inchados
+                  </li>
+                  <li>Use as meias que você pretende usar com os sapatos</li>
+                  <li>Meça ambos os pés e use a medida do pé maior</li>
+                  <li>Em caso de dúvida, escolha o tamanho maior</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="carousel-wrapper">
-        <div class="carousel-track">
-          <div class="carousel-item"><img src="/static/uploads/img/home/carousel/1.png" alt="Coleção 1"/></div>
-          <div class="carousel-item"><img src="/static/uploads/img/home/carousel/2.png" alt="Coleção 2"/></div>
-          <div class="carousel-item"><img src="/static/uploads/img/home/carousel/3.png" alt="Coleção 3"/></div>
-          <div class="carousel-item"><img src="/static/uploads/img/home/carousel/4.png" alt="Coleção 4"/></div>
-          <div class="carousel-item"><img src="/static/uploads/img/home/carousel/5.png" alt="Coleção 5"/></div>
-          <div class="carousel-item"><img src="/static/uploads/img/home/carousel/1.png" alt="Coleção 1"/></div>
-          <div class="carousel-item"><img src="/static/uploads/img/home/carousel/2.png" alt="Coleção 2"/></div>
-          <div class="carousel-item"><img src="/static/uploads/img/home/carousel/3.png" alt="Coleção 3"/></div>
-          <div class="carousel-item"><img src="/static/uploads/img/home/carousel/4.png" alt="Coleção 4"/></div>
-          <div class="carousel-item"><img src="/static/uploads/img/home/carousel/5.png" alt="Coleção 5"/></div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="testimonials">
-      <div class="container">
-        <div class="section-header">
-          <h2>O que Nossas Clientes Dizem</h2>
+      <section id="faq">
+        <div class="container">
+          <div class="section-header">
+            <h2>Dúvidas Frequentes</h2>
+            <p>Tire suas principais dúvidas antes de comprar</p>
+          </div>
+          <div class="faq-list">
+            <div class="faq-item">
+              <input type="checkbox" id="faq-1" />
+              <label for="faq-1">
+                <span>Como eu crio uma conta no site?</span>
+                <img
+                  src="/static/uploads/img/home/icons-faq/seta.png"
+                  alt="Toggle"
+                />
+              </label>
+              <div class="faq-answer">
+                Para criar uma conta, clique em "Cadastrar", preencha seus dados
+                básicos e confirme o e-mail enviado para ativação da conta.
+              </div>
+            </div>
+            <div class="faq-item">
+              <input type="checkbox" id="faq-2" />
+              <label for="faq-2">
+                <span>Esqueci minha senha — como recupero o acesso?</span>
+                <img
+                  src="/static/uploads/img/home/icons-faq/seta.png"
+                  alt="Toggle"
+                />
+              </label>
+              <div class="faq-answer">
+                Use a opção "Esqueci a senha" na tela de login; você receberá um
+                e-mail com instruções para redefinição em poucos minutos.
+              </div>
+            </div>
+            <div class="faq-item">
+              <input type="checkbox" id="faq-3" />
+              <label for="faq-3">
+                <span>Quais formas de pagamento são aceitas?</span>
+                <img
+                  src="/static/uploads/img/home/icons-faq/seta.png"
+                  alt="Toggle"
+                />
+              </label>
+              <div class="faq-answer">
+                Aceitamos cartões de crédito, boleto bancário e PIX. A
+                disponibilidade pode variar conforme a sua região.
+              </div>
+            </div>
+            <div class="faq-item">
+              <input type="checkbox" id="faq-4" />
+              <label for="faq-4">
+                <span>Qual o prazo de entrega dos produtos?</span>
+                <img
+                  src="/static/uploads/img/home/icons-faq/seta.png"
+                  alt="Toggle"
+                />
+              </label>
+              <div class="faq-answer">
+                O prazo estimado aparece na finalização da compra e varia
+                conforme o frete escolhido e o CEP de destino.
+              </div>
+            </div>
+            <div class="faq-item">
+              <input type="checkbox" id="faq-5" />
+              <label for="faq-5">
+                <span>Posso devolver ou trocar um produto?</span>
+                <img
+                  src="/static/uploads/img/home/icons-faq/seta.png"
+                  alt="Toggle"
+                />
+              </label>
+              <div class="faq-answer">
+                Sim — trocas e devoluções são realizadas dentro do prazo legal
+                mediante produto intacto; entre em contato com nosso suporte
+                para iniciar o processo.
+              </div>
+            </div>
+            <div class="faq-item">
+              <input type="checkbox" id="faq-6" />
+              <label for="faq-6">
+                <span>Como acompanho o status do meu pedido?</span>
+                <img
+                  src="/static/uploads/img/home/icons-faq/seta.png"
+                  alt="Toggle"
+                />
+              </label>
+              <div class="faq-answer">
+                Você pode acompanhar pelo link de rastreamento enviado por
+                e-mail ou acessando sua área de pedidos ao fazer login.
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="testimonials-grid">
-          <div class="testimonial-card">
-            <div class="testimonial-stars">★★★★★</div>
-            <p>"Qualidade excepcional! Os sapatos são lindos e super confortáveis. Virei cliente fiel."</p>
-            <div class="testimonial-author">
-              <strong>Maria Silva</strong>
-              <span>São Paulo, SP</span>
-            </div>
-          </div>
-          <div class="testimonial-card">
-            <div class="testimonial-stars">★★★★★</div>
-            <p>"Adorei o atendimento e a entrega super rápida. Os produtos são exatamente como nas fotos."</p>
-            <div class="testimonial-author">
-              <strong>Ana Costa</strong>
-              <span>Rio de Janeiro, RJ</span>
-            </div>
-          </div>
-          <div class="testimonial-card">
-            <div class="testimonial-stars">★★★★★</div>
-            <p>"Já comprei 3 pares e pretendo comprar mais. O melhor custo-benefício que encontrei!"</p>
-            <div class="testimonial-author">
-              <strong>Juliana Mendes</strong>
-              <span>Belo Horizonte, MG</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="size-guide">
-      <div class="container">
-        <div class="section-header">
-          <h2>Guia de Tamanhos</h2>
-          <p>Encontre o tamanho perfeito para você</p>
-        </div>
-        <div class="size-guide-content">
-          <div class="size-table-wrapper">
-            <table class="size-table">
-              <thead>
-                <tr>
-                  <th>BR</th>
-                  <th>US</th>
-                  <th>EU</th>
-                  <th>CM</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>34</td><td>5</td><td>35</td><td>22.0</td></tr>
-                <tr><td>35</td><td>6</td><td>36</td><td>22.5</td></tr>
-                <tr><td>36</td><td>7</td><td>37</td><td>23.0</td></tr>
-                <tr><td>37</td><td>8</td><td>38</td><td>23.5</td></tr>
-                <tr><td>38</td><td>9</td><td>39</td><td>24.0</td></tr>
-                <tr><td>39</td><td>10</td><td>40</td><td>24.5</td></tr>
-                <tr><td>40</td><td>11</td><td>41</td><td>25.0</td></tr>
-              </tbody>
-            </table>
+      <section id="newsletter-carousel">
+        <div class="container newsletter-wrapper">
+          <div class="newsletter-header">
+            <h2>Benefícios Exclusivos</h2>
+            <p>Cadastre-se e aproveite vantagens especiais</p>
           </div>
-          <div class="size-guide-info">
-            <h3>Como Medir Seu Pé</h3>
-            <p>Para garantir o ajuste perfeito, siga estas instruções simples para medir seu pé corretamente.</p>
-            <div class="size-tips">
-              <h4>Dicas Importantes:</h4>
-              <ul>
-                <li>Meça seus pés no final do dia quando estão levemente inchados</li>
-                <li>Use as meias que você pretende usar com os sapatos</li>
-                <li>Meça ambos os pés e use a medida do pé maior</li>
-                <li>Em caso de dúvida, escolha o tamanho maior</li>
-              </ul>
+          <div class="carousel-newsletter">
+            <div class="newsletter-card">
+              <div class="newsletter-icon">10%</div>
+              <h3>Desconto na Primeira Compra</h3>
+              <p>
+                Ganhe 10% de desconto imediato ao se cadastrar em nossa
+                newsletter.
+              </p>
+            </div>
+            <div class="newsletter-card">
+              <div class="newsletter-icon">🎁</div>
+              <h3>Ofertas Exclusivas</h3>
+              <p>
+                Receba em primeira mão promoções e lançamentos antes de todo
+                mundo.
+              </p>
+            </div>
+            <div class="newsletter-card">
+              <div class="newsletter-icon">📦</div>
+              <h3>Frete Grátis</h3>
+              <p>
+                Aproveite frete grátis em compras acima de R$ 299 e receba em
+                casa.
+              </p>
+            </div>
+            <div class="newsletter-card">
+              <div class="newsletter-icon">⭐</div>
+              <h3>Programa de Cashback</h3>
+              <p>
+                Acumule pontos a cada compra e troque por descontos futuros.
+              </p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
-    <section id="faq">
-      <div class="container">
-        <div class="section-header">
-          <h2>Dúvidas Frequentes</h2>
-          <p>Tire suas principais dúvidas antes de comprar</p>
+    <footer>
+      <div class="footer-links">
+        <div>
+          <h4>MINHA CONTA</h4>
+          <a href="#">Meus Dados</a>
+          <a href="#">Meus Pedidos</a>
+          <a href="#">Cashback</a>
+          <a href="#">Login</a>
         </div>
-        <div class="faq-list">
-          <div class="faq-item">
-            <input type="checkbox" id="faq-1"/>
-            <label for="faq-1">
-              <span>Como eu crio uma conta no site?</span>
-              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Toggle"/>
-            </label>
-            <div class="faq-answer">
-              Para criar uma conta, clique em "Cadastrar", preencha seus dados básicos e confirme o e-mail enviado para ativação da conta.
-            </div>
-          </div>
-          <div class="faq-item">
-            <input type="checkbox" id="faq-2"/>
-            <label for="faq-2">
-              <span>Esqueci minha senha — como recupero o acesso?</span>
-              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Toggle"/>
-            </label>
-            <div class="faq-answer">
-              Use a opção "Esqueci a senha" na tela de login; você receberá um e-mail com instruções para redefinição em poucos minutos.
-            </div>
-          </div>
-          <div class="faq-item">
-            <input type="checkbox" id="faq-3"/>
-            <label for="faq-3">
-              <span>Quais formas de pagamento são aceitas?</span>
-              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Toggle"/>
-            </label>
-            <div class="faq-answer">
-              Aceitamos cartões de crédito, boleto bancário e PIX. A disponibilidade pode variar conforme a sua região.
-            </div>
-          </div>
-          <div class="faq-item">
-            <input type="checkbox" id="faq-4"/>
-            <label for="faq-4">
-              <span>Qual o prazo de entrega dos produtos?</span>
-              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Toggle"/>
-            </label>
-            <div class="faq-answer">
-              O prazo estimado aparece na finalização da compra e varia conforme o frete escolhido e o CEP de destino.
-            </div>
-          </div>
-          <div class="faq-item">
-            <input type="checkbox" id="faq-5"/>
-            <label for="faq-5">
-              <span>Posso devolver ou trocar um produto?</span>
-              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Toggle"/>
-            </label>
-            <div class="faq-answer">
-              Sim — trocas e devoluções são realizadas dentro do prazo legal mediante produto intacto; entre em contato com nosso suporte para iniciar o processo.
-            </div>
-          </div>
-          <div class="faq-item">
-            <input type="checkbox" id="faq-6"/>
-            <label for="faq-6">
-              <span>Como acompanho o status do meu pedido?</span>
-              <img src="/static/uploads/img/home/icons-faq/seta.png" alt="Toggle"/>
-            </label>
-            <div class="faq-answer">
-              Você pode acompanhar pelo link de rastreamento enviado por e-mail ou acessando sua área de pedidos ao fazer login.
-            </div>
-          </div>
+        <div>
+          <h4>SUPORTE E POLÍTICAS</h4>
+          <a href="#">Trocas e Devoluções</a>
+          <a href="#">Dúvidas Frequentes</a>
+          <a href="#">Fale Conosco</a>
+          <a href="#">Política de Privacidade</a>
+        </div>
+        <div>
+          <h4>FORMAS DE PAGAMENTO</h4>
+          <img
+            src="/static/uploads/img/catalogo/footer/payment.png"
+            alt="Formas de Pagamento"
+          />
         </div>
       </div>
-    </section>
+      <hr />
+      <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+    </footer>
 
-    <section id="newsletter-carousel">
-      <div class="container newsletter-wrapper">
-        <div class="newsletter-header">
-          <h2>Benefícios Exclusivos</h2>
-          <p>Cadastre-se e aproveite vantagens especiais</p>
-        </div>
-        <div class="carousel-newsletter">
-          <div class="newsletter-card">
-            <div class="newsletter-icon">10%</div>
-            <h3>Desconto na Primeira Compra</h3>
-            <p>Ganhe 10% de desconto imediato ao se cadastrar em nossa newsletter.</p>
-          </div>
-          <div class="newsletter-card">
-            <div class="newsletter-icon">🎁</div>
-            <h3>Ofertas Exclusivas</h3>
-            <p>Receba em primeira mão promoções e lançamentos antes de todo mundo.</p>
-          </div>
-          <div class="newsletter-card">
-            <div class="newsletter-icon">📦</div>
-            <h3>Frete Grátis</h3>
-            <p>Aproveite frete grátis em compras acima de R$ 299 e receba em casa.</p>
-          </div>
-          <div class="newsletter-card">
-            <div class="newsletter-icon">⭐</div>
-            <h3>Programa de Cashback</h3>
-            <p>Acumule pontos a cada compra e troque por descontos futuros.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <div class="footer-links">
-      <div>
-        <h4>MINHA CONTA</h4>
-        <a href="#">Meus Dados</a>
-        <a href="#">Meus Pedidos</a>
-        <a href="#">Cashback</a>
-        <a href="#">Login</a>
-      </div>
-      <div>
-        <h4>SUPORTE E POLÍTICAS</h4>
-        <a href="#">Trocas e Devoluções</a>
-        <a href="#">Dúvidas Frequentes</a>
-        <a href="#">Fale Conosco</a>
-        <a href="#">Política de Privacidade</a>
-      </div>
-      <div>
-        <h4>FORMAS DE PAGAMENTO</h4>
-        <img src="/static/uploads/img/catalogo/footer/payment.png" alt="Formas de Pagamento"/>
-      </div>
-    </div>
-    <hr/>
-    <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
-  </footer>
-
-  <script src="/static/js/home-main.js" defer></script>
-  <script src="/static/js/promo-rotator.js" defer></script>
-  <script src="/static/js/cart-badge.js" defer></script>
-</body>
+    <script src="/static/js/home-main.js" defer></script>
+    <script src="/static/js/promo-rotator.js" defer></script>
+    <script src="/static/js/cart-badge.js" defer></script>
+  </body>
 </html>

@@ -24,7 +24,12 @@ body {
   padding: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Poppins",
     "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #fdf2f8 0, #f9fafb 40%, #f3f4f6 100%);
+  background: radial-gradient(
+    circle at top,
+    #fdf2f8 0,
+    #f9fafb 40%,
+    #f3f4f6 100%
+  );
   color: var(--text-main);
   min-height: 100vh;
 }

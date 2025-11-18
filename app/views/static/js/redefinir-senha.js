@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // --- SELETORES ---
   // Use o ID correto do formulário de redefinição
-  const form = document.getElementById("reset-form"); 
+  const form = document.getElementById("reset-form");
   const senhaInput = document.getElementById("senha");
   const confirmarSenhaInput = document.getElementById("confirmar-senha");
   const strengthProgress = document.getElementById("strength-progress");
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (e) {
       // Reseta a mensagem de erro
       errorMessage.style.display = "none";
-      
+
       const senha = senhaInput.value;
       const confirmarSenha = confirmarSenhaInput.value;
 
@@ -69,12 +69,18 @@ document.addEventListener("DOMContentLoaded", function () {
         senhaInput.focus();
         return;
       }
-      
+
       // Validação de regras (ex: número, especial)
       // O medidor de força já indica isso, mas podemos forçar
-      if (!hasNumber.test(senha) || !hasSpecialChar.test(senha) || !hasLower.test(senha) || !hasUpper.test(senha)) {
+      if (
+        !hasNumber.test(senha) ||
+        !hasSpecialChar.test(senha) ||
+        !hasLower.test(senha) ||
+        !hasUpper.test(senha)
+      ) {
         e.preventDefault(); // Impede o envio
-        errorMessage.textContent = "A senha deve ser 'Forte' (usar maiúsculas, minúsculas, números e símbolos).";
+        errorMessage.textContent =
+          "A senha deve ser 'Forte' (usar maiúsculas, minúsculas, números e símbolos).";
         errorMessage.style.display = "block";
         senhaInput.focus();
         return;

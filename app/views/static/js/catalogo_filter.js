@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // --- Mapeamento de Categoria ---
   // Mapeia o data-filter (numérico) do botão para o data-category (texto) do produto.
   const categoryMap = {};
-  catButtons.forEach(btn => {
-      categoryMap[btn.dataset.filter] = btn.textContent.trim();
+  catButtons.forEach((btn) => {
+    categoryMap[btn.dataset.filter] = btn.textContent.trim();
   });
 
   // --- Estado dos Filtros ---
@@ -53,7 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const colorSet = new Map();
   productCards.forEach((card) => {
     let color = (card.dataset.color || "Unspecified").trim();
-    if (color && color.toLowerCase() !== "unspecified" && !colorSet.has(color)) {
+    if (
+      color &&
+      color.toLowerCase() !== "unspecified" &&
+      !colorSet.has(color)
+    ) {
       colorSet.set(color, color);
     }
   });
@@ -68,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
     btn.setAttribute("aria-label", "Filtro cor " + key);
     colorFiltersContainer.appendChild(btn);
   });
-  
+
   const colorChips = colorFiltersContainer.querySelectorAll(".color-chip");
 
   // --- Função Principal de Aplicação de Filtros (VERSÃO CORRIGIDA) ---
@@ -76,19 +80,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const minVal = parseFloat(priceMinInput.value);
     const maxVal = parseFloat(priceMaxInput.value);
     const searchTerm = (searchInput.value || "").toLowerCase().trim();
-    const selectedCategoryName = activeCategory ? categoryMap[activeCategory] : null;
+    const selectedCategoryName = activeCategory
+      ? categoryMap[activeCategory]
+      : null;
 
     productCards.forEach((card) => {
       const cardPrice = parseFloat(card.dataset.price || 0);
       const cardColor = (card.dataset.color || "Unspecified").trim();
       const cardName = (card.dataset.name || "").toLowerCase();
       const cardCategory = (card.dataset.category || "").trim();
-      
+
       // Lógica de checagem dos outros filtros
-      const matchesCategory = !selectedCategoryName || cardCategory === selectedCategoryName;
+      const matchesCategory =
+        !selectedCategoryName || cardCategory === selectedCategoryName;
       const matchesPrice = cardPrice >= minVal && cardPrice <= maxVal;
-      const matchesColor = activeColors.size === 0 || activeColors.has(cardColor);
-      const matchesSearch = searchTerm.length === 0 || cardName.includes(searchTerm);
+      const matchesColor =
+        activeColors.size === 0 || activeColors.has(cardColor);
+      const matchesSearch =
+        searchTerm.length === 0 || cardName.includes(searchTerm);
 
       // --- LÓGICA DE TAMANHO CORRIGIDA E ISOLADA ---
       let matchesSize = false;
@@ -100,12 +109,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const productSizesStr = card.dataset.size || "";
         // Verifica se ALGUM dos tamanhos selecionados pelo usuário existe na string do produto.
         // O método .some() para assim que encontra a primeira correspondência.
-        matchesSize = [...activeSizes].some(selectedSize => productSizesStr.split('/').includes(selectedSize));
+        matchesSize = [...activeSizes].some((selectedSize) =>
+          productSizesStr.split("/").includes(selectedSize)
+        );
       }
       // --- FIM DA LÓGICA DE TAMANHO ---
 
       // A visibilidade final depende de TODOS os filtros serem verdadeiros.
-      const isVisible = matchesCategory && matchesPrice && matchesColor && matchesSearch && matchesSize;
+      const isVisible =
+        matchesCategory &&
+        matchesPrice &&
+        matchesColor &&
+        matchesSearch &&
+        matchesSize;
       card.style.display = isVisible ? "" : "none";
     });
 
@@ -116,7 +132,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateCategoryRowVisibility() {
     categoryRows.forEach((row) => {
-      const visibleCards = row.querySelector('.product-card:not([style*="display: none"])');
+      const visibleCards = row.querySelector(
+        '.product-card:not([style*="display: none"])'
+      );
       row.style.display = visibleCards ? "" : "none";
       refreshRowArrows(row);
     });
@@ -127,17 +145,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const prev = row.querySelector(".scroll-prev");
     const next = row.querySelector(".scroll-next");
     if (!track || !prev || !next) return;
-    
+
     requestAnimationFrame(() => {
-        const hasOverflow = track.scrollWidth > track.clientWidth;
-        if (!hasOverflow) {
-            prev.style.display = 'none';
-            next.style.display = 'none';
-            return;
-        }
-        const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth - 1);
-        prev.style.display = track.scrollLeft > 5 ? "inline-flex" : "none";
-        next.style.display = track.scrollLeft < maxScroll ? "inline-flex" : "none";
+      const hasOverflow = track.scrollWidth > track.clientWidth;
+      if (!hasOverflow) {
+        prev.style.display = "none";
+        next.style.display = "none";
+        return;
+      }
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth - 1);
+      prev.style.display = track.scrollLeft > 5 ? "inline-flex" : "none";
+      next.style.display =
+        track.scrollLeft < maxScroll ? "inline-flex" : "none";
     });
   }
 
@@ -174,17 +193,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     applyFilters();
   });
-  
+
   // Filtros de Tamanho (seleção múltipla)
-  sizeChips.forEach(chip => {
-    chip.addEventListener('click', function() {
+  sizeChips.forEach((chip) => {
+    chip.addEventListener("click", function () {
       const size = this.dataset.size;
       if (activeSizes.has(size)) {
         activeSizes.delete(size);
-        this.classList.remove('active');
+        this.classList.remove("active");
       } else {
         activeSizes.add(size);
-        this.classList.add('active');
+        this.classList.add("active");
       }
       applyFilters();
     });
@@ -222,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
     catButtons.forEach((b) => b.classList.remove("active"));
     colorChips.forEach((c) => c.classList.remove("active"));
     sizeChips.forEach((s) => s.classList.remove("active"));
-    
+
     // Resetar preço
     priceMinInput.value = priceMinInput.min;
     priceMaxInput.value = priceMaxInput.max;
@@ -250,9 +269,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Usa um observer para performance, em vez de 'scroll' event
-    const observer = new IntersectionObserver(() => refreshRowArrows(row), { threshold: 0.1 });
+    const observer = new IntersectionObserver(() => refreshRowArrows(row), {
+      threshold: 0.1,
+    });
     observer.observe(row);
-    track.addEventListener("scroll", () => refreshRowArrows(row), { passive: true });
+    track.addEventListener("scroll", () => refreshRowArrows(row), {
+      passive: true,
+    });
     window.addEventListener("resize", () => refreshRowArrows(row));
     refreshRowArrows(row);
   });
