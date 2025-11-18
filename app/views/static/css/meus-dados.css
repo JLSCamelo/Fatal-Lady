@@ -303,3 +303,115 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ==================== TOASTS GLOBAIS (SUCESSO/ERRO) ==================== */
+
+#status-toast-container {
+  position: fixed;
+  top: 5rem;              /* abaixo do header/nav fixos */
+  right: 1.5rem;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;   /* só o toast recebe clique */
+}
+
+/* toast levemente maior que o padrão anterior */
+.status-toast {
+  min-width: 310px;       /* antes ~280 */
+  max-width: 400px;       /* antes ~360 */
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+  padding: 1rem 1.1rem;   /* leve aumento */
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  transform: translateX(120%);
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(10px);
+  pointer-events: auto;
+}
+
+.status-toast.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.status-toast.success {
+  border-left: 4px solid #22c55e;
+}
+
+.status-toast.error {
+  border-left: 4px solid var(--main-red, #cb1313);
+}
+
+.status-toast__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
+}
+
+.status-toast.success .status-toast__icon {
+  background: rgba(34, 197, 94, 0.12);
+  color: #166534;
+}
+
+.status-toast.error .status-toast__icon {
+  background: rgba(203, 19, 19, 0.12);
+  color: var(--main-red, #cb1313);
+}
+
+.status-toast__content {
+  flex: 1;
+}
+
+.status-toast__title {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.status-toast__message {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #4b453f;
+}
+
+.status-toast__close {
+  margin-left: 0.25rem;
+  border: none;
+  background: transparent;
+  padding: 0.1rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #6b7280;
+}
+
+.status-toast__close:hover {
+  color: #111827;
+}
+
+@media (max-width: 640px) {
+  #status-toast-container {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .status-toast {
+    width: min(95vw, 400px);
+  }
+}

@@ -6,17 +6,31 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.controllers.pagamento_controller import criar_pagamento, atualizar_status
 from app.models.pagamento_model import PagamentoDB
+from app.models.pedido_model import PedidoDB
 from datetime import datetime
 import json
 
 router = APIRouter()
 templates = Jinja2Templates(directory="app/views/templates")
-
 @router.get("/pagamentos")
 def pagamentos_page(request: Request, pedido_id: int, db: Session = Depends(get_db)):
-    # mostra opções de pagamento para o pedido
-    return templates.TemplateResponse("payments/options.html", {"request": request, "pedido_id": pedido_id})
+    """
+    Tela de escolha da forma de pagamento.
+    Recebe só o pedido_id na querystring.
+    """
+    pedido = db.query(PedidoDB).filter_by(id=pedido_id).first()
+    if not pedido:
+        raise HTTPException(status_code=404, detail="Pedido não encontrado")
 
+    # se quiser exibir o total na tela, o template pode usar pedido.valortotal
+    return templates.TemplateResponse(
+        "payments/options.html",
+        {
+            "request": request,
+            "pedido_id": pedido_id,
+            "pedido": pedido,
+        },
+    )
 @router.post("/pagamentos/iniciar")
 async def iniciar_pagamento(
     request: Request,
@@ -44,30 +58,50 @@ async def iniciar_pagamento(
     elif metodo == "transferencia":
         tipo_pagamento = "transferencia"
     else:
+        # fallback bem definido
         tipo_pagamento = "boleto"
 
+    # Busca o pedido no banco e usa o valor salvo nele
+    pedido = db.query(PedidoDB).filter_by(id=pedido_id).first()
+    if not pedido:
+        raise HTTPException(status_code=404, detail="Pedido não encontrado")
+
+    valor = float(pedido.valortotal or 0.0)
 
     # cria pagamento
     pagamento = criar_pagamento(
-        db = db, 
-        pedido_id = pedido_id, 
+        db=db,
+        pedido_id=pedido_id,
         tipo_pagamento=tipo_pagamento,
         valor_total=pedido.valortotal
     )
 
     # redirecionamento por método
     if metodo == "boleto":
-        return RedirectResponse(f"/pagamentos/boleto?pagamento_id={pagamento.id}", status_code=303)
+        return RedirectResponse(
+            f"/pagamentos/boleto?pagamento_id={pagamento.id}",
+            status_code=303,
+        )
 
     if metodo == "pix":
-        return RedirectResponse(f"/pagamentos/pix?pagamento_id={pagamento.id}", status_code=303)
+        return RedirectResponse(
+            f"/pagamentos/pix?pagamento_id={pagamento.id}",
+            status_code=303,
+        )
 
     if metodo in ("cartao", "debito"):
-        return RedirectResponse(f"/pagamentos/cartao?pagamento_id={pagamento.id}", status_code=303)
+        return RedirectResponse(
+            f"/pagamentos/cartao?pagamento_id={pagamento.id}",
+            status_code=303,
+        )
 
     if metodo == "transferencia":
-        return RedirectResponse(f"/pagamentos/transferencia?pagamento_id={pagamento.id}", status_code=303)
+        return RedirectResponse(
+            f"/pagamentos/transferencia?pagamento_id={pagamento.id}",
+            status_code=303,
+        )
 
+    # fallback - não deveria cair aqui
     return RedirectResponse("/", status_code=303)
 
 # página de status
