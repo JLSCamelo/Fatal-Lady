@@ -3,18 +3,24 @@ from fastapi import HTTPException, Request
 from app.auth import verificar_token
 from app.database import SessionLocal
 from app.models.carrinho_model import *
+from app.models.usuario_model import *
 
 CEP_LOJA = "03008020"  # CEP SENAI
 
 def controller_calcular_frete(request: Request, cep_destino: str):
     token = request.cookies.get("token")
     payload = verificar_token(token)
+    
+    #teste degub
+    # print("DEBUG TOKEN RAW:", token)
+    # print("DEBUG PAYLOAD:", payload)
+    # print("DEBUG PAYLOAD SUB:", payload.get("sub") if payload else None)
     if not payload:
         raise HTTPException(status_code=401, detail="Usuário não autenticado")
 
     # O token retorna e-mail, mas seu banco espera um INT.
     try:
-        user_id = int(payload.get("sub"))
+        user_id = payload.get("sub")
     except:
         raise HTTPException(status_code=400, detail="Token inválido: ID do usuário não é um número")
 
@@ -33,12 +39,25 @@ def controller_calcular_frete(request: Request, cep_destino: str):
         raise HTTPException(status_code=400, detail="CEP não encontrado")
 
     db = SessionLocal()
-    carrinho = (
-        db.query(CarrinhoDB)
-        .filter(CarrinhoDB.id_cliente == user_id)
+    email = payload.get("sub")
+    if not email:
+        raise HTTPException(status_code=400, detail="Token inválido: subject vazio")
+
+    # Se o CarrinhoDB tem relacionamento via usuário:
+    usuario = (
+        db.query(UsuarioDB)
+        .filter(UsuarioDB.email == email)
         .first()
     )
-    db.close()
+
+    if not usuario:
+        raise HTTPException(status_code=400, detail="Usuário não encontrado")
+
+    carrinho = (
+        db.query(CarrinhoDB)
+        .filter(CarrinhoDB.id_cliente == usuario.id_cliente)
+        .first()
+    )
 
     # Sem carrinho = valor 0
     total_compra = carrinho.valortotal if carrinho else 0

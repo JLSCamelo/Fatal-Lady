@@ -45,16 +45,18 @@
 //       alert("Erro ao calcular o frete. Tente novamente.");
 //     }
 //   });
-
 document.getElementById("btnCalcularFrete").addEventListener("click", async () => {
+  const cep = (typeof cepUsuario === "string" ? cepUsuario.trim() : "");
 
-  // PEGAR CEP DO USUÁRIO
-  const cep = cepUsuario;
+  if (!cep) {
+    alert("CEP do usuário não encontrado.");
+    return;
+  }
+
   try {
-
-    const response = await fetch(`/frete/calcular/?cep_destino=${cep}`, {
-      method: "GET"
-      // OBS: não precisa enviar Authorization, pois o backend usa cookie
+    const response = await fetch(`/frete/calcular/?cep_destino=${encodeURIComponent(cep)}`, {
+      method: "GET",
+      credentials: "include"
     });
 
     if (!response.ok) {
@@ -63,26 +65,48 @@ document.getElementById("btnCalcularFrete").addEventListener("click", async () =
 
     const data = await response.json();
 
-    // MOSTRA A ÁREA RESULTADO
-    document.getElementById("resultadoFrete").style.display = "block";
+    // Mostra área de frete
+    const resultadoFreteEl = document.getElementById("resultadoFrete");
+    if (resultadoFreteEl) {
+      resultadoFreteEl.style.display = "block";
+    }
 
-    // ATUALIZA OS CAMPOS VISUAIS
+    // Frete como número
+    let valorFrete = Number(data.valor_frete);
+    if (Number.isNaN(valorFrete)) {
+      valorFrete = Number(String(data.valor_frete).replace(",", ".")) || 0;
+    }
+
     document.getElementById("endereco").innerText = data.endereco;
-    document.getElementById("valor_frete").innerText = data.valor_frete.toFixed(2);
+    document.getElementById("valor_frete").innerText = valorFrete.toFixed(2);
     document.getElementById("prazo").innerText = data.prazo_estimado_dias + " dias";
 
-    // CALCULA TOTAL
-    const subtotal = parseFloat(document.getElementById("subtotal").innerText);
-    const total = subtotal + data.valor_frete;
-    document.getElementById("total").innerText = total.toFixed(2);
+    // Subtotal
+    const subtotalEl = document.getElementById("subtotal");
+    let subtotal = Number(subtotalEl?.dataset?.valor);
 
-    // CAMPOS OCULTOS (para enviar no checkout)
+    if (Number.isNaN(subtotal)) {
+      const subtotalText = subtotalEl.innerText
+        .replace("R$", "")
+        .replace(/\s/g, "")
+        .replace(".", "")
+        .replace(",", ".");
+      subtotal = parseFloat(subtotalText) || 0;
+    }
+
+    const total = subtotal + valorFrete;
+
+    console.log("DEBUG subtotal:", subtotal, "frete:", valorFrete, "total:", total);
+
+    document.getElementById("total").innerText = "R$ " + total.toFixed(2);
+
     document.getElementById("cepHidden").value = cep;
     document.getElementById("enderecoHidden").value = data.endereco;
-    document.getElementById("freteHidden").value = data.valor_frete.toFixed(2);
+    document.getElementById("freteHidden").value = valorFrete.toFixed(2);
     document.getElementById("totalHidden").value = total.toFixed(2);
 
   } catch (error) {
+    console.error(error);
     alert("Erro ao calcular o frete. Tente novamente.");
   }
 });
