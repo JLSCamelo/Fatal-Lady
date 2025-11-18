@@ -424,6 +424,40 @@ nav {
   color: var(--muted);
 }
 
+/* ================== ESTADOS DE ERRO - LOGIN ================== */
+
+/* borda vermelha + leve glow para campo inválido */
+.input-field.is-invalid {
+  border-color: var(--main-red);
+  box-shadow: 0 0 0 3px rgba(203, 19, 19, 0.15);
+}
+
+/* animação de "balanço" no wrapper da senha */
+.password-wrapper.shake .input-field {
+  animation: field-shake 0.28s ease-in-out;
+}
+
+@keyframes field-shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+/* texto de erro logo abaixo do campo de senha */
+.field-error-message {
+  margin-top: 0.2rem;
+  font-size: 0.85rem;
+  color: var(--main-red);
+}
+
+/* garante layout correto do texto do toast */
+.toast .text {
+  flex: 1;
+}
+
 footer {
   padding: 2rem 1rem 1rem;
   margin-top: auto;

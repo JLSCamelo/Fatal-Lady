@@ -415,3 +415,217 @@
     width: min(95vw, 400px);
   }
 }
+
+/* Fundo escuro */
+.delete-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1500;
+    transition: opacity .25s ease;
+}
+.delete-modal-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Caixa do modal */
+.delete-modal {
+    width: min(420px, 92vw);
+    background: #fff;
+    border-radius: 18px;
+    padding: 2rem 2.3rem;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform .25s ease, opacity .25s ease;
+}
+
+.delete-modal-overlay.visible .delete-modal {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Ícone */
+.delete-modal-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 999px;
+    background: rgba(203,19,19,.12);
+    color: #cb1313;
+    font-size: 1.6rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+/* Título e textos */
+.delete-modal-title {
+    margin: 0 0 .6rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #111;
+}
+
+.delete-modal-text {
+    font-size: .95rem;
+    color: #555;
+    margin: 0 0 1.5rem;
+}
+
+/* Botões */
+.delete-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: .8rem;
+}
+
+.delete-btn {
+    padding: .65rem 1.6rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-size: .9rem;
+    cursor: pointer;
+    transition: .15s ease;
+    font-weight: 600;
+}
+
+.delete-btn.cancel {
+    background: #f5f5f5;
+    color: #444;
+    border-color: #e5e5e5;
+}
+.delete-btn.cancel:hover {
+    background: #ebebeb;
+}
+
+.delete-btn.confirm {
+    background: #cb1313;
+    color: #fff;
+}
+.delete-btn.confirm:hover {
+    background: #b40f10;
+}
+
+.delete-btn:disabled {
+    opacity: .7;
+    cursor: default;
+}
+
+
+/* Reaproveita o container de toasts da página de dados, se existir */
+#status-toast-container {
+    position: fixed;
+    top: 5rem;
+    right: 1.5rem;
+    z-index: 1300;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    pointer-events: none;
+}
+
+.status-toast {
+    min-width: 310px;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+    padding: 1rem 1.1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    transform: translateX(120%);
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(10px);
+    pointer-events: auto;
+}
+
+.status-toast.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.status-toast.success {
+    border-left: 4px solid #22c55e;
+}
+
+.status-toast.error {
+    border-left: 4px solid var(--main-red, #cb1313);
+}
+
+.status-toast__icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.04);
+    flex-shrink: 0;
+}
+
+.status-toast.success .status-toast__icon {
+    background: rgba(34, 197, 94, 0.12);
+    color: #166534;
+}
+
+.status-toast.error .status-toast__icon {
+    background: rgba(203, 19, 19, 0.12);
+    color: var(--main-red, #cb1313);
+}
+
+.status-toast__content {
+    flex: 1;
+}
+
+.status-toast__title {
+    display: block;
+    margin-bottom: 0.15rem;
+    font-size: 0.9rem;
+    color: #111827;
+}
+
+.status-toast__message {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #4b453f;
+}
+
+.status-toast__close {
+    margin-left: 0.25rem;
+    border: none;
+    background: transparent;
+    padding: 0.1rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    color: #6b7280;
+}
+
+.status-toast__close:hover {
+    color: #111827;
+}
+
+@media (max-width: 640px) {
+    #status-toast-container {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+
+    .status-toast {
+        width: min(95vw, 400px);
+    }
+}
