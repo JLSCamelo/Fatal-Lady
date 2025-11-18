@@ -100,61 +100,61 @@
     </nav>
 
     <main class="container">
-      <div class="auth-page-grid">
-        <aside class="register-wrapper">
-          <div class="register-card">
-            <div class="card-header">
-              <div class="icon-wrapper">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+        <div class="auth-page-grid">
+            <aside class="register-wrapper">
+            <div class="register-card">
+                <div class="card-header">
+                <div class="icon-wrapper">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <h2>Esqueci Minha Senha</h2>
+                <p class="subtitle">
+                    Insira seu e-mail para receber um link de redefinição.
+                </p>
+                </div>
+
+                <form
+                class="register-form"
+                action="/esqueci-senha-login"
+                method="POST"
                 >
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                </svg>
-              </div>
-              <h2>Esqueci Minha Senha</h2>
-              <p class="subtitle">
-                Insira seu e-mail para receber um link de redefinição.
-              </p>
+                <div class="input-row">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    placeholder="seu.email@exemplo.com"
+                    class="input-field"
+                    />
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Enviar Link de Redefinição
+                </button>
+
+                <p class="login-link">
+                    Lembrou sua senha?
+                    <a href="/login" class="link">Voltar para Login</a>
+                </p>
+                </form>
             </div>
-
-            <form
-              class="register-form"
-              action="/esqueci-senha-login"
-              method="POST"
-            >
-              <div class="input-row">
-                <label for="email">Email <span class="required">*</span></label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  placeholder="seu.email@exemplo.com"
-                  class="input-field"
-                />
-              </div>
-
-              <button type="submit" class="btn btn-primary">
-                Enviar Link de Redefinição
-              </button>
-
-              <p class="login-link">
-                Lembrou sua senha?
-                <a href="/login" class="link">Voltar para Login</a>
-              </p>
-            </form>
-          </div>
-        </aside>
-      </div>
+            </aside>
+        </div>
     </main>
 
     <footer>
@@ -185,5 +185,6 @@
       <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
     </footer>
 
+    <script src="/static/js/esqueci-toast.js" defer></script>
     </body>
 </html>
