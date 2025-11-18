@@ -10,12 +10,18 @@ def criar_pagamento(db: Session, pedido_id: int, tipo_pagamento: str, valor_tota
     # dados: dicionario com metadados conforme tipo (ex: cpf, banco, agencia, etc.)
     # """
 
-  pagamento = PagamentoDB(
+    pagamento = PagamentoDB(
       pedido_id = pedido_id,
-      valor_total = valor_total,
+      valor_total=valor_total, 
+      tipo_pagamento= tipo_pagamento,
       metodo_pagamento = "manual",
       status = "pendente"
-  )
+    )
+    db.add(pagamento)
+    db.commit()
+    db.refresh(pagamento)
+
+    return pagamento 
 
 def atualizar_status(db: Session, pagamento_id: int, novo_status: str, mensagem: str = None):
     pagamento = db.query(PagamentoDB).filter(PagamentoDB.id == pagamento_id).first()

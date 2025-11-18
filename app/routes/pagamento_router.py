@@ -1,5 +1,5 @@
 # NAO FUNCIONANDO!!!!!!!!!!!!!!!!!!!!!!!!!! por enquanto
-from fastapi import APIRouter, Request, Depends, Form
+from fastapi import APIRouter, Request, Depends, Form, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
@@ -22,9 +22,14 @@ async def iniciar_pagamento(
     request: Request,
     pedido_id: int = Form(...),
     metodo: str = Form(...),
-    valor: float = Form(...),
     db: Session = Depends(get_db)
 ):
+    from app.models.pedido_model import PedidoDB 
+
+    pedido = db.query(PedidoDB).filter_by(id=pedido_id).first()
+    if not pedido:
+        raise HTTPException(status_code=404, detail="Pedido não encontrado")
+
     # método de pagamento
     metodo = metodo.lower()
 
@@ -47,7 +52,7 @@ async def iniciar_pagamento(
         db = db, 
         pedido_id = pedido_id, 
         tipo_pagamento=tipo_pagamento,
-        valor_total=valor
+        valor_total=pedido.valortotal
     )
 
     # redirecionamento por método
