@@ -10,46 +10,8 @@
     <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}">
 </head>
 
-<body>
-    <header>
-        <div class="header-div">
-            <img src="languages.png" id="language-icon" />
-            <select name="language" id="language">
-                <option value="br">BR</option>
-                <option value="en">EN</option>
-                <option value="es">ES</option>
-            </select>
-        </div>
-
-        <div class="header-div">
-            <p><b>Frete Grátis</b> para Compras Acima de R$ 299,00</p>
-        </div>
-
-        <div class="header-div">
-            <a href="#">Ajuda</a>
-            <a href="#">Entrar</a>
-        </div>
-    </header>
-
-    <nav>
-        <div class="nav-div">
-            <form action="/search" method="get" id="search-form">
-                <button type="submit">
-                    <img src="lupa.png" id="search-icon" />
-                </button>
-                <input type="search" id="search-input" name="Search" placeholder="Buscar">
-            </form>
-        </div>
-
-        <div class="nav-div">
-            <img src="letreiro-logo.png" id="logo" alt="Logo" />
-        </div>
-
-        <div class="nav-div">
-            <img src="carrinho-de-compras.png" id="shopping-kart-icon" class="icons" />
-            <img src="menu-hamburguer.png" id="menu-hamburguer-icon" class="icons" />
-        </div>
-    </nav>
+<body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
+  {% include '_header_nav.html' %}
 
     <main class="conteudo">
         <section class="contato">
