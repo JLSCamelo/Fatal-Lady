@@ -252,6 +252,52 @@
                     maxlength="15"
                   />
                 </div>
+
+                <div class="input-group">
+                  <div class="input-row">
+                    <label for="cpf">CPF <span class="required">*</span></label>
+                    <input
+                      id="cpf"
+                      name="cpf"
+                      type="text"
+                      class="input-field"
+                      required
+                      placeholder="123.456.789-10"
+                      maxlength="14"
+                    />
+                  </div>
+
+                  <div class="input-row">
+                    <label for="data_nascimento"
+                      >Data de Nascimento <span class="required">*</span></label
+                    >
+                    <input
+                      id="data_nascimento"
+                      name="data_nascimento"
+                      type="date"
+                      class="input-field"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="input-row">
+                  <label for="genero"
+                    >Gênero <span class="required">*</span></label
+                  >
+                  <select
+                    id="genero"
+                    name="genero"
+                    class="input-field"
+                    required
+                  >
+                    <option value="">Selecione seu gênero</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                    <option value="Outro">Outro</option>
+                    <option value="NaoInformar">Prefiro não informar</option>
+                  </select>
+                </div>
               </div>
 
               <div class="form-section">

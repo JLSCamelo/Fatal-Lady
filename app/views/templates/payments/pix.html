@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,12 +9,13 @@
     {% extends "base.html" %}
     {% block content %}
     <h2>PIX - Código gerado</h2>
+
     <p>Pagamento ID: {{ pagamento.id }}</p>
-    <p>Valor: R$ {{ "%.2f"|format(pagamento.valor if pagamento.valor else 0) }}</p>
+    <p>Valor: R$ {{ "%.2f"|format(pagamento.valor_total) }}</p>
     <p>Código PIX para pagamento (simulado): <strong>{{ codigo_pix }}</strong></p>
-    <p>Você pode copiar o código e efetuar o pagamento pelo seu banco. Após confirmação manual, você pode marcar como pago.</p>
-    <a href="/pagamentos/success">Marcar como pago (simulação)</a>
+    <p>Você pode copiar o código e efetuar o pagamento pelo seu banco.</p>
+
+    <a href="/pagamentos/success">Marcar como pago</a>
     {% endblock %}
-    
 </body>
-</html>
+</html> -->
