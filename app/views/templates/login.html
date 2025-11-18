@@ -15,6 +15,10 @@
     />
     <link
       rel="stylesheet"
+      href="{{ url_for('static', path='css/home-style.css') }}"
+    />
+    <link
+      rel="stylesheet"
       href="{{ url_for('static', path='css/layout-responsive.css') }}"
     />
   </head>
@@ -25,8 +29,9 @@
         <img
           src="/static/uploads/img/home/icons-main/languages.png"
           id="language-icon"
+          alt="Idioma"
         />
-        <select name="language" id="language">
+        <select name="language" id="language" aria-label="Selecionar idioma">
           <option value="br">BR</option>
           <option value="en">EN</option>
           <option value="es">ES</option>
@@ -40,73 +45,46 @@
           aria-live="polite"
           aria-atomic="true"
         >
-          <span id="promo-text" class="promo-text"
-            ><b>Frete Grátis</b> para Compras Acima de R$ 299,00</span
-          >
+          <span id="promo-text" class="promo-text">
+            <b>Frete Grátis</b> para Compras Acima de R$ 299,00
+          </span>
         </div>
       </div>
 
-      <div class="header-div">
-        <a href="/">Ajuda</a>
-        {% if usuario %}
-        <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
-        {% else %}
-        <a href="/login">Entrar</a>
-        {% endif %}
+      <div class="header-div header-actions">
+          <a href="/duvidasfreq" class="header-link">Ajuda</a>
+          <a href="/login" class="header-link">Entrar</a>
+          <a href="/cadastrar/" class="header-link">Criar conta</a>
       </div>
     </header>
 
-    <nav>
-      <div class="nav-div">
+    <nav id="main_nav">
+      <div class="nav-div nav-left">
         <a href="/" class="text_sections">Início</a>
         <a href="/produtos" class="text_sections">Catálogo</a>
         <a href="/carrinho" class="text_sections">Carrinho</a>
       </div>
 
-      <div class="nav-div">
+      <div class="nav-div nav-center">
         <a href="/">
-          <img
-            src="/static/uploads/img/home/icons-main/letreiro-logo.png"
-            id="logo"
-            alt="Logo"
-          />
+          <img src="/static/uploads/img/home/icons-main/letreiro-logo.png" id="logo" alt="Logo Fatal Lady"/>
         </a>
       </div>
 
-      <div class="nav-div">
-        <a href="/carrinho">
-          <img
-            src="/static/uploads/img/home/icons-main/kart.png"
-            id="kart-icon"
-            class="icons"
-          />
-        </a>
+      <div class="nav-div nav-right">
+        <div class="cart-link-wrapper">
+          <a href="/carrinho">
+            <img src="/static/uploads/img/home/icons-main/kart.png" id="kart-icon" class="icons" alt="Carrinho"/>
+          </a>
+        </div>
         <a href="/produtos">
-          <img
-            src="/static/uploads/img/home/icons-main/shop.png"
-            id="shop-icon"
-            class="icons"
-          />
+          <img src="/static/uploads/img/home/icons-main/shop.png" id="shop-icon" class="icons" alt="Loja"/>
         </a>
-        {% if usuario %}
-        <a href="/me/painel">
-          <img
-            src="/static/uploads/img/home/icons-main/user.png"
-            id="user-icon"
-            class="icons"
-          />
-        </a>
-        {% else %}
         <a href="/login">
-          <img
-            src="/static/uploads/img/home/icons-main/user.png"
-            id="user-icon"
-            class="icons"
-          />
+          <img src="/static/uploads/img/home/icons-main/user.png" id="user-icon" class="icons" alt="Login"/>
         </a>
-        {% endif %}
       </div>
-    </nav>
+  </nav>
 
     <main class="container" id="main" role="main">
       <div class="page-grid">
@@ -361,8 +339,8 @@
       </div>
     </main>
 
-    <footer role="contentinfo">
-      <div class="footer-links">
+    <footer class="footer-login" role="contentinfo">
+      <div class="footer-links-2">
         <div>
           <h4>MINHA CONTA</h4>
           <a href="#">Meus Dados</a>
