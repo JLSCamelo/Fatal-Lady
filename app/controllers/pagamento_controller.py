@@ -4,22 +4,27 @@ from datetime import datetime
 from app.models.pagamento_model import PagamentoDB
 
 def criar_pagamento(db: Session, pedido_id: int, tipo_pagamento: str, valor_total: float):
-    # """
-    # Cria um pagamento interno no banco sem usar gateway externo.
-    # tipo: TipoPagamento (BOLETO, PIX, CARTAO, DEBITO, TRANSFERENCIA)
-    # dados: dicionario com metadados conforme tipo (ex: cpf, banco, agencia, etc.)
-    # """
 
-  pagamento = PagamentoDB(
-      pedido_id = pedido_id,
-      valor_total = valor_total,
-      metodo_pagamento = "manual",
-      status = "pendente"
-  )
+    pagamento = PagamentoDB(
+        pedido_id=pedido_id,
+        valor_total=valor_total,
+        tipo_pagamento=tipo_pagamento,
+        metodo_pagamento=tipo_pagamento,
+        status="pendente",
+        parcelas=1,
+        data_criacao=datetime.utcnow(),
+        data_atualizacao=datetime.utcnow()
+    )
+
+    db.add(pagamento)
+    db.commit()
+    db.refresh(pagamento)
+
+    return pagamento
 
 def atualizar_status(db: Session, pagamento_id: int, novo_status: str, mensagem: str = None):
     pagamento = db.query(PagamentoDB).filter(PagamentoDB.id == pagamento_id).first()
-    
+
     if not pagamento:
         raise HTTPException(status_code=404, detail="Pagamento não encontrado")
 
