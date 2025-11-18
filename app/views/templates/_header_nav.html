@@ -25,77 +25,144 @@
     </div>
   </div>
 
-  <div class="header-div">
-    {% if usuario.is_admin == True %}
-    <a href="/admin" style="color: rgb(223, 16, 16)">Painel do Admin</a>
+  <div class="header-div header-actions">
+    {% if usuario and usuario.is_admin %}
+      <a href="/admin" class="header-link header-admin" style="color: rgb(223, 16, 16);">
+        Painel do Admin
+      </a>
     {% else %}
-    <a href="#">Ajuda</a>
-    {% endif %} {% if usuario %}
-    <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
+      <a href="/duvidasfreq" class="header-link">Ajuda</a>
+    {% endif %}
+
+    {% if usuario %}
+      <a href="/me/painel" class="header-link">
+        Olá, {{ usuario.nome.split(' ')[0] }}
+      </a>
+      <a href="/logout" class="header-link">Sair</a>
     {% else %}
-    <a href="/login">Entrar</a>
+      <a href="/login" class="header-link">Entrar</a>
+      <a href="/cadastrar/" class="header-link">Criar conta</a>
     {% endif %}
   </div>
 </header>
 
 <nav id="main_nav">
-  <div class="nav-div">
+  <div class="nav-div nav-left">
     <a href="/" class="text_sections">Início</a>
     <a href="/produtos" class="text_sections">Catálogo</a>
     <a href="/carrinho" class="text_sections">Carrinho</a>
   </div>
 
-  <div class="nav-div">
+  <div class="nav-div nav-center">
     <a href="/">
-      <img
-        src="/static/uploads/img/home/icons-main/letreiro-logo.png"
-        id="logo"
-        alt="Logo Fatal Lady"
-      />
+      <img src="/static/uploads/img/home/icons-main/letreiro-logo.png" id="logo" alt="Logo Fatal Lady"/>
     </a>
   </div>
 
-  <div class="nav-div">
+  <div class="nav-div nav-right">
     <div class="cart-link-wrapper">
       <a href="/carrinho">
-        <img
-          src="/static/uploads/img/home/icons-main/kart.png"
-          id="kart-icon"
-          class="icons"
-          alt="Carrinho"
-        />
+        <img src="/static/uploads/img/home/icons-main/kart.png" id="kart-icon" class="icons" alt="Carrinho"/>
       </a>
-      <!-- badge do carrinho -->
-      <span class="cart-badge" id="cart-badge" hidden>0</span>
     </div>
-
     <a href="/produtos">
-      <img
-        src="/static/uploads/img/home/icons-main/shop.png"
-        id="shop-icon"
-        class="icons"
-        alt="Loja"
-      />
+      <img src="/static/uploads/img/home/icons-main/shop.png" id="shop-icon" class="icons" alt="Loja"/>
     </a>
-
     {% if usuario %}
-    <a href="/me/painel">
-      <img
-        src="/static/uploads/img/home/icons-main/user.png"
-        id="user-icon"
-        class="icons"
-        alt="Perfil"
-      />
-    </a>
+      <a href="/me/painel">
+        <img src="/static/uploads/img/home/icons-main/user.png" id="user-icon" class="icons" alt="Perfil"/>
+      </a>
     {% else %}
-    <a href="/login">
-      <img
-        src="/static/uploads/img/home/icons-main/user.png"
-        id="user-icon"
-        class="icons"
-        alt="Login"
-      />
-    </a>
+      <a href="/login">
+        <img src="/static/uploads/img/home/icons-main/user.png" id="user-icon" class="icons" alt="Login"/>
+      </a>
     {% endif %}
   </div>
+
+  <!-- Botão hamburguer (visível apenas no mobile) -->
+  <button
+    class="nav-toggle"
+    id="nav-toggle"
+    type="button"
+    aria-label="Abrir menu de navegação"
+    aria-expanded="false"
+    aria-controls="mobile-menu-overlay"
+  >
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+  </button>
 </nav>
+
+<!-- Overlay / modal do menu mobile -->
+<div
+  id="mobile-menu-overlay"
+  class="mobile-menu-overlay"
+  aria-hidden="true"
+>
+  <div class="mobile-menu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+    <div class="mobile-menu-header">
+      <span id="mobile-menu-title" class="mobile-menu-title">Menu</span>
+      <button
+        class="mobile-menu-close"
+        id="mobile-menu-close"
+        type="button"
+        aria-label="Fechar menu"
+      >
+        &times;
+      </button>
+    </div>
+
+    <div class="mobile-menu-body">
+      <nav class="mobile-menu-nav">
+        <a href="/">Início</a>
+        <a href="/produtos">Catálogo</a>
+        <a href="/carrinho">Carrinho</a>
+      </nav>
+
+      <div class="mobile-menu-secondary">
+        {% if usuario and usuario.is_admin %}
+          <a href="/admin" class="admin-link">Painel do Admin</a>
+        {% endif %}
+
+        {% if usuario %}
+          <a href="/me/painel">Minha conta</a>
+          <a href="/meus_pedidos">Meus pedidos</a>
+          <a href="/meus_endereços">Meus endereços</a>
+          <a href="/logout">Sair</a>
+        {% else %}
+          <a href="/login">Entrar</a>
+          <a href="/registrar">Criar conta</a>
+        {% endif %}
+
+        <a href="/duvidasfreq">Ajuda</a>
+        <a href="/faleconosco">Fale Conosco</a>
+        <a href="/politicadeprivacidade">Política de Privacidade</a>
+        <a href="/trocas%20e%20devoluções">Trocas e Devoluções</a>
+
+        <div class="mobile-menu-icons">
+          <a href="/carrinho" aria-label="Ir para o carrinho">
+            <img src="/static/uploads/img/home/icons-main/kart.png" class="icons" alt="Carrinho"/>
+          </a>
+          <a href="/produtos" aria-label="Ir para a loja">
+            <img src="/static/uploads/img/home/icons-main/shop.png" class="icons" alt="Loja"/>
+          </a>
+          {% if usuario %}
+            <a href="/me/painel" aria-label="Painel do usuário">
+              <img src="/static/uploads/img/home/icons-main/user.png" class="icons" alt="Perfil"/>
+            </a>
+          {% else %}
+            <a href="/login" aria-label="Fazer login">
+              <img src="/static/uploads/img/home/icons-main/user.png" class="icons" alt="Login"/>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- JS do menu mobile -->
+<script src="{{ url_for('static', path='js/nav-mobile.js') }}" defer></script>
+<script src="{{ url_for('static', path='js/home-main.js') }}" defer></script>

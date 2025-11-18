@@ -1,8 +1,9 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const hero = document.getElementById("hero");
-  const heroContent = document.querySelector(".hero-content");
-  const heroScrollIndicator = document.querySelector(".hero-scroll-indicator");
-  const nav = document.getElementById("main_nav");
+document.addEventListener('DOMContentLoaded', function() {
+  const hero = document.getElementById('hero');
+  const heroContent = document.querySelector('.hero-content');
+  const heroScrollIndicator = document.querySelector('.hero-scroll-indicator');
+  const heroOverlay = document.querySelector('.hero-overlay');
+  const nav = document.getElementById('main_nav');
 
   let lastScrollY = 0;
   const heroHeight = hero ? hero.offsetHeight : 0;
@@ -11,36 +12,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentScroll = window.pageYOffset;
 
     if (hero && heroContent && heroScrollIndicator && heroOverlay) {
-      // <-- Verifique heroOverlay
       const scrollPercent = Math.min(currentScroll / (heroHeight * 0.5), 1);
 
       const contentOpacity = 1 - scrollPercent;
       heroContent.style.opacity = contentOpacity;
       heroScrollIndicator.style.opacity = contentOpacity;
 
-      const baseOpacity = 0.45;
-      const targetOpacity = 0.85; // Ajuste este valor se quiser mais escuro
-      const overlayOpacity =
-        baseOpacity + scrollPercent * (targetOpacity - baseOpacity);
-
-      // Atualiza o background do overlay dinamicamente
-      heroOverlay.style.background = `linear-gradient(135deg, rgba(0,0,0,${overlayOpacity}) 0%, rgba(70, 7, 7, ${
-        overlayOpacity + 0.06
-      }) 100%)`;
-    }
-
-    if (currentScroll > 120) {
-      nav.style.background = "rgba(25, 25, 25, 0.98)";
-      nav.style.backdropFilter = "blur(12px)";
-      nav.style.boxShadow = "0 4px 15px rgba(0,0,0,0.12)";
-    } else {
-      nav.style.background = "var(--dark-gray)";
-      nav.style.backdropFilter = "none";
-      nav.style.boxShadow = "none";
+      heroOverlay.style.opacity = 0.6 + scrollPercent * 0.3;
+      heroOverlay.style.transform = `scale(${1 + scrollPercent * 0.05})`;
     }
 
     lastScrollY = currentScroll;
   }
+
+  window.addEventListener('scroll', handleScroll);
+  handleScroll();
 
   let ticking = false;
   window.addEventListener("scroll", function () {

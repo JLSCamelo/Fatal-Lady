@@ -90,13 +90,21 @@ nav {
   display: flex;
   justify-content: space-between;
   position: fixed;
-  top: 3.2rem;
   left: 0;
   right: 0;
   width: 100%;
   min-height: 5rem;
   z-index: 1000;
   transition: all 0.3s ease;
+}
+
+@media (min-width: 1025px) {
+  nav#main_nav {
+    position: fixed;
+    top: 3.2rem;
+    left: 0;
+    right: 0;
+  }
 }
 
 #logo {
