@@ -21,10 +21,11 @@
       rel="stylesheet"
       href="{{ url_for('static', path='css/cart-badge.css') }}"
     />
+      <link rel="stylesheet" href="{{ url_for('static', path='css/layout-responsive.css') }}"/>
   </head>
   <body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
   {% include '_header_nav.html' %}
-  
+
     <div id="size-popup" class="popup-overlay">
       <div class="popup-content">
         <button class="popup-close" onclick="closePopup('size-popup')">

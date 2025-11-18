@@ -264,3 +264,36 @@ footer img {
     color: #999;
     margin-top: 20px;
 }
+
+@media (max-width: 768px) {
+  main.conteudo {
+    padding: 1.5rem 1rem;
+  }
+
+  .faq {
+    max-width: 100%;
+  }
+
+  .faq h2 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .faq p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  main.conteudo {
+    padding: 1rem 0.75rem;
+  }
+
+  .faq h2 {
+    font-size: 1.4rem;
+  }
+
+  .faq p {
+    font-size: 0.9rem;
+  }
+}

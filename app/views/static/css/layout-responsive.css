@@ -1,0 +1,80 @@
+/* Responsividade global sem alterar layout desktop */
+
+/* Header + Nav empilhando em telas menores */
+@media (max-width: 768px) {
+  #main_header {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 0.75rem;
+  }
+
+  .header-div {
+    width: 100%;
+    justify-content: center;
+  }
+
+  #language {
+    font-size: 0.85rem;
+  }
+
+  nav#main_nav {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    min-height: auto;
+    gap: 0.5rem;
+  }
+
+  .nav-div {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  #logo {
+    position: static;
+    transform: none;
+    margin: 0.25rem auto;
+    max-width: 65%;
+    height: auto;
+  }
+
+  .icons {
+    width: 1.8rem;
+    height: auto;
+  }
+
+  .text_sections {
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile bem estreito: reduz um pouco mais os elementos */
+@media (max-width: 480px) {
+  #main_header {
+    padding: 0.5rem;
+  }
+
+  nav#main_nav {
+    padding: 0.5rem 0.5rem;
+  }
+
+  #logo {
+    max-width: 70%;
+  }
+
+  .icons {
+    width: 1.6rem;
+  }
+
+  .text_sections {
+    font-size: 0.85rem;
+  }
+
+  .promo-text {
+    font-size: 0.75rem;
+    text-align: center;
+  }
+}

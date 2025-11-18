@@ -17,6 +17,7 @@
       rel="stylesheet"
       href="{{ url_for('static', path='css/auth-simples.css') }}"
     />
+      <link rel="stylesheet" href="{{ url_for('static', path='css/layout-responsive.css') }}"/>
   </head>
 
   <body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
