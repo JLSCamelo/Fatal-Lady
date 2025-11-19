@@ -153,24 +153,24 @@ body {
 }
 
 /* animação de fade + leve deslocamento */
-.promo-text{
+.promo-text {
   display: inline-block;
-  transition: opacity .35s ease, transform .35s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease;
   opacity: 1;
 }
 
-.promo-text.is-hidden{
+.promo-text.is-hidden {
   opacity: 0;
 }
 
 /* animação de fade + leve deslocamento */
-.promo-text{
+.promo-text {
   display: inline-block;
-  transition: opacity .35s ease, transform .35s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease;
   opacity: 1;
 }
 
-.promo-text.is-hidden{
+.promo-text.is-hidden {
   opacity: 0;
 }
 
@@ -723,5 +723,26 @@ footer hr {
 }
 
 .required {
-    color: #cb1313;
+  color: #cb1313;
+}
+
+/* ================== ESTADOS DE ERRO - CADASTRO ================== */
+
+.input-field.input-error {
+  border-color: var(--main-red);
+  background: #fff1f2;
+  box-shadow: 0 0 0 3px rgba(203, 19, 19, 0.15);
+}
+
+.field-error {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  color: var(--main-red);
+}
+
+.form-global-error {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--main-red);
+  font-weight: 500;
 }

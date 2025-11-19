@@ -1,72 +1,72 @@
 // static/js/esqueci-toast.js
 (function () {
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('.register-form');
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(".register-form");
     if (!form) return;
 
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn ? submitBtn.textContent : null;
 
-    form.addEventListener('submit', async (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Enviando...';
+        submitBtn.textContent = "Enviando...";
       }
 
       try {
         const formData = new FormData(form);
 
-        const response = await fetch(form.action || '/esqueci-senha-login', {
-          method: form.method || 'POST',
+        const response = await fetch(form.action || "/esqueci-senha-login", {
+          method: form.method || "POST",
           body: formData,
           headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Accept': 'application/json'
-          }
+            "X-Requested-With": "XMLHttpRequest",
+            Accept: "application/json",
+          },
         });
 
-        const contentType = response.headers.get('Content-Type') || '';
+        const contentType = response.headers.get("Content-Type") || "";
         let data = null;
 
-        if (contentType.includes('application/json')) {
-        try {
+        if (contentType.includes("application/json")) {
+          try {
             data = await response.json();
-        } catch (_) {
+          } catch (_) {
             data = null;
-        }
+          }
         } else {
-            data = {};
+          data = {};
         }
 
         const success = response.ok;
 
         const backendMessage =
-            (data && (data.message || data.detail || data.error)) || null;
+          (data && (data.message || data.detail || data.error)) || null;
 
         const finalMessage =
-            backendMessage ||
-            (success
-                ? 'Se o e-mail informado estiver cadastrado, você receberá o link para redefinição.'
-                : 'Não foi possível enviar o e-mail de redefinição.');
+          backendMessage ||
+          (success
+            ? "Se o e-mail informado estiver cadastrado, você receberá o link para redefinição."
+            : "Não foi possível enviar o e-mail de redefinição.");
 
-
-        showStatusToast(success ? 'success' : 'error', finalMessage);
+        showStatusToast(success ? "success" : "error", finalMessage);
 
         if (success) {
           form.reset();
         }
       } catch (err) {
-        console.error('[esqueci-toast] erro na requisição:', err);
+        console.error("[esqueci-toast] erro na requisição:", err);
         showStatusToast(
-          'error',
-          'Erro ao se conectar com o servidor. Verifique sua conexão e tente novamente.'
+          "error",
+          "Erro ao se conectar com o servidor. Verifique sua conexão e tente novamente."
         );
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.textContent = originalBtnText || 'Enviar Link de Redefinição';
+          submitBtn.textContent =
+            originalBtnText || "Enviar Link de Redefinição";
         }
       }
     });
@@ -74,10 +74,10 @@
     // ========= Helpers de Toast =========
 
     function ensureToastContainer() {
-      let container = document.getElementById('status-toast-container');
+      let container = document.getElementById("status-toast-container");
       if (!container) {
-        container = document.createElement('div');
-        container.id = 'status-toast-container';
+        container = document.createElement("div");
+        container.id = "status-toast-container";
         document.body.appendChild(container);
       }
       return container;
@@ -86,36 +86,36 @@
     function showStatusToast(type, text) {
       const container = ensureToastContainer();
 
-      const toast = document.createElement('div');
+      const toast = document.createElement("div");
       toast.className =
-        'status-toast ' + (type === 'success' ? 'success' : 'error');
+        "status-toast " + (type === "success" ? "success" : "error");
 
-      const icon = document.createElement('div');
-      icon.className = 'status-toast__icon';
-      icon.textContent = type === 'success' ? '✓' : '!';
+      const icon = document.createElement("div");
+      icon.className = "status-toast__icon";
+      icon.textContent = type === "success" ? "✓" : "!";
 
-      const content = document.createElement('div');
-      content.className = 'status-toast__content';
+      const content = document.createElement("div");
+      content.className = "status-toast__content";
 
-      const title = document.createElement('strong');
-      title.className = 'status-toast__title';
+      const title = document.createElement("strong");
+      title.className = "status-toast__title";
       title.textContent =
-        type === 'success' ? 'Tudo certo!' : 'Algo deu errado';
+        type === "success" ? "Tudo certo!" : "Algo deu errado";
 
-      const message = document.createElement('p');
-      message.className = 'status-toast__message';
-      message.textContent = text || '';
+      const message = document.createElement("p");
+      message.className = "status-toast__message";
+      message.textContent = text || "";
 
       content.appendChild(title);
       content.appendChild(message);
 
-      const closeBtn = document.createElement('button');
-      closeBtn.type = 'button';
-      closeBtn.className = 'status-toast__close';
-      closeBtn.setAttribute('aria-label', 'Fechar aviso');
-      closeBtn.textContent = '×';
+      const closeBtn = document.createElement("button");
+      closeBtn.type = "button";
+      closeBtn.className = "status-toast__close";
+      closeBtn.setAttribute("aria-label", "Fechar aviso");
+      closeBtn.textContent = "×";
 
-      closeBtn.addEventListener('click', () => hideToast(toast));
+      closeBtn.addEventListener("click", () => hideToast(toast));
 
       toast.appendChild(icon);
       toast.appendChild(content);
@@ -125,19 +125,19 @@
 
       // animação de entrada
       requestAnimationFrame(() => {
-        toast.classList.add('is-visible');
+        toast.classList.add("is-visible");
       });
 
       // auto-hide (sucesso mais rápido, erro um pouco mais longo)
-      const timeout = type === 'success' ? 4000 : 5000;
+      const timeout = type === "success" ? 4000 : 5000;
       setTimeout(() => hideToast(toast), timeout);
     }
 
     function hideToast(toast) {
       if (!toast) return;
-      toast.classList.remove('is-visible');
+      toast.classList.remove("is-visible");
       toast.addEventListener(
-        'transitionend',
+        "transitionend",
         () => {
           try {
             toast.remove();

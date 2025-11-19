@@ -35,10 +35,22 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
     transform: scale(1.2);
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-badge {
+    top: -4px;
+    right: 18px;
+    font-size: 9px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 3px;
   }
 }

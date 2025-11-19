@@ -29,114 +29,14 @@ body {
   padding-top: 7rem;
 }
 
-/* --- Header / Nav --- */
-/* Icones e Imagens */
-#language-icon {
-  width: 1.2rem;
-}
-
-#logo {
-  width: 15rem;
-}
-
-/* Header */
-#main_header {
-  background-color: white;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 1001;
-}
-
-.header-div {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#language {
-  border: none;
-  background-color: white;
-  cursor: pointer;
-}
-
-.header-div span {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.header-div a {
-  text-decoration: none;
-  color: var(--dark-gray);
-  margin-left: 1.1rem;
-}
-
-/* Barra de Navegação */
-nav {
-  background-color: var(--dark-gray);
-  padding: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  position: fixed;
-  top: 3.2rem;
-  left: 0;
-  right: 0;
-  width: 100%;
-  min-height: 5rem;
-  z-index: 1000;
-}       
-
-#logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.nav-div {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.text_sections {
-  text-decoration: none;
-  color: var(--background);
-  margin-left: 1.1rem;
-}
-
-.icons {
-  cursor: pointer;
-  margin-right: 2rem;
-}
-
-#shop-icon,
-#kart-icon,
-#user-icon {
-  width: 1.7rem;
-}
-
 /* animação de fade + leve deslocamento */
-.promo-text{
+.promo-text {
   display: inline-block;
-  transition: opacity .35s ease, transform .35s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease;
   opacity: 1;
 }
 
-.promo-text.is-hidden{
+.promo-text.is-hidden {
   opacity: 0;
 }
 
@@ -362,7 +262,7 @@ nav {
 /* Empty cart */
 .empty-cart {
   text-align: center;
-  padding:20px;
+  padding: 20px;
   background: var(--card-bg);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -551,7 +451,7 @@ footer hr {
   -webkit-appearance: none;
   margin: 0;
 }
-.input-quantity[type=number] {
+.input-quantity[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }

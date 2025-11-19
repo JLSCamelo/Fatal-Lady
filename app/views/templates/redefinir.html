@@ -17,87 +17,14 @@
       rel="stylesheet"
       href="{{ url_for('static', path='css/auth-simples.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/layout-responsive.css') }}"
+    />
   </head>
 
-  <body>
-    <header id="main_header">
-      <div class="header-div">
-        <img
-          src="/static/uploads/img/home/icons-main/languages.png"
-          id="language-icon"
-        />
-        <select name="language" id="language">
-          <option value="br">BR</option>
-          <option value="en">EN</option>
-          <option value="es">ES</option>
-        </select>
-      </div>
-      <div class="header-div">
-        <div class="promo-rotator" role="status" aria-live="polite" aria-atomic="true">
-          <span id="promo-text" class="promo-text"
-            ><b>Frete Grátis</b> para Compras Acima de R$ 299,00</span
-          >
-        </div>
-      </div>
-      <div class="header-div">
-        <a href="/">Ajuda</a>
-        {% if usuario %}
-        <a href="/me/painel">Olá, {{ usuario.nome.split(' ')[0] }}</a>
-        {% else %}
-        <a href="/login">Entrar</a>
-        {% endif %}
-      </div>
-    </header>
-
-    <nav>
-      <div class="nav-div">
-        <a href="/" class="text_sections">Início</a>
-        <a href="/produtos" class="text_sections">Catálogo</a>
-        <a href="/carrinho" class="text_sections">Carrinho</a>
-      </div>
-      <div class="nav-div">
-        <a href="/">
-          <img
-            src="/static/uploads/img/home/icons-main/letreiro-logo.png"
-            id="logo"
-            alt="Logo"
-          />
-        </a>
-      </div>
-      <div class="nav-div">
-        <a href="/carrinho">
-          <img
-            src="/static/uploads/img/home/icons-main/kart.png"
-            id="kart-icon"
-            class="icons"
-          />
-        </a>
-        <a href="/produtos">
-          <img
-            src="/static/uploads/img/home/icons-main/shop.png"
-            id="shop-icon"
-            class="icons"
-          />
-        </a>
-        {% if usuario %}
-        <a href="/me/painel">
-          <img
-            src="/static/uploads/img/home/icons-main/user.png"
-            id="user-icon"
-            class="icons"
-          />
-        </a>
-        {% else %}
-        <a href="/login">
-          <img
-            src="/static/uploads/img/home/icons-main/user.png"
-            id="user-icon"
-            class="icons"
-          />
-        </a>
-        {% endif %}
-      </div>
-    </nav>
+  <body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
+    {% include '_header_nav.html' %}
 
     <main class="container">
       <div class="auth-page-grid">
@@ -116,7 +43,14 @@
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 >
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <rect
+                    x="3"
+                    y="11"
+                    width="18"
+                    height="11"
+                    rx="2"
+                    ry="2"
+                  ></rect>
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                 </svg>
               </div>
@@ -131,8 +65,8 @@
               class="register-form"
               action="/redefinir-senha"
               method="POST"
-              id="reset-form" 
-              novalidate 
+              id="reset-form"
+              novalidate
             >
               <input type="hidden" name="token" value="{{ token }}" />
 

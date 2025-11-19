@@ -1,146 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <link rel="stylesheet" href="trocas e devoluções.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link rel="stylesheet" href="trocas e devoluções.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catálogo</title>
-    <link rel="icon" href="/static/uploads/img/main_icon/icon.png" type="image/png">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/home-style.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/home-style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/layout-responsive.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-</head>
+  </head>
 
-<body>
-<header>
-        <div class="header-div">
-            <img 
-                src="languages.png" 
-                id="language-icon"
-            />
-            <select name="language" id="language">
-                <option value="br">BR</option>
-                <option value="en">EN</option>
-                <option value="es">ES</option>
-            </select>
-        </div>
+  <body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
+    {% include '_header_nav.html' %}
 
-        <div class="header-div">
-            <p>
-                <b>Frete Grátis</b> para Compras Acima de R$ 299,00
-            </p>
-        </div>
+    <main class="conteudo">
+      <section class="texto">
+        <h2>Política de Trocas e Devoluções</h2>
+        <p>
+          Na <strong>Fatal Lady</strong>, buscamos oferecer uma experiência
+          impecável em cada detalhe — desde a escolha do seu produto até o
+          momento em que ele chega até você. Entendemos, no entanto, que ajustes
+          podem ser necessários, e por isso desenvolvemos uma política de
+          <strong>trocas e devoluções transparente e simples</strong>,
+          respeitando o Código de Defesa do Consumidor.
+        </p>
 
-        <div class="header-div">
-                <a href="#">Ajuda</a> 
-                <a href="#">Entrar</a> 
-        </div>
-    </header>
-     <nav>
-        <div class="nav-div">
-            <form action="/search" method="get" id="search-form">
-                <button type="submit">
-                    <img
-                        src="lupa.png"
-                        id="search-icon"
-                    />
-                </button>
-                <input type="search" id="search-input" name="Search" placeholder="Buscar">
-            </form>
-        </div>
-        
-        <div class="nav-div">
-            <img 
-                src="letreiro-logo.png"
-                id="logo"
-                alt="Logo"
-            />
-        </div>
+        <h3>Prazo para Solicitação</h3>
+        <p>
+          Você pode solicitar a <strong>troca ou devolução</strong> de qualquer
+          produto em até <strong>7 (sete) dias corridos</strong> após o
+          recebimento do pedido. Após esse prazo, consideramos que o produto foi
+          aceito em perfeitas condições.
+        </p>
 
-        <div class="nav-div">
-            <img 
-                src="carrinho-de-compras.png"
-                id="shopping-kart-icon"
-                class="icons"
-            />
+        <h3>Condições do Produto</h3>
+        <ul>
+          <li>
+            O produto deve estar <strong>sem sinais de uso</strong>,
+            <strong>sem odores</strong> e <strong>sem danos</strong>;
+          </li>
+          <li>
+            As <strong>etiquetas originais</strong> e
+            <strong>embalagem</strong> devem estar intactas;
+          </li>
+          <li>
+            O item deve vir acompanhado de todos os
+            <strong>acessórios</strong> e da <strong>nota fiscal</strong>;
+          </li>
+          <li>
+            <strong>Peças íntimas</strong>, <strong>bodywear</strong> e
+            <strong>acessórios</strong> não serão trocados, exceto em caso de
+            defeito de fabricação.
+          </li>
+        </ul>
 
-            <img 
-                src="menu-hamburguer.png"
-                id="menu-hamburguer-icon"
-                class="icons"
-            />
-        </div>
-    </nav>
-      <main class="conteudo">
-        <section class="texto">
-            <h2>Política de Trocas e Devoluções</h2>
-            <p>Na <strong>Fatal Lady</strong>, buscamos oferecer uma experiência impecável em cada detalhe — desde a escolha do seu produto até o momento em que ele chega até você. Entendemos, no entanto, que ajustes podem ser necessários, e por isso desenvolvemos uma política de <strong>trocas e devoluções transparente e simples</strong>, respeitando o Código de Defesa do Consumidor.</p>
-
-            <h3> Prazo para Solicitação</h3>
-            <p>Você pode solicitar a <strong>troca ou devolução</strong> de qualquer produto em até <strong>7 (sete) dias corridos</strong> após o recebimento do pedido. Após esse prazo, consideramos que o produto foi aceito em perfeitas condições.</p>
-
-            <h3> Condições do Produto</h3>
+        <h3>Como Solicitar a Troca ou Devolução</h3>
+        <ol>
+          <li>
+            Envie um e-mail para
+            <a href="mailto:atendimento@fatallady.com.br"
+              >atendimento@fatallady.com.br</a
+            >, informando:
             <ul>
-                <li>O produto deve estar <strong>sem sinais de uso</strong>, <strong>sem odores</strong> e <strong>sem danos</strong>;</li>
-                <li>As <strong>etiquetas originais</strong> e <strong>embalagem</strong> devem estar intactas;</li>
-                <li>O item deve vir acompanhado de todos os <strong>acessórios</strong> e da <strong>nota fiscal</strong>;</li>
-                <li><strong>Peças íntimas</strong>, <strong>bodywear</strong> e <strong>acessórios</strong> não serão trocados, exceto em caso de defeito de fabricação.</li>
+              <li>O número do pedido;</li>
+              <li>Seu nome completo;</li>
+              <li>O motivo da troca ou devolução;</li>
+              <li>Se possível, fotos que ilustrem o caso.</li>
             </ul>
+          </li>
+          <li>
+            Nossa equipe retornará em até <strong>2 dias úteis</strong> com as
+            instruções de envio.
+          </li>
+          <li>
+            Após o recebimento e análise do produto, entraremos em contato para
+            confirmar o envio da nova peça ou o reembolso.
+          </li>
+        </ol>
 
-            <h3> Como Solicitar a Troca ou Devolução</h3>
-            <ol>
-                <li>Envie um e-mail para <a href="mailto:atendimento@fatallady.com.br">atendimento@fatallady.com.br</a>, informando:
-                    <ul>
-                        <li>O número do pedido;</li>
-                        <li>Seu nome completo;</li>
-                        <li>O motivo da troca ou devolução;</li>
-                        <li>Se possível, fotos que ilustrem o caso.</li>
-                    </ul>
-                </li>
-                <li>Nossa equipe retornará em até <strong>2 dias úteis</strong> com as instruções de envio.</li>
-                <li>Após o recebimento e análise do produto, entraremos em contato para confirmar o envio da nova peça ou o reembolso.</li>
-            </ol>
+        <h3>Reembolso</h3>
+        <p>O valor será restituído conforme a forma de pagamento utilizada:</p>
+        <ul>
+          <li>
+            <strong>Cartão de crédito:</strong> estorno em até duas faturas
+            subsequentes;
+          </li>
+          <li>
+            <strong>Pix ou boleto bancário:</strong> reembolso em até 10 dias
+            úteis.
+          </li>
+        </ul>
+        <p>
+          Em casos de devolução parcial, o valor será ajustado
+          proporcionalmente.
+        </p>
 
-            <h3> Reembolso</h3>
-            <p>O valor será restituído conforme a forma de pagamento utilizada:</p>
-            <ul>
-                <li><strong>Cartão de crédito:</strong> estorno em até duas faturas subsequentes;</li>
-                <li><strong>Pix ou boleto bancário:</strong> reembolso em até 10 dias úteis.</li>
-            </ul>
-            <p>Em casos de devolução parcial, o valor será ajustado proporcionalmente.</p>
+        <h3>Produtos com Defeito</h3>
+        <p>
+          Se o produto apresentar algum
+          <strong>defeito de fabricação</strong> dentro de 30 dias após o
+          recebimento, entre em contato com o nosso atendimento. A Fatal Lady
+          analisará o item e, caso confirmado o defeito, providenciará a
+          substituição sem custo adicional ou o reembolso integral.
+        </p>
 
-            <h3> Produtos com Defeito</h3>
-            <p>Se o produto apresentar algum <strong>defeito de fabricação</strong> dentro de 30 dias após o recebimento, entre em contato com o nosso atendimento. A Fatal Lady analisará o item e, caso confirmado o defeito, providenciará a substituição sem custo adicional ou o reembolso integral.</p>
-
-            <h3> Nosso Compromisso</h3>
-            <p>A <strong>Fatal Lady</strong> acredita que elegância é também uma forma de respeito. Estamos à disposição para tornar sua experiência de compra segura, agradável e sem preocupações.</p>
-        </section>
+        <h3>Nosso Compromisso</h3>
+        <p>
+          A <strong>Fatal Lady</strong> acredita que elegância é também uma
+          forma de respeito. Estamos à disposição para tornar sua experiência de
+          compra segura, agradável e sem preocupações.
+        </p>
+      </section>
     </main>
-     <footer>
-            <div class="footer-links">
-                <div>
-                    <h4>MINHA CONTA</h4>
-                    <a href="#">Meus Dados</a>
-                    <a href="#">Meus Pedidos</a>
-                    <a href="#">Cashback</a>
-                    <a href="#">Login</a>
-                </div>
-                <div>
-                    <h4>SUPORTE E POLÍTICAS</h4>
-                    <a href="trocas e devoluções.html">Trocas e Devoluções</a>
-                    <a href="duvidasfreq.html">Dúvidas Frequentes</a>
-                    <a href="#">Fale Conosco</a>
-                    <a href="#">Política de Privacidade</a>
-                </div>
-                <div>
-                    <h4>FORMAS DE PAGAMENTO</h4>
-                    <img src="payment.png" alt="Formas de Pagamento">
-                </div>
-            </div>
-            <hr>
-            <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
-        </footer>
-</body>
-
+    <footer>
+      <div class="footer-links">
+        <div>
+          <h4>MINHA CONTA</h4>
+          <a href="#">Meus Dados</a>
+          <a href="#">Meus Pedidos</a>
+          <a href="#">Cashback</a>
+          <a href="#">Login</a>
+        </div>
+        <div>
+          <h4>SUPORTE E POLÍTICAS</h4>
+          <a href="trocas e devoluções.html">Trocas e Devoluções</a>
+          <a href="duvidasfreq.html">Dúvidas Frequentes</a>
+          <a href="#">Fale Conosco</a>
+          <a href="#">Política de Privacidade</a>
+        </div>
+        <div>
+          <h4>FORMAS DE PAGAMENTO</h4>
+          <img src="payment.png" alt="Formas de Pagamento" />
+        </div>
+      </div>
+      <hr />
+      <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
+    </footer>
+  </body>
 </html>

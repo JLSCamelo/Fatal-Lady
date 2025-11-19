@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Esqueci Minha Senha | Fatal Lady</title>
     <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/layout-responsive.css') }}"
+    />
+    <link
       rel="icon"
       href="/static/uploads/img/main_icon/icon.png"
       type="image/png"
@@ -33,7 +37,12 @@
         </select>
       </div>
       <div class="header-div">
-        <div class="promo-rotator" role="status" aria-live="polite" aria-atomic="true">
+        <div
+          class="promo-rotator"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
           <span id="promo-text" class="promo-text"
             ><b>Frete Grátis</b> para Compras Acima de R$ 299,00</span
           >
@@ -100,61 +109,68 @@
     </nav>
 
     <main class="container">
-        <div class="auth-page-grid">
-            <aside class="register-wrapper">
-            <div class="register-card">
-                <div class="card-header">
-                <div class="icon-wrapper">
-                    <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    >
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                    </svg>
-                </div>
-                <h2>Esqueci Minha Senha</h2>
-                <p class="subtitle">
-                    Insira seu e-mail para receber um link de redefinição.
-                </p>
-                </div>
-
-                <form
-                class="register-form"
-                action="/esqueci-senha-login"
-                method="POST"
+      <div class="auth-page-grid">
+        <aside class="register-wrapper">
+          <div class="register-card">
+            <div class="card-header">
+              <div class="icon-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 >
-                <div class="input-row">
-                    <label for="email">Email <span class="required">*</span></label>
-                    <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    placeholder="seu.email@exemplo.com"
-                    class="input-field"
-                    />
-                </div>
-
-                <button type="submit" class="btn btn-primary">
-                    Enviar Link de Redefinição
-                </button>
-
-                <p class="login-link">
-                    Lembrou sua senha?
-                    <a href="/login" class="link">Voltar para Login</a>
-                </p>
-                </form>
+                  <rect
+                    x="3"
+                    y="11"
+                    width="18"
+                    height="11"
+                    rx="2"
+                    ry="2"
+                  ></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <h2>Esqueci Minha Senha</h2>
+              <p class="subtitle">
+                Insira seu e-mail para receber um link de redefinição.
+              </p>
             </div>
-            </aside>
-        </div>
+
+            <form
+              class="register-form"
+              action="/esqueci-senha-login"
+              method="POST"
+            >
+              <div class="input-row">
+                <label for="email">Email <span class="required">*</span></label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  placeholder="seu.email@exemplo.com"
+                  class="input-field"
+                />
+              </div>
+
+              <button type="submit" class="btn btn-primary">
+                Enviar Link de Redefinição
+              </button>
+
+              <p class="login-link">
+                Lembrou sua senha?
+                <a href="/login" class="link">Voltar para Login</a>
+              </p>
+            </form>
+          </div>
+        </aside>
+      </div>
     </main>
 
     <footer>
@@ -186,5 +202,5 @@
     </footer>
 
     <script src="/static/js/esqueci-toast.js" defer></script>
-    </body>
+  </body>
 </html>

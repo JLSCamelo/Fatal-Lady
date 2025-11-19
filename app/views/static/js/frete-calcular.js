@@ -1,7 +1,7 @@
 // // 1 Adiciona um "ouvinte" de evento (event listener) ao botão com id="btnCalcularFrete"
 //   // Ou seja, quando o botão for clicado, o código dentro da função será executado.
 //   document.getElementById("btnCalcularFrete").addEventListener("click", async () => {
-    
+
 //     try {
 //       // 4 Busca o token do usuário no armazenamento local (salvo no navegador)
 //       // Isso serve para autenticação — o mesmo que usar um token JWT no header.
@@ -45,6 +45,7 @@
 //       alert("Erro ao calcular o frete. Tente novamente.");
 //     }
 //   });
+<<<<<<< HEAD
 document.getElementById("btnCalcularFrete").addEventListener("click", async () => {
   const cep = (typeof cepUsuario === "string" ? cepUsuario.trim() : "");
 
@@ -58,10 +59,53 @@ document.getElementById("btnCalcularFrete").addEventListener("click", async () =
       method: "GET",
       credentials: "include"
     });
+=======
 
-    if (!response.ok) {
-      throw new Error("Erro ao consultar o frete.");
+document
+  .getElementById("btnCalcularFrete")
+  .addEventListener("click", async () => {
+    // PEGAR CEP DO USUÁRIO
+    const cep = cepUsuario;
+    try {
+      const response = await fetch(`/frete/calcular/?cep_destino=${cep}`, {
+        method: "GET",
+        // OBS: não precisa enviar Authorization, pois o backend usa cookie
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao consultar o frete.");
+      }
+
+      const data = await response.json();
+>>>>>>> 805bc55747404818dde825025ee4fd4ece0c77ad
+
+      // MOSTRA A ÁREA RESULTADO
+      document.getElementById("resultadoFrete").style.display = "block";
+
+      // ATUALIZA OS CAMPOS VISUAIS
+      document.getElementById("endereco").innerText = data.endereco;
+      document.getElementById("valor_frete").innerText =
+        data.valor_frete.toFixed(2);
+      document.getElementById("prazo").innerText =
+        data.prazo_estimado_dias + " dias";
+
+      // CALCULA TOTAL
+      const subtotal = parseFloat(
+        document.getElementById("subtotal").innerText
+      );
+      const total = subtotal + data.valor_frete;
+      document.getElementById("total").innerText = total.toFixed(2);
+
+      // CAMPOS OCULTOS (para enviar no checkout)
+      document.getElementById("cepHidden").value = cep;
+      document.getElementById("enderecoHidden").value = data.endereco;
+      document.getElementById("freteHidden").value =
+        data.valor_frete.toFixed(2);
+      document.getElementById("totalHidden").value = total.toFixed(2);
+    } catch (error) {
+      alert("Erro ao calcular o frete. Tente novamente.");
     }
+<<<<<<< HEAD
 
     const data = await response.json();
 
@@ -110,3 +154,6 @@ document.getElementById("btnCalcularFrete").addEventListener("click", async () =
     alert("Erro ao calcular o frete. Tente novamente.");
   }
 });
+=======
+  });
+>>>>>>> 805bc55747404818dde825025ee4fd4ece0c77ad

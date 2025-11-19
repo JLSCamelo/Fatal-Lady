@@ -41,104 +41,6 @@ body {
   --radius: 12px;
 }
 
-#language-icon {
-  width: 1.2rem;
-}
-
-#logo {
-  width: 15rem;
-}
-
-/* Header */
-#main_header {
-  background-color: white;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 1001;
-}
-
-.header-div {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#language {
-  border: none;
-  background-color: white;
-  cursor: pointer;
-}
-
-.header-div span {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.header-div a {
-  text-decoration: none;
-  color: var(--dark-gray);
-  margin-left: 1.1rem;
-}
-
-/* Barra de Navegação */
-nav {
-  background-color: var(--dark-gray);
-  padding: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  position: fixed;
-  top: 3.2rem;
-  left: 0;
-  right: 0;
-  width: 100%;
-  min-height: 5rem;
-  z-index: 1000;
-}
-
-#logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.nav-div {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.text_sections {
-  text-decoration: none;
-  color: var(--background);
-  margin-left: 1.1rem;
-}
-
-.icons {
-  cursor: pointer;
-  margin-right: 2rem;
-}
-
-#shop-icon,
-#kart-icon,
-#user-icon {
-  width: 1.7rem;
-}
-
 .text-btn {
   background: transparent;
   border: none;
@@ -377,7 +279,12 @@ nav {
   right: 0;
   top: 50%;
   height: 1px;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.04));
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.04),
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.04)
+  );
 }
 
 .divider span {
@@ -424,7 +331,53 @@ nav {
   color: var(--muted);
 }
 
-footer {
+/* ================== ESTADOS DE ERRO - LOGIN ================== */
+
+/* borda vermelha + leve glow para campo inválido */
+.input-field.is-invalid {
+  border-color: var(--main-red);
+  box-shadow: 0 0 0 3px rgba(203, 19, 19, 0.15);
+}
+
+/* animação de "balanço" no wrapper da senha */
+.password-wrapper.shake .input-field {
+  animation: field-shake 0.28s ease-in-out;
+}
+
+@keyframes field-shake {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-4px);
+  }
+  40% {
+    transform: translateX(4px);
+  }
+  60% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* texto de erro logo abaixo do campo de senha */
+.field-error-message {
+  margin-top: 0.2rem;
+  font-size: 0.85rem;
+  color: var(--main-red);
+}
+
+/* garante layout correto do texto do toast */
+.toast .text {
+  flex: 1;
+}
+
+.footer-login {
   padding: 2rem 1rem 1rem;
   margin-top: auto;
   background: var(--dark-gray);
@@ -466,12 +419,12 @@ footer {
   color: var(--main-red);
 }
 
-footer img {
+.footer-login img {
   max-width: 180px;
   height: auto;
 }
 
-footer hr {
+.footer-login hr {
   width: 100%;
   margin: 1.5rem 0 1rem;
   border: none;
@@ -586,68 +539,67 @@ footer hr {
   }
 }
 
-
 /* --- Estilos para o Container do Pop-up (opcional, mas recomendado) --- */
 /* Se você quiser um container para organizar múltiplos toasts */
 #pop-up-container {
-    position: fixed;
-    top: 70px; /* Distância do topo */
-    right: 20px; /* Distância da direita */
-    z-index: 1000; /* Garante que ficará acima de outros elementos */
-    display: flex;
-    flex-direction: column; /* Para empilhar vários toasts */
-    gap: 10px; /* Espaço entre múltiplos toasts */
-    pointer-events: none; /* Permite cliques através do container para elementos abaixo */
+  position: fixed;
+  top: 70px; /* Distância do topo */
+  right: 20px; /* Distância da direita */
+  z-index: 1000; /* Garante que ficará acima de outros elementos */
+  display: flex;
+  flex-direction: column; /* Para empilhar vários toasts */
+  gap: 10px; /* Espaço entre múltiplos toasts */
+  pointer-events: none; /* Permite cliques através do container para elementos abaixo */
 }
 
 /* --- Estilos para o Toast Individual --- */
 .toast {
-    position: relative; /* Para posicionar o botão de fechar */
-    background-color: #333; /* Cor de fundo padrão */
-    color: white;
-    padding: 15px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-width: 250px;
-    max-width: 350px;
-    font-family: Arial, sans-serif; /* Ou sua fonte preferida */
-    font-size: 15px;
+  position: relative; /* Para posicionar o botão de fechar */
+  background-color: #333; /* Cor de fundo padrão */
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 250px;
+  max-width: 350px;
+  font-family: Arial, sans-serif; /* Ou sua fonte preferida */
+  font-size: 15px;
 
-    /* Propriedades de animação (inicia fora da tela, esconde por padrão) */
-    opacity: 0;
-    transform: translateX(100%); /* Começa fora da tela à direita */
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-    pointer-events: all; /* Permite interação com o toast em si */
+  /* Propriedades de animação (inicia fora da tela, esconde por padrão) */
+  opacity: 0;
+  transform: translateX(100%); /* Começa fora da tela à direita */
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  pointer-events: all; /* Permite interação com o toast em si */
 }
 
 /* Estado visível (adicionado pelo JS) */
 .toast.show {
-    opacity: 1;
-    transform: translateX(0); /* Desliza para dentro da tela */
+  opacity: 1;
+  transform: translateX(0); /* Desliza para dentro da tela */
 }
 
 /* --- Estilos para o Toast de ERRO --- */
 .toast.error {
-    background-color: #dc3545; /* Vermelho para erro */
-    border-left: 5px solid #bd2130; /* Borda esquerda destacada */
+  background-color: #dc3545; /* Vermelho para erro */
+  border-left: 5px solid #bd2130; /* Borda esquerda destacada */
 }
 
 /* --- Estilos para o Botão de Fechar --- */
 .toast .close {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.2em;
-    cursor: pointer;
-    margin-left: 15px;
-    padding: 0;
-    line-height: 1;
-    transition: color 0.2s ease-in-out;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-left: 15px;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s ease-in-out;
 }
 
 .toast .close:hover {
-    color: #f0f0f0;
+  color: #f0f0f0;
 }

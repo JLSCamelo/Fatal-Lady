@@ -1,0 +1,207 @@
+/* ========= Layout base ========= */
+
+:root {
+  --main-red: #cb1313;
+  --bg-page: #f5f5f7;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --border-soft: #e5e7eb;
+  --input-border: #d1d5db;
+  --input-radius: 10px;
+  --shadow-soft: 0 20px 60px rgba(15, 23, 42, 0.18);
+  --error: #dc2626;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Poppins",
+    "Segoe UI", sans-serif;
+  background: radial-gradient(
+    circle at top,
+    #fdf2f8 0,
+    #f9fafb 40%,
+    #f3f4f6 100%
+  );
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+.delete-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+/* ========= Card ========= */
+
+.delete-container {
+  width: 100%;
+  max-width: 480px;
+}
+
+.delete-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.5rem 2.4rem 2rem;
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+  border: 1px solid rgba(17, 24, 39, 0.04);
+}
+
+.delete-logo {
+  width: 180px;
+  max-width: 60%;
+  margin-bottom: 1rem;
+  filter: brightness(0);
+}
+
+.delete-title {
+  margin: 0 0 0.6rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.delete-subtitle {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.delete-warning {
+  margin: 0 0 1.6rem;
+  font-size: 0.85rem;
+  color: #b91c1c;
+  background: rgba(248, 113, 113, 0.12);
+  border-radius: 10px;
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+}
+
+/* ========= Form ========= */
+
+#delete-confirm-form {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 0.9rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: #374151;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--input-radius);
+  border: 1px solid var(--input-border);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease,
+    background-color 0.18s ease;
+  background: #f9fafb;
+}
+
+.form-group input:focus {
+  border-color: var(--main-red);
+  box-shadow: 0 0 0 3px rgba(203, 19, 19, 0.12);
+  background: #ffffff;
+}
+
+/* Estado de erro */
+
+.form-group input.input-error {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.16);
+  background: #fff1f2;
+}
+
+.field-error {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  color: var(--error);
+}
+
+/* Mensagem global */
+
+.form-global-error {
+  margin: 0.3rem 0 1rem;
+  font-size: 0.85rem;
+  color: var(--error);
+}
+
+/* Botão */
+
+.btn-confirm {
+  width: 100%;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--main-red);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: background-color 0.18s ease, transform 0.08s ease,
+    box-shadow 0.18s ease;
+  box-shadow: 0 12px 35px rgba(203, 19, 19, 0.35);
+}
+
+.btn-confirm:hover {
+  background: #b40f10;
+}
+
+.btn-confirm:active {
+  transform: translateY(1px);
+  box-shadow: 0 8px 25px rgba(203, 19, 19, 0.45);
+}
+
+.btn-confirm:disabled {
+  opacity: 0.7;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* Footer */
+
+.delete-footer {
+  margin-top: 1.8rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ========= Responsivo ========= */
+
+@media (max-width: 480px) {
+  .delete-card {
+    padding: 2rem 1.5rem 1.7rem;
+  }
+
+  .delete-title {
+    font-size: 1.35rem;
+  }
+
+  .delete-subtitle {
+    font-size: 0.9rem;
+  }
+}
