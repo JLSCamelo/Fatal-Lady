@@ -1,0 +1,269 @@
+/* payments-options.css */
+
+/* --- Layout & Estrutura --- */
+.payments-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem 1.5rem;
+    animation: fadeInUp 0.8s ease;
+}
+
+.payments-title {
+    font-family: "Playfair Display", serif;
+    font-size: 2.5rem;
+    color: var(--dark-gray);
+    margin-bottom: 0.5rem;
+}
+
+.payments-subtitle {
+    font-family: "Questrial", sans-serif;
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 3rem;
+}
+
+.payments-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* --- Cards Gerais --- */
+.payment-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.payment-card:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-family: "Questrial", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* --- Coluna Esquerda: Resumo do Plano --- */
+.plan-line {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.plan-line strong {
+    color: var(--dark-gray);
+}
+
+.plan-card hr {
+    border: 0;
+    border-top: 1px dashed rgba(0,0,0,0.1);
+    margin: 1.5rem 0;
+}
+
+.plan-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.plan-info .green {
+    color: #27ae60;
+    font-weight: 700;
+    background: rgba(39, 174, 96, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+}
+
+/* --- Coluna Direita: Métodos --- */
+.methods-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 1rem;
+}
+
+.methods-header .card-title {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+#methods-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* --- Item da Lista (O Cartão de Pagamento) --- */
+.method-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem;
+    border: 2px solid transparent;
+    background: #f9f9f9;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.method-item:hover {
+    background: white;
+    border-color: #ddd;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Estado Ativo (Padrão UX) */
+.method-item.active {
+    background: white;
+    border-color: var(--main-red);
+    box-shadow: 0 4px 15px rgba(203, 19, 19, 0.15);
+}
+
+.method-item.active::before {
+    content: "Padrão";
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--main-red);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-bottom-left-radius: 8px;
+    text-transform: uppercase;
+}
+
+.method-name {
+    font-weight: 700;
+    color: var(--dark-gray);
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.method-meta {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* --- Ações (Botões dentro do item) --- */
+.method-actions {
+    display: flex;
+    gap: 1rem;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.method-item:hover .method-actions {
+    opacity: 1;
+}
+
+.action-link {
+    background: none;
+    border: none;
+    font-family: "Questrial", sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.set-default {
+    color: var(--dark-gray);
+}
+.set-default:hover { color: var(--main-red); }
+
+.remove-method {
+    color: #999;
+}
+.remove-method:hover { color: red; }
+
+.method-item.active .set-default {
+    display: none; /* Não mostra botão de definir padrão se já for padrão */
+}
+
+/* --- Botões Globais da Página --- */
+button {
+    font-family: "Questrial", sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-red {
+    background: var(--main-red);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.btn-red:hover {
+    background: #a80f0f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(203, 19, 19, 0.3);
+}
+
+.btn-outline-red {
+    background: transparent;
+    border: 2px solid var(--main-red);
+    color: var(--main-red);
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 50px;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+.btn-outline-red:hover {
+    background: var(--main-red);
+    color: white;
+}
+
+/* --- Empty State --- */
+.empty-state {
+    display: none; /* Controlado via JS, mas estilizado aqui */
+    text-align: center;
+    padding: 3rem 0;
+}
+.empty-state p {
+    color: #999;
+    margin-bottom: 1rem;
+}
+
+/* --- Responsivo --- */
+@media (max-width: 768px) {
+    .payments-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .method-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .method-actions {
+        width: 100%;
+        justify-content: flex-end;
+        opacity: 1;
+    }
+}

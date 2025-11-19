@@ -455,3 +455,134 @@ footer hr {
   -moz-appearance: textfield;
   appearance: textfield;
 }
+
+/* --- Seção de Cálculo de Frete (Adicionar em carrinho.css) --- */
+
+.shipping-calculator {
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.calculator-title {
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+}
+
+.cep-input-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#cep-input {
+    flex-grow: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: "Questrial", sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#cep-input:focus {
+    border-color: var(--main-red);
+    box-shadow: 0 0 0 2px rgba(203, 19, 19, 0.2);
+    outline: none;
+}
+
+/* Estilo do Botão "CALCULAR" */
+.btn-calculate {
+    background: var(--main-red);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-calculate:hover:not(:disabled) {
+    background: #a80f0f;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(203, 19, 19, 0.3);
+}
+
+.btn-calculate:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.8;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Estilos para a Área de Resultados e Opções de Frete */
+.shipping-results {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+.shipping-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+    cursor: pointer;
+    transition: background-color 0.2s, border-left 0.2s;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-left: 4px solid transparent; /* Para o efeito de seleção */
+}
+
+.shipping-option:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.shipping-option:hover {
+    background-color: #f7f7f7;
+}
+
+/* Estilo para opção selecionada (controlado via JS) */
+.shipping-option.selected {
+    border-left: 4px solid var(--main-red);
+    font-weight: 700;
+}
+
+.shipping-option strong {
+    color: var(--main-red);
+    font-weight: inherit; /* Mantém o peso da fonte consistente */
+}
+
+.shipping-error {
+    color: var(--main-red);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 10px;
+    background: rgba(203, 19, 19, 0.05);
+    border-radius: 4px;
+}
+
+/* --- Ajuste em carrinho.css --- */
+
+.shipping-error {
+    color: var(--main-red); /* Cor principal da marca */
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 10px;
+    background: rgba(203, 19, 19, 0.08); /* Fundo sutil */
+    border: 1px solid rgba(203, 19, 19, 0.2);
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.shipping-results p {
+    font-family: "Questrial", sans-serif;
+}

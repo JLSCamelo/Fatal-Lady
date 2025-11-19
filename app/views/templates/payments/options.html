@@ -1,32 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  {% extends "base.html" %}
-  {% block content %}
-  <h2>Escolha a forma de pagamento</h2>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Formas de Pagamento | Fatal Lady</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      href="/static/uploads/img/main_icon/icon.png"
+      type="image/png"
+    />
 
-  <form method="post" action="/pagamentos/iniciar">
+    <link rel="stylesheet" href="/static/css/home-style.css" />
+    <link rel="stylesheet" href="/static/css/payments-options.css" />
+    <link rel="stylesheet" href="/static/css/layout-responsive.css" />
+  </head>
 
-    <!-- obrigatório -->
-    <input type="hidden" name="pedido_id" value="{{ pedido_id }}">
+  <body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
+    {% include '_header_nav.html' %}
 
-    <!-- FALTAVA ESTE CAMPO — OBRIGATÓRIO -->
-    <input type="hidden" name="valor" value="{{ valor }}">
+    <main>
+      <div class="payments-container">
+        <div class="payments-layout">
+          <section class="payment-card plan-card">
+            <h2 class="card-title">Sua Assinatura</h2>
 
-    <label><input type="radio" name="metodo" value="boleto" checked> Boleto</label><br>
-    <label><input type="radio" name="metodo" value="pix"> PIX</label><br>
-    <label><input type="radio" name="metodo" value="cartao"> Cartão de Crédito</label><br>
-    <label><input type="radio" name="metodo" value="debito"> Cartão de Débito</label><br>
-    <label><input type="radio" name="metodo" value="transferencia"> Transferência Bancária</label><br>
+            <div class="plan-details">
+              <p class="plan-line">
+                Plano atual: <strong>Premium Mensal</strong>
+              </p>
+              <p class="plan-line">Valor: <strong>R$ 49,90 / mês</strong></p>
+              <p class="plan-line">
+                Próxima cobrança: <strong>10/12/2025</strong>
+              </p>
+            </div>
 
-    <button type="submit">Continuar</button>
-  </form>
+            <hr />
 
-  {% endblock %}
-</body>
+            <div class="plan-info">
+              <span>Status da conta:</span>
+              <span class="green">Ativo</span>
+            </div>
+
+            <div class="plan-info">
+              <span>Renovação automática:</span>
+              <strong>Habilitada</strong>
+            </div>
+
+            <button class="btn-outline-red manage-subscription">
+              Gerenciar Assinatura
+            </button>
+          </section>
+
+          <section class="payment-card methods-card">
+            <div class="methods-header">
+              <h2 class="card-title">Métodos Cadastrados</h2>
+              <button class="btn-red" id="add-method">+ Novo Método</button>
+            </div>
+
+            <div id="methods-list">
+              <div class="method-item active" data-id="1">
+                <div class="method-info">
+                  <p class="method-name">Cartão de Crédito •••• 1234</p>
+                  <span class="method-meta">Visa — Expira em 08/27</span>
+                </div>
+
+                <div class="method-actions">
+                  <button class="action-link set-default">Padrão</button>
+                  <button class="action-link remove-method">Remover</button>
+                </div>
+              </div>
+
+              <div class="method-item" data-id="2">
+                <div class="method-info">
+                  <p class="method-name">Chave PIX</p>
+                  <span class="method-meta">coffeandcode@example.com</span>
+                </div>
+
+                <div class="method-actions">
+                  <button class="action-link set-default">
+                    Definir como Padrão
+                  </button>
+                  <button class="action-link remove-method">Remover</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="empty-state" id="empty-state">
+              <img
+                src="/static/uploads/img/home/icons-discount/4.png"
+                alt="Carteira"
+                style="opacity: 0.5; width: 50px; margin-bottom: 1rem"
+              />
+              <p>Você ainda não tem métodos de pagamento salvos.</p>
+              <button class="btn-red">Cadastrar Cartão</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script src="/static/js/payments-options.js"></script>
+    <script src="/static/js/nav-mobile.js"></script>
+  </body>
 </html>
