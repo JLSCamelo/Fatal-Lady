@@ -66,43 +66,39 @@ def cadastro_controller(request: Request,
     db.commit()
 
     # Envia e-mail de boas-vindas
-    try:
-      enviar_email(
-          destinatario=usuario.email,
-          assunto="Bem vindo a Fatal Lady", 
-          corpo=
-           f"""
-    <html>
-      <body style="margin:0; padding:0; font-family:'Poppins',Arial,sans-serif; background-color:#fff;">
-        <table width="100%" cellpadding="0" cellspacing="0">
-          <tr>
-            <td align="center" style="padding:40px 0;">
-              <img src="views/static/upload/img/catalogo/icons-main/letreiro-logo.png" width="80" alt="Fatal Lady">
-              <h1 style="color:#000; font-size:28px; margin-top:10px;">FATAL <span style="color:#d00000;">LADY</span></h1>
-            </td>
-          </tr>
-          <tr>
-            <td align="center" style="padding:20px 40px;">
-              <h2>Olá, {nome}! 👋</h2>
-              <p>Seja muito bem-vinda à <b>Fatal Lady</b> — onde a elegância encontra a atitude.</p>
-              <p>Explore nossa coleção de saltos finos e sandálias exclusivas!</p>
-              <a href="http://127.0.0.1:8000/login" style="display:inline-block; margin-top:20px; background-color:#d00000; color:#fff; padding:14px 28px; border-radius:4px; text-decoration:none; font-weight:bold;">
-                Descubra Agora
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td align="center" style="padding:40px 0; background-color:#000; color:#fff; font-size:13px;">
-              <p>Frete grátis em compras acima de R$299</p>
-              <p>© 2025 Fatal Lady. Todos os direitos reservados.</p>
-            </td>
-          </tr>
-        </table>
-      </body>
-    </html>""")
-      # enviar_email_boas_vindas(email, nome)
-    except Exception:
-         return {"mensagem": "Erro ao cadastrar user"}
+    enviar_email(
+        destinatario=usuario.email,
+        assunto="Bem vindo a Fatal Lady", 
+        corpo=
+          f"""
+  <html>
+    <body style="margin:0; padding:0; font-family:'Poppins',Arial,sans-serif; background-color:#fff;">
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding:40px 0;">
+            <img src="views/static/upload/img/catalogo/icons-main/letreiro-logo.png" width="80" alt="Fatal Lady">
+            <h1 style="color:#000; font-size:28px; margin-top:10px;">FATAL <span style="color:#d00000;">LADY</span></h1>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="padding:20px 40px;">
+            <h2>Olá, {nome}! 👋</h2>
+            <p>Seja muito bem-vinda à <b>Fatal Lady</b> — onde a elegância encontra a atitude.</p>
+            <p>Explore nossa coleção de saltos finos e sandálias exclusivas!</p>
+            <a href="http://127.0.0.1:8000/login" style="display:inline-block; margin-top:20px; background-color:#d00000; color:#fff; padding:14px 28px; border-radius:4px; text-decoration:none; font-weight:bold;">
+              Descubra Agora
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="padding:40px 0; background-color:#000; color:#fff; font-size:13px;">
+            <p>Frete grátis em compras acima de R$299</p>
+            <p>© 2025 Fatal Lady. Todos os direitos reservados.</p>
+          </td>
+        </tr>
+      </table>
+    </body>
+  </html>""")
 
     return {"mensagem": "Usuário cadastrado com sucesso!"}
 

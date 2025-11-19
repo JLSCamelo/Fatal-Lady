@@ -130,13 +130,13 @@ def confirmar_exclusao_post(
     usuario = db.query(UsuarioDB).filter_by(email=email).first()
     if not usuario:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
-
-    cpf_limpo = re.sub(r'\D', '', cpf)
+    
+   # Ajustar formato conforme o que vem do form
     form_data = datetime.strptime(data_nascimento, "%Y-%m-%d").date()
 
-    if usuario.cpf != cpf_limpo or usuario.data_nascimento != form_data:
+    # Comparar CPF e data
+    if usuario.cpf != cpf or usuario.data_nascimento != form_data:
         raise HTTPException(status_code=400, detail="Dados incorretos")
-
 
     if not verificar_senha(senha, usuario.senha):
         raise HTTPException(status_code=401, detail="Senha incorreta")
