@@ -519,14 +519,14 @@ select.input-field {
   color: var(--muted);
 }
 
-footer {
+.footer-registrar {
   padding: 2rem 1rem 1rem;
   margin-top: auto;
   background: var(--dark-gray);
   opacity: 0.9;
 }
 
-.footer-links {
+.footer-links-2 {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -537,18 +537,18 @@ footer {
   margin-right: auto;
 }
 
-.footer-links > div {
+.footer-links-2 > div {
   min-width: 150px;
 }
 
-.footer-links h4 {
+.footer-links-2 h4 {
   margin-bottom: 0.8rem;
   color: var(--background);
   font-weight: 700;
   font-size: 0.95rem;
 }
 
-.footer-links a {
+.footer-links-2 a {
   display: block;
   color: var(--muted);
   text-decoration: none;
@@ -557,16 +557,16 @@ footer {
   font-size: 0.9rem;
 }
 
-.footer-links a:hover {
+.footer-links-2 a:hover {
   color: var(--main-red);
 }
 
-footer img {
+.footer-registrar img {
   max-width: 180px;
   height: auto;
 }
 
-footer hr {
+.footer-registar hr {
   width: 100%;
   margin: 1.5rem 0 1rem;
   border: none;

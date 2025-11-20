@@ -126,30 +126,16 @@
           </div>
 
           <div class="summary-row">
-            <div id="resultadoFrete">
-              <div class="summary-row">
-                <span>Endereço:</span>
-                <span id="endereco"
-                  >{{ usuario.enderecos[0].rua if usuario.enderecos else ''
-                  }}</span
-                >
+            <div class="shipping-calculator">
+              <p class="calculator-title">Calcular Frete e Prazo:</p>
+              
+              <div class="cep-input-group">
+                  <input type="text" id="cep-input" placeholder="Seu CEP (00000-000)" maxlength="9" required>
+                  <button id="calculate-shipping-btn" class="btn-calculate" >CALCULAR</button>
               </div>
-
-              <div class="summary-row">
-                <span>Frete:</span>
-                <span id="valor_frete"
-                  >{% if total|float >= 299 %}Grátis{% else %}A calcular{% endif
-                  %}</span
-                >
-              </div>
-
-              <div class="summary-row">
-                <span>Prazo:</span>
-                <span id="prazo"></span>
-              </div>
+              
+              <div id="shipping-results" class="shipping-results">
             </div>
-            <button type="button" id="btnCalcularFrete">Calcular Frete</button>
-          </div>
 
           <div class="summary-row total">
             <span>Total:</span>

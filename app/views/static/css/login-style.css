@@ -384,7 +384,7 @@ body {
   opacity: 0.9;
 }
 
-.footer-links {
+.footer-links-2 {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -395,18 +395,18 @@ body {
   margin-right: auto;
 }
 
-.footer-links > div {
+.footer-links-2 > div {
   min-width: 150px;
 }
 
-.footer-links h4 {
+.footer-links-2 h4 {
   margin-bottom: 0.8rem;
   color: var(--background);
   font-weight: 700;
   font-size: 0.95rem;
 }
 
-.footer-links a {
+.footer-links-2 a {
   display: block;
   color: var(--muted);
   text-decoration: none;
@@ -415,7 +415,7 @@ body {
   font-size: 0.9rem;
 }
 
-.footer-links a:hover {
+.footer-links-2 a:hover {
   color: var(--main-red);
 }
 
