@@ -32,20 +32,15 @@ def validar_cpf(cpf: str) -> bool: #bool: faz retornar True ou False
     return True
 
 def enviar_email(destinatario, assunto, corpo):
-    msg = MIMEText(corpo, "html")
+    msg = MIMEText(corpo, "html", "utf-8")
     msg["Subject"] = assunto
-    msg["From"] = "fatallady@gmail.com.br"
+    msg["From"] = EMAIL_FROM_NAME  # remetente correto
     msg["To"] = destinatario
 
     with smtplib.SMTP("smtp.gmail.com", 587) as server:
         server.starttls()
-        server.login(EMAIL_REMITENTE,EMAIL_SENHA)
+        server.login(EMAIL_REMITENTE, EMAIL_SENHA)  # login correto
         server.send_message(msg)
-
-"""
-465	cmc ja criptografado
-587	criptografa após starttls	
-"""
 
 
 

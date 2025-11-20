@@ -130,12 +130,15 @@
               <p class="calculator-title">Calcular Frete e Prazo:</p>
               
               <div class="cep-input-group">
-                  <input type="text" id="cep-input" placeholder="Seu CEP (00000-000)" maxlength="9" required>
+                  <input type="text" id="cep-input" placeholder="Seu CEP (00000-000)" maxlength="8" required>
                   <button id="calculate-shipping-btn" class="btn-calculate" >CALCULAR</button>
               </div>
               
-              <div id="shipping-results" class="shipping-results">
-            </div>
+              <div id="shipping-results" class="shipping-results" style="display:none; margin-top:10px;">
+                  <p><b>Endereço:</b> <span id="endereco"></span></p>
+                  <p><b>Frete:</b> R$ <span id="valor_frete"></span></p>
+                  <p><b>Prazo:</b> <span id="prazo"></span> dias</p>
+             </div>
 
           <div class="summary-row total">
             <span>Total:</span>
@@ -189,13 +192,9 @@
       <p class="copy">Coffe and Code | © 2025 Todos os direitos reservados</p>
     </footer> 
 
+    <script src="/static/js/frete-calcular.js"></script>
     <script src="/static/js/carrinho.js" defer></script>
     <script src="/static/js/promo-rotator.js" defer></script>
     <script src="/static/js/cart-badge.js" defer></script>
-    <script>
-      const cepUsuario =
-        "{{ usuario.enderecos[0].cep if usuario.enderecos else '' }}";
-    </script>
-    <script src="/static/js/frete-calcular.js" defer></script>
   </body>
 </html>

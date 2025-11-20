@@ -1,24 +1,50 @@
-document.getElementById("cep-input").addEventListener("input", function () {
-    const cep = this.value;
-    const btn = document.getElementById("calculate-shipping-btn");
+document.getElementById("calculate-shipping-btn").addEventListener("click"), async() => {
+    const cep = document.getElementById("cep-input").value.trim();
 
-});
-
-document.getElementById("calculate-shipping-btn").addEventListener("click", async function () {
-    const cep = document.getElementById("cep-input").value;
-    const resultsDiv = document.getElementById("shipping-results");
-
-    try {
-        const response = await fetch(`/frete/calcular/${cep}`);
-        if (!response.ok) throw new Error("Erro na requisição");
-
-        const data = await response.json();
-
-        resultsDiv.innerHTML = `
-            <p><strong>Frete:</strong> R$ ${data.frete}</p>
-            <p><strong>Prazo:</strong> ${data.prazo} dias</p>
-        `;
-    } catch (err) {
-        resultsDiv.innerHTML = `<p>Erro ao calcular frete.</p>`;
+    if (cep.length !== 8) {
+      alert("Digite um CEP válido com 8 dígitos."); // Exibe alerta caso seja inválido
+      return; // Sai da função (não continua)
     }
-});
+    try {
+      // 4 Busca o token do usuário no armazenamento local (salvo no navegador)
+      // Isso serve para autenticação — o mesmo que usar um token JWT no header.
+      const token = localStorage.getItem("token");
+
+      // 5 Faz a requisição para o backend (sem recarregar a página)
+      // O `fetch` é o equivalente em JS ao `requests.get()` em Python.
+      const response = await fetch(`/frete/calcular/'${cep}`, {
+        headers: { "Authorization": `Bearer ${token}` } // Envia o token no cabeçalho
+      });
+
+      // 6 Se a resposta não for 200 (OK), lança erro
+      if (!response.ok) throw new Error("Erro ao consultar o frete.");
+
+      // 7 Converte o JSON da resposta em um objeto JavaScript
+      // É como usar `response.json()` no Python requests.
+      const data = await response.json();
+
+      // 8 Torna a área de resultado visível
+      document.getElementById("shipping-results").style.display = "block"
+      
+      // 9 Atualiza as informações visuais com o retorno do backend
+      document.getElementById("endereco").innerText = data.endereco;
+      document.getElementById("valor_frete").innerText = data.valor_frete.toFixed(2);
+      document.getElementById("prazo").innerText = data.prazo_estimado_dias;
+
+      // 10 Atualiza o valor total do pedido (subtotal + frete)
+      const subtotal = parseFloat(document.getElementById("subtotal").innerText);
+      const total = subtotal + data.valor_frete;
+      document.getElementById("total").innerText = total.toFixed(2);
+
+      // 11 Atualiza os campos ocultos do formulário HTML
+      // Assim, quando o usuário clicar em “Finalizar Compra”, o backend receberá tudo.
+      document.getElementById("cepHidden").value = cep;
+      document.getElementById("enderecoHidden").value = data.endereco;
+      document.getElementById("freteHidden").value = data.valor_frete.toFixed(2);
+      document.getElementById("totalHidden").value = total.toFixed(2);
+
+    } catch (error) {
+      // 12 Caso aconteça qualquer erro (problema de rede, API, etc.)
+      alert("Erro ao calcular o frete. Tente novamente.");
+    }
+  };
