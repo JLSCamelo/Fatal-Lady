@@ -67,7 +67,7 @@ def cadastro_controller(request: Request,
 
     # Envia e-mail de boas-vindas
     enviar_email(
-        destinatario=usuario.email,
+        destinatario=email,
         assunto="Bem vindo a Fatal Lady", 
         corpo=
           f"""
