@@ -144,4 +144,4 @@ def confirmar_exclusao_post(
     db.delete(usuario)
     db.commit()
 
-    return {"message": "Conta excluída com sucesso"}
+    return RedirectResponse(url="/", status_code=303)
