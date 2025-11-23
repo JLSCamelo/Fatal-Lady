@@ -139,6 +139,30 @@
           padding: 12px;
         }
       }
+
+      /* === ADIÇÃO: badges de status de pagamento === */
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 500;
+      }
+      .status-badge.pendente {
+        background: #fff7ed;
+        color: #c05621;
+      }
+      .status-badge.pago,
+      .status-badge.concluido {
+        background: #ecfdf3;
+        color: #166534;
+      }
+      .status-badge.cancelado,
+      .status-badge.falha {
+        background: #fef2f2;
+        color: #b91c1c;
+      }
     </style>
   </head>
   <body>
@@ -163,6 +187,7 @@
         </div>
       </header>
 
+      <!-- GRID: Produtos + Formulário lado a lado -->
       <div class="grid">
         <!-- Lista de produtos -->
         <section class="card">
@@ -304,6 +329,93 @@
           </form>
         </aside>
       </div>
+
+      <!-- Seção de Pagamentos (aba abaixo do CRUD de produtos) -->
+      <section class="card" style="margin-top: 16px">
+        <h2 style="margin-top: 0; margin-bottom: 12px">Pagamentos</h2>
+
+        {% if pagamentos and pagamentos|length > 0 %}
+
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+          "
+        >
+          <span style="font-size: 13px; color: var(--muted)">
+            Total: <strong>{{ pagamentos|length }}</strong>
+          </span>
+
+          <select
+            id="filtro-status-pagamentos"
+            style="
+              font-size: 13px;
+              padding: 4px 8px;
+              border-radius: 6px;
+              border: 1px solid #e5e7eb;
+            "
+          >
+            <option value="">Todos os status</option>
+            <option value="pendente">Pendentes</option>
+            <option value="pago">Pagos</option>
+          </select>
+        </div>
+
+        <div style="overflow: auto">
+          <table id="tabela-pagamentos">
+            <thead>
+              <tr>
+                <th>ID Pagamento</th>
+                <th>ID Pedido</th>
+                <th>Cliente</th>
+                <th>Valor total</th>
+                <th>Tipo</th>
+                <th>Método</th>
+                <th>Status</th>
+                <th>Criado em</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for pg in pagamentos %}
+              <tr data-status="{{ pg.status|lower }}">
+                <td>#{{ pg.id }}</td>
+                <td>#{{ pg.pedido_id }}</td>
+                <td>
+                  {% if pg.pedido and pg.pedido.usuario %}
+                    {{ pg.pedido.usuario.nome }}<br />
+                    <span style="font-size: 12px; color: var(--muted);">
+                      {{ pg.pedido.usuario.email }}
+                    </span>
+                  {% else %}
+                    -
+                  {% endif %}
+                </td>
+                <td>R$ {{ '%.2f'|format(pg.valor_total) }}</td>
+                <td>{{ pg.tipo_pagamento }}</td>
+                <td>{{ pg.metodo_pagamento }}</td>
+                <td>
+                  <span class="status-badge {{ pg.status|lower }}">
+                    {{ pg.status|capitalize }}
+                  </span>
+                </td>
+                <td>
+                  {% if pg.data_criacao %}
+                    {{ pg.data_criacao.strftime('%d/%m/%Y %H:%M') }}
+                  {% else %}
+                    -
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="empty">Nenhum pagamento registrado.</div>
+        {% endif %}
+      </section>
     </div>
 
     <script>
@@ -313,6 +425,28 @@
           return false;
         }
         return true;
+      }
+
+      // Filtro simples por status de pagamento (apenas tabela de pagamentos)
+      const filtroStatusPagamentos = document.getElementById(
+        "filtro-status-pagamentos"
+      );
+      if (filtroStatusPagamentos) {
+        filtroStatusPagamentos.addEventListener("change", function () {
+          const value = (this.value || "").toLowerCase();
+          const rows = document.querySelectorAll(
+            "#tabela-pagamentos tbody tr[data-status]"
+          );
+
+          rows.forEach((row) => {
+            const rowStatus = (row.getAttribute("data-status") || "").toLowerCase();
+            if (!value || rowStatus === value) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
+            }
+          });
+        });
       }
     </script>
   </body>

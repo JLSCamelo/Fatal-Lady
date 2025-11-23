@@ -6,9 +6,14 @@ from app.models.produto_model import ProdutoDB
 from app.models.categoria_model import CategoriaDB
 from app.models.fabricante_model import FabricanteDB
 
+# para a coluna de pagamentos
+from app.models.pagamento_model import PagamentoDB
+from app.models.pedido_model import PedidoDB
+from app.models.usuario_model import UsuarioDB
+
 from fastapi.templating import Jinja2Templates
 from app.auth import *
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 templates =Jinja2Templates(directory="app/views/templates")
 UPLOAD_DIR="app/views/static/uploads/img"
@@ -26,6 +31,27 @@ def pagina_admin(request:Request,db:Session):
     produtos=db.query(ProdutoDB).all()
     categorias = db.query(CategoriaDB).all()
     fabricantes = db.query(FabricanteDB).all()
+
+    pagamentos = (
+        db.query(PagamentoDB)
+        .options(
+            joinedload(PagamentoDB.pedido).joinedload(PedidoDB.usuario)
+        )
+        .order_by(PagamentoDB.data_criacao.desc())
+        .all()
+    )
+
+
+    return templates.TemplateResponse(
+        "admin.html",
+        {
+            "request": request,
+            "produtos": produtos,
+            "categorias": categorias,
+            "fabricantes": fabricantes,
+            "pagamentos": pagamentos,
+        },
+    )
     
     return templates.TemplateResponse("admin.html",{
         "request":request,"produtos":produtos, "categorias":categorias, "fabricantes": fabricantes 

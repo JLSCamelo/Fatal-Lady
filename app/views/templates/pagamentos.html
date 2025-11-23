@@ -50,6 +50,7 @@
         <!-- escolhe o tipo de pagamento: cartao, boleto ou pix -->
         <div class="metodos-pagamento">
           <a href="/pagamentos/cartao-credito?pedido_id={{ pedido.id }}">Cartão de crédito</a>
+          <a href="/pagamentos/cartao-debito?pedido_id={{ pedido.id }}">Cartão de débito</a>
           <a href="/pagamentos/pix?pedido_id={{ pedido.id }}">PIX</a>
           <a href="/pagamentos/boleto?pedido_id={{ pedido.id }}">Boleto</a>
         </div>
@@ -81,6 +82,34 @@
             <label>
               Parcelas
               <input type="number" name="parcelas" value="1" min="1" />
+            </label>
+            <label>
+              Bandeira
+              <input type="text" name="bandeira" />
+            </label>
+            <button type="submit">Confirmar pagamento</button>
+          </form>
+
+          {# CARTÃO DE DÉBITO #}
+          {% elif tipo_pagamento_selecionado == 'cartao_debito' %}
+          <h2>Pagamento com Cartão de Débito</h2>
+          <form action="/pagamentos/cartao-debito" method="post">
+            <input type="hidden" name="pedido_id" value="{{ pedido.id }}" />
+            <label>
+              Número do cartão
+              <input type="text" name="numero_cartao" required />
+            </label>
+            <label>
+              Nome do titular
+              <input type="text" name="nome_titular" required />
+            </label>
+            <label>
+              Validade (MM/AA)
+              <input type="text" name="validade" required />
+            </label>
+            <label>
+              CVV
+              <input type="password" name="cvv" required />
             </label>
             <label>
               Bandeira
@@ -163,8 +192,7 @@
                 });
               }
 
-              // faz a contagem de 10 minutos
-              // quando o tempo expira, ele cria o botao de gerar o qr code novamente, mas isso apenas visualmente no front
+              // contagem regressiva
               const expEl = document.getElementById("pix-expiracao");
               if (!expEl) return;
 
@@ -172,7 +200,6 @@
               const confirmBtn = document.getElementById("pix-confirm-btn");
               const regenEl = document.getElementById("pix-regen");
 
-              // quando acontece a expiração
               let expTs = Number(expEl.dataset.expiracao);
 
               // se vier em segundos, converte para ms
@@ -197,12 +224,10 @@
                 }
 
                 const totalSeconds = Math.floor(diff / 1000);
-                const minutes = String(Math.floor(totalSeconds / 1200)).padStart(2, "0");
+                const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
                 const seconds = String(totalSeconds % 60).padStart(2, "0");
 
                 countdownEl.textContent = minutes + ":" + seconds;
-
-                // agenda próxima atualização
                 setTimeout(updateCountdown, 1000);
               }
 
