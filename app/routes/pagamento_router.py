@@ -140,7 +140,7 @@ def processar_pagamento_cartao_credito(
     db.refresh(pagamento)
 
 
-    atualizar_status(db, pagamento.id, "pendente")
+    atualizar_status(db, pagamento.id, "pago")
     return RedirectResponse(url="/me/meus-pedidos", status_code=303)
 
 
@@ -209,7 +209,7 @@ def processar_pagamento_cartao(
     db.refresh(pagamento)
 
 
-    atualizar_status(db, pagamento.id, "pendente")
+    atualizar_status(db, pagamento.id, "pago")
     return RedirectResponse(url="/me/meus-pedidos", status_code=303)
 
 
@@ -290,7 +290,7 @@ def confirmar_pagamento_pix(
         db.add(pagamento)
         db.commit()
 
-    atualizar_status(db, pagamento.id, "pendente")
+    atualizar_status(db, pagamento.id, "pago")
 
     return RedirectResponse(url="/me/meus-pedidos", status_code=303)
 
@@ -349,6 +349,6 @@ def processar_pagamento_boleto(
     db.commit()
     db.refresh(pagamento)
 
-    atualizar_status(db, pagamento.id, "pendente")
+    atualizar_status(db, pagamento.id, "pago")
 
     return RedirectResponse(url="/me/meus-pedidos", status_code=303)
