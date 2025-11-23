@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagamentos</title>
+
+  <link
+    rel="icon"
+    href="/static/uploads/img/main_icon/icon.png"
+    type="image/png"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', path='css/home-style.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', path='css/painel-style.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', path='css/layout-responsive.css') }}"
+  />
+</head>
+<body data-is-authenticated="{% if usuario %}true{% else %}false{% endif %}">
+  {% include '_header_nav.html' %}
+
+  <main class="painel-container">
+    <section class="pedidos-content">
+      <div class="pedidos-sidebar">
+        <a href="/me/painel" class="sidebar-link">
+          <span>Painel Geral</span>
+        </a>
+        <a href="/me/dados" class="sidebar-link">
+          <span>Meus Dados</span>
+        </a>
+        <a href="/me/meus-pedidos" class="sidebar-link">
+          <span>Meus Pedidos</span>
+        </a>
+        <a href="/me/enderecos" class="sidebar-link">
+          <span>Endereços</span>
+        </a>
+      </div>
+
+      <section class="pedidos-list">
+        <h1>Pagamento do Pedido #{{ pedido.id }}</h1>
+        <p>Total: R$ {{ "%.2f"|format(pedido.valortotal) }}</p>
+
+        <!-- escolhe o tipo de pagamento: cartao, boleto ou pix -->
+        <div class="metodos-pagamento">
+          <a href="/pagamentos/cartao-credito?pedido_id={{ pedido.id }}">Cartão de crédito</a>
+          <a href="/pagamentos/pix?pedido_id={{ pedido.id }}">PIX</a>
+          <a href="/pagamentos/boleto?pedido_id={{ pedido.id }}">Boleto</a>
+        </div>
+
+        <!-- Formulário dinâmico -->
+        <div class="metodo-form">
+
+          {# CARTÃO DE CRÉDITO #}
+          {% if tipo_pagamento_selecionado == 'cartao_credito' %}
+          <h2>Pagamento com Cartão de Crédito</h2>
+          <form action="/pagamentos/cartao-credito" method="post">
+            <input type="hidden" name="pedido_id" value="{{ pedido.id }}" />
+            <label>
+              Número do cartão
+              <input type="text" name="numero_cartao" required />
+            </label>
+            <label>
+              Nome do titular
+              <input type="text" name="nome_titular" required />
+            </label>
+            <label>
+              Validade (MM/AA)
+              <input type="text" name="validade" required />
+            </label>
+            <label>
+              CVV
+              <input type="password" name="cvv" required />
+            </label>
+            <label>
+              Parcelas
+              <input type="number" name="parcelas" value="1" min="1" />
+            </label>
+            <label>
+              Bandeira
+              <input type="text" name="bandeira" />
+            </label>
+            <button type="submit">Confirmar pagamento</button>
+          </form>
+
+          {# PIX #}
+          {% elif tipo_pagamento_selecionado == 'pix' %}
+          <h2>Pagamento via PIX</h2>
+
+          <div class="pix-wrapper">
+            <!-- QR CODE -->
+            <div class="pix-qrcode">
+              <img
+                src="{{ url_for('static', path='uploads/img/pagamento/pix.jpeg') }}"
+                alt="QR Code PIX"
+              />
+            </div>
+
+            <!-- dados do pix -->
+            <div class="pix-dados">
+              <p>Use o QR Code ou copie a chave pix abaixo:</p>
+
+              <div class="pix-chave-box">
+                <input
+                  type="text"
+                  id="pix-chave-input"
+                  value="{{ pix_chave }}"
+                  readonly
+                />
+                <button type="button" id="pix-copy-btn">Copiar</button>
+              </div>
+
+              <!-- contador de 10 minutos pq e o mais usual -->
+              <p>
+                Este código é válido por:
+                <span id="pix-countdown">10:00</span>
+              </p>
+
+              <!-- FORM CONFIRMAR PAGAMENTO -->
+              <form id="pix-confirm-form" action="/pagamentos/pix/confirmar" method="post">
+                <input type="hidden" name="pedido_id" value="{{ pedido.id }}" />
+                <button id="pix-confirm-btn" type="submit">Já paguei / Enviar</button>
+              </form>
+
+              <!-- GERAR NOVO CÓDIGO (aparece só depois de expirar) -->
+              <div id="pix-regen" style="display: none; margin-top: 1rem;">
+                <p>O tempo expirou. É necessário gerar um novo código PIX.</p>
+                <a class="btn" href="/pagamentos/pix?pedido_id={{ pedido.id }}">
+                  Gerar código novamente
+                </a>
+              </div>
+
+              <!-- Armazena a expiração para o JS -->
+              <span
+                id="pix-expiracao"
+                data-expiracao="{{ pix_expiracao_ts }}"
+                style="display: none;"
+              ></span>
+            </div>
+          </div>
+
+          <script>
+            (function () {
+              // copia a chave pix
+              const copyBtn = document.getElementById("pix-copy-btn");
+              const input = document.getElementById("pix-chave-input");
+
+              if (copyBtn && input) {
+                copyBtn.addEventListener("click", function () {
+                  input.select();
+                  input.setSelectionRange(0, 99999);
+                  try {
+                    document.execCommand("copy");
+                  } catch (e) {
+                    console.warn("Falha ao copiar chave PIX", e);
+                  }
+                });
+              }
+
+              // faz a contagem de 10 minutos
+              // quando o tempo expira, ele cria o botao de gerar o qr code novamente, mas isso apenas visualmente no front
+              const expEl = document.getElementById("pix-expiracao");
+              if (!expEl) return;
+
+              const countdownEl = document.getElementById("pix-countdown");
+              const confirmBtn = document.getElementById("pix-confirm-btn");
+              const regenEl = document.getElementById("pix-regen");
+
+              // quando acontece a expiração
+              let expTs = Number(expEl.dataset.expiracao);
+
+              // se vier em segundos, converte para ms
+              if (expTs > 0 && expTs < 1e12) {
+                expTs = expTs * 1000;
+              }
+
+              function updateCountdown() {
+                const now = Date.now();
+                const diff = expTs - now;
+
+                if (diff <= 0) {
+                  countdownEl.textContent = "00:00";
+                  if (confirmBtn) {
+                    confirmBtn.disabled = true;
+                    confirmBtn.classList.add("disabled");
+                  }
+                  if (regenEl) {
+                    regenEl.style.display = "block";
+                  }
+                  return;
+                }
+
+                const totalSeconds = Math.floor(diff / 1000);
+                const minutes = String(Math.floor(totalSeconds / 1200)).padStart(2, "0");
+                const seconds = String(totalSeconds % 60).padStart(2, "0");
+
+                countdownEl.textContent = minutes + ":" + seconds;
+
+                // agenda próxima atualização
+                setTimeout(updateCountdown, 1000);
+              }
+
+              updateCountdown();
+            })();
+          </script>
+
+          {# BOLETO #}
+          {% elif tipo_pagamento_selecionado == 'boleto' %}
+          <h2>Pagamento por Boleto</h2>
+          <form action="/pagamentos/boleto" method="post">
+            <input type="hidden" name="pedido_id" value="{{ pedido.id }}" />
+            <label>
+              Código de barras
+              <input type="text" name="codigo_barras" required />
+            </label>
+            <button type="submit">Confirmar</button>
+          </form>
+
+          {# NENHUM TIPO SELECIONADO #}
+          {% else %}
+          <p>Selecione um método de pagamento acima.</p>
+          {% endif %}
+        </div>
+      </section>
+    </section>
+  </main>
+</body>
+</html>
