@@ -39,8 +39,10 @@ def criar_token(dados: Dict[str, Any], expires_minutes: int = ACCESS_TOKEN_MINUT
 
 #Verifica token
 def verificar_token(token: str):
+    if not token:
+        return None
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return payload
-    except JWTError:
+    except (JWTError, TypeError):
         return None
