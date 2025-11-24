@@ -37,11 +37,15 @@ def produtos_por_categoria():
     try:
         produtos =db.query(ProdutoDB).all() 
         produtos_por_categoria = {}
+        if not produtos:
+            return {}
+
         for p in produtos:
             categoria = p.categoria.strip().lower()
             if categoria not in produtos_por_categoria:
                 produtos_por_categoria[categoria] = []
             produtos_por_categoria[categoria].append(p)
+        return produtos_por_categoria
     except Exception as erro:
         raise erro
     finally:

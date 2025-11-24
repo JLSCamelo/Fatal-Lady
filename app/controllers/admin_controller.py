@@ -5,7 +5,7 @@ from app.database import *
 from app.models.produto_model import ProdutoDB
 from app.models.categoria_model import CategoriaDB
 from app.models.fabricante_model import FabricanteDB
-
+from app.models.pedido_model import *
 # para a coluna de pagamentos
 from app.models.pagamento_model import PagamentoDB
 from app.models.pedido_model import PedidoDB
@@ -52,10 +52,7 @@ def pagina_admin(request:Request,db:Session):
             "pagamentos": pagamentos,
         },
     )
-    
-    return templates.TemplateResponse("admin.html",{
-        "request":request,"produtos":produtos, "categorias":categorias, "fabricantes": fabricantes 
-    })
+
 
 def criar_produto(request: Request, 
                   nome: str, 
@@ -93,7 +90,7 @@ def editar_produto(id:int, request: Request,db:Session):
     token = request.cookies.get("token")
     payload = verificar_token(token)
 
-    if not payload or payload.get("is_admin"):
+    if not payload or not payload.get("is_admin"):
         return RedirectResponse(url="/",status_code=303)
     
     produto = db.query(ProdutoDB).filter(ProdutoDB.id_produto==id).first()
@@ -122,15 +119,22 @@ def atualizar_produto(id:int,nome:str,
         with open(caminho_arquivo,"wb") as arquivo:
             shutil.copyfileobj(imagem.file,arquivo)
         produto.caminhoimagem=imagem.filename
-        db.commit()
-        db.refresh(produto)
-        return RedirectResponse(url="/admin",status_code=303)
+    db.commit()
+    db.refresh(produto)
+    return RedirectResponse(url="/admin",status_code=303)
 
 def deletar_produto(id:int,db:Session):
     produto=db.query(ProdutoDB).filter(ProdutoDB.id_produto==id).first()
 
-    if produto:
-        db.delete(produto)
-        db.commit()
+    if not produto:
+        return RedirectResponse(url="/admin",status_code=303)
+
+    # evita violação de chave estrangeira ao remover produtos que já foram vendidos
+    possui_pedidos = db.query(ItemPedidoDB).filter(ItemPedidoDB.produto_id == produto.id_produto).first()
+    if possui_pedidos:
+        return RedirectResponse(url="/admin?erro=produto-utilizado", status_code=303)
+
+    db.delete(produto)
+    db.commit()
 
     return RedirectResponse(url="/admin",status_code=303)
