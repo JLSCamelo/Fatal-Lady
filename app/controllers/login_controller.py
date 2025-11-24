@@ -27,9 +27,7 @@ def login_controller(request: Request,
     if usuario.is_admin:
         destino="/admin"
     else:
-        # CORREÇÃO DO REDIRECIONAMENTO DE SUCESSO:
-        # (Não é mais /login?msg=success, é direto para o painel)
-        destino="/me/painel"
+        destino="/"
 
     response = RedirectResponse(url=destino, status_code=303)
     response.set_cookie(key="token", value=token, httponly=True) 
