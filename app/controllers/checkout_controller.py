@@ -10,6 +10,9 @@ from app.models.pedido_model import PedidoDB, ItemPedidoDB
 
 def finalizar(request: Request, db: Session):
     token = request.cookies.get("token")
+    if not token:
+        return RedirectResponse(url="/login", status_code=303)
+        
     payload = verificar_token(token)
     if not payload:
         return RedirectResponse(url="/login", status_code=303)
