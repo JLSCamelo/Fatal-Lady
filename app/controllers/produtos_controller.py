@@ -2,10 +2,11 @@ from app.database import *
 from sqlalchemy import Date
 from fastapi import Request
 from fastapi.responses import RedirectResponse
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from app.auth import verificar_token
 from app.models.usuario_model import UsuarioDB
 from app.models.produto_model import ProdutoDB
+from app.models.categoria_model import CategoriaDB
 from fastapi.templating import Jinja2Templates
 
 templates = Jinja2Templates(directory="app/views/templates")
@@ -32,25 +33,38 @@ def listar_produto(request: Request, db: Session):
     )
 
 
-def produtos_por_categoria():
-    db = SessionLocal()
-    try:
-        produtos =db.query(ProdutoDB).all() 
-        produtos_por_categoria = {}
-        if not produtos:
-            return {}
+def produtos_por_categoria(request: Request, db: Session):
+    token = request.cookies.get("token")
+    usuario = None
 
-        for p in produtos:
-            categoria = p.categoria.strip().lower()
-            if categoria not in produtos_por_categoria:
-                produtos_por_categoria[categoria] = []
-            produtos_por_categoria[categoria].append(p)
-        return produtos_por_categoria
-    except Exception as erro:
-        raise erro
-    finally:
-        db.close()
+    if token:
+        payload = verificar_token(token)
+        if payload:
+            email = payload.get("sub")
+            usuario = db.query(UsuarioDB).filter_by(email=email).first()
 
+    produtos = (
+        db.query(ProdutoDB)
+        .options(joinedload(ProdutoDB.categoria))
+        .all()
+    )
+
+    categorias_map: dict[int, CategoriaDB] = {}
+    for produto in produtos:
+        if produto.categoria:
+            categorias_map[produto.categoria.id] = produto.categoria
+
+    categorias = list(categorias_map.values())
+
+    return templates.TemplateResponse(
+        "catalogo.html",
+        {
+            "request": request,
+            "usuario": usuario,
+            "produtos": produtos,
+            "categorias": categorias,
+        },
+    )
 
 def get_produto(request: Request, id_produto: int, db: Session):
     token = request.cookies.get("token")
