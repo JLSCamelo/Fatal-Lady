@@ -20,9 +20,11 @@ def login_controller(request: Request,
     usuario.ultima_atividade = datetime.utcnow()
     db.commit()
     #criar o token no campo is_admin
-    token=criar_token({"sub":usuario.email,
-                       "is_admin":usuario.is_admin})
-    
+    token = criar_token({
+        "sub": usuario.email,
+        "id": usuario.id_cliente,
+        "is_admin": usuario.is_admin
+    })
     #verificar se o user é admin e direcionar a rota
     if usuario.is_admin:
         destino="/admin"
