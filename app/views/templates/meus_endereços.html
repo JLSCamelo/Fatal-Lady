@@ -79,7 +79,20 @@
           {% if endereco %}
           <div class="enderecos-grid">
             {% for e in endereco %}
-            <div class="endereco-card" data-id="{{ e.id }}">
+            <div
+              class="endereco-card"
+              data-id="{{ e.id }}"
+              data-apelido="{{ e.apelido or '' }}"
+              data-destinatario="{{ e.destinatario or '' }}"
+              data-cep="{{ e.cep or '' }}"
+              data-rua="{{ e.rua or '' }}"
+              data-numero="{{ e.numero or '' }}"
+              data-complemento="{{ e.complemento or '' }}"
+              data-bairro="{{ e.bairro or '' }}"
+              data-cidade="{{ e.cidade or '' }}"
+              data-estado="{{ e.estado or '' }}"
+              data-principal="{{ 'true' if e.principal else 'false' }}"
+            >
               {% if e.principal %}
               <span class="badge-principal">Principal</span>
               {% endif %}
@@ -96,7 +109,7 @@
                 <p class="endereco-nome">
                   {{ e.destinatario or usuario.nome }}
                 </p>
-                <p class="endereco-rua">{{ e.logradouro }}, {{ e.numero }}</p>
+                <p class="endereco-rua">{{ e.rua }}, {{ e.numero }}</p>
                 {% if e.complemento %}
                 <p class="endereco-complemento">{{ e.complemento }}</p>
                 {% endif %}
@@ -158,14 +171,14 @@
           <button class="btn-close" onclick="closeModal()">✕</button>
         </div>
 
-        <form
-          action="/me/criar/enderecos"
-          method="post"
-          class="endereco-form"
-          id="endereco-form"
-        >
-          <input type="hidden" id="endereco-id" name="id" />
-
+          <form
+              action="/me/criar/enderecos"
+              method="post"
+              class="endereco-form"
+              id="endereco-form"
+            >
+              <input type="hidden" id="endereco-id" name="endereco_id" />
+              
           <div class="form-group">
             <label for="apelido">Apelido do Endereço</label>
             <input
@@ -381,7 +394,8 @@
               );
               return;
             }
-            closeModal();
+            alert("Endereço salvo com sucesso!");
+              window.location.reload();
           } catch (error) {
             console.error("Erro:", error);
             alert("Ocorreu um erro ao enviar o endereço.");
