@@ -4,7 +4,12 @@ from fastapi.templating import Jinja2Templates
 from typing import Optional
 
 from sqlalchemy.orm import Session
-from app.controllers.endereco_controller import listar_enderecos, criar_endereco
+from app.controllers.endereco_controller import (
+    listar_enderecos,
+    salvar_endereco,
+    definir_endereco_principal,
+    remover_endereco,
+)
 from app.database import get_db
 
 router = APIRouter()
@@ -23,8 +28,8 @@ def page_enderecos(request: Request, db: Session = Depends(get_db)):
         {
             "request": request,
             "usuario": dados["usuario"],
-            "endereco": dados["enderecos"]  
-        }
+            "endereco": dados["enderecos"],
+        },
     )
 
 
@@ -41,11 +46,33 @@ def add_endereco(
     apelido: str = Form(...),
     destinatario: str = Form(...),
     principal: Optional[bool] = Form(None),
-    db: Session = Depends(get_db)
+    endereco_id: Optional[int] = Form(None),
+    db: Session = Depends(get_db),
 ):
-    novo_endereco = criar_endereco(request, cep, rua, bairro, cidade, estado, complemento, numero, apelido, destinatario, principal, db)
-
+    novo_endereco = salvar_endereco(
+        request,
+        cep,
+        rua,
+        bairro,
+        cidade,
+        estado,
+        complemento,
+        numero,
+        apelido,
+        destinatario,
+        principal,
+        db,
+        endereco_id,
+    )
     if isinstance(novo_endereco, HTMLResponse):
         return novo_endereco
-
     return RedirectResponse(url="/me/enderecos", status_code=303)
+
+@router.patch("/me/enderecos/{endereco_id}/principal")
+def set_endereco_principal(request: Request, endereco_id: int, db: Session = Depends(get_db)):
+    return definir_endereco_principal(request, endereco_id, db)
+
+
+@router.delete("/me/enderecos/{endereco_id}")
+def delete_endereco(request: Request, endereco_id: int, db: Session = Depends(get_db)):
+    return remover_endereco(request, endereco_id, db)
