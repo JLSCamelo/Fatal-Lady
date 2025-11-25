@@ -132,7 +132,11 @@ async def auth_facebook_callback(request: Request, db: Session = Depends(get_db)
     # (Não precisa de db.close(), o Depends(get_db) cuida disso)
 
     # cookie/token de sessão
-    jwt = criar_token({"sub": usuario.email}) # <-- PROBLEMA 4 CORRIGIDO (Segurança)
+    jwt = criar_token({
+        "sub": usuario.email,
+        "id": usuario.id_cliente,
+        "is_admin": usuario.is_admin,
+    }) 
     response = RedirectResponse(url="/me/painel", status_code=303)
     response.set_cookie(key="token", value=jwt, httponly=True) # Salva o token JWT
 
