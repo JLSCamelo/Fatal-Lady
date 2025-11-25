@@ -353,40 +353,35 @@
           const form = e.target;
           const formData = new FormData(form);
 
-          // Converte o FormData para JSON
-          const data = {};
-          formData.forEach((value, key) => {
-            data[key] = value;
-          });
-
-          // Ajuste: checkbox precisa ser booleano
-          data.principal = document.getElementById("principal").checked;
+          // Checkbox vira string somente quando marcado; garante presença do campo
+          formData.set(
+            "principal",
+            document.getElementById("principal").checked ? "on" : ""
+          );
 
           try {
             const response = await fetch("/me/criar/enderecos", {
               method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(data),
+              body: formData,
             });
 
+            if (response.redirected) {
+              window.location.href = response.url;
+              return;
+            }
+
             if (!response.ok) {
-              const err = await response.json();
+              const contentType = response.headers.get("content-type") || "";
+              const err = contentType.includes("application/json")
+                ? await response.json()
+                : { detail: response.statusText };
               alert(
                 "Erro ao salvar endereço: " +
                   (err.detail || response.statusText)
               );
               return;
             }
-
-            const result = await response.json();
-            alert("Endereço salvo com sucesso!");
-            console.log("Endereço criado:", result);
-
-            // Fechar modal e atualizar lista, se quiser
             closeModal();
-            // atualizarEnderecos(); // exemplo
           } catch (error) {
             console.error("Erro:", error);
             alert("Ocorreu um erro ao enviar o endereço.");
