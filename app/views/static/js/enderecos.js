@@ -1,50 +1,100 @@
-document.getElementById("calculate-shipping-btn").addEventListener("click"), async() => {
-    const cep = document.getElementById("cep-input").value.trim();
+const modal = document.getElementById("modal-endereco");
+const form = document.getElementById("endereco-form");
 
-    if (cep.length !== 8) {
-      alert("Digite um CEP válido com 8 dígitos."); // Exibe alerta caso seja inválido
-      return; // Sai da função (não continua)
-    }
-    try {
-      // 4 Busca o token do usuário no armazenamento local (salvo no navegador)
-      // Isso serve para autenticação — o mesmo que usar um token JWT no header.
-      const token = localStorage.getItem("token");
+function openModal(address = null) {
+  if (!modal || !form) return;
 
-      // 5 Faz a requisição para o backend (sem recarregar a página)
-      // O `fetch` é o equivalente em JS ao `requests.get()` em Python.
-      const response = await fetch(`/frete/calcular/'${cep}`, {
-        headers: { "Authorization": `Bearer ${token}` } // Envia o token no cabeçalho
-      });
+  const title = document.getElementById("modal-title");
+  const principalCheckbox = document.getElementById("principal");
 
-      // 6 Se a resposta não for 200 (OK), lança erro
-      if (!response.ok) throw new Error("Erro ao consultar o frete.");
+  form.reset();
+  form.querySelector("#endereco-id").value = "";
+  principalCheckbox.checked = false;
 
-      // 7 Converte o JSON da resposta em um objeto JavaScript
-      // É como usar `response.json()` no Python requests.
-      const data = await response.json();
+  if (address) {
+    title.textContent = "Editar Endereço";
+    form.querySelector("#endereco-id").value = address.id;
+    form.querySelector("#apelido").value = address.apelido || "";
+    form.querySelector("#destinatario").value = address.destinatario || "";
+    form.querySelector("#cep").value = address.cep || "";
+    form.querySelector("#logradouro").value = address.rua || "";
+    form.querySelector("#numero").value = address.numero || "";
+    form.querySelector("#complemento").value = address.complemento || "";
+    form.querySelector("#bairro").value = address.bairro || "";
+    form.querySelector("#cidade").value = address.cidade || "";
+    form.querySelector("#estado").value = address.estado || "";
+    principalCheckbox.checked = Boolean(address.principal === "true" || address.principal === true);
+  } else {
+    title.textContent = "Novo Endereço";
+  }
 
-      // 8 Torna a área de resultado visível
-      document.getElementById("shipping-results").style.display = "block"
-      
-      // 9 Atualiza as informações visuais com o retorno do backend
-      document.getElementById("endereco").innerText = data.endereco;
-      document.getElementById("valor_frete").innerText = data.valor_frete.toFixed(2);
-      document.getElementById("prazo").innerText = data.prazo_estimado_dias;
+  modal.classList.remove("hidden");
+}
 
-      // 10 Atualiza o valor total do pedido (subtotal + frete)
-      const subtotal = parseFloat(document.getElementById("subtotal").innerText);
-      const total = subtotal + data.valor_frete;
-      document.getElementById("total").innerText = total.toFixed(2);
+function closeModal() {
+  if (!modal || !form) return;
+  form.reset();
+  form.querySelector("#endereco-id").value = "";
+  modal.classList.add("hidden");
+}
 
-      // 11 Atualiza os campos ocultos do formulário HTML
-      // Assim, quando o usuário clicar em “Finalizar Compra”, o backend receberá tudo.
-      document.getElementById("cepHidden").value = cep;
-      document.getElementById("enderecoHidden").value = data.endereco;
-      document.getElementById("freteHidden").value = data.valor_frete.toFixed(2);
-      document.getElementById("totalHidden").value = total.toFixed(2);
+function editAddress(id) {
+  const card = document.querySelector(`.endereco-card[data-id="${id}"]`);
+  if (!card) return;
 
-    } catch (error) {
-      // 12 Caso aconteça qualquer erro (problema de rede, API, etc.)
-      alert("Erro ao calcular o frete. Tente novamente.");
-    }
+  const address = {
+    id,
+    apelido: card.dataset.apelido,
+    destinatario: card.dataset.destinatario,
+    cep: card.dataset.cep,
+    rua: card.dataset.rua,
+    numero: card.dataset.numero,
+    complemento: card.dataset.complemento,
+    bairro: card.dataset.bairro,
+    cidade: card.dataset.cidade,
+    estado: card.dataset.estado,
+    principal: card.dataset.principal,
   };
+
+  openModal(address);
+}
+
+async function deleteAddress(id) {
+  if (!confirm("Deseja realmente excluir este endereço?")) return;
+
+  const response = await fetch(`/me/enderecos/${id}`, { method: "DELETE" });
+  if (!response.ok) {
+    alert("Não foi possível excluir o endereço.");
+    return;
+  }
+
+  window.location.reload();
+}
+
+async function setPrincipal(id) {
+  const response = await fetch(`/me/enderecos/${id}/principal`, {
+    method: "PATCH",
+  });
+
+  if (!response.ok) {
+    alert("Não foi possível definir o endereço como principal.");
+    return;
+  }
+
+  window.location.reload();
+}
+
+if (typeof window !== "undefined") {
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+  window.editAddress = editAddress;
+  window.deleteAddress = deleteAddress;
+  window.setPrincipal = setPrincipal;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addButton = document.getElementById("btn-add-address");
+  if (addButton) {
+    addButton.addEventListener("click", () => openModal());
+  }
+});
