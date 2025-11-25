@@ -1,3 +1,4 @@
+from datetime import date
 from app.models.usuario_model import UsuarioDB
 from app.database import *
 from app.auth import *

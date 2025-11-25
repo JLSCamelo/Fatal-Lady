@@ -24,7 +24,6 @@ from app.routes.excluir_conta_router import router as excluit_conta_router
 from app.routes.endereco_router import router as endereco_router
 from app.routes.politica_privacidade import router as termos_router
 from app.routes.editar_usuario_router import router as editar_user_router
-# from app.routes.usuario_inativo_router import router as usuario_inativo_router
 
 from app.database import Base, engine
 from app.models import *

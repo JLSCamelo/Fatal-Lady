@@ -8,7 +8,7 @@ from app.controllers.excluir_conta_controller import (
     confirmar_exclusao_post_controller,
 )
 
-router = APIRouter(prefix="/excluir", tags=["Usuários"])
+router = APIRouter(prefix="/excluir", tags=["Exclusão"])
 
 
 @router.post("/conta")
