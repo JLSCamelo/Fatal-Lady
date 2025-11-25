@@ -14,7 +14,7 @@ def editar_usuario_controller(
     telefone: str = None,
     genero: str = None,
     cpf: str = None,
-    data_nascimento: str = None
+    data_nascimento: date = None
 ):
 
     # Verifica autenticação
@@ -24,8 +24,10 @@ def editar_usuario_controller(
         raise HTTPException(status_code=401, detail="Usuário não autenticado")
 
     usuario_id = payload.get("id")
-    usuario = db.query(UsuarioDB).filter(UsuarioDB.id_cliente== usuario_id).first()
+    if not usuario_id:
+        raise HTTPException(status_code=401, detail="Token inválido: usuário sem ID")
 
+    usuario = db.query(UsuarioDB).filter(UsuarioDB.id_cliente == usuario_id).first()
     if not usuario:
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
 

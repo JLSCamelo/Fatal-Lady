@@ -10,18 +10,18 @@ CEP_LOJA = "03008020"  # CEP SENAI
 def controller_calcular_frete(request: Request, cep_destino: str):
     token = request.cookies.get("token")
     payload = verificar_token(token)
-    
-    #teste degub
-    # print("DEBUG TOKEN RAW:", token)
-    # print("DEBUG PAYLOAD:", payload)
-    # print("DEBUG PAYLOAD SUB:", payload.get("sub") if payload else None)
+
     if not payload:
         raise HTTPException(status_code=401, detail="Usuário não autenticado")
 
     # O token retorna e-mail, mas seu banco espera um INT.
+    user_id = payload.get("id")
+    if user_id is None:
+        raise HTTPException(status_code=401, detail="Token inválido: usuário sem ID")
+    
     try:
-        user_id = payload.get("sub")
-    except:
+        user_id_int = int(user_id)
+    except (TypeError, ValueError):
         raise HTTPException(status_code=400, detail="Token inválido: ID do usuário não é um número")
 
     cep_destino = cep_destino.strip().replace("-", "")
@@ -37,27 +37,24 @@ def controller_calcular_frete(request: Request, cep_destino: str):
     dados = resposta.json()
     if "erro" in dados:
         raise HTTPException(status_code=400, detail="CEP não encontrado")
-
     db = SessionLocal()
-    email = payload.get("sub")
-    if not email:
-        raise HTTPException(status_code=400, detail="Token inválido: subject vazio")
+    try:
+        usuario = (
+            db.query(UsuarioDB)
+            .filter(UsuarioDB.id_cliente == user_id_int)
+            .first()
+        )
 
-    # Se o CarrinhoDB tem relacionamento via usuário:
-    usuario = (
-        db.query(UsuarioDB)
-        .filter(UsuarioDB.email == email)
-        .first()
-    )
+        if not usuario:
+            raise HTTPException(status_code=400, detail="Usuário não encontrado")
 
-    if not usuario:
-        raise HTTPException(status_code=400, detail="Usuário não encontrado")
-
-    carrinho = (
-        db.query(CarrinhoDB)
-        .filter(CarrinhoDB.id_cliente == usuario.id_cliente)
-        .first()
-    )
+        carrinho = (
+            db.query(CarrinhoDB)
+            .filter(CarrinhoDB.id_cliente == usuario.id_cliente)
+            .first()
+        )
+    finally:
+        db.close()
 
     # Sem carrinho = valor 0
     total_compra = carrinho.valortotal if carrinho else 0
