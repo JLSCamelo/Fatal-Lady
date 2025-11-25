@@ -20,7 +20,7 @@ def listar_enderecos(request, db: Session):
 
     if not usuario:
         return RedirectResponse(url="/login", status_code=303)
-
+    
     enderecos = db.query(EnderecoDB).filter_by(usuario_id=usuario.id_cliente).all()
 
     return {"usuario": usuario, "enderecos": enderecos}

@@ -6,7 +6,8 @@ from app.ultils import enviar_email
 from app.auth import verificar_token
 from app.models.usuario_model import UsuarioDB
 from app.models.carrinho_model import CarrinhoDB, ItemCarrinhoDB
-from app.models.pedido_model import PedidoDB, ItemPedidoDB  
+from app.models.pedido_model import PedidoDB, ItemPedidoDB
+from app.models.produto_model import ProdutoDB
 
 def finalizar(request: Request, db: Session):
     token = request.cookies.get("token")
@@ -26,9 +27,25 @@ def finalizar(request: Request, db: Session):
         return {"mensagem": "Carrinho vazio"}
 
     itens_carrinho = db.query(ItemCarrinhoDB).filter_by(carrinho_id=carrinho.id).all()
-    # if not itens_carrinho:
-    #     return {"mensagem": "Nenhum item no carrinho"}
+    if not itens_carrinho:
+        return RedirectResponse(url="/carrinho?msg=empty", status_code=303)
 
+    # Valida se todos os produtos ainda existem e possuem estoque suficiente
+    produtos = {
+        item.produto_id: db.query(ProdutoDB).filter_by(id_produto=item.produto_id).first()
+        for item in itens_carrinho
+    }
+
+    for item in itens_carrinho:
+        produto = produtos.get(item.produto_id)
+
+        if not produto:
+            return RedirectResponse(url="/carrinho?msg=product_missing", status_code=303)
+
+        if produto.estoque < item.quantidade:
+            return RedirectResponse(
+                url=f"/carrinho?msg=out_of_stock&id={produto.id_produto}", status_code=303
+            )
     # Calcula o total
     total = sum(item.quantidade * item.preco_unitario for item in itens_carrinho)
 
@@ -46,6 +63,7 @@ def finalizar(request: Request, db: Session):
     # Cria os itens do pedido
     for item in itens_carrinho:
         produto = db.query(ProdutoDB).filter(ProdutoDB.id_produto == item.produto_id).first()
+        produto = produtos.get(item.produto_id)
         
         item_pedido = ItemPedidoDB(
             pedido_id=pedido.id,
@@ -56,8 +74,6 @@ def finalizar(request: Request, db: Session):
             tamanho=item.tamanho
         )
         db.add(item_pedido)
-
-    db.commit()
 
     db.commit()
 
@@ -159,7 +175,6 @@ def finalizar(request: Request, db: Session):
     return RedirectResponse(url=f"/pagamentos?pedido_id={pedido.id}", status_code=303)
 
 
-from app.models.produto_model import ProdutoDB
 
 def alterar_estoque(db: Session, itens_pedido):
     for item in itens_pedido:
