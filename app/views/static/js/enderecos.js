@@ -62,7 +62,7 @@ function editAddress(id) {
 async function deleteAddress(id) {
   if (!confirm("Deseja realmente excluir este endereço?")) return;
 
-  const response = await fetch(`/me/enderecos/${id}`, { method: "DELETE" });
+  const response = await fetch(`/me/enderecos/${id}/deletar`, { method: "DELETE" });
   if (!response.ok) {
     alert("Não foi possível excluir o endereço.");
     return;
