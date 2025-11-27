@@ -36,7 +36,7 @@ if (calculateShippingButton) {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `/frete/calcular/?cep_destino=${encodeURIComponent(cep)}`,
+        `/frete/calcular/?cep_destino=${(cep)}`,
         {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
         }
