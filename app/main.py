@@ -24,6 +24,9 @@ from app.routes.excluir_conta_router import router as excluit_conta_router
 from app.routes.endereco_router import router as endereco_router
 from app.routes.politica_privacidade import router as termos_router
 from app.routes.editar_usuario_router import router as editar_user_router
+from app.routes.faq_router import router as faq_router
+from app.routes.faleconosco_router import router as faleconosco_router
+from app.routes.trocas_devolucoes_router import router as trocas_router
 
 from app.database import Base, engine
 from app.models import *
@@ -100,6 +103,9 @@ app.include_router(produto_router, tags=["Produtos"])
 app.include_router(categoria_router, tags=["Categorias"])
 app.include_router(frete_router, tags=["Frete e Cep"])
 app.include_router(termos_router, tags=["Termos"])
+app.include_router(faq_router, tags=["Perguntas Frequente"])
+app.include_router(trocas_router, tags=["Politicas"])
+app.include_router(faleconosco_router, tags=["Fale Conosco"])
 
 # --- Rotas de usuário autenticado ---
 app.include_router(painel_usuario_router, tags=["Usuário"])
