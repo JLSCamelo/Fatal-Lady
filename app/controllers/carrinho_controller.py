@@ -24,6 +24,9 @@ def carrinho_add(request: Request, id_produto: int, quantidade: int, tamanho: in
 
     email = payload.get("sub")
     usuario = db.query(UsuarioDB).filter_by(email=email).first()
+
+    if not usuario:
+        return RedirectResponse(url="/login", status_code=303)
     produto = db.query(ProdutoDB).filter_by(id_produto=id_produto).first()
 
     if not produto:
@@ -80,6 +83,8 @@ def carrinho_remover(request: Request, produto_id: int, db: Session):
 
     email = payload.get("sub")
     usuario = db.query(UsuarioDB).filter_by(email=email).first()
+    if not usuario:
+        return RedirectResponse(url="/login", status_code=303)
 
     carrinho = db.query(CarrinhoDB).filter_by(id_cliente=usuario.id_cliente).first()
 
@@ -114,6 +119,8 @@ def carrinho_update(request: Request, produto_id: int, tamanho: int, quantidade:
 
     email = payload.get("sub")
     usuario = db.query(UsuarioDB).filter_by(email=email).first()
+    if not usuario:
+        return RedirectResponse(url="/login", status_code=303)
     carrinho = db.query(CarrinhoDB).filter_by(id_cliente=usuario.id_cliente).first()
 
     if not carrinho:
@@ -146,12 +153,14 @@ def carrinho_visualizar(request: Request, db: Session):
     
     payload = verificar_token(token)
 
-    if not payload: 
+    if not payload:
         return RedirectResponse(url="/login", status_code=303)
 
 
     email = payload.get("sub")
     usuario = db.query(UsuarioDB).filter_by(email=email).first()
+    if not usuario:
+        return RedirectResponse(url="/login", status_code=303)
     carrinho = db.query(CarrinhoDB).filter_by(id_cliente=usuario.id_cliente).first()
 
     if not carrinho:
@@ -168,4 +177,5 @@ def carrinho_visualizar(request: Request, db: Session):
     return templates.TemplateResponse(
         "carrinho.html",
         {"request": request, "carrinho": itens, "total": total, "usuario": usuario, "produto":produto}
+
     )

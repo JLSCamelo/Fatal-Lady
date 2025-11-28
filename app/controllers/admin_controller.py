@@ -55,15 +55,21 @@ def pagina_admin(request:Request,db:Session):
     )
 
 
-def criar_produto(request: Request, 
-                  nome: str, 
-                  preco: float, 
-                  estoque: int, 
+def criar_produto(request: Request,
+                  nome: str,
+                  preco: float,
+                  estoque: int,
                   id_fabricante: int,
-                  id_categoria: int, 
+                  id_categoria: int,
                   tamanhos: str,
-                  imagem: UploadFile, 
+                  imagem: UploadFile,
                   db: Session):
+    token = request.cookies.get("token")
+    payload = verificar_token(token)
+
+    if not payload or not payload.get("is_admin"):
+        return RedirectResponse(url="/", status_code=303)
+
     caminho_arquivo = None
 
     if imagem and imagem.filename:
@@ -78,7 +84,7 @@ def criar_produto(request: Request,
         id_fabricante = id_fabricante,
         id_categoria=id_categoria,
         tamanhos = tamanhos,
-        caminhoimagem=caminho_arquivo,
+        caminhoimagem=imagem.filename if imagem and imagem.filename else None,
     )
 
     db.add(novo_produto)
@@ -104,7 +110,14 @@ def editar_produto(id:int, request: Request,db:Session):
 
 def atualizar_produto(id:int,nome:str,
                       preco:float, estoque:int,
-                      imagem:UploadFile,db:Session):
+                      imagem:UploadFile,request: Request,db:Session):
+
+    token = request.cookies.get("token")
+    payload = verificar_token(token)
+
+    if not payload or not payload.get("is_admin"):
+        return RedirectResponse(url="/", status_code=303)
+
     
     produto = db.query(ProdutoDB).filter(ProdutoDB.id_produto==id).first()
     if not produto:
@@ -124,7 +137,13 @@ def atualizar_produto(id:int,nome:str,
     db.refresh(produto)
     return RedirectResponse(url="/admin",status_code=303)
 
-def deletar_produto(id:int,db:Session):
+def deletar_produto(id:int,request: Request,db:Session):
+    token = request.cookies.get("token")
+    payload = verificar_token(token)
+
+    if not payload or not payload.get("is_admin"):
+        return RedirectResponse(url="/", status_code=303)
+    
     produto=db.query(ProdutoDB).filter(ProdutoDB.id_produto==id).first()
 
     if not produto:
