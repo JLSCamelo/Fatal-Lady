@@ -15,7 +15,6 @@ function normalizeNumber(value) {
   const text = String(value)
     .replace(/\s/g, "")
     .replace(/[^0-9.,-]/g, "")
-    .replace(".", "")
     .replace(",", ".");
   const n = parseFloat(text);
   return isNaN(n) ? 0 : n;

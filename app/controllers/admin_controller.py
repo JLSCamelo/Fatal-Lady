@@ -1,4 +1,4 @@
-from fastapi import Form, Request, UploadFile, File
+from fastapi import Request, UploadFile
 from fastapi.responses import RedirectResponse
 import os, shutil
 from app.database import *
@@ -6,6 +6,7 @@ from app.models.produto_model import ProdutoDB
 from app.models.categoria_model import CategoriaDB
 from app.models.fabricante_model import FabricanteDB
 from app.models.pedido_model import *
+
 # para a coluna de pagamentos
 from app.models.pagamento_model import PagamentoDB
 from app.models.pedido_model import PedidoDB
